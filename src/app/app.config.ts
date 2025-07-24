@@ -21,12 +21,12 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'en-US' },
     provideFirebaseApp(() =>
       initializeApp({
-        projectId: 'join-1f201',
-        appId: '1:423152425379:web:e6bb2be18bf7c3a3e3e216',
-        storageBucket: 'join-1f201.firebasestorage.app',
-        apiKey: 'AIzaSyAfeP9cN-a0hSo3PxQaPwJHhSE99i40xsQ',
-        authDomain: 'join-1f201.firebaseapp.com',
-        messagingSenderId: '423152425379',
+        apiKey: 'AIzaSyAeUfU1CmvbrTSoV42n_yRBeiTxNM6G5I8',
+        authDomain: 'join-ba863.firebaseapp.com',
+        projectId: 'join-ba863',
+        storageBucket: 'join-ba863.firebasestorage.app',
+        messagingSenderId: '396625337156',
+        appId: '1:396625337156:web:188283b04bd0a98c585511',
       })
     ),
     provideAuth(() => getAuth()),

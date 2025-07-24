@@ -72,6 +72,5 @@ function handleBootstrapError(error: any): void {
   console.error('Application bootstrap failed:', error);
 }
 
-// Initialize locale configuration and start application
 configureBrowserLocale();
 initializeApplication();
