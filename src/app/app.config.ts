@@ -4,9 +4,12 @@ import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 
 import { routes } from './app.routes';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp, getApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { provideAppCheck } from '@angular/fire/app-check';
+
 
 registerLocaleData(localeEn);
 
@@ -31,5 +34,11 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideAppCheck(() =>
+      initializeAppCheck(getApp(), {
+        provider: new ReCaptchaV3Provider('6Le22q0rAAAAANLVNtXQVtUIBcTYtr_a4yjrycKk'),
+        isTokenAutoRefreshEnabled: true,
+      })
+    ),
   ],
 };
