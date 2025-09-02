@@ -127,22 +127,6 @@ export class LoginComponent {
   }
   // #endregion
 
-  // #region Logout
-  /**
-   * Logs the user out and redirects to the login page.
-   * Displays an error message if logout fails.
-   */
-  async onLogout() {
-    try {
-      await this.authenticationService.logout();
-      this.router.navigate(['/auth/login']);
-    } catch (error) {
-      this.errorMessage = (error as Error).message;
-      this.clearError();
-    }
-  }
-  // #endregion
-
   // #region Getters / Utils
   /**
    * Returns whether the device is considered mobile based on screen width.
