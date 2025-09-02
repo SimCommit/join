@@ -264,7 +264,7 @@ h1 {
 
 .overlay-panel {
   width: 1116px;
-  height: 860px;
+  max-height: 860px;
   background: $white;
   padding: min(2%, 24px);
   border-radius: 30px;

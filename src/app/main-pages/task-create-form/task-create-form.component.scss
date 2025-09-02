@@ -11,6 +11,7 @@ section {
   padding: min(3%, 30px) min(3%, 80px);
   height: calc(100vh - 96px);
   max-width: 1080px;
+  overflow-y: auto;
 }
 
 .fullcontent {
