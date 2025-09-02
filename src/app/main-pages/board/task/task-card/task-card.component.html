@@ -40,7 +40,7 @@
                 </div>
                 }
                 <div class="user-avatar more-avatars">
-                    <img src="./img/icons/task-card/plus-more-avatars.svg" alt="">
+                     +{{task.assignedUsers.length - 3}}
                 </div>
                 } @else {
                 @for (user of task.assignedUsers; track $index) {
