@@ -90,7 +90,7 @@ export class TaskDataService {
    * Initializes the TaskDataService and starts the tasks listener.
    */
   constructor() {
-    this.initTasks();
+    this.connectTaskStream();
   }
 
   // #region Lifecycle
@@ -105,7 +105,7 @@ export class TaskDataService {
    * - Updates the `tasksSubject` with the converted Task array for reactive use in the UI.
    * - Stores the unsubscribe function to allow proper cleanup later.
    */
-  initTasks(): void {
+  connectTaskStream(): void {
     const taskSubStream = collectionData(this.getTasksRef(), {
       idField: 'id',
     })
@@ -117,7 +117,7 @@ export class TaskDataService {
   /**
    * Unsubscribes from the tasks observable stream to prevent memory leaks.
    */
-  cleanUp(): void {
+  disconnectTaskStream(): void {
     this.unsubscribeFromTasks?.();
   }
   // #endregion

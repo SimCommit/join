@@ -3,6 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { AuthenticationService } from '../../auth/services/authentication.service';
+import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
+import { TaskDataService } from '../../main-pages/shared-data/task-data.service';
 
 /**
  * Header component managing navigation, user authentication status and dropdown menu
@@ -26,7 +28,7 @@ export class HeaderComponent implements OnInit {
    * @param authService - Service for managing authentication and user state.
    * @param router - Angular Router for navigation.
    */
-  constructor(public authService: AuthenticationService, private router: Router) {}
+  constructor(public authService: AuthenticationService, private router: Router, private contactDataService: ContactDataService, private taskDataService: TaskDataService) {}
 
   /**
    * Initializes component lifecycle
@@ -151,6 +153,8 @@ export class HeaderComponent implements OnInit {
    */
   async logout(): Promise<void> {
     try {
+      this.taskDataService.disconnectTaskStream();
+      this.contactDataService.disconnectContactStream();
       await this.performLogout();
     } catch (error) {
       this.handleLogoutError(error);

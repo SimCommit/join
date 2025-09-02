@@ -36,8 +36,8 @@ export class ContactDataService {
   /** Controls visibility of signup button */
   signUpButtonVisible = true;
 
-  /** Unsubscribe function for Firebase listeners */
-  unsubList!: () => void;
+  /** Unsubscribe handle for the active Firestore listener (undefined when disconnected). */
+  unsubList?: () => void;
 
   /** Organized contact list grouped by alphabetical letters */
   contactlist: { letter: string; contacts: Contacts[] }[] = [];
@@ -49,26 +49,24 @@ export class ContactDataService {
   selectedContactId$ = this.selectedContactIdSubject.asObservable();
 
   /**
-   * Initializes the ContactDataService and sets up Firebase listeners
+   * Starts the Firestore contacts listener inside Angular's injection context.
+   * Idempotent: returns immediately if a listener is already active.
+   * On each snapshot, resets and rebuilds the internal contact list.
    */
-  constructor() {
-    this.initializeContactList();
-  }
-
-  /**
-   * Sets up the Firebase listener for contact list updates
-   */
-  private initializeContactList() {
-    this.unsubList = onSnapshot(this.getContactRef(), (list) => {
-      this.resetContactList();
-      this.processContactList(list);
+  public connectContactStream(): void {
+    if (this.unsubList) return;
+    runInInjectionContext(this.injector, () => {
+      this.unsubList = onSnapshot(this.getContactRef(), (list) => {
+        this.resetContactList();
+        this.processContactList(list);
+      });
     });
   }
 
   /**
    * Resets the contact list with alphabetical structure
    */
-  private resetContactList() {
+  private resetContactList(): void {
     this.contactlist = [];
     for (let i = 65; i <= 90; i++) {
       this.contactlist.push({
@@ -98,24 +96,27 @@ export class ContactDataService {
    * Sets the selected contact ID in the behavior subject
    * @param {string | null} contactId - The contact ID to select, or null to deselect
    */
-  setSelectedContactId(contactId: string | null) {
+  setSelectedContactId(contactId: string | null): void {
     this.selectedContactIdSubject.next(contactId);
   }
 
   /**
    * Gets the current selected contact ID
-   * @returns The currently selected contact ID or null
+   * @returns {string | null} The currently selected contact ID or null
    */
   getSelectedContactId(): string | null {
     return this.selectedContactIdSubject.getValue();
   }
 
   /**
-   * Cleans up Firebase listeners on component destruction
+   * Stops the active Firestore contacts listener if present.
+   * Idempotent: safe to call multiple times; clears the unsubscribe handle
+   * so a later reconnect is possible.
    */
-  ngOnDestroy() {
+  disconnectContactStream(): void {
     if (this.unsubList) {
       this.unsubList();
+      this.unsubList = undefined;
     }
   }
 
@@ -170,7 +171,7 @@ export class ContactDataService {
    * @param {Observer<Contacts | null>} observer - Observable observer
    * @returns {() => void} Contact finder function
    */
-  private createContactFinder(id: string, observer: Observer<Contacts | null>) {
+  private createContactFinder(id: string, observer: Observer<Contacts | null>): () => void {
     return () => {
       const contact = this.findContactInList(id);
       observer.next(contact || null);
@@ -195,7 +196,7 @@ export class ContactDataService {
    * @param {() => void} findAndEmitContact - Function to find and emit contact
    * @returns {() => void} Cleanup function
    */
-  private setupContactObserver(findAndEmitContact: () => void) {
+  private setupContactObserver(findAndEmitContact: () => void): () => void {
     findAndEmitContact();
     const intervalId = setInterval(findAndEmitContact, 300);
     return () => clearInterval(intervalId);
