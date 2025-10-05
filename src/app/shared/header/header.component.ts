@@ -85,22 +85,9 @@ export class HeaderComponent implements OnInit {
   get userInitials(): string {
     const currentUser = this.authService.currentUser;
     if (currentUser?.displayName) {
-      return this.extractInitials(currentUser.displayName);
+      return this.contactDataService.extractInitials(currentUser.displayName);
     }
     return 'G';
-  }
-
-  /**
-   * Extracts initials from display name
-   * @param {string} displayName - The user's display name
-   * @returns {string} Formatted initials
-   */
-  private extractInitials(displayName: string): string {
-    const names = displayName.split(' ');
-    if (names.length >= 2) {
-      return (names[0][0] + names[1][0]).toUpperCase();
-    }
-    return names[0][0].toUpperCase();
   }
 
   /**

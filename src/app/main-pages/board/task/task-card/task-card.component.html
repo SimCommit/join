@@ -36,7 +36,7 @@
                 @if (task.assignedUsers.length > 3) {
                 @for (user of [1, 2, 3]; track $index) {
                 <div class="user-avatar" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
-                    {{getInitials(task.assignedUsers[$index])}}
+                    {{contactDataService.extractInitials(task.assignedUsers[$index])}}
                 </div>
                 }
                 <div class="user-avatar more-avatars">
@@ -45,7 +45,7 @@
                 } @else {
                 @for (user of task.assignedUsers; track $index) {
                 <div class="user-avatar" [style.background-color]="getRandomColor(task.assignedUsers[$index])">
-                    {{getInitials(task.assignedUsers[$index])}}
+                    {{contactDataService.extractInitials(task.assignedUsers[$index])}}
                 </div>
                 }
                 }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { getRandomColor, getInitials } from '../../../../shared/color-utils';
 import { TaskDataService } from '../../../shared-data/task-data.service';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { ContactDataService } from '../../../shared-data/contact-data.service';
 
 /**
  * Task card component for displaying task information in board view
@@ -42,11 +43,6 @@ export class TaskCardComponent {
   getRandomColor = getRandomColor;
 
   /**
-   * Utility function to get initials from a contact name.
-   */
-  getInitials = getInitials;
-
-  /**
    * Maximum number of characters before task title/description is truncated.
    */
   private readonly MAX_TEXT_LENGTH = 50;
@@ -61,7 +57,7 @@ export class TaskCardComponent {
    *
    * @param taskDataService - Service used for accessing and managing task data.
    */
-  constructor(public taskDataService: TaskDataService) {}
+  constructor(public taskDataService: TaskDataService, public contactDataService: ContactDataService) {}
 
   /**
    * Deletes task using its ID

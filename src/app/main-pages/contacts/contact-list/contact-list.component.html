@@ -16,7 +16,7 @@
         (click)="selectContact(singleContact.id)" [attr.data-contact-id]="singleContact.id"
         [attr.data-selected]="singleContact.id === selectedContactId">
         <div class="contact-icon" [style.background-color]="getRandomColor(singleContact.name)">
-            {{ contactDataService.getInitials(singleContact.name) }}
+            {{ contactDataService.extractInitials(singleContact.name) }}
         </div>
         <div class="contact-info">
             <p>{{ singleContact.name }}</p>

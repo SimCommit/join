@@ -49,7 +49,7 @@
               @for (user of task.assignedUsers; track user) {
               <div class="user-item">
                 <div class="contact-icon" [style.background-color]="getRandomColor(user)">
-                  {{ getInitials(user) }}
+                  {{ contactDataService.extractInitials(user) }}
                 </div>
                 <span class="user-name">{{ user }}</span>
               </div>

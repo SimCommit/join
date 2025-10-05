@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, Subtask } from '../../../../shared-data/task.interface';
 import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
+import { ContactDataService } from '../../../../shared-data/contact-data.service';
 
 /**
  * Task details component for displaying comprehensive task information
@@ -34,15 +35,21 @@ export class TaskDetailsComponent {
    */
   @Output() subtaskToggled = new EventEmitter<Subtask>();
 
+    /**
+     * Constructor initializes the task details component
+     * @param {ContactDataService} contactDataService - Service for contact data operations
+     */
+    constructor(public contactDataService: ContactDataService) {}
+
   /**
    * Reference to color utility function for generating random colors
    */
   getRandomColor = getRandomColor;
 
-  /**
-   * Reference to utility function for extracting user initials
-   */
-  getInitials = getInitials;
+  // /**
+  //  * Reference to utility function for extracting user initials
+  //  */
+  // getInitials = getInitials;
 
   /**
    * Handles edit button click event

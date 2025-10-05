@@ -11,7 +11,7 @@
         <div class="input">
             <input [(ngModel)]="userName" #userNameInput="ngModel"
                 [ngClass]="{'error-border': userNameInput.invalid && (userNameInput.touched || form.submitted)}"
-                placeholder="Name" required type="text" name="userName" id="userName">
+                placeholder="Full Name" required type="text" name="userName" id="userName">
             <div>
                 <img src="./img/icons/person.svg" alt="">
             </div>

@@ -111,7 +111,7 @@
                         <label class="assignt-contact-wrapper" for="assign-contact-{{contact.id}}">
                             <div>
                                 <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
-                                    {{ contactDataService.getInitials(contact.name) }}
+                                    {{ contactDataService.extractInitials(contact.name) }}
                                 </div>
                                 <p>{{contact.name}}</p>
                             </div>
@@ -132,7 +132,7 @@
                     @if(assignetTo.length > 3){
                     @for (user of [1, 2, 3]; track $index) {
                     <div class="contact-icon" [style.background-color]="getRandomColor(assignetTo[$index].name)">
-                        {{contactDataService.getInitials(assignetTo[$index].name)}}
+                        {{contactDataService.extractInitials(assignetTo[$index].name)}}
                     </div>
                     }
                     <div class="contact-icon more-avatars">
@@ -141,7 +141,7 @@
                     }@else{
                     @for (contact of assignetTo; track $index) {
                     <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
-                        {{ contactDataService.getInitials(contact.name) }}
+                        {{ contactDataService.extractInitials(contact.name) }}
                     </div>
                     }
                     }

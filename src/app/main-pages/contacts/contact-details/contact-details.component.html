@@ -16,7 +16,7 @@
   <div class="contact-details-content" [class.animateContent]="animated">
     <div class="contact-name">
       <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
-        {{ getInitials(contact.name) }}
+        {{ contactDataService.extractInitials(contact.name) }}
       </div>
       <div class="contact-info-section">
         <h2>{{ contact.name }}</h2>

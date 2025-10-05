@@ -45,7 +45,7 @@
             <div class="assigned-avatars">
               @for (user of editForm.get('assignedUsers')?.value || []; track user) {
               <div class="user-avatar" [style.background-color]="getRandomColor(user)">
-                {{ getInitials(user) }}
+                {{ contactDataService.extractInitials(user) }}
               </div>
               }
             </div>
@@ -62,7 +62,7 @@
             @for (contact of getAvailableContacts(); track contact) {
             <div class="contact-item">
               <div class="user-avatar" [style.background-color]="getRandomColor(contact)">
-                {{ getInitials(contact) }}
+                {{ contactDataService.extractInitials(contact) }}
               </div>
               <span>{{ contact }}</span>
               <div class="custom-checkbox" [class.checked]="isUserAssigned(contact)"

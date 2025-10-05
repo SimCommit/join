@@ -3,7 +3,7 @@
   <div class="contact-avatar-container">
     @if (editingContact) {
     <div class="contact-avatar" [style.background-color]="getRandomColor(editingContact.name)">
-      {{ getInitials(editingContact.name) }}
+      {{ contactDataService.extractInitials(editingContact.name) }}
     </div>
     } @else {
     <img src="./img/icons/avatar-new.svg" alt="">

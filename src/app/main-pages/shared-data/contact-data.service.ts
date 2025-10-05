@@ -263,14 +263,15 @@ export class ContactDataService {
   }
 
   /**
-   * Gets initials from a contact name
-   * @param {string} name - The contact name
-   * @returns {string} The initials string
+   * Extracts initials from display name
+   * @param {string} displayName - The user's display name
+   * @returns {string} Formatted initials
    */
-  getInitials(name: string): string {
-    return name
-      .split(' ')
-      .map((word) => word.charAt(0))
-      .join('');
+  extractInitials(displayName: string): string {
+    const names = displayName.split(' ');
+    if (names.length >= 2) {
+      return (names[0][0] + names[1][0]).toUpperCase();
+    }
+    return names[0][0].toUpperCase();
   }
 }
