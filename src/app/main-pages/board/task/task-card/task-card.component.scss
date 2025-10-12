@@ -50,7 +50,12 @@
   background: $lightest-grey;
   color: $white;
   border-radius: 8px;
+
+  img {
+    pointer-events: none;
+  }
 }
+
 
 .task-text {
   @include dFlex($fd: column, $ai: flex-start, $jc: flex-start, $g: 8px);

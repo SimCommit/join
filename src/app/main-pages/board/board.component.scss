@@ -200,6 +200,7 @@ h1 {
   min-height: 52px;
   min-width: 266px;
   padding: 6px;
+  margin-bottom: 4px;
   @include dFlex($fd: column, $g: 10px, $jc: flex-start);
   flex: 1;
   border-radius: 10px;

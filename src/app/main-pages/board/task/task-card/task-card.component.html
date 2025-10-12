@@ -2,13 +2,16 @@
     (click)="onTaskClick()" style="cursor: pointer;">
     <div class="card-container">
         <div class="header">
-            <div class="task-category" (click)="deleteTaskViaCard(task.id); $event.stopPropagation()"
+            <div class="task-category" (click)="$event.stopPropagation()"
                 [ngClass]="task.category === 'User Story' ? 'user-story' : 'technical-task'">
                 <p class="label">{{task.category}}</p>
             </div>
             @if (isMobile) {
             <div class="drag-handle" cdkDragHandle>
                 <img src="./img/icons/task-card/drag-handle.svg" alt="drag handle icon">
+                 <!-- <div class="line-1"></div>
+                 <div class="line-2"></div>
+                 <div class="line-3"></div> -->
             </div>
             }
         </div>
