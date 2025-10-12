@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
-import { Contacts } from '../../contacts-interface';
+import { Contact } from './../../shared-data/contact-interface';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -18,7 +18,7 @@ export class ContactDialogComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * The contact currently being edited. If null, the form will create a new contact.
    */
-  @Input() editingContact: Contacts | null = null;
+  @Input() editingContact: Contact | null = null;
 
   /**
    * Indicates whether the dialog should automatically close.
@@ -28,7 +28,7 @@ export class ContactDialogComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits the contact data when the form is submitted.
    */
-  @Output() contactSubmitted = new EventEmitter<Contacts>();
+  @Output() contactSubmitted = new EventEmitter<Contact>();
 
   /**
    * Emits an event when the dialog has been fully closed.
@@ -113,7 +113,7 @@ export class ContactDialogComponent implements OnInit, OnChanges, OnDestroy {
    * Handles contact submission with close animation
    * @param contactData - The submitted contact data
    */
-  onContactSubmitted(contactData: Contacts) {
+  onContactSubmitted(contactData: Contact) {
     this.startCloseAnimation(() => {
       this.contactSubmitted.emit(contactData);
     });

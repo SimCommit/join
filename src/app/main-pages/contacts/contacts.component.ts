@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import { Contacts } from '../contacts-interface';
+import { Contact } from './../shared-data/contact-interface';
 import { filter } from 'rxjs/operators';
 import { ContactDataService } from '../shared-data/contact-data.service';
 
@@ -25,7 +25,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   showAddDialog: boolean = false;
 
   /** Contact being edited, null for new contact creation */
-  editingContact: Contacts | null = null;
+  editingContact: Contact | null = null;
 
   /** Flag to trigger dialog closing */
   shouldCloseDialog: boolean = false;
@@ -177,7 +177,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
    * Opens the edit contact dialog
    * @param contact - The contact to edit
    */
-  openEditContactDialog(contact: Contacts) {
+  openEditContactDialog(contact: Contact) {
     this.editingContact = contact;
     this.showAddDialog = true;
   }
@@ -202,7 +202,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
    * Handles contact submission (add or update)
    * @param contactData - The contact data to submit
    */
-  async onContactSubmitted(contactData: Contacts) {
+  async onContactSubmitted(contactData: Contact) {
     try {
       if (this.editingContact) {
         await this.contactDataService.updateContact(contactData);

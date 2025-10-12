@@ -2,7 +2,7 @@
  * Contact interface definition for contact management
  * Represents a contact entity with personal information
  */
-export interface Contacts {
+export interface Contact {
   /** Unique identifier for the contact (optional for new contacts) */
   id?: string;
 

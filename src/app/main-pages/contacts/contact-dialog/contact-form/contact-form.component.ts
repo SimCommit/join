@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Contacts } from '../../../contacts-interface';
+import { Contact } from '../../../shared-data/contact-interface';
 import { getRandomColor } from '../../../../shared/color-utils';
 import { ContactDataService } from '../../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../../auth/services/authentication.service';
@@ -21,12 +21,12 @@ export class ContactFormComponent implements OnInit, OnChanges {
   /**
    * The contact to be edited. If null, the form will create a new contact.
    */
-  @Input() editingContact: Contacts | null = null;
+  @Input() editingContact: Contact | null = null;
 
   /**
    * Emits the contact data when the form is submitted.
    */
-  @Output() contactSubmitted = new EventEmitter<Contacts>();
+  @Output() contactSubmitted = new EventEmitter<Contact>();
 
   /**
    * Emits an event when the user cancels the form action.
@@ -140,10 +140,10 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   /**
    * Creates contact data object from form values
-   * @returns {Contacts} Contact data object
+   * @returns {Contact} Contact data object
    */
-  private createContactDataFromForm(): Contacts {
-    const contactData: Contacts = {
+  private createContactDataFromForm(): Contact {
+    const contactData: Contact = {
       name: this.contactForm.value.name,
       email: this.contactForm.value.email,
       phone: this.contactForm.value.phone || '',

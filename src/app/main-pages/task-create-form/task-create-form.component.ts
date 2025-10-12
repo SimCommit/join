@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
-import { Contacts } from './../contacts-interface';
+import { Contact } from './../shared-data/contact-interface';
 import { FormsModule } from '@angular/forms';
 import { BoardStatus, Subtask, Task } from '../shared-data/task.interface';
 import { TaskDataService } from '../shared-data/task-data.service';
@@ -13,7 +13,7 @@ interface ContactGroup {
   letter: string;
 
   /** The list of contacts that belong to this group */
-  contacts: Contacts[];
+  contacts: Contact[];
 }
 
 /**
@@ -61,7 +61,7 @@ export class TaskCreateFormComponent {
   /**
    * List of contacts assigned to the task.
    */
-  assignetTo: Contacts[] = [];
+  assignetTo: Contact[] = [];
 
   /**
    * Title of the task.
@@ -267,7 +267,7 @@ export class TaskCreateFormComponent {
    * @param contact - The contact to check
    * @returns True if contact is assigned, false otherwise
    */
-  isContactAssigned(contact: Contacts): boolean {
+  isContactAssigned(contact: Contact): boolean {
     return this.assignetTo.some((c) => c.id === contact.id);
   }
 
@@ -289,7 +289,7 @@ export class TaskCreateFormComponent {
    * @param contact - The contact to be selected or deselected.
    * @param event - The click event used to prevent propagation.
    */
-  selectContact(contact: Contacts, event: Event) {
+  selectContact(contact: Contact, event: Event) {
     event.stopPropagation();
     const index = this.assignetTo.findIndex((c) => c.id === contact.id);
     if (index === -1) {
@@ -412,10 +412,10 @@ export class TaskCreateFormComponent {
   /**
    * Returns the name of the given contact.
    *
-   * @param {Contacts} n - The contact object.
+   * @param {Contact} n - The contact object.
    * @returns {string} The name of the contact.
    */
-  getName(n: Contacts): string {
+  getName(n: Contact): string {
     return n.name;
   }
 

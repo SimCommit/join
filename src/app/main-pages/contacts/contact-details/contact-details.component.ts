@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { map, Observable } from 'rxjs';
 import { getRandomColor } from '../../../shared/color-utils';
-import { Contacts } from '../../contacts-interface';
+import { Contact } from '../../shared-data/contact-interface';
 import { ContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { ContactDataService } from '../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../auth/services/authentication.service';
@@ -23,7 +23,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() contactId: string | null = null;
 
   /** Event emitted when edit contact is requested */
-  @Output() editContactRequested = new EventEmitter<Contacts>();
+  @Output() editContactRequested = new EventEmitter<Contact>();
 
   /** Event emitted when delete contact is requested */
   @Output() deleteContactRequested = new EventEmitter<string>();
@@ -32,7 +32,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   @Output() backRequested = new EventEmitter<void>();
 
   /** Observable stream of the current contact data */
-  contact$!: Observable<Contacts | null>;
+  contact$!: Observable<Contact | null>;
 
   /** Controls animation state for component transitions */
   animated: boolean = true;
@@ -47,7 +47,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
   shouldCloseDialog: boolean = false;
 
   /** Contact object being edited */
-  contactToEdit: Contacts | null = null;
+  contactToEdit: Contact | null = null;
 
   /** Controls visibility of mobile menu options */
   showMobileMenu: boolean = false;
@@ -167,7 +167,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
    * Handles contact editing based on view mode
    * @param contact - The contact to edit
    */
-  editContact(contact: Contacts) {
+  editContact(contact: Contact) {
     this.closeMobileMenu();
     if (this.isMobileView && this.router.url.includes('/contacts/')) {
       this.openMobileEditDialog(contact);
@@ -180,7 +180,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
    * Opens edit dialog in mobile view
    * @param contact - The contact to edit
    */
-  private openMobileEditDialog(contact: Contacts) {
+  private openMobileEditDialog(contact: Contact) {
     this.contactToEdit = contact;
     this.showEditDialog = true;
   }
@@ -244,7 +244,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
    * Handles contact submission from edit dialog
    * @param contactData - The updated contact data
    */
-  async onContactSubmitted(contactData: Contacts) {
+  async onContactSubmitted(contactData: Contact) {
     try {
       await this.contactDataService.updateContact(contactData);
       this.closeDialog();
