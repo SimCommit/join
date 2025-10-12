@@ -11,6 +11,7 @@ import { CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@a
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
 import { Router } from '@angular/router';
+import { ContactDataService } from '../shared-data/contact-data.service';
 
 /**
  * Board component for managing kanban board with drag-and-drop functionality
@@ -77,6 +78,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    */
   constructor(
     private taskDataService: TaskDataService,
+    private contactDataService: ContactDataService,
     private changeDetectorRef: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
     private router: Router
@@ -88,6 +90,11 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeDataStreams();
     this.setupBreakpointObserver();
+    this.initContactDataService();
+  }
+  
+  initContactDataService() {
+    this.contactDataService.connectContactStream();
   }
 
   /**

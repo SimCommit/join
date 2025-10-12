@@ -161,6 +161,11 @@ export class TaskCreateFormComponent {
    */
   ngOnInit(): void {
     this.getTodayAsSting();
+    this.initContactDataService();
+  }
+  
+  initContactDataService() {
+    this.contactDataService.connectContactStream();
   }
 
   /**
