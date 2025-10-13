@@ -94,7 +94,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
   
   initContactDataService() {
-    this.contactDataService.connectContactStream();
+    this.contactDataService.connectStreams();
   }
 
   /**

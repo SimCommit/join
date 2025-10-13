@@ -88,7 +88,10 @@ export class RegisterComponent {
     if (this.doesPasswordMatch()) {
       try {
         await this.signUp();
-        await this.createNewContact();
+        this.contactDataService.loadDummyContacts();
+        await this.createNewUser();
+        await this.createNewUserContacts();
+        // await this.createNewContact();
         this.navigateToLoginAfterUserfeedback();
         this.userFeedbackSuccess();
         this.passwordDontMatch = false;
@@ -119,16 +122,29 @@ export class RegisterComponent {
     await this.authenticationService.updateUserDisplayName(this.userName);
   }
 
-  /**
-   * Creates a new contact with the current user's name and email.
-   * @returns A promise that resolves when the contact has been added.
-   */
-  async createNewContact(): Promise<void> {
-    await this.contactDataService.addContact({
+  // /**
+  //  * Creates a new contact with the current user's name and email.
+  //  * @returns A promise that resolves when the contact has been added.
+  //  */
+  // async createNewContact(): Promise<void> {
+  //   await this.contactDataService.addContact({
+  //     name: this.userName,
+  //     email: this.email,
+  //     phone: '',
+  //   });
+  // }
+
+  async createNewUser(): Promise<void> {
+    await this.contactDataService.addUser({
       name: this.userName,
       email: this.email,
-      phone: '',
     });
+  }
+
+  async createNewUserContacts(): Promise<void> {
+    await this.contactDataService.addContactToUserCollection(this.email, this.userName);
+
+    // this.contactDataService.dummyContactsList.forEach((c) => this.contactDataService.addContactToUserCollection(c.email, c.name, c.phone));
   }
 
   /**

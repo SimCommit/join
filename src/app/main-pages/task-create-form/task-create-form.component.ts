@@ -165,7 +165,7 @@ export class TaskCreateFormComponent {
   }
   
   initContactDataService() {
-    this.contactDataService.connectContactStream();
+    this.contactDataService.connectStreams();
   }
 
   /**
