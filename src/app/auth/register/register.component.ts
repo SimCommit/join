@@ -75,21 +75,18 @@ export class RegisterComponent {
   /**
    * Handles the user sign-up process.
    *
-   * This method checks whether the password and confirmation password match.
-   * If they do, it attempts to sign up the user, create a contact entry,
-   * show a success feedback message, and navigate to the login screen after a delay.
-   * If any error occurs during sign-up or contact creation, it shows an error message instead.
+   * This method validates password confirmation and, on success,
+   * creates a new authenticated user, adds the user document,
+   * and initializes their personal contact collection.
+   * Displays feedback and redirects to the login view after a short delay.
    *
-   * Updates the `passwordDontMatch` flag accordingly to reflect the password validation state.
-   *
-   * @returns {Promise<void>} A promise that resolves when the sign-up process is complete.
+   * @returns {Promise<void>} Resolves when signup and initialization are complete.
    */
   async onSignUp(): Promise<void> {
     if (this.doesPasswordMatch()) {
       try {
         await this.signUp();
         await this.createNewUser();
-        await this.createNewUserContacts();
         this.navigateToLoginAfterUserfeedback();
         this.userFeedbackSuccess();
         this.passwordDontMatch = false;
@@ -120,17 +117,18 @@ export class RegisterComponent {
     await this.authenticationService.updateUserDisplayName(this.userName);
   }
 
+  /**
+   * Persists the newly registered user in the Firestore `users` collection.
+   * Requires a successful authentication signup so Firestore security rules apply.
+   * Writes the basic profile (name and email); additional fields can be added later.
+   * @returns {Promise<void>} Resolves after the user document has been successfully written.
+   * @throws Propagates Firestore errors if permissions or network issues occur.
+   */
   async createNewUser(): Promise<void> {
     await this.contactDataService.addUser({
       name: this.userName,
       email: this.email,
     });
-  }
-
-  async createNewUserContacts(): Promise<void> {
-    await this.contactDataService.addContactToUserCollection(this.email, this.userName);
-
-    // this.contactDataService.dummyContactsList.forEach((c) => this.contactDataService.addContactToUserCollection(c.email, c.name, c.phone));
   }
 
   /**

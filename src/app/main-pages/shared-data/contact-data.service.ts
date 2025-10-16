@@ -14,10 +14,11 @@ import {
 } from '@angular/fire/firestore';
 import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
-import { Contact } from './../shared-data/contact-interface';
-import { User } from './../shared-data/user-interface';
+import { Contact } from './../shared-data/contact.interface';
+import { User } from './user.interface';
 import { AuthenticationService } from '../../auth/services/authentication.service';
 import { getDocs } from 'firebase/firestore';
+import { Contacts } from './contacts.data';
 
 /**
  * Service for managing contact data operations with Firebase Firestore
@@ -51,7 +52,7 @@ export class ContactDataService {
 
   userList: { email: string; id: string }[] = [];
 
-  dummyContactsList: Contact[] = [];
+  initialDummyContactsList: Contact[] = Contacts;
 
   /** Private behavior subject for selected contact ID */
   private selectedContactIdSubject = new BehaviorSubject<string | null>(null);
@@ -63,43 +64,6 @@ export class ContactDataService {
 
   public connectStreams() {
     this.connectUserStream();
-    this.loadDummyContacts();
-  }
-
-  /**
-   * Starts the Firestore contacts listener inside Angular's injection context.
-   * Idempotent: returns immediately if a listener is already active.
-   * On each snapshot, resets and rebuilds the internal contact list.
-   */
-  private async connectContactStream(): Promise<void> {
-    if (this.unsubList) return;
-
-    const userContactsRef = collection(this.firestore, `users/${this.getCurrentUserId()}/contacts`);
-    const userContactSnap = await getDocs(userContactsRef);
-
-    if (userContactSnap.size === 0) {
-      this.fillContactsWithDummyData();
-      console.log('size is ', userContactSnap.size);
-    }
-
-    runInInjectionContext(this.injector, () => {
-      this.unsubList = onSnapshot(this.getContactRef(), (list) => {
-        this.resetContactList();
-        this.processContactList(list);
-      });
-    });
-  }
-
-  fillContactsWithDummyData(): void {
-    this.dummyContactsList.forEach((c) => this.addContactToUserCollection(c.email, c.name, c.phone));
-
-    if (this.authenticationService.currentUser) {
-      if (this.authenticationService.currentUser.email && this.authenticationService.currentUser.displayName)
-        this.addContactToUserCollection(
-          this.authenticationService.currentUser.email,
-          this.authenticationService.currentUser.displayName
-        );
-    }
   }
 
   private connectUserStream(): void {
@@ -115,21 +79,50 @@ export class ContactDataService {
         if (!this.userIsReady) {
           this.userIsReady = true;
           this.connectContactStream();
-          console.log('contacts stream is up');
         }
       });
     });
   }
 
-  private async loadDummyContacts(): Promise<void> {
-    const contactsQuerySnap = await runInInjectionContext(this.injector, () =>
-      getDocs(collection(this.firestore, 'contacts'))
-    );
+  /**
+   * Starts the Firestore contacts listener inside Angular's injection context.
+   * Idempotent: returns immediately if a listener is already active.
+   * On each snapshot, resets and rebuilds the internal contact list.
+   */
+  private async connectContactStream(): Promise<void> {
+    if (this.unsubList) return;
 
-    contactsQuerySnap.forEach((element: QueryDocumentSnapshot<DocumentData>) => {
-      const contact = this.setContactObject(element.data(), element.id);
-      this.dummyContactsList.push(contact);
+    const userContactsRef = collection(this.firestore, `users/${this.getCurrentUserId()}/contacts`);
+    const userContactSnap = await getDocs(userContactsRef);
+
+    if (userContactSnap.size === 0) {
+      await this.fillContactsWithDummyData();
+    }
+
+    runInInjectionContext(this.injector, () => {
+      this.unsubList = onSnapshot(this.getContactRef(), (list) => {
+        this.resetContactList();
+        this.processContactList(list);
+      });
     });
+  }
+
+  async fillContactsWithDummyData(): Promise<void> {
+    try {
+      for (const c of this.initialDummyContactsList) {
+        await this.addContactToUserCollection(c.email, c.name, c.phone);
+      }
+
+      if (this.authenticationService.currentUser) {
+        if (this.authenticationService.currentUser.email && this.authenticationService.currentUser.displayName)
+          await this.addContactToUserCollection(
+            this.authenticationService.currentUser.email,
+            this.authenticationService.currentUser.displayName
+          );
+      }
+    } catch (error) {
+      console.log('Failed to upload dummy data to firestore ', error);
+    }
   }
 
   // id for guest account = 7PMzKYXI38pcWcJGD5QA
@@ -142,11 +135,7 @@ export class ContactDataService {
     const emailCurrentUser = this.authenticationService.currentUser.email;
     user = this.userList.find((u) => u.email === emailCurrentUser);
 
-    // console.log('user: ', user, 'userList: ', this.userList);
-
     if (user === undefined) return id;
-
-    console.log('user LEBT');
 
     id = user.id;
     return id;
@@ -337,7 +326,7 @@ export class ContactDataService {
           phone: phone,
         })
       );
-      console.log('Hello from ContactData addContactToUserCollection');
+      // console.log('Hello from ContactData addContactToUserCollection');
     } catch (error: unknown) {
       console.error('Error adding collection to user: ', error);
       throw error;
@@ -368,7 +357,10 @@ export class ContactDataService {
     const contactDataId: string = contactData.id;
     try {
       await runInInjectionContext(this.injector, () =>
-        updateDoc(this.getSingleDocRef(`users/${this.getCurrentUserId()}/contacts`, contactDataId), this.getCleanJson(contactData))
+        updateDoc(
+          this.getSingleDocRef(`users/${this.getCurrentUserId()}/contacts`, contactDataId),
+          this.getCleanJson(contactData)
+        )
       );
     } catch (err: unknown) {
       console.error('Error updating contact:', err);

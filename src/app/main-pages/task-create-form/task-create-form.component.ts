@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
-import { Contact } from './../shared-data/contact-interface';
+import { Contact } from './../shared-data/contact.interface';
 import { FormsModule } from '@angular/forms';
 import { BoardStatus, Subtask, Task } from '../shared-data/task.interface';
 import { TaskDataService } from '../shared-data/task-data.service';
@@ -161,7 +161,7 @@ export class TaskCreateFormComponent {
    */
   ngOnInit(): void {
     this.getTodayAsSting();
-    this.initContactDataService();
+    // this.initContactDataService();
   }
   
   initContactDataService() {

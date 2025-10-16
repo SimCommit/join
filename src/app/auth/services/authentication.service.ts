@@ -65,6 +65,7 @@ export class AuthenticationService {
       if (user) {
         this.authStateSubject.next(true);
         this.currentUser = user;
+        
       } else {
         this.authStateSubject.next(false);
       }

@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Contact } from '../../../shared-data/contact-interface';
+import { Contact } from '../../../shared-data/contact.interface';
 import { getRandomColor } from '../../../../shared/color-utils';
 import { ContactDataService } from '../../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../../auth/services/authentication.service';

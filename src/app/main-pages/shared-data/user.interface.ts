@@ -1,5 +1,3 @@
-import { Contact } from "./contact-interface";
-
 /**
  * user interface definition for user management
  * Represents a user entity with personal information

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { map, Observable } from 'rxjs';
 import { getRandomColor } from '../../../shared/color-utils';
-import { Contact } from '../../shared-data/contact-interface';
+import { Contact } from '../../shared-data/contact.interface';
 import { ContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { ContactDataService } from '../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../auth/services/authentication.service';

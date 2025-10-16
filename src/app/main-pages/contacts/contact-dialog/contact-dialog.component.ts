@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
-import { Contact } from './../../shared-data/contact-interface';
+import { Contact } from './../../shared-data/contact.interface';
 import { CommonModule } from '@angular/common';
 
 /**
