@@ -112,6 +112,8 @@ export class LoginComponent {
   async onGuestLogin() {
     try {
       await this.authenticationService.guestSignIn();
+      await this.contactDataService.loadContactsToDelete();
+      await this.contactDataService.setCleanContacts();
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);

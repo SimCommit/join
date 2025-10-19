@@ -19,6 +19,7 @@ import { User } from './user.interface';
 import { AuthenticationService } from '../../auth/services/authentication.service';
 import { getDocs } from 'firebase/firestore';
 import { Contacts } from './contacts.data';
+import { FIRESTORE_GUEST_USER_ID } from '../../app.config';
 
 /**
  * Service for managing contact data operations with Firebase Firestore
@@ -33,6 +34,8 @@ export class ContactDataService {
 
   /** Angular environment injector for dependency injection context */
   private readonly injector = inject(EnvironmentInjector);
+
+  // public contacts$?: Observable<Contact[]>;
 
   /** Flag indicating if user is not in login state */
   notInLogIn: boolean = false;
@@ -50,6 +53,8 @@ export class ContactDataService {
   /** Organized contact list grouped by alphabetical letters */
   contactlist: { letter: string; contacts: Contact[] }[] = [];
 
+  contactsToDeleteList: { email: string; id: string }[] = [];
+
   userList: { email: string; id: string }[] = [];
 
   initialDummyContactsList: Contact[] = Contacts;
@@ -64,6 +69,25 @@ export class ContactDataService {
 
   public connectStreams() {
     this.connectUserStream();
+  }
+
+  public async loadContactsToDelete(): Promise<void> {
+    this.contactsToDeleteList = [];
+    const contactsToDeleteSnap = await runInInjectionContext(this.injector, () =>
+      getDocs(collection(this.firestore, `users/${FIRESTORE_GUEST_USER_ID}/contacts`))
+    );
+
+    contactsToDeleteSnap.forEach((doc) => {
+      const data = doc.data();
+      const id = doc.id;
+      const email = data['email'] as string;
+
+      this.contactsToDeleteList.push({
+        id,
+        email,
+      });
+    });
+    console.log('contactsToDelete: ', this.contactsToDeleteList);
   }
 
   private connectUserStream(): void {
@@ -95,10 +119,6 @@ export class ContactDataService {
     const userContactsRef = collection(this.firestore, `users/${this.getCurrentUserId()}/contacts`);
     const userContactSnap = await getDocs(userContactsRef);
 
-    if (userContactSnap.size === 0) {
-      await this.fillContactsWithDummyData();
-    }
-
     runInInjectionContext(this.injector, () => {
       this.unsubList = onSnapshot(this.getContactRef(), (list) => {
         this.resetContactList();
@@ -119,18 +139,19 @@ export class ContactDataService {
             this.authenticationService.currentUser.email,
             this.authenticationService.currentUser.displayName
           );
+        console.log('FILLED UP');
       }
     } catch (error) {
       console.log('Failed to upload dummy data to firestore ', error);
+      throw error;
     }
   }
 
-  // id for guest account = 7PMzKYXI38pcWcJGD5QA
   getCurrentUserId(): string | void {
-    let id: string = '7PMzKYXI38pcWcJGD5QA';
+    let id: string = FIRESTORE_GUEST_USER_ID;
     let user: { email: string; id: string } | undefined;
 
-    if (this.authenticationService.currentUser === null) return id;
+    if (this.authenticationService.currentUser === null) return;
 
     const emailCurrentUser = this.authenticationService.currentUser.email;
     user = this.userList.find((u) => u.email === emailCurrentUser);
@@ -168,6 +189,7 @@ export class ContactDataService {
         this.contactlist[index].contacts.sort((a, b) => a.name.localeCompare(b.name));
       }
     });
+    console.log('contactlist.length from processContactList', this.contactlist.length);
   }
 
   /**
@@ -346,6 +368,34 @@ export class ContactDataService {
       throw error;
     }
   }
+
+  async setCleanContacts(): Promise<void> {
+    try {
+      console.log('contactsToDeleteList.length ', this.contactsToDeleteList.length);
+      const list: { email: string; id: string }[] = this.contactsToDeleteList;
+
+      for (let i = 0; i < this.contactsToDeleteList.length; i++) {
+        await this.deleteContact(list[i].id);
+      }
+
+      this.fillContactsWithDummyData();
+      console.log('CLEANED UP fr fr ong');
+    } catch (error: unknown) {
+      console.error('Error deleting all contacts:', error);
+      throw error;
+    }
+  }
+
+  // { letter: string; contacts: Contact[] }[]
+
+  // readAllContacts() {
+  //   for (let i = 0; i < this.contactlist.length; i++) {
+  //     const outerEl:{ letter: string; contacts: Contact[] } = this.contactlist[i];
+  //     const innerArr: Contact[] = outerEl.contacts;
+
+  //     innerArr.forEach((innerEl) => this.deleteContact(innerEl.id!))
+  //   }
+  // }
 
   /**
    * Updates an existing contact in Firebase
