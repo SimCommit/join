@@ -330,7 +330,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   private extractContactNamesFromService(): string[] {
     const contacts: string[] = [];
 
-    this.contactDataService.contactlist.forEach((group) => {
+    this.contactDataService.contactList.forEach((group) => {
       group.contacts.forEach((contact) => {
         contacts.push(contact.name);
       });
@@ -407,7 +407,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    * @returns {any | null} Contact object or null
    */
   private findContactByName(name: string): any | null {
-    for (const group of this.contactDataService.contactlist) {
+    for (const group of this.contactDataService.contactList) {
       const contact = group.contacts.find((c) => c.name === name);
       if (contact) {
         return contact;

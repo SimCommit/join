@@ -201,12 +201,12 @@ export class TaskCreateFormComponent {
     }
 
     if (this.isSearchTermEmpty()) {
-      return this.contactDataService.contactlist;
+      return this.contactDataService.contactList;
     }
 
     const searchTerm = this.contactSearchTerm.toLowerCase();
 
-    const filteredGroups = this.contactDataService.contactlist
+    const filteredGroups = this.contactDataService.contactList
       .map((group) => this.filterGroupBySearchTerm(group, searchTerm))
       .filter((group) => group.contacts.length > 0);
 
@@ -218,7 +218,7 @@ export class TaskCreateFormComponent {
    * @returns true if contact list is missing or empty.
    */
   private isContactListEmpty(): boolean {
-    return !this.contactDataService.contactlist || this.contactDataService.contactlist.length === 0;
+    return !this.contactDataService.contactList || this.contactDataService.contactList.length === 0;
   }
 
   /**

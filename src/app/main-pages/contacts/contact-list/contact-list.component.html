@@ -5,7 +5,7 @@
             <img class="btn-icon" src="./img/icons/person_add.svg" alt="Add contact">
         </button>
     </div>
-    @for (item of contactDataService.contactlist; track item.letter) {
+    @for (item of contactDataService.contactList; track item.letter) {
     @if(item.contacts.length > 0){
     <h3>{{item.letter}}</h3>
     }

@@ -59,7 +59,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     window.removeEventListener('resize', this.checkScreenSize.bind(this));
-    this.contactDataService.disconnectContactStream();
+    this.contactDataService.disconnectContactAndUserStreams();
   }
 
   /**

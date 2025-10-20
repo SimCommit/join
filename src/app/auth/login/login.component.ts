@@ -113,7 +113,7 @@ export class LoginComponent {
   async onGuestLogin(): Promise<void> {
     try {
       await this.authenticationService.guestSignIn();
-      await this.contactDataService.loadContactsToDelete();
+      await this.contactDataService.loadExistingContacts();
       await this.contactDataService.setCleanContacts();
 
       if (this.isMobile) {
