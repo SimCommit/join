@@ -67,7 +67,7 @@ export class LoginComponent {
    * Toggles the visibility of the password input field and sets focus on the input element.
    * @param inputElement - The HTML input element for the password field.
    */
-  togglePasswordVisibility(inputElement: HTMLInputElement) {
+  togglePasswordVisibility(inputElement: HTMLInputElement): void {
     this.showPassword = !this.showPassword;
     inputElement.focus();
   }
@@ -76,7 +76,7 @@ export class LoginComponent {
    * Prevents the input field from losing focus when an interactive element is clicked.
    * @param event - The mouse event triggered by the user.
    */
-  preventBlur(event: MouseEvent) {
+  preventBlur(event: MouseEvent): void {
     event.preventDefault();
   }
   // #endregion
@@ -87,7 +87,7 @@ export class LoginComponent {
    * On success, redirects to the summary or mobile greeting screen based on screen size.
    * Displays an error message if authentication fails.
    */
-  async onLogin() {
+  async onLogin(): Promise<void> {
     try {
       await this.authenticationService.signIn(this.emailInputTest, this.passwordInputTest);
 
@@ -106,10 +106,11 @@ export class LoginComponent {
 
   /**
    * Logs in a guest user without credentials.
-   * Redirects based on device screen size.
-   * Displays an error message if the login fails.
+   * Loads and resets the guest user's contact data.
+   * Redirects to the appropriate route based on device type.
+   * Displays an error message if the login process fails.
    */
-  async onGuestLogin() {
+  async onGuestLogin(): Promise<void> {
     try {
       await this.authenticationService.guestSignIn();
       await this.contactDataService.loadContactsToDelete();
@@ -132,6 +133,7 @@ export class LoginComponent {
   // #region Getters / Utils
   /**
    * Returns whether the device is considered mobile based on screen width.
+   * @returns {boolean} True if screen width is 768px or less.
    */
   get isMobile(): boolean {
     return window.innerWidth <= 768;
@@ -140,7 +142,7 @@ export class LoginComponent {
   /**
    * Clears the current error message after a 4-second timeout.
    */
-  clearError() {
+  clearError(): void {
     setTimeout(() => {
       this.errorMessage = '';
     }, 4000);
