@@ -64,7 +64,7 @@ form {
         color: $light-blue;
       }
       &:hover {
-        text-decoration: underline $lighter-grey;
+        text-decoration: underline $light-blue;
       }
     }
   }
@@ -87,7 +87,7 @@ form {
 
 .error {
   bottom: -21px;
-  left: 0;
+  // left: 0;
   position: absolute;
   color: $error-muted;
 }
@@ -105,6 +105,9 @@ form {
     $checked-bg: White,
     $checked-border: $blue
   );
+  .checkmark {
+    right: 0px;
+  }
 }
 
 @media (max-width: 1400px) {
