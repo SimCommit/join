@@ -141,7 +141,7 @@ export class HeaderComponent implements OnInit {
   async logout(): Promise<void> {
     try {
       this.taskDataService.disconnectTaskStream();
-      this.contactDataService.disconnectContactAndUserStreams();
+      await this.contactDataService.disconnectContactAndUserStreams();
       await this.performLogout();
     } catch (error) {
       this.handleLogoutError(error);

@@ -269,7 +269,7 @@ export class ContactDataService {
    * Idempotent: safe to call multiple times; clears the unsubscribe handle
    * so a later reconnect is possible.
    */
-  disconnectContactAndUserStreams(): void {
+  async disconnectContactAndUserStreams(): Promise<void> {
     if (this.unsubList) {
       this.unsubList();
       this.unsubList = undefined;
