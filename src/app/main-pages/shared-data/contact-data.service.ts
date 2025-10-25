@@ -460,7 +460,7 @@ export class ContactDataService {
    */
   async setCleanContacts(): Promise<void> {
     try {
-      this.deleteContactsFromLastSession();
+      await this.deleteContactsFromLastSession();
       this.fillContactsWithDummyData();
     } catch (error: unknown) {
       console.error('Error deleting all contacts:', error);
