@@ -1,18 +1,18 @@
 @if (showSplashScreen && isOnLoginPage) {
-<div class="splash-screen" [class.hide-background]="!isMobile && logoAnimating" [class.mobile-splash]="isMobile">
+<div aria-hidden="true" tabindex="-1" class="splash-screen" [class.hide-background]="!isMobile && logoAnimating" [class.mobile-splash]="isMobile">
   @if (isMobile) {
-  <img src="./img/icons/logo_join_responsiv.svg" alt="Join Logo" class="splash-logo mobile-logo mobile-logo-1"
+  <img src="./img/icons/logo_join_responsiv.svg" alt="" class="splash-logo mobile-logo mobile-logo-1"
     [class.animate-to-login]="logoAnimating" [class.fade-out]="logoSwapping">
   <div class="mobile-splash-overlay" [class.fade-out-overlay]="logoAnimating"></div>
   } @else {
-  <img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="splash-logo desktop-logo"
+  <img src="./img/login/join-logo-100x120.svg" alt="" class="splash-logo desktop-logo"
     [class.animate-to-header]="logoAnimating">
   }
 </div>
 }
 
 @if (isMobile && showSplashScreen && isOnLoginPage) {
-<img src="./img/login/join-logo-100x120.svg" alt="Join Logo" class="mobile-crossfade-logo"
+<img src="./img/login/join-logo-100x120.svg" alt="" aria-hidden="true" class="mobile-crossfade-logo"
   [class.animate-to-login]="logoAnimating" [class.fade-in]="logoSwapping">
 }
 
@@ -25,8 +25,8 @@
     @if (this.shouldShowLayout()) {
     <app-header class="app-header"></app-header>
     }
-    <div [class.page-container]="contactDataService.notInLogIn" [class.full-width]="!contactDataService.notInLogIn">
+    <main [class.page-container]="contactDataService.notInLogIn" [class.full-width]="!contactDataService.notInLogIn">
       <router-outlet />
-    </div>
+    </main>
   </div>
 </div>

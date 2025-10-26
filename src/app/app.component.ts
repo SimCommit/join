@@ -206,7 +206,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   private handleMobileAnimation(): void {
     this.enableLogoSwapping();
-    this.scheduleAnimationCompletion(1300);
+    this.scheduleAnimationCompletion(1350);
   }
 
   /**
@@ -214,7 +214,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Uses standard duration without logo swapping
    */
   private handleDesktopAnimation(): void {
-    this.scheduleAnimationCompletion(3500);
+    this.scheduleAnimationCompletion(1850);
   }
 
   /**
