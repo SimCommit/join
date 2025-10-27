@@ -4,14 +4,24 @@
 
 h2 {
   font-size: clamp(47px, calc(6vw + 4px), 61px);
-  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: $lightest-grey;
 }
 
 section {
   padding: min(3%, 30px) min(3%, 80px);
+  padding-top: 0px;
+  padding-bottom: 0px;
   height: calc(100vh - 96px);
   max-width: 1080px;
   overflow-y: auto;
+}
+
+h2 {
+  padding-top: 24px;
+  align-self: flex-start;
 }
 
 .fullcontent {
@@ -25,7 +35,6 @@ section {
 }
 
 .left-content {
-  width: clamp(300px, calc(34vw + 20px), 460px);
   flex-shrink: 0;
   > div {
     margin-bottom: 40px;
@@ -75,13 +84,17 @@ section {
 }
 
 .right-content {
-  width: clamp(300px, calc(34vw + 20px), 460px);
   > div {
     margin-bottom: 24px;
     > p {
       margin-bottom: 12px;
     }
   }
+}
+
+.left-content,
+.right-content {
+  width: clamp(43rem, 28.571vw + 8.714rem, 47rem);
 }
 
 .button-wrapper {
@@ -166,8 +179,13 @@ img.rotated {
 }
 
 .btn-button-wrapper {
-  // height: 70px;
   width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background-color: $lightest-grey;
   @include dFlex($jc: flex-end, $ai: flex-end);
   > div {
     @include dFlex($jc: flex-end, $ai: start);
@@ -326,6 +344,24 @@ input.ng-invalid.ng-touched {
 
 .board-card {
   height: calc(88vh - 96px) !important;
+  padding-top: 0;
+}
+
+.board-bg {
+  background-color: $white;
+}
+
+.board-spacing {
+  width: clamp(300px, calc(34vw + 20px), 460px);
+
+  @media (max-width: 1200px) {
+    width: clamp(300px, calc(34vw + 20px), 460px);
+    width: 340px;
+  }
+
+  @media (max-width: 850px) {
+    width: clamp(290px, calc(72vw + 20px), 640px);
+  }
 }
 
 // #region File Upload
@@ -339,6 +375,15 @@ input.ng-invalid.ng-touched {
   section {
     height: calc(100vh - 176px);
   }
+
+  .left-content,
+  .right-content {
+    width: clamp(38rem, 43.478vw + 1.043rem, 48rem);
+  }
+
+  .board-spacing {
+    width: clamp(33rem, 40vw - 1rem, 47rem);
+  }
 }
 
 @media (max-width: 850px) {
@@ -350,10 +395,6 @@ input.ng-invalid.ng-touched {
   h2 {
     padding-top: 24px;
     align-self: flex-start;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: $lightest-grey;
   }
 
   .fullcontent {

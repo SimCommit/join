@@ -1,8 +1,8 @@
 <Section [class.board-card]="openFromBoard">
-    <h2>Add Task</h2>
+    <h2 [class.board-bg]="openFromBoard">Add Task</h2>
     <form #taskForm="ngForm" (ngSubmit)="submitTaskFromForm()" action="">
         <div class="fullcontent">
-            <div class="left-content">
+            <div class="left-content" [class.board-spacing]="openFromBoard">
                 <div>
                     <p>Title<span class="red">*</span></p>
                     <input name="title" id="title" [(ngModel)]="title" #titleInput="ngModel" class="input" required
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="separator"></div>
-            <div class="right-content">
+            <div class="right-content" [class.board-spacing]="openFromBoard">
                 <div (click)="onWrapperClick($event)">
                     <p>Assigned to</p>
                     <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1"
@@ -219,7 +219,7 @@
             </div>
         </div>
         <p><span class="red">*</span>This field is required</p>
-        <div class="btn-button-wrapper" [class.btn-wrapper-Board]="openFromBoard">
+        <div class="btn-button-wrapper" [ngClass]="{ 'btn-wrapper-Board': openFromBoard, 'board-bg': openFromBoard }">
             <div>
                 <button (click)="clearData()" type="reset" class="clear-btn">Clear
                     <svg class="x-svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
