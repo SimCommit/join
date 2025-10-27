@@ -90,7 +90,7 @@
 .overlay-open.visible {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  border: 2px solid $input-focus-blue;
+  border: 1px solid $input-focus-blue;
   border-bottom: none;
   > p {
     visibility: hidden;
@@ -108,7 +108,7 @@
   opacity: 1;
   position: absolute;
   z-index: 2;
-  border: 2px solid $input-focus-blue;
+  border: 1px solid $input-focus-blue;
   border-top: none;
 }
 
