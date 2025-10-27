@@ -7,9 +7,9 @@
                     <p>Title<span class="red">*</span></p>
                     <input name="title" id="title" [(ngModel)]="title" #titleInput="ngModel" class="input" required
                         type="text" placeholder="Enter a title">
-                    <div class="error" *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
+                    <p class="error" *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
                         Title is required!
-                    </div>
+                    </p>
                 </div>
                 <div>
                     <p>Description</p>
@@ -20,15 +20,14 @@
                     <p>Due date<span class="red">*</span></p>
                     <input required class="input" [min]="minDate" type="date" name="date" id="date" [(ngModel)]="date"
                         #dateInput="ngModel" lang="en-US">
-                    <div class="error" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
+                    <p class="error" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
                         Due date is required!
-                    </div>
+                    </p>
                 </div>
-                <div>
-                    <p>Priority</p>
+                <fieldset>
+                    <legend>Priority</legend>
                     <div class="button-wrapper">
-                        <button type="button" (click)="changePriority('urgent')"
-                            [class.btn-not-selectet]="priority != 'urgent'"
+                        <label (click)="changePriority('urgent')" [class.btn-not-selectet]="priority != 'urgent'"
                             [class.btn-urgent]="priority == 'urgent'">Urgent
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -47,8 +46,9 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                        </button>
-                        <button type="button" (click)="changePriority('medium')"
+                            <input type="radio" name="priority" value="urgent" [(ngModel)]="priority">
+                        </label>
+                        <label (click)="changePriority('medium')"
                             [class.btn-not-selectet]="priority != 'medium'"
                             [class.btn-medium]="priority == 'medium'">Medium
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
@@ -68,9 +68,11 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                        </button>
-                        <button type="button" (click)="changePriority('low')"
-                            [class.btn-not-selectet]="priority != 'low'" [class.btn-low]="priority == 'low'">Low
+                            <input type="radio" name="priority" value="medium" [(ngModel)]="priority">
+                        </label>
+                        <label (click)="changePriority('low')" 
+                            [class.btn-not-selectet]="priority != 'low'"
+                            [class.btn-low]="priority == 'low'">Low
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_67_4065)">
@@ -87,9 +89,10 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                        </button>
+                            <input type="radio" name="priority" value="low" [(ngModel)]="priority">
+                        </label>
                     </div>
-                </div>
+                </fieldset>
             </div>
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
@@ -146,7 +149,7 @@
                     }
                     }
                 </div>
-                <div>
+                <div id="category-wrapper">
                     <p>Category<span class="red">*</span></p>
                     <div class="menu-wrapper overlay-open" [class.error-border]="showCategoryError"
                         [class.visible]="isOverlayOpen2" (click)="toggleOverlay('category', $event)">
@@ -163,9 +166,9 @@
                             <p>User Story</p>
                         </div>
                     </div>
-                    <div class="error" *ngIf="showCategoryError">
+                    <p class="error" *ngIf="showCategoryError">
                         Category is required!
-                    </div>
+                    </p>
                 </div>
                 <div>
                     <p>Subtasks</p>

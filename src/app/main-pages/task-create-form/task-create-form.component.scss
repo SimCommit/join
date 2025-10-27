@@ -36,9 +36,13 @@ h2 {
 
 .left-content {
   flex-shrink: 0;
-  > div {
+  > div,
+  fieldset {
     margin-bottom: 40px;
-    p {
+    border: none;
+
+    p,
+    legend {
       margin-bottom: 12px;
     }
     textarea {
@@ -99,23 +103,57 @@ h2 {
 
 .button-wrapper {
   @include dFlex($jc: space-between);
-  > button {
+  > button,
+  label {
     width: clamp(120px, calc(7vw + 10px), 136px);
     height: clamp(41px, calc(4vw + 2px), 56px);
     border-radius: 12px;
     @include dFlex($jc: center);
     font-size: clamp(16px, calc(1vw + 2px), 21px);
     font-weight: 400;
-  }
-}
+    // border: 1px solid $lighter-grey;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
-.btn-not-selectet {
-  border: 1px solid $lighter-grey;
-  background: $white;
-  &:hover {
-    transition: 125ms ease;
-    transform: translateY(-3px);
-    box-shadow: -3px 3px 5px $lighter-grey;
+    background: $white;
+    > input {
+      opacity: 0;
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+  }
+  .btn-urgent {
+    background-color: $urgent-red;
+    color: $white;
+    font-weight: 700;
+    path {
+      fill: $white;
+    }
+  }
+
+  .btn-medium {
+    background-color: $medium-orange;
+    color: $white;
+    font-weight: 700;
+    path {
+      fill: $white;
+    }
+  }
+
+  .btn-low {
+    background-color: $low-green;
+    color: $white;
+    font-weight: 700;
+    path {
+      fill: $white;
+    }
+  }
+  .btn-not-selectet {
+    &:hover {
+      cursor: pointer;
+      transition: 125ms ease;
+      box-shadow: 0px 2px 3px $lighter-grey;
+    }
   }
 }
 
@@ -208,36 +246,6 @@ img.rotated {
   border-width: 0 3px 3px 0;
 }
 
-.btn-urgent {
-  background-color: $urgent-red;
-  border: 2px solid $lightest-grey;
-  color: $white;
-  font-weight: 700;
-  path {
-    fill: $white !important;
-  }
-}
-
-.btn-medium {
-  background-color: $medium-orange;
-  border: 2px solid $lightest-grey;
-  color: $white;
-  font-weight: 700 !important;
-  path {
-    fill: $white;
-  }
-}
-
-.btn-low {
-  background-color: $low-green;
-  border: 2px solid $lightest-grey;
-  color: $white;
-  font-weight: 700 !important;
-  path {
-    fill: $white;
-  }
-}
-
 .initials-wrapper {
   @include dFlex($jc: flex-start);
 }
@@ -250,12 +258,16 @@ input.ng-invalid.ng-touched {
   margin-top: 4px;
   color: $error-muted;
   font-size: 16px;
-  font-weight: 200;
+  font-weight: 300;
   position: absolute;
 }
 
 .error-border {
   border-color: $error-muted;
+}
+
+#category-wrapper {
+  margin-bottom: 40px;
 }
 
 .subtask-wrapper {
