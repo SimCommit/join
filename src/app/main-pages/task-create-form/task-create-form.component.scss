@@ -25,7 +25,7 @@ section {
 }
 
 .left-content {
-  width: clamp(300px, calc(34vw + 20px), 440px);
+  width: clamp(300px, calc(34vw + 20px), 460px);
   flex-shrink: 0;
   > div {
     margin-bottom: 40px;
@@ -70,12 +70,12 @@ section {
 
 .separator {
   width: 2px;
-  height: 424px;
+  height: 524px;
   background: $lighter-grey;
 }
 
 .right-content {
-  width: clamp(300px, calc(34vw + 20px), 440px);
+  width: clamp(300px, calc(34vw + 20px), 460px);
   > div {
     margin-bottom: 24px;
     > p {
@@ -166,11 +166,11 @@ img.rotated {
 }
 
 .btn-button-wrapper {
-  height: 70px;
+  // height: 70px;
   width: 100%;
-  @include dFlex($jc: flex-end, $ai: center);
+  @include dFlex($jc: flex-end, $ai: flex-end);
   > div {
-    @include dFlex($jc: flex-end, $ai: center);
+    @include dFlex($jc: flex-end, $ai: start);
     gap: 40px;
   }
 }
@@ -328,6 +328,13 @@ input.ng-invalid.ng-touched {
   height: calc(88vh - 96px) !important;
 }
 
+// #region File Upload
+.dropzone {
+  height: 100px;
+}
+// #endregion
+
+// #region Media Queries
 @media (max-width: 1200px) {
   section {
     height: calc(100vh - 176px);
@@ -335,6 +342,20 @@ input.ng-invalid.ng-touched {
 }
 
 @media (max-width: 850px) {
+  section {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  h2 {
+    padding-top: 24px;
+    align-self: flex-start;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: $lightest-grey;
+  }
+
   .fullcontent {
     @include dFlex($fd: column, $ai: flex-start);
     margin-top: 24px;
@@ -353,11 +374,13 @@ input.ng-invalid.ng-touched {
   }
 
   .btn-button-wrapper {
-    margin-top: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     position: sticky;
     bottom: 0;
     z-index: 2;
     background-color: $lightest-grey;
+    min-width: 290px;
   }
 
   .btn-wrapper-Board {
@@ -387,3 +410,4 @@ input.ng-invalid.ng-touched {
     }
   }
 }
+// #endregion
