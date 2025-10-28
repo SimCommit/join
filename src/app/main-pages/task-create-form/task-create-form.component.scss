@@ -36,14 +36,14 @@ h2 {
 
 .left-content {
   flex-shrink: 0;
+  
   > div,
   fieldset {
     margin-bottom: 40px;
     border: none;
-
     p,
     legend {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
     textarea {
       width: 100%;
@@ -60,6 +60,13 @@ h2 {
       &:focus {
         border: 1px solid $input-focus-blue;
         outline: none;
+      }
+    }
+    > label {
+      display: block;
+      margin-bottom: 0;
+      input, textarea {
+        margin-top: 8px;
       }
     }
   }
@@ -91,7 +98,7 @@ h2 {
   > div {
     margin-bottom: 24px;
     > p {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
   }
 }

@@ -4,23 +4,28 @@
         <div class="fullcontent">
             <div class="left-content" [class.board-spacing]="openFromBoard">
                 <div>
-                    <p>Title<span class="red">*</span></p>
-                    <input name="title" id="title" [(ngModel)]="title" #titleInput="ngModel" class="input" required
-                        type="text" placeholder="Enter a title">
-                    <p class="error" *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
+                    <label>Title<span class="red" aria-hidden="true">*</span>
+                        <input name="title" id="title" [(ngModel)]="title" #titleInput="ngModel" class="input"
+                            aria-describedby="titleError" aria-required="true" required type="text"
+                            placeholder="Enter a title">
+                    </label>
+                    <p class="error" id="titleError"
+                        *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
                         Title is required!
                     </p>
                 </div>
                 <div>
-                    <p>Description</p>
-                    <textarea [(ngModel)]="description" name="Description" id=""
-                        placeholder="Enter a Description"></textarea>
+                    <label>Description
+                        <textarea name="description" [(ngModel)]="description"
+                            placeholder="Enter a Description"></textarea>
+                    </label>
                 </div>
                 <div>
-                    <p>Due date<span class="red">*</span></p>
-                    <input required class="input" [min]="minDate" type="date" name="date" id="date" [(ngModel)]="date"
-                        #dateInput="ngModel" lang="en-US">
-                    <p class="error" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
+                    <label>Due date<span class="red" aria-hidden="true">*</span>
+                        <input class="input" aria-describedby="dateError" aria-required="true" required [min]="minDate" type="date" name="date" id="date"
+                            [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
+                    </label>
+                    <p class="error" id="dateError" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
                         Due date is required!
                     </p>
                 </div>
@@ -48,8 +53,7 @@
                             </svg>
                             <input type="radio" name="priority" value="urgent" [(ngModel)]="priority">
                         </label>
-                        <label (click)="changePriority('medium')"
-                            [class.btn-not-selectet]="priority != 'medium'"
+                        <label (click)="changePriority('medium')" [class.btn-not-selectet]="priority != 'medium'"
                             [class.btn-medium]="priority == 'medium'">Medium
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -70,8 +74,7 @@
                             </svg>
                             <input type="radio" name="priority" value="medium" [(ngModel)]="priority">
                         </label>
-                        <label (click)="changePriority('low')" 
-                            [class.btn-not-selectet]="priority != 'low'"
+                        <label (click)="changePriority('low')" [class.btn-not-selectet]="priority != 'low'"
                             [class.btn-low]="priority == 'low'">Low
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
