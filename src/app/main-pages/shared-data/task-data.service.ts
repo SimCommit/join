@@ -86,13 +86,6 @@ export class TaskDataService {
   private readonly injector = inject(EnvironmentInjector);
   // #endregion
 
-  /**
-   * Initializes the TaskDataService and starts the tasks listener.
-   */
-  constructor() {
-    this.connectTaskStream();
-  }
-
   // #region Lifecycle
   /**
    * Initializes the task listener and sets up the tasks stream.
@@ -106,12 +99,14 @@ export class TaskDataService {
    * - Stores the unsubscribe function to allow proper cleanup later.
    */
   connectTaskStream(): void {
-    const taskSubStream = collectionData(this.getTasksRef(), {
-      idField: 'id',
-    })
-      .pipe(map((tasks) => (tasks as FirestoreTask[]).map((task) => this.translateTimestampToDate(task))))
-      .subscribe((tasks) => this.tasksSubject.next(tasks as Task[]));
-    this.unsubscribeFromTasks = () => taskSubStream.unsubscribe();
+    runInInjectionContext(this.injector, () => {
+      const taskSubStream = collectionData(this.getTasksRef(), {
+        idField: 'id',
+      })
+        .pipe(map((tasks) => (tasks as FirestoreTask[]).map((task) => this.translateTimestampToDate(task))))
+        .subscribe((tasks) => this.tasksSubject.next(tasks as Task[]));
+      this.unsubscribeFromTasks = () => taskSubStream.unsubscribe();
+    });
   }
 
   /**

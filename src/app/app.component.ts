@@ -214,7 +214,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Uses standard duration without logo swapping
    */
   private handleDesktopAnimation(): void {
-    this.scheduleAnimationCompletion(1850);
+    this.scheduleAnimationCompletion(1550);
   }
 
   /**
