@@ -48,6 +48,8 @@ export class LoginComponent {
    * Contains the error message to be displayed to the user in case of login failure or other issues.
    */
   errorMessage: string = '';
+
+  loginIsLocked: boolean = false;
   // #endregion
 
   /**
@@ -111,6 +113,9 @@ export class LoginComponent {
    * Displays an error message if the login process fails.
    */
   async onGuestLogin(): Promise<void> {
+    if (this.loginIsLocked) return;
+    this.spamGuard();
+
     try {
       await this.authenticationService.guestSignIn();
       await this.contactDataService.loadExistingContacts();
@@ -127,6 +132,13 @@ export class LoginComponent {
       this.errorMessage = (error as Error).message;
       this.clearError();
     }
+  }
+
+  private spamGuard(): void {
+    this.loginIsLocked = true;
+    setTimeout(() => {
+      this.loginIsLocked = false;
+    }, 5000);
   }
   // #endregion
 
