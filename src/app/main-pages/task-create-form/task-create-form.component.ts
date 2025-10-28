@@ -176,7 +176,7 @@ export class TaskCreateFormComponent {
     this.initContactDataService();
   }
 
-  initContactDataService() {
+  initContactDataService(): void {
     this.contactDataService.connectStreams();
   }
 
@@ -473,7 +473,7 @@ export class TaskCreateFormComponent {
    *   adds it to the task data service, opens the board view, and closes the add task overlay.
    * - If the category is not selected (default), sets flags to show the category error and mark the overlay as opened.
    */
-  submitTaskFromForm() {
+  submitTaskFromForm(): void {
     if (this.category != 'Select task category') {
       let task = this.getCleanTask();
       this.taskDataService.addTask(task);
@@ -485,7 +485,7 @@ export class TaskCreateFormComponent {
     }
   }
 
-  checkForErrors() {
+  checkForErrors(): void {
     if (this.category === 'Select task category') {
       this.showCategoryError = true;
     }
@@ -507,16 +507,22 @@ export class TaskCreateFormComponent {
   }
 
   /**
-   * Resets the task form data to its initial default state.
-   * Clears assigned users, subtasks, and resets category and priority selections.
+   * Resets the task form and all related component data to their initial state.
+   *
+   * - Clears assigned users and subtasks.
+   * - Resets category and priority selections to default values.
+   * - Hides any active validation or overlay indicators.
+   * - Uses `resetForm()` to restore Angular form states (`pristine`, `untouched`, etc.).
    */
-  clearData() {
+  clearData(): void {
     this.assignetTo = [];
     this.category = 'Select task category';
     this.showCategoryError = false;
     this.overlay2WasOpen = false;
     this.subtasks = [];
-    this.priority = 'medium';
+    setTimeout((): void => {
+      this.taskForm.resetForm({ priority: 'medium' });
+    }, 0);
   }
 
   /**
