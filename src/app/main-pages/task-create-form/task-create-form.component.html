@@ -1,6 +1,6 @@
 <Section [class.board-card]="openFromBoard">
     <h2 [class.board-bg]="openFromBoard">Add Task</h2>
-    <form #taskForm="ngForm" (ngSubmit)="submitTaskFromForm()" action="">
+    <form #taskForm="ngForm" (ngSubmit)="checkForErrors(); taskForm.valid && submitTaskFromForm()" action="">
         <div class="fullcontent">
             <div class="left-content" [class.board-spacing]="openFromBoard">
                 <div>

@@ -1,9 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ChangeDetectorRef,
+  signal,
+  Signal,
+  WritableSignal,
+  ViewChild,
+} from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
 import { Contact } from './../shared-data/contact.interface';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { BoardStatus, Subtask, Task } from '../shared-data/task.interface';
 import { TaskDataService } from '../shared-data/task-data.service';
 import { Router } from '@angular/router';
@@ -46,6 +56,8 @@ export class TaskCreateFormComponent {
    * Controls the visibility of the second overlay (e.g., category selection).
    */
   public isOverlayOpen2: boolean = false;
+
+  @ViewChild('taskForm') taskForm!: NgForm;
 
   /**
    * Indicates whether overlay2 was previously open.
@@ -473,6 +485,20 @@ export class TaskCreateFormComponent {
     }
   }
 
+  checkForErrors() {
+    if (this.category === 'Select task category') {
+      this.showCategoryError = true;
+    }
+
+    if (this.taskForm.controls['title'].invalid) {
+      this.taskForm.controls['title'].markAsTouched();
+    }
+
+    if (this.taskForm.controls['date'].invalid) {
+      this.taskForm.controls['date'].markAsTouched();
+    }
+  }
+
   /**
    * Navigates the application to the board page.
    */
@@ -487,6 +513,7 @@ export class TaskCreateFormComponent {
   clearData() {
     this.assignetTo = [];
     this.category = 'Select task category';
+    this.showCategoryError = false;
     this.overlay2WasOpen = false;
     this.subtasks = [];
     this.priority = 'medium';
