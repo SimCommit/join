@@ -36,15 +36,21 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   /**
-   * Initializes component lifecycle
-   * Sets up global click listener for dropdown management
+   * Initializes the component lifecycle.
+   * - Sets up a global click listener to manage the dropdown state.
+   * - Establishes the task data stream if a user is authenticated.
    */
   ngOnInit(): void {
     this.setupGlobalClickListener();
-    this.connectTaskDataStream();
+    this.connectTaskDataServiceStream();
   }
 
-  connectTaskDataStream() {
+  /**
+   * Connects the task data stream for real-time updates from Firestore.
+   * Ensures that the stream is only initialized when a user (regular or guest)
+   * is authenticated to prevent unauthorized Firestore access.
+   */
+  connectTaskDataServiceStream(): void {
     if (this.authService.currentUser) {
       this.taskDataService.connectTaskStream();
     }

@@ -22,8 +22,8 @@
                 </div>
                 <div>
                     <label>Due date<span class="red" aria-hidden="true">*</span>
-                        <input class="input" aria-describedby="dateError" aria-required="true" required [min]="minDate" type="date" name="date" id="date"
-                            [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
+                        <input class="input" aria-describedby="dateError" aria-required="true" required [min]="minDate"
+                            type="date" name="date" id="date" [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
                     </label>
                     <p class="error" id="dateError" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
                         Due date is required!
@@ -31,7 +31,7 @@
                 </div>
                 <fieldset>
                     <legend>Priority</legend>
-                    <div class="button-wrapper">
+                    <div class="radio-button-wrapper">
                         <label (click)="changePriority('urgent')" [class.btn-not-selectet]="priority != 'urgent'"
                             [class.btn-urgent]="priority == 'urgent'">Urgent
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
@@ -99,41 +99,44 @@
             </div>
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
-                <div (click)="onWrapperClick($event)">
-                    <p>Assigned to</p>
+                <fieldset (click)="onWrapperClick($event)">
+                    <legend>Assigned to</legend>
                     <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1"
                         (click)="toggleOverlay('assign', $event)">
-                        <input type="text" name="assignedToInput" class="search-input"
-                            placeholder="Select contacts to assign" [(ngModel)]="contactSearchTerm"
+                        <input id="assignedToInput" role="combobox" [attr.aria-expanded]="isOverlayOpen1"
+                            aria-autocomplete="list" aria-controls="assignedToList" type="text" name="assignedToInput"
+                            class="search-input" placeholder="Select contacts to assign" [(ngModel)]="contactSearchTerm"
                             (input)="onSearchChange($event)" (click)="openDropdown($event)">
-                        <div class="input-button">
+                        <div class="input-button" aria-hidden="true">
                             <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="">
                         </div>
                     </div>
-                    <div class="overlay-menu" [class.visible]="isOverlayOpen1" [class.hidden]="!isOverlayOpen1"
+                    <div id="assignedToList" role="listbox" aria-multiselectable="true" class="overlay-menu"
+                        [class.visible]="isOverlayOpen1" [class.hidden]="!isOverlayOpen1"
                         (click)="$event.stopPropagation()">
                         @for (item of getFilteredContacts(); track $index) {
                         @for (contact of item.contacts; track $index) {
-                        <label class="assignt-contact-wrapper" for="assign-contact-{{contact.id}}">
+                        <label class="assignt-contact-wrapper" role="option"
+                            [attr.aria-selected]="isContactAssigned(contact)">
                             <div>
                                 <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
                                     {{ contactDataService.extractInitials(contact.name) }}
                                 </div>
                                 <p>{{contact.name}}</p>
                             </div>
-                            <input class="assign-checkbox" type="checkbox" name="" id="assign-contact-{{contact.id}}"
+                            <input class="assign-checkbox" type="checkbox" id="assign-contact-{{contact.id}}"
                                 [checked]="isContactAssigned(contact)" (change)="selectContact(contact, $event)">
                             <span class="checkmark"></span>
                         </label>
                         }
                         }
                         @if (getFilteredContacts().length === 0 && contactSearchTerm) {
-                        <div class="no-results">
+                        <div class="no-results" aria-live="polite">
                             <p>No contacts found matching "{{contactSearchTerm}}"</p>
                         </div>
                         }
                     </div>
-                </div>
+                </fieldset>
                 <div class="initials-wrapper">
                     @if(assignetTo.length > 3){
                     @for (user of [1, 2, 3]; track $index) {

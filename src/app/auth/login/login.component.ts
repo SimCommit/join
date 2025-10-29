@@ -49,6 +49,11 @@ export class LoginComponent {
    */
   errorMessage: string = '';
 
+  /**
+   * Lock flag used to throttle login actions.
+   * Set by {@link spamGuard} for 5000 ms to prevent multiple login triggers in quick succession.
+   * @default false
+   */
   loginIsLocked: boolean = false;
   // #endregion
 
@@ -108,9 +113,13 @@ export class LoginComponent {
 
   /**
    * Logs in a guest user without credentials.
-   * Loads and resets the guest user's contact data.
-   * Redirects to the appropriate route based on device type.
-   * Displays an error message if the login process fails.
+   *
+   * - Uses {@link spamGuard} to prevent repeated or rapid login attempts.
+   * - Loads and resets the guest user's contact data.
+   * - Redirects to the correct route depending on the device type.
+   * - Displays an error message if authentication fails.
+   *
+   * @returns {Promise<void>} Resolves when the guest login and navigation are complete.
    */
   async onGuestLogin(): Promise<void> {
     if (this.loginIsLocked) return;
@@ -133,13 +142,6 @@ export class LoginComponent {
       this.clearError();
     }
   }
-
-  private spamGuard(): void {
-    this.loginIsLocked = true;
-    setTimeout(() => {
-      this.loginIsLocked = false;
-    }, 5000);
-  }
   // #endregion
 
   // #region Getters / Utils
@@ -158,6 +160,18 @@ export class LoginComponent {
     setTimeout(() => {
       this.errorMessage = '';
     }, 4000);
+  }
+
+  /**
+   * Temporarily locks login actions to prevent spam or repeated triggers.
+   * Used by {@link onGuestLogin} to disable guest login for 5 seconds
+   * after each login attempt.
+   */
+  private spamGuard(): void {
+    this.loginIsLocked = true;
+    setTimeout(() => {
+      this.loginIsLocked = false;
+    }, 5000);
   }
   // #endregion
 }

@@ -95,7 +95,8 @@ h2 {
 }
 
 .right-content {
-  > div {
+  > div, fieldset {
+    border: none;
     margin-bottom: 24px;
     > p {
       margin-bottom: 8px;
@@ -108,7 +109,7 @@ h2 {
   width: clamp(43rem, 28.571vw + 8.714rem, 47rem);
 }
 
-.button-wrapper {
+.radio-button-wrapper {
   @include dFlex($jc: space-between);
   > button,
   label {
