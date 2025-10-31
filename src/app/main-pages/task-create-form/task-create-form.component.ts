@@ -5,10 +5,10 @@ import {
   Input,
   Output,
   ChangeDetectorRef,
-  signal,
-  Signal,
-  WritableSignal,
   ViewChild,
+  ElementRef,
+  ViewChildren,
+  QueryList,
 } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
@@ -53,11 +53,23 @@ export class TaskCreateFormComponent {
   public isOverlayOpen1: boolean = false;
 
   /**
+   * Indicates whether overlay1 is in focus.
+   */
+  private isFocusedOnOverlay1: boolean = false;
+
+  /**
    * Controls the visibility of the second overlay (e.g., category selection).
    */
   public isOverlayOpen2: boolean = false;
 
   @ViewChild('taskForm') taskForm!: NgForm;
+
+  @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('overlay1') overlay1!: ElementRef<HTMLInputElement>;
+  @ViewChildren('contactRef') contactsForAssign!: QueryList<ElementRef<HTMLInputElement>>;
+
+  lastFocusedContact?: ElementRef<HTMLInputElement>;
+  currentFocusedContact?: ElementRef<HTMLInputElement>;
 
   /**
    * Indicates whether overlay2 was previously open.
@@ -167,6 +179,7 @@ export class TaskCreateFormComponent {
     private cdr: ChangeDetectorRef
   ) {}
 
+  // #region Lifecycle
   /**
    * Lifecycle hook that is called after the component has been initialized.
    * Calls `getTodayAsSting()` to initialize today's date as a string.
@@ -174,11 +187,88 @@ export class TaskCreateFormComponent {
   ngOnInit(): void {
     this.getTodayAsSting();
     this.initContactDataService();
+    this.initListeners();
   }
 
   initContactDataService(): void {
     this.contactDataService.connectStreams();
   }
+  // #endregion
+
+  // #region Input Listeners
+  initListeners() {
+    this.listenerAssignedTo();
+  }
+
+  listenerAssignedTo() {
+    window.addEventListener('keydown', this.onKeyDown, { passive: false });
+  }
+
+  onKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === 'ArrowDown' && this.isOverlayOpen1) {
+      // console.log(event.key);
+      event.preventDefault();
+      this.nextContact();
+      // this.assignedToInput.nativeElement.focus();
+    }
+
+    if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
+      console.log(event.key);
+      // this.previousContact();
+    }
+  };
+
+  // markOverlay1AsFocused() {
+  //   this.isFocusedOnOverlay1 = true;
+  // }
+
+  // markOverlay1Asblured() {
+  //   this.isFocusedOnOverlay1 = false;
+  // }
+
+  focusContact() {
+    let currentContact: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
+    if (!this.lastFocusedContact) {
+      let firstContactToAssign: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
+      currentContact = firstContactToAssign;
+    }
+
+    currentContact.nativeElement.classList.add('inFocus');
+    console.log(currentContact.nativeElement);
+  }
+
+  blurContact() {
+    let currentContact: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
+    if (!this.lastFocusedContact) {
+      let firstContactToAssign: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
+      currentContact = firstContactToAssign;
+    }
+
+    currentContact.nativeElement.classList.remove('inFocus');
+    this.lastFocusedContact = currentContact;
+  }
+
+  nextContact() {
+    let contactsArray = this.contactsForAssign.toArray();
+
+    if (!this.currentFocusedContact) {
+      this.currentFocusedContact = contactsArray[0];
+    }
+
+    let newIndex: number = contactsArray.indexOf(this.currentFocusedContact);
+
+    if (newIndex < contactsArray.length - 1) {
+      newIndex = newIndex + 1;
+    }
+
+    this.currentFocusedContact.nativeElement.classList.remove('inFocus');
+    this.currentFocusedContact = contactsArray[newIndex];
+    console.log(this.currentFocusedContact.nativeElement, newIndex);
+    this.currentFocusedContact.nativeElement.focus();
+    this.currentFocusedContact.nativeElement.classList.add('inFocus');
+  }
+
+  // #endregion
 
   /**
    * Toggles the visibility of the specified overlay ('assign' or 'category') based on user interaction.
@@ -561,6 +651,15 @@ export class TaskCreateFormComponent {
   }
 
   /**
+   * Toggles the visibility of the first overlay.
+   * When toggling, it also ensures the second overlay is closed.
+   */
+  openOverlay1(): void {
+    this.isOverlayOpen1 = true;
+    this.isOverlayOpen2 = false;
+  }
+
+  /**
    * Checks if the given type is 'assign'.
    *
    * @param type - The type to check, either 'assign' or 'category'.
@@ -576,6 +675,11 @@ export class TaskCreateFormComponent {
    */
   toggleOverlay2(): void {
     this.isOverlayOpen2 = !this.isOverlayOpen2;
+    this.isOverlayOpen1 = false;
+  }
+
+  openOverlay2(): void {
+    this.isOverlayOpen2 = true;
     this.isOverlayOpen1 = false;
   }
 }

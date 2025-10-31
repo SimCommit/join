@@ -98,7 +98,7 @@ h2 {
   > div, fieldset {
     border: none;
     margin-bottom: 24px;
-    > p {
+    > p, legend {
       margin-bottom: 8px;
     }
   }
@@ -206,6 +206,7 @@ img.rotated {
   padding-right: 12px;
   transition: all 0.3s ease;
   margin-bottom: 2px;
+
   &:hover {
     background: rgba(0, 0, 0, 0.05);
     cursor: pointer;
@@ -215,6 +216,10 @@ img.rotated {
     gap: 12px;
   }
 }
+
+// .assign-checkbox:focus ~ .checkmark {
+//   border: 2px dotted $input-focus-blue;
+// }
 
 .create-btn {
   @include primaryButton();
@@ -256,6 +261,10 @@ img.rotated {
 
 .initials-wrapper {
   @include dFlex($jc: flex-start);
+}
+
+.minus-margin {
+  margin-right: -8px;
 }
 
 input.ng-invalid.ng-touched {
