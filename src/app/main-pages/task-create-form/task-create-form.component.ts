@@ -60,8 +60,12 @@ export class TaskCreateFormComponent {
 
   @ViewChild('taskForm') taskForm!: NgForm;
 
-  @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
   @ViewChildren('contactRef') contactsForAssign!: QueryList<ElementRef<HTMLInputElement>>;
+
+  @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
+  
+  @ViewChild('categoryTechnicalTaskRef') categoryTechnicalTaskRef!: ElementRef<HTMLInputElement>;
+  
 
   currentFocusedContact?: ElementRef<HTMLInputElement>;
 
@@ -277,6 +281,11 @@ export class TaskCreateFormComponent {
 
     this.currentFocusedContact = contactsArray[newIndex];
     this.currentFocusedContact.nativeElement.focus();
+  }
+
+  handleOverlay2InFocus(event: Event) {
+    this.toggleOverlay('category', event)
+    this.categoryTechnicalTaskRef.nativeElement.focus();
   }
   // #endregion
 
