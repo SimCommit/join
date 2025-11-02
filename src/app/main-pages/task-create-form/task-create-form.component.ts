@@ -9,6 +9,7 @@ import {
   ElementRef,
   ViewChildren,
   QueryList,
+  Renderer2,
 } from '@angular/core';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { getRandomColor } from '../../shared/color-utils';
@@ -53,22 +54,17 @@ export class TaskCreateFormComponent {
   public isOverlayOpen1: boolean = false;
 
   /**
-   * Indicates whether overlay1 is in focus.
-   */
-  private isFocusedOnOverlay1: boolean = false;
-
-  /**
    * Controls the visibility of the second overlay (e.g., category selection).
    */
   public isOverlayOpen2: boolean = false;
 
   @ViewChild('taskForm') taskForm!: NgForm;
 
-  @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('overlay1') overlay1!: ElementRef<HTMLInputElement>;
+  // @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
+  // @ViewChild('overlay1') overlay1!: ElementRef<HTMLInputElement>;
   @ViewChildren('contactRef') contactsForAssign!: QueryList<ElementRef<HTMLInputElement>>;
 
-  lastFocusedContact?: ElementRef<HTMLInputElement>;
+  // lastFocusedContact?: ElementRef<HTMLInputElement>;
   currentFocusedContact?: ElementRef<HTMLInputElement>;
 
   /**
@@ -176,7 +172,8 @@ export class TaskCreateFormComponent {
     public contactDataService: ContactDataService,
     private taskDataService: TaskDataService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private renderer: Renderer2
   ) {}
 
   // #region Lifecycle
@@ -188,6 +185,15 @@ export class TaskCreateFormComponent {
     this.getTodayAsSting();
     this.initContactDataService();
     this.initListeners();
+    // this.testLog();
+  }
+
+  testLog(): void {
+    const log = (): void => {
+      console.log('active Element: ', document.activeElement);
+    };
+
+    window.addEventListener('wheel', log, { passive: false });
   }
 
   initContactDataService(): void {
@@ -206,10 +212,8 @@ export class TaskCreateFormComponent {
 
   onKeyDown = (event: KeyboardEvent): void => {
     if (event.key === 'ArrowDown' && this.isOverlayOpen1) {
-      // console.log(event.key);
       event.preventDefault();
       this.nextContact();
-      // this.assignedToInput.nativeElement.focus();
     }
 
     if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
@@ -219,23 +223,11 @@ export class TaskCreateFormComponent {
   };
 
   focusContact() {
-    let contactsArray = this.contactsForAssign.toArray();
+    this.contactsForAssign.toArray().forEach((e) => {
+      e.nativeElement.classList.remove('inFocus');
+    });
 
-    if (!this.currentFocusedContact) {
-      this.currentFocusedContact = contactsArray[0];
-    }
-
-    this.currentFocusedContact.nativeElement.classList.add('inFocus');
-  }
-
-  blurContact() {
-    let contactsArray = this.contactsForAssign.toArray();
-
-    if (!this.currentFocusedContact) {
-      this.currentFocusedContact = contactsArray[0];
-    }
-
-    this.currentFocusedContact.nativeElement.classList.remove('inFocus');
+    this.renderer.addClass(document.activeElement, 'inFocus');
   }
 
   nextContact() {
@@ -273,7 +265,7 @@ export class TaskCreateFormComponent {
     // und newIndex auf Länge des Array, damit er später der Position des letzten Contacts entspricht
     if (!this.currentFocusedContact) {
       this.currentFocusedContact = contactsArray[contactsArray.length - 1];
-      newIndex = contactsArray.length;      
+      newIndex = contactsArray.length;
     } else {
       newIndex = contactsArray.indexOf(this.currentFocusedContact);
       this.currentFocusedContact.nativeElement.blur();

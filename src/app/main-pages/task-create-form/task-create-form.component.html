@@ -124,7 +124,7 @@
                                 </div>
                                 <p>{{contact.name}}</p>
                             </div>
-                            <input (focus)="focusContact()" (blur)="blurContact()" tabindex="-1"  role="option" #contactRef class="assign-checkbox" type="checkbox" id="{{contact.id}}"
+                            <input (focus)="focusContact()" tabindex="-1"  role="option" #contactRef class="assign-checkbox" type="checkbox" id="{{contact.id}}"
                                 [checked]="isContactAssigned(contact)" (change)="selectContact(contact, $event)">
                             <span class="checkmark"></span>
                         </label>
