@@ -63,9 +63,8 @@ export class TaskCreateFormComponent {
   @ViewChildren('contactRef') contactsForAssign!: QueryList<ElementRef<HTMLInputElement>>;
 
   @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
-  
+
   @ViewChild('categoryTechnicalTaskRef') categoryTechnicalTaskRef!: ElementRef<HTMLInputElement>;
-  
 
   currentFocusedContact?: ElementRef<HTMLInputElement>;
 
@@ -202,18 +201,18 @@ export class TaskCreateFormComponent {
   listenerAssignedTo() {
     window.addEventListener('keydown', this.onKeyDown, { passive: false });
   }
-  
+
   onKeyDown = (event: KeyboardEvent): void => {
     if (event.key === 'ArrowDown' && this.isOverlayOpen1) {
       event.preventDefault();
       this.nextContact();
     }
-    
+
     if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
       event.preventDefault();
       this.previousContact();
     }
-    
+
     if (
       event.key === 'Tab' &&
       this.isOverlayOpen1 &&
@@ -221,6 +220,15 @@ export class TaskCreateFormComponent {
     ) {
       this.isOverlayOpen1 = false;
     }
+
+    // if (
+    //   event.key === 'Tab' &&
+    //   this.isOverlayOpen2 &&
+    //   (document.activeElement != this.categoryTechnicalTaskRef.nativeElement || event.shiftKey === true)
+    // ) {
+    //   console.log("test");
+    //   this.assignedToInput.nativeElement.focus();
+    // }
   };
   // #endregion
 
@@ -284,7 +292,7 @@ export class TaskCreateFormComponent {
   }
 
   handleOverlay2InFocus(event: Event) {
-    this.toggleOverlay('category', event)
+    this.toggleOverlay('category', event);
     this.categoryTechnicalTaskRef.nativeElement.focus();
   }
   // #endregion
@@ -694,11 +702,6 @@ export class TaskCreateFormComponent {
    */
   toggleOverlay2(): void {
     this.isOverlayOpen2 = !this.isOverlayOpen2;
-    this.isOverlayOpen1 = false;
-  }
-
-  openOverlay2(): void {
-    this.isOverlayOpen2 = true;
     this.isOverlayOpen1 = false;
   }
 }
