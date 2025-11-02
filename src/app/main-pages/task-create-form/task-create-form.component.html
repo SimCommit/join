@@ -103,7 +103,7 @@
                     <legend>Assigned to</legend>
                     <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1"
                         (click)="toggleOverlay('assign', $event)">
-                        <input id="assignedToInput" #assignedToInput (focus)="openOverlay1()" role="combobox" [attr.aria-expanded]="isOverlayOpen1"
+                        <input autocomplete="off" id="assignedToInput" #assignedToInput (focus)="openOverlay1()" role="combobox" [attr.aria-expanded]="isOverlayOpen1"
                             aria-autocomplete="list" aria-controls="assignedToList" type="text" name="assignedToInput"
                             class="search-input" placeholder="Select contacts to assign" [(ngModel)]="contactSearchTerm"
                             (input)="onSearchChange($event)" (click)="openDropdown($event)">
@@ -124,7 +124,7 @@
                                 </div>
                                 <p>{{contact.name}}</p>
                             </div>
-                            <input (focus)="focusContact()" (blur)="blurContact()" tabindex="0"  role="option" #contactRef class="assign-checkbox" type="checkbox" id="{{contact.id}}"
+                            <input (focus)="focusContact()" (blur)="blurContact()" tabindex="-1"  role="option" #contactRef class="assign-checkbox" type="checkbox" id="{{contact.id}}"
                                 [checked]="isContactAssigned(contact)" (change)="selectContact(contact, $event)">
                             <span class="checkmark"></span>
                         </label>

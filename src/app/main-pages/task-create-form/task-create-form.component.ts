@@ -213,61 +213,80 @@ export class TaskCreateFormComponent {
     }
 
     if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
-      console.log(event.key);
-      // this.previousContact();
+      event.preventDefault();
+      this.previousContact();
     }
   };
 
-  // markOverlay1AsFocused() {
-  //   this.isFocusedOnOverlay1 = true;
-  // }
-
-  // markOverlay1Asblured() {
-  //   this.isFocusedOnOverlay1 = false;
-  // }
-
   focusContact() {
-    let currentContact: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
-    if (!this.lastFocusedContact) {
-      let firstContactToAssign: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
-      currentContact = firstContactToAssign;
-    }
-
-    currentContact.nativeElement.classList.add('inFocus');
-    console.log(currentContact.nativeElement);
-  }
-
-  blurContact() {
-    let currentContact: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
-    if (!this.lastFocusedContact) {
-      let firstContactToAssign: ElementRef<HTMLInputElement> = this.contactsForAssign.toArray()[0];
-      currentContact = firstContactToAssign;
-    }
-
-    currentContact.nativeElement.classList.remove('inFocus');
-    this.lastFocusedContact = currentContact;
-  }
-
-  nextContact() {
     let contactsArray = this.contactsForAssign.toArray();
 
     if (!this.currentFocusedContact) {
       this.currentFocusedContact = contactsArray[0];
     }
 
-    let newIndex: number = contactsArray.indexOf(this.currentFocusedContact);
+    this.currentFocusedContact.nativeElement.classList.add('inFocus');
+  }
 
+  blurContact() {
+    let contactsArray = this.contactsForAssign.toArray();
+
+    if (!this.currentFocusedContact) {
+      this.currentFocusedContact = contactsArray[0];
+    }
+
+    this.currentFocusedContact.nativeElement.classList.remove('inFocus');
+  }
+
+  nextContact() {
+    if (this.contactsForAssign.toArray().length <= 0) return;
+
+    let contactsArray = this.contactsForAssign.toArray();
+    let newIndex: number;
+
+    // Setzt currentFocusedContact auf ersten Contact im Array, falls undefined
+    // und newIndex auf -1, damit er später 0 ist
+    if (!this.currentFocusedContact) {
+      this.currentFocusedContact = contactsArray[0];
+      newIndex = -1;
+    } else {
+      newIndex = contactsArray.indexOf(this.currentFocusedContact);
+      this.currentFocusedContact.nativeElement.blur();
+    }
+
+    // zählt Index eins hoch, falls noch nicht das letzte Element im Array ausgewählt ist
     if (newIndex < contactsArray.length - 1) {
       newIndex = newIndex + 1;
     }
 
-    this.currentFocusedContact.nativeElement.classList.remove('inFocus');
     this.currentFocusedContact = contactsArray[newIndex];
-    console.log(this.currentFocusedContact.nativeElement, newIndex);
     this.currentFocusedContact.nativeElement.focus();
-    this.currentFocusedContact.nativeElement.classList.add('inFocus');
   }
 
+  previousContact() {
+    if (this.contactsForAssign.toArray().length <= 0) return;
+
+    let contactsArray = this.contactsForAssign.toArray();
+    let newIndex: number;
+
+    // Setzt currentFocusedContact auf letzten Contact im Array, falls undefined
+    // und newIndex auf Länge des Array, damit er später der Position des letzten Contacts entspricht
+    if (!this.currentFocusedContact) {
+      this.currentFocusedContact = contactsArray[contactsArray.length - 1];
+      newIndex = contactsArray.length;      
+    } else {
+      newIndex = contactsArray.indexOf(this.currentFocusedContact);
+      this.currentFocusedContact.nativeElement.blur();
+    }
+
+    // zählt Index eins runter, falls noch nicht erste letzte Element im Array ausgewählt ist
+    if (newIndex > 0) {
+      newIndex = newIndex - 1;
+    }
+
+    this.currentFocusedContact = contactsArray[newIndex];
+    this.currentFocusedContact.nativeElement.focus();
+  }
   // #endregion
 
   /**
