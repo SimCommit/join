@@ -111,8 +111,8 @@
                             <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen1" alt="dropdown arrow icon">
                         </div>
                     </div>
-                    <div id="assignedToList" role="listbox" aria-multiselectable="true" class="overlay-menu"
-                        [class.visible]="isOverlayOpen1" [class.hidden]="!isOverlayOpen1"
+                    <div id="assignedToList" [hidden]="!isOverlayOpen1" role="listbox" aria-multiselectable="true" class="overlay-menu"
+                        [class.visible]="isOverlayOpen1"
                         (click)="$event.stopPropagation()">
                         @for (item of getFilteredContacts(); track $index) {
                         @for (contact of item.contacts; track $index) {

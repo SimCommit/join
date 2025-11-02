@@ -60,11 +60,9 @@ export class TaskCreateFormComponent {
 
   @ViewChild('taskForm') taskForm!: NgForm;
 
-  // @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
-  // @ViewChild('overlay1') overlay1!: ElementRef<HTMLInputElement>;
+  @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
   @ViewChildren('contactRef') contactsForAssign!: QueryList<ElementRef<HTMLInputElement>>;
 
-  // lastFocusedContact?: ElementRef<HTMLInputElement>;
   currentFocusedContact?: ElementRef<HTMLInputElement>;
 
   /**
@@ -185,15 +183,6 @@ export class TaskCreateFormComponent {
     this.getTodayAsSting();
     this.initContactDataService();
     this.initListeners();
-    // this.testLog();
-  }
-
-  testLog(): void {
-    const log = (): void => {
-      console.log('active Element: ', document.activeElement);
-    };
-
-    window.addEventListener('wheel', log, { passive: false });
   }
 
   initContactDataService(): void {
@@ -209,19 +198,29 @@ export class TaskCreateFormComponent {
   listenerAssignedTo() {
     window.addEventListener('keydown', this.onKeyDown, { passive: false });
   }
-
+  
   onKeyDown = (event: KeyboardEvent): void => {
     if (event.key === 'ArrowDown' && this.isOverlayOpen1) {
       event.preventDefault();
       this.nextContact();
     }
-
+    
     if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
       event.preventDefault();
       this.previousContact();
     }
+    
+    if (
+      event.key === 'Tab' &&
+      this.isOverlayOpen1 &&
+      (document.activeElement != this.assignedToInput.nativeElement || event.shiftKey === true)
+    ) {
+      this.isOverlayOpen1 = false;
+    }
   };
+  // #endregion
 
+  // #region Custom Focus Handlers
   focusContact() {
     this.contactsForAssign.toArray().forEach((e) => {
       e.nativeElement.classList.remove('inFocus');

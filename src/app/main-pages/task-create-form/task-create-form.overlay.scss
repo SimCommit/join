@@ -116,8 +116,3 @@
   max-height: 0;
   opacity: 0;
 }
-
-.inFocus ~ .checkmark {
-  border: 2px solid $input-focus-blue;
-  background-color: $lightest-grey;
-}
