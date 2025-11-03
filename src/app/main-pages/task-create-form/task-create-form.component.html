@@ -113,20 +113,23 @@
                                 alt="dropdown arrow icon">
                         </div>
                     </div>
-                    <div id="assignedToList" [tabIndex]="isOverlayOpen1 ? 0 : -1" role="listbox" aria-multiselectable="true"
-                        class="overlay-menu" [class.visible]="isOverlayOpen1" (click)="$event.stopPropagation()">
+                    <div id="assignedToList" [tabIndex]="isOverlayOpen1 ? 0 : -1" role="listbox"
+                        aria-multiselectable="true" class="overlay-menu" [class.visible]="isOverlayOpen1"
+                        (click)="$event.stopPropagation()">
                         @for (item of getFilteredContacts(); track $index) {
                         @for (contact of item.contacts; track $index) {
-                        <label class="assignt-contact-wrapper" [attr.aria-selected]="isContactAssigned(contact)">
+                        <label class="assignt-contact-wrapper">
                             <div>
-                                <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
+                                <div class="contact-icon" aria-hidden="true"
+                                    [style.background-color]="getRandomColor(contact.name)">
                                     {{ contactDataService.extractInitials(contact.name) }}
                                 </div>
                                 <p>{{contact.name}}</p>
                             </div>
                             <input (focus)="focusContact()" tabindex="-1" role="option" #contactRef
                                 class="assign-checkbox" type="checkbox" id="{{contact.id}}"
-                                [checked]="isContactAssigned(contact)" (change)="selectContact(contact, $event)">
+                                [checked]="isContactAssigned(contact)" [attr.aria-selected]="isContactAssigned(contact) ? 'true' : 'false'"
+                                (change)="selectContact(contact, $event)">
                             <span class="checkmark"></span>
                         </label>
                         }
@@ -163,10 +166,10 @@
                 <div id="category-wrapper">
                     <p id="categoryLabel">Category<span class="red" aria-hidden="true">*</span></p>
 
-                    <div tabindex="0" (click)="onWrapperClick($event)" (focus)="handleOverlay2InFocus($event)" role="radiogroup"
-                        aria-labelledby="categoryLabel" aria-describedby="categoryError"
-                        class="menu-wrapper overlay-open" [class.error-border]="showCategoryError"
-                        [class.visible]="isOverlayOpen2">
+                    <div [tabIndex]="isOverlayOpen2 ? -1 : 0" (click)="onWrapperClick($event)"
+                        (focus)="handleOverlay2InFocus($event)" role="radiogroup" aria-labelledby="categoryLabel"
+                        aria-describedby="categoryError" class="menu-wrapper overlay-open"
+                        [class.error-border]="showCategoryError" [class.visible]="isOverlayOpen2">
                         <p aria-label="current selection">{{ category }}</p>
                         <div class="input-button" aria-hidden="true">
                             <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen2"
@@ -190,7 +193,7 @@
                         Category is required!
                     </p>
                 </div>
-                
+
                 <div>
                     <p>Subtasks</p>
                     <div class="subtask-wrapper">
