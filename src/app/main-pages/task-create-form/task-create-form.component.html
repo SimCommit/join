@@ -128,7 +128,8 @@
                             </div>
                             <input (focus)="focusContact()" tabindex="-1" role="option" #contactRef
                                 class="assign-checkbox" type="checkbox" id="{{contact.id}}"
-                                [checked]="isContactAssigned(contact)" [attr.aria-selected]="isContactAssigned(contact) ? 'true' : 'false'"
+                                [checked]="isContactAssigned(contact)"
+                                [attr.aria-selected]="isContactAssigned(contact) ? 'true' : 'false'"
                                 (change)="selectContact(contact, $event)">
                             <span class="checkmark"></span>
                         </label>
@@ -167,8 +168,9 @@
                     <p id="categoryLabel">Category<span class="red" aria-hidden="true">*</span></p>
 
                     <div [tabIndex]="isOverlayOpen2 ? -1 : 0" (click)="onWrapperClick($event)"
-                        (focus)="handleOverlay2InFocus($event)" role="radiogroup" aria-labelledby="categoryLabel"
-                        aria-describedby="categoryError" class="menu-wrapper overlay-open"
+                        (focus)="handleOverlay2InFocus($event)" aria-labelledby="categoryLabel"
+                        aria-describedby="categoryError" class="menu-wrapper overlay-open" role="button"
+                        aria-haspopup="listbox" [attr.aria-expanded]="isOverlayOpen2"
                         [class.error-border]="showCategoryError" [class.visible]="isOverlayOpen2">
                         <p aria-label="current selection">{{ category }}</p>
                         <div class="input-button" aria-hidden="true">
@@ -177,15 +179,17 @@
                         </div>
                     </div>
 
-                    <div class="overlay-menu" role="listbox" [class.visible]="isOverlayOpen2"
-                        [class.hidden]="!isOverlayOpen2">
-                        <label (click)="selectCategory('Technical Task')" class="assignt-contact-wrapper">
+                    <div class="overlay-menu" #overlayMenu [tabIndex]="-1" role="listbox"
+                        [class.visible]="isOverlayOpen2" [class.hidden]="!isOverlayOpen2">
+                        <label tabindex="-1" class="assignt-contact-wrapper">
                             Technical Task
-                            <input #categoryTechnicalTaskRef type="radio" name="category">
+                            <input (click)="selectCategory('Technical Task')" #categoryTechnicalTaskRef tabindex="-1" type="radio" name="category" role="radio"
+                                [attr.aria-checked]="category === 'Technical Task'">
                         </label>
-                        <label (click)="selectCategory('User Story')" class="assignt-contact-wrapper">
+                        <label tabindex="-1" class="assignt-contact-wrapper">
                             User Story
-                            <input type="radio" name="category">
+                            <input (click)="selectCategory('User Story')" #categoryUserStoryRef tabindex="-1" type="radio" name="category" role="radio"
+                                [attr.aria-checked]="category === 'User Story'">
                         </label>
                     </div>
 

@@ -64,7 +64,11 @@ export class TaskCreateFormComponent {
 
   @ViewChild('assignedToInput') assignedToInput!: ElementRef<HTMLInputElement>;
 
+  @ViewChild('overlayMenu') overlayMenu!: ElementRef<HTMLDivElement>;
+
   @ViewChild('categoryTechnicalTaskRef') categoryTechnicalTaskRef!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('categoryUserStoryRef') categoryUserStoryRef!: ElementRef<HTMLInputElement>;
 
   currentFocusedContact?: ElementRef<HTMLInputElement>;
 
@@ -203,14 +207,10 @@ export class TaskCreateFormComponent {
   }
 
   onKeyDown = (event: KeyboardEvent): void => {
+    // Overlay 1
     if (event.key === 'ArrowDown' && this.isOverlayOpen1) {
       event.preventDefault();
       this.nextContact();
-    }
-
-    if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
-      event.preventDefault();
-      this.previousContact();
     }
 
     if (
@@ -221,14 +221,38 @@ export class TaskCreateFormComponent {
       this.isOverlayOpen1 = false;
     }
 
-    // if (
-    //   event.key === 'Tab' &&
-    //   this.isOverlayOpen2 &&
-    //   (document.activeElement != this.categoryTechnicalTaskRef.nativeElement || event.shiftKey === true)
-    // ) {
-    //   console.log("test");
-    //   this.assignedToInput.nativeElement.focus();
-    // }
+    if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
+      event.preventDefault();
+      this.previousContact();
+    }
+
+    // Overlay 2
+    if (event.key === 'ArrowDown' && this.isOverlayOpen2 && document.activeElement) {
+      event.preventDefault();
+      if (document.activeElement === this.categoryTechnicalTaskRef.nativeElement) {
+        this.categoryUserStoryRef.nativeElement.focus();
+      } else {
+        this.categoryTechnicalTaskRef.nativeElement.focus();
+      }
+    }
+
+    if (event.key === 'ArrowUp' && this.isOverlayOpen2 && document.activeElement) {
+      event.preventDefault();
+      if (document.activeElement === this.categoryUserStoryRef.nativeElement) {
+        this.categoryTechnicalTaskRef.nativeElement.focus();
+      } else {
+        this.categoryUserStoryRef.nativeElement.focus();
+      }
+    }
+
+    if (event.key === 'Tab' && this.isOverlayOpen2) {
+      this.toggleOverlay2();
+    }
+
+    // For testing
+    if (event.key === 'o') {
+      console.log("active element: ", document.activeElement);
+    }
   };
   // #endregion
 
@@ -293,7 +317,8 @@ export class TaskCreateFormComponent {
 
   handleOverlay2InFocus(event: Event) {
     this.toggleOverlay('category', event);
-    this.categoryTechnicalTaskRef.nativeElement.focus();
+    // this.categoryTechnicalTaskRef.nativeElement.focus();
+    this.overlayMenu.nativeElement.focus();
   }
   // #endregion
 
