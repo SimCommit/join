@@ -248,11 +248,6 @@ export class TaskCreateFormComponent {
     if (event.key === 'Tab' && this.isOverlayOpen2) {
       this.toggleOverlay2();
     }
-
-    // For testing
-    if (event.key === 'o') {
-      console.log("active element: ", document.activeElement);
-    }
   };
   // #endregion
 

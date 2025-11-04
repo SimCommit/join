@@ -100,7 +100,7 @@
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
                 <fieldset (click)="onWrapperClick($event)">
-                    <legend>Assigned to</legend>
+                    <legend id="assignedToLegend">Assigned to</legend>
                     <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1"
                         (click)="toggleOverlay('assign', $event)">
                         <input autocomplete="off" id="assignedToInput" #assignedToInput (focus)="openOverlay1()"
@@ -113,7 +113,7 @@
                                 alt="dropdown arrow icon">
                         </div>
                     </div>
-                    <div id="assignedToList" [tabIndex]="isOverlayOpen1 ? 0 : -1" role="listbox"
+                    <div id="assignedToList" [tabIndex]="isOverlayOpen1 ? 0 : -1" role="listbox" aria-labelledby="assignedToLegend"
                         aria-multiselectable="true" class="overlay-menu" [class.visible]="isOverlayOpen1"
                         (click)="$event.stopPropagation()">
                         @for (item of getFilteredContacts(); track $index) {
@@ -179,7 +179,7 @@
                         </div>
                     </div>
 
-                    <div class="overlay-menu" #overlayMenu [tabIndex]="-1" role="listbox"
+                    <div class="overlay-menu" #overlayMenu [tabIndex]="-1" role="listbox" aria-labelledby="categoryLabel"
                         [class.visible]="isOverlayOpen2" [class.hidden]="!isOverlayOpen2">
                         <label tabindex="-1" class="assignt-contact-wrapper">
                             Technical Task
