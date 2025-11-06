@@ -226,6 +226,11 @@ export class TaskCreateFormComponent {
       this.previousContact();
     }
 
+    if (event.key === 'Escape' && this.isOverlayOpen1) {
+      event.preventDefault();
+      this.toggleOverlay1();
+    }
+
     // Overlay 2
     if (event.key === 'ArrowDown' && this.isOverlayOpen2 && document.activeElement) {
       event.preventDefault();
@@ -248,6 +253,21 @@ export class TaskCreateFormComponent {
     if (event.key === 'Tab' && this.isOverlayOpen2) {
       this.toggleOverlay2();
     }
+
+    if (event.key === 'Escape' && this.isOverlayOpen2) {
+      event.preventDefault();
+      this.toggleOverlay2();
+    }
+
+    /**
+     * Logs the currently focused element to the console.
+     * Useful for debugging and testing focus behavior.
+     */ // if (event.key === 'o') {
+    //   event.preventDefault();
+    //   setInterval(() => {
+    //     console.log('active: ', document.activeElement);
+    //   }, 2000);
+    // }
   };
   // #endregion
 

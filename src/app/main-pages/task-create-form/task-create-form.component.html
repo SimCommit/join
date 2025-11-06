@@ -113,9 +113,9 @@
                                 alt="dropdown arrow icon">
                         </div>
                     </div>
-                    <div id="assignedToList" [tabIndex]="isOverlayOpen1 ? 0 : -1" role="listbox" aria-labelledby="assignedToLegend"
-                        aria-multiselectable="true" class="overlay-menu" [class.visible]="isOverlayOpen1"
-                        (click)="$event.stopPropagation()">
+                    <div id="assignedToList" [tabIndex]="isOverlayOpen1 ? 0 : -1" role="listbox"
+                        aria-labelledby="assignedToLegend" aria-multiselectable="true" class="overlay-menu"
+                        [class.visible]="isOverlayOpen1" (click)="$event.stopPropagation()">
                         @for (item of getFilteredContacts(); track $index) {
                         @for (contact of item.contacts; track $index) {
                         <label class="assignt-contact-wrapper">
@@ -179,16 +179,19 @@
                         </div>
                     </div>
 
-                    <div class="overlay-menu" #overlayMenu [tabIndex]="-1" role="listbox" aria-labelledby="categoryLabel"
-                        [class.visible]="isOverlayOpen2" [class.hidden]="!isOverlayOpen2">
+                    <div class="overlay-menu" #overlayMenu [tabIndex]="-1" role="listbox"
+                        aria-labelledby="categoryLabel" [class.visible]="isOverlayOpen2"
+                        [class.hidden]="!isOverlayOpen2">
                         <label tabindex="-1" class="assignt-contact-wrapper">
                             Technical Task
-                            <input (click)="selectCategory('Technical Task')" #categoryTechnicalTaskRef tabindex="-1" type="radio" name="category" role="radio"
+                            <input (click)="selectCategory('Technical Task')" #categoryTechnicalTaskRef tabindex="-1"
+                                type="radio" name="category" role="radio"
                                 [attr.aria-checked]="category === 'Technical Task'">
                         </label>
                         <label tabindex="-1" class="assignt-contact-wrapper">
                             User Story
-                            <input (click)="selectCategory('User Story')" #categoryUserStoryRef tabindex="-1" type="radio" name="category" role="radio"
+                            <input (click)="selectCategory('User Story')" #categoryUserStoryRef tabindex="-1"
+                                type="radio" name="category" role="radio"
                                 [attr.aria-checked]="category === 'User Story'">
                         </label>
                     </div>
@@ -199,48 +202,54 @@
                 </div>
 
                 <div>
-                    <p>Subtasks</p>
-                    <div class="subtask-wrapper">
-                        <input name="subtask" (keydown.enter)="addSubtaskToArray()" (focus)="subtaskInputFocus = true"
-                            (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel"
-                            class="input" type="text" placeholder="Add new subtask">
-                        <div *ngIf="!subtaskInputFocus">
-                            <div class="input-button">
-                                <img src="./img/icons/add_task.svg" alt="">
+                    <label>Subtasks
+                        <div class="subtask-wrapper">
+                            <input name="subtask" (keydown.enter)="addSubtaskToArray()"
+                                (focus)="subtaskInputFocus = true" (blur)="subtaskInputFocus = false"
+                                [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text"
+                                placeholder="Add new subtask">
+                            <div *ngIf="!subtaskInputFocus">
+                                <div tabindex="-1" class="input-button">
+                                    <img src="./img/icons/add_task.svg" alt="Add subtask">
+                                </div>
+                            </div>
+                            <div class="blue-border" *ngIf="subtaskInputFocus">
+                                <button tabindex="-1" class="input-button" (mousedown)="addSubtaskToArray()">
+                                    <img src="./img/icons/dark-check.svg" alt="Confirm subtask">
+                                </button>
+                                <span aria-hidden="true" class="smal-seperator"></span>
+                                <button tabindex="-1" class="input-button" (mousedown)="addSubtask = ''">
+                                    <img src="./img/icons/delete_contact.svg" alt="Delete subtask">
+                                </button>
                             </div>
                         </div>
-                        <div class="blue-border" *ngIf="subtaskInputFocus">
-                            <div class="input-button">
-                                <img (mousedown)="addSubtaskToArray()" src="./img/icons/dark-check.svg" alt="">
-                            </div>
-                            <span class="smal-seperator"></span>
-                            <div (mousedown)="addSubtask = ''" class="input-button">
-                                <img src="./img/icons/delete_contact.svg" alt="">
-                            </div>
-                        </div>
-                    </div>
+                    </label>
+
+                    <!-- WIP: Buttons müssen fokussierbar sein. Verschwinden aber sobald input den Fokus verliert. -->
                     <ul class="subtask-container">
                         @for (item of subtasks; track $index) {
-                        <li *ngIf="changeSubtask != $index">{{item.title}}
+                        <li *ngIf="changeSubtask != $index" tabindex="0" >{{item.title}}
                             <div>
                                 <div class="input-button">
-                                    <img (click)="openSubtaskInput($index)" src="./img/icons/edit_contact.svg" alt="">
+                                    <img (click)="openSubtaskInput($index)" src="./img/icons/edit_contact.svg"
+                                        alt="Edit subtask">
                                 </div>
-                                <span class="smal-seperator"></span>
+                                <span aria-hidden="true" class="smal-seperator"></span>
                                 <div class="input-button">
-                                    <img (click)="deleteSubtask($index)" src="./img/icons/delete_contact.svg" alt="">
+                                    <img (click)="deleteSubtask($index)" src="./img/icons/delete_contact.svg"
+                                        alt="Delete subtask">
                                 </div>
                             </div>
                         </li>
                         <div class="input-edit-subtask-wrapper" *ngIf="changeSubtask == $index">
                             <input [(ngModel)]="subtasksInput" name="subtaskEdit" type="text">
                             <div>
-                                <div class="input-button">
-                                    <img (click)="changeSubtaskTitle($index)" src="./img/icons/dark-check.svg" alt="">
+                                <div class="input-button" (click)="changeSubtaskTitle($index)">
+                                    <img src="./img/icons/dark-check.svg" alt="Confirm changes">
                                 </div>
-                                <span class="smal-seperator"></span>
-                                <div class="input-button">
-                                    <img (click)="deleteSubtask($index)" src="./img/icons/delete_contact.svg" alt="">
+                                <span aria-hidden="true" class="smal-seperator"></span>
+                                <div class="input-button" (click)="deleteSubtask($index)">
+                                    <img src="./img/icons/delete_contact.svg" alt="Delete subtask">
                                 </div>
                             </div>
                         </div>
