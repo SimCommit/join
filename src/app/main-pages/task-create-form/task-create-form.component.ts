@@ -506,6 +506,11 @@ export class TaskCreateFormComponent {
     this.showCategoryError = false;
   }
 
+  onSubtaskEnter(event: Event): void {
+    event.preventDefault();
+    this.addSubtaskToArray();
+  }
+
   /**
    * Adds a new subtask to the subtasks array if the input is not empty.
    *

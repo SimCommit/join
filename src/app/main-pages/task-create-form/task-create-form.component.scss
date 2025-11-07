@@ -320,7 +320,7 @@ input.ng-invalid.ng-touched {
   height: 100px;
   margin-top: 16px;
   overflow: auto;
-  > li {
+  > .first-item {
     width: 100%;
     height: clamp(40px, 3vw + 2px, 48px);
     border-radius: 12px;
@@ -331,7 +331,8 @@ input.ng-invalid.ng-touched {
       width: 16%;
       @include dFlex($jc: space-between);
     }
-    &:hover {
+    &:hover, &:focus-within {
+      outline: none;
       background-color: $hover-grey;
       > div {
         opacity: 1;
