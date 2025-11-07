@@ -1,6 +1,6 @@
-@use './../../../styles/mixins' as *;
-@use './../../../styles/_variables' as *;
-@use './task-create-form.overlay.scss' as *;
+@use './../../../../styles/mixins' as *;
+@use './../../../../styles/_variables' as *;
+@use './../task-create-form/task-create-form.overlay.scss' as *;
 
 h2 {
   font-size: clamp(47px, calc(6vw + 4px), 61px);
@@ -400,13 +400,6 @@ input.ng-invalid.ng-touched {
     width: clamp(290px, calc(72vw + 20px), 640px);
   }
 }
-
-// #region File Upload
-.dropzone {
-  width: 100%;
-  height: 100px;
-}
-// #endregion
 
 // #region Media Queries
 @media (max-width: 1200px) {

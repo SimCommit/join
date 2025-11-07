@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
+import { TaskCreateFormComponent } from '../shared/task-create-form/task-create-form.component';
 import { ActivatedRoute } from '@angular/router';
 import { BoardStatus } from '../shared-data/task.interface';
 import { Subscription } from 'rxjs';

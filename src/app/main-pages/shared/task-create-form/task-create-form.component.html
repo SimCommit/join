@@ -99,6 +99,9 @@
             </div>
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
+                
+                <app-file-upload></app-file-upload>
+                
                 <fieldset (click)="onWrapperClick($event)">
                     <legend id="assignedToLegend">Assigned to</legend>
                     <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1"

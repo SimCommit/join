@@ -9,7 +9,7 @@ import { TaskCardComponent } from './task/task-card/task-card.component';
 import { TaskDialogComponent } from './task/task-dialog/task-dialog.component';
 import { CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { TaskCreateFormComponent } from '../task-create-form/task-create-form.component';
+import { TaskCreateFormComponent } from '../shared/task-create-form/task-create-form.component';
 import { Router } from '@angular/router';
 import { ContactDataService } from '../shared-data/contact-data.service';
 

@@ -1,0 +1,33 @@
+@use './../../../../styles/mixins' as *;
+@use './../../../../styles/_variables' as *;
+
+section {
+  margin-bottom: 24px;
+}
+
+p {
+  margin-bottom: 6px;
+}
+
+small {
+  color: $grey;
+  display: block;
+  margin-bottom: 4px;
+}
+
+button {
+  @include dFlex();
+  font-size: 16px;
+  width: 100%;
+  border: 1.5px dashed $grey;
+  border-radius: 12px;
+  padding: 20px;
+  resize: none;
+  color: $grey;
+  gap: 8px;
+
+  img {
+    height: 16px;
+    width: 16px;
+  }
+}

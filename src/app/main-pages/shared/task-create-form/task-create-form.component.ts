@@ -11,13 +11,14 @@ import {
   QueryList,
   Renderer2,
 } from '@angular/core';
-import { ContactDataService } from '../shared-data/contact-data.service';
-import { getRandomColor } from '../../shared/color-utils';
-import { Contact } from './../shared-data/contact.interface';
+import { ContactDataService } from '../../shared-data/contact-data.service';
+import { getRandomColor } from '../../../shared/color-utils';
+import { Contact } from '../../shared-data/contact.interface';
 import { FormsModule, NgForm } from '@angular/forms';
-import { BoardStatus, Subtask, Task } from '../shared-data/task.interface';
-import { TaskDataService } from '../shared-data/task-data.service';
+import { BoardStatus, Subtask, Task } from '../../shared-data/task.interface';
+import { TaskDataService } from '../../shared-data/task-data.service';
 import { Router } from '@angular/router';
+import { FileUploadComponent } from "../file-upload/file-upload.component";
 
 interface ContactGroup {
   /** The title or identifier of the group (e.g. "A", "B", etc.) */
@@ -38,7 +39,7 @@ interface ContactGroup {
  */
 @Component({
   selector: 'app-task-create-form',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FileUploadComponent],
   templateUrl: './task-create-form.component.html',
   styleUrls: ['./task-create-form.component.scss', './task-create-form.overlay.scss'],
 })
