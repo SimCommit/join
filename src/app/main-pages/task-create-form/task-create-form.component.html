@@ -214,7 +214,8 @@
                                 </div>
                             </div>
                             <div class="blue-border" *ngIf="subtaskInputFocus">
-                                <button type="button" tabindex="-1" class="input-button" (mousedown)="addSubtaskToArray()">
+                                <button type="button" tabindex="-1" class="input-button"
+                                    (mousedown)="addSubtaskToArray()">
                                     <img src="./img/icons/dark-check.svg" alt="Confirm subtask">
                                 </button>
                                 <span aria-hidden="true" class="smal-seperator"></span>
@@ -227,23 +228,25 @@
 
                     <ul class="subtask-container" role="list">
                         @for (item of subtasks; track $index) {
-                        <li *ngIf="changeSubtask != $index" class="first-item" tabindex="0" role="listitem">{{item.title}}
+                        <li *ngIf="changeSubtask != $index" class="first-item" role="listitem" tabindex="-1">
+                            {{item.title}}
                             <div>
-                                <button type="button" class="input-button" (click)="openSubtaskInput($index)" >
-                                    <img src="./img/icons/edit_contact.svg"
-                                        alt="Edit subtask">
+                                <button type="button" class="input-button" (click)="openSubtaskInput($index)">
+                                    <img src="./img/icons/edit_contact.svg" alt="Edit subtask">
                                 </button>
                                 <span aria-hidden="true" class="smal-seperator"></span>
                                 <button type="button" class="input-button" (click)="deleteSubtask($index)">
-                                    <img src="./img/icons/delete_contact.svg"
-                                        alt="Delete subtask">
+                                    <img src="./img/icons/delete_contact.svg" alt="Delete subtask">
                                 </button>
                             </div>
                         </li>
-                        <li class="input-edit-subtask-wrapper" *ngIf="changeSubtask == $index">
-                            <input [(ngModel)]="subtasksInput" name="subtaskEdit" type="text">
+                        <li class="input-edit-subtask-wrapper" *ngIf="changeSubtask == $index" tabindex="-1">
+                            <input [(ngModel)]="subtasksInput" name="subtaskEdit" type="text"
+                                [attr.aria-label]="'Edit subtask ' + item.title"
+                                (keydown.enter)="changeSubtaskTitle($index)">
                             <div>
-                                <button type="button" class="input-button" (click)="changeSubtaskTitle($index)" (keydown.enter)="changeSubtaskTitle($index)">
+                                <button type="button" class="input-button" (click)="changeSubtaskTitle($index)"
+                                    (keydown.enter)="changeSubtaskTitle($index)">
                                     <img src="./img/icons/dark-check.svg" alt="Confirm changes">
                                 </button>
                                 <span aria-hidden="true" class="smal-seperator"></span>
