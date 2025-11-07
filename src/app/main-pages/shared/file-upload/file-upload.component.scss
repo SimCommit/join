@@ -5,17 +5,39 @@ section {
   margin-bottom: 24px;
 }
 
-p {
-  margin-bottom: 6px;
-}
-
-small {
-  color: $grey;
-  display: block;
-  margin-bottom: 4px;
-}
-
 button {
+  border: none;
+  background: none;
+}
+
+p {
+  //   margin-bottom: 6px;
+}
+
+.upload-info-bar {
+  @include dFlex($jc: space-between);
+  min-height: 28px;
+
+  small {
+    color: $grey;
+    margin-bottom: 4px;
+    align-self: flex-end;
+  }
+
+  button {
+    @include dFlex($g: 4px);
+    font-size: 16px;
+    padding: 4px;
+
+    img {
+      height: 18px;
+      width: 18px;
+      background-color: none;
+    }
+  }
+}
+
+.dropzone {
   @include dFlex();
   font-size: 16px;
   width: 100%;
@@ -25,9 +47,13 @@ button {
   resize: none;
   color: $grey;
   gap: 8px;
+  background-color: $hover-grey;
 
-  img {
-    height: 16px;
-    width: 16px;
+  button {
+    img {
+      height: 16px;
+      width: 16px;
+      background-color: none;
+    }
   }
 }

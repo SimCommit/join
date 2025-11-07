@@ -1,5 +1,18 @@
 <section>
     <p>Attachments</p>
-    <small>Allowed files are PNG and JPEG</small>
-    <button>Drag a file or browse <img aria-hidden="true" src="./img/icons/plus-upload.svg" alt="add image"></button>
+    <div class="upload-info-bar">
+        <small>Allowed files are PNG and JPEG</small>
+        @if (true) {
+        <button type="button">
+            <img src="./img/icons/delete_contact.svg" alt="trash">
+            Delete all
+        </button>
+        }
+    </div>
+    <div class="dropzone" dropzone="">
+        Drag a file or browse
+        <button type="button">
+            <img aria-hidden="true" src="./img/icons/plus-upload.svg" alt="add image">
+        </button>
+    </div>
 </section>
