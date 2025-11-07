@@ -10,10 +10,6 @@ button {
   background: none;
 }
 
-p {
-  //   margin-bottom: 6px;
-}
-
 .upload-info-bar {
   @include dFlex($jc: space-between);
   min-height: 28px;
@@ -48,6 +44,7 @@ p {
   color: $grey;
   gap: 8px;
   background-color: $hover-grey;
+  margin-bottom: 12px;
 
   button {
     img {
@@ -56,4 +53,8 @@ p {
       background-color: none;
     }
   }
+}
+
+.uploaded-files-container {
+  @include dFlex($jc: flex-start, $g: 8px);
 }

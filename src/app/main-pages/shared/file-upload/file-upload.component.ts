@@ -8,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class FileUploadComponent {
 
+  thereAreUploads: boolean = true;
+
+  images: {"title": string, "URL": string}[] = [
+    {"title":"Title Img 1", "URL": ""},
+    {"title":"Title Img 2", "URL": ""},
+  ];
+
 }
