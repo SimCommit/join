@@ -1,28 +1,36 @@
 <section>
     <p>Attachments</p>
+
     <div class="upload-info-bar">
         <small>Allowed files are PNG and JPEG</small>
+
         @if (thereAreUploads) {
         <button type="button">
             <img src="./img/icons/delete_contact.svg" alt="trash">
             Delete all
         </button>
         }
+
     </div>
+
     <div class="dropzone" dropzone="">
-        Drag a file or browse
-        <button type="button">
-            <img aria-hidden="true" src="./img/icons/plus-upload.svg" alt="add image">
-        </button>
+        <span>Drag a file or browse</span>
+
+        <img role="input" src="./img/icons/plus-upload.svg" alt="add image" (click)="filepicker.click()">
+
+        <input type="file" name="filepicker" id="filepicker" #filepicker>
     </div>
+
     @if (thereAreUploads) {
-    <div class="uploaded-files-container">
+    <div class="preview-gallery" #previewGallery>
+
         @for (img of images; track $index) {
         <div>
             <img src="{{img.URL}}" alt="image">
             <p>{{img.title}}</p>
         </div>
         }
+
     </div>
     }
 </section>

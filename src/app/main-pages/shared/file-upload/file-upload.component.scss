@@ -46,15 +46,25 @@ button {
   background-color: $hover-grey;
   margin-bottom: 12px;
 
-  button {
     img {
+      cursor: pointer;
       height: 16px;
       width: 16px;
       background-color: none;
     }
-  }
+  
 }
 
-.uploaded-files-container {
+#filepicker {
+  display: none;
+}
+
+.preview-gallery {
   @include dFlex($jc: flex-start, $g: 8px);
+
+  img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+  }
 }
