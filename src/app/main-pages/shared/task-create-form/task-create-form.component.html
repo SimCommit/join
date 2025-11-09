@@ -15,7 +15,8 @@
                     </p>
                 </div>
                 <div>
-                    <label>Description
+                    <label>
+                        Description
                         <textarea name="description" [(ngModel)]="description"
                             placeholder="Enter a Description"></textarea>
                     </label>
@@ -33,7 +34,7 @@
                     <legend>Priority</legend>
                     <div class="radio-button-wrapper">
                         <label (click)="changePriority('urgent')" [class.btn-not-selectet]="priority != 'urgent'"
-                            [class.btn-urgent]="priority == 'urgent'">Urgent
+                            [class.btn-urgent]="priority == 'urgent'" class="font-size-16-18">Urgent
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_67_4121)">
@@ -54,7 +55,7 @@
                             <input type="radio" name="priority" value="urgent" [(ngModel)]="priority">
                         </label>
                         <label (click)="changePriority('medium')" [class.btn-not-selectet]="priority != 'medium'"
-                            [class.btn-medium]="priority == 'medium'">Medium
+                            [class.btn-medium]="priority == 'medium'" class="font-size-16-18">Medium
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_67_4037)">
@@ -75,7 +76,7 @@
                             <input type="radio" name="priority" value="medium" [(ngModel)]="priority">
                         </label>
                         <label (click)="changePriority('low')" [class.btn-not-selectet]="priority != 'low'"
-                            [class.btn-low]="priority == 'low'">Low
+                            [class.btn-low]="priority == 'low'" class="font-size-16-18">Low
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_67_4065)">
@@ -99,9 +100,9 @@
             </div>
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
-                
+
                 <app-file-upload></app-file-upload>
-                
+
                 <fieldset (click)="onWrapperClick($event)">
                     <legend id="assignedToLegend">Assigned to</legend>
                     <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1"

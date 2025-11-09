@@ -119,7 +119,6 @@ h2 {
     height: clamp(41px, calc(4vw + 2px), 56px);
     border-radius: 12px;
     @include dFlex($jc: center);
-    font-size: clamp(16px, calc(1vw + 2px), 21px);
     font-weight: 400;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     background: $white;
@@ -480,6 +479,18 @@ input.ng-invalid.ng-touched {
       font-size: 18px;
       color: $lighter-grey;
       font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .radio-button-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    > label {
+      width: 100%;
     }
   }
 }
