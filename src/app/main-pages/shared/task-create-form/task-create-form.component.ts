@@ -694,6 +694,7 @@ export class TaskCreateFormComponent {
     this.showCategoryError = false;
     this.overlay2WasOpen = false;
     this.subtasks = [];
+    this.images = [];
     setTimeout((): void => {
       this.taskForm.resetForm({ priority: 'medium' });
     }, 0);

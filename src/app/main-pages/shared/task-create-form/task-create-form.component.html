@@ -100,8 +100,8 @@
             </div>
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
-                <!-- [uploadImages]="images" -->
-                <app-file-upload (updatingImages)="updateImages($event)"></app-file-upload>
+            
+                <app-file-upload [uploadImages]="images" (updatingImages)="updateImages($event)"></app-file-upload>
 
                 <fieldset (click)="onWrapperClick($event)">
                     <legend id="assignedToLegend">Assigned to</legend>

@@ -13,8 +13,8 @@ export class FileUploadComponent {
   @ViewChild('filepicker') filepickerRef!: ElementRef<HTMLInputElement>;
   // @ViewChild('previewGallery') previewGalleryRef!: ElementRef<HTMLInputElement>;
 
-  // @Input() uploadImages!: TaskImage[];
-  uploadImages: TaskImage[] = [];
+  @Input() uploadImages!: TaskImage[];
+  // uploadImages: TaskImage[] = [];
 
   errorWrongFormat: boolean = false;
 
