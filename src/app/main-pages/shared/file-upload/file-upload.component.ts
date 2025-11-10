@@ -1,4 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { TaskDataService } from '../../shared-data/task-data.service';
+import { TaskImage } from '../../shared-data/task.interface';
 
 @Component({
   selector: 'app-file-upload',
@@ -11,14 +13,21 @@ export class FileUploadComponent {
   @ViewChild('filepicker') filepickerRef!: ElementRef<HTMLInputElement>;
   // @ViewChild('previewGallery') previewGalleryRef!: ElementRef<HTMLInputElement>;
 
-  thereAreUploads: boolean = true;
+  // @Input() uploadImages!: TaskImage[];
+  uploadImages: TaskImage[] = [];
 
-  images: { filename: string, fileType: string, base64: string }[] = [];
+  @Output() updatingImages = new EventEmitter<TaskImage[]>();
+
+  thereAreUploads: boolean = true;
   // #endregion
 
-  constructor() {}
+  constructor(private taskDataService: TaskDataService) {}
 
   // #region Lifecycle
+  // ngOnInit(): void {
+  //   this.uploadImages = this.taskDataService.task
+  // }
+
   async ngAfterViewInit(): Promise<void> {
     await this.initFilepickerListener();
   }
@@ -35,11 +44,18 @@ export class FileUploadComponent {
           console.log('neue Datei: ', blob);
 
           const base64: string = await this.blobToBase64(blob);
-          this.images.push({ filename: file.name, fileType: blob.type, base64: base64 });
+          this.uploadImages.push({ filename: file.name, fileType: blob.type, base64: base64 });
         });
+        setTimeout(() => {
+          this.updatingImages.emit(this.uploadImages);
+        }, 1000);
       }
     });
   }
+
+  // saveImage() {
+  //   this.taskDataService.
+  // }
 
   blobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {

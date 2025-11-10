@@ -234,6 +234,7 @@ export class TaskDataService {
     if (task.status) result.status = task.status;
     if (task.assignedUsers) result.assignedUsers = task.assignedUsers;
     if (task.subtasks) result.subtasks = task.subtasks;
+    if (task.images) result.images = task.images;
 
     if (task.createdDate) {
       result.createdDate = this.convertToTimestamp(task.createdDate);
@@ -264,6 +265,7 @@ export class TaskDataService {
       createdDate: task.createdDate instanceof Date ? Timestamp.fromDate(task.createdDate) : task.createdDate,
       dueDate: task.dueDate ? Timestamp.fromDate(task.dueDate) : null,
       subtasks: task.subtasks,
+      images: task.images,
     };
   }
 

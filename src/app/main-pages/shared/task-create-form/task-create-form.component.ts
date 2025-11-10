@@ -15,7 +15,7 @@ import { ContactDataService } from '../../shared-data/contact-data.service';
 import { getRandomColor } from '../../../shared/color-utils';
 import { Contact } from '../../shared-data/contact.interface';
 import { FormsModule, NgForm } from '@angular/forms';
-import { BoardStatus, Subtask, Task } from '../../shared-data/task.interface';
+import { BoardStatus, Subtask, Task, TaskImage } from '../../shared-data/task.interface';
 import { TaskDataService } from '../../shared-data/task-data.service';
 import { Router } from '@angular/router';
 import { FileUploadComponent } from "../file-upload/file-upload.component";
@@ -123,6 +123,11 @@ export class TaskCreateFormComponent {
    * List of all subtasks added to the task.
    */
   subtasks: Subtask[] = [];
+
+  /**
+   * List of all subtasks added to the task.
+   */
+  images: TaskImage[] = [];
 
   /**
    * Description of the task.
@@ -575,6 +580,11 @@ export class TaskCreateFormComponent {
     };
   }
 
+  updateImages(images: TaskImage[]): void {
+    this.images = images;
+    console.log(images[0].filename);
+  }
+
   /**
    * Returns an array of names for all assigned users.
    *
@@ -611,6 +621,7 @@ export class TaskCreateFormComponent {
       createdDate: new Date(),
       dueDate: this.getDate(),
       subtasks: this.subtasks,
+      images: this.images,
     };
   }
 

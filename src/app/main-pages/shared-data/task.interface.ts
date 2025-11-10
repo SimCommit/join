@@ -61,6 +61,8 @@ export interface Task {
   dueDate?: Date;
   /** Array of subtasks belonging to this task */
   subtasks: Subtask[];
+  /** Array of attached images */
+  images: TaskImage[];
 }
 
 /**
@@ -86,4 +88,12 @@ export interface FirestoreTask {
   dueDate: Timestamp | null;
   /** Array of subtasks belonging to this task */
   subtasks: Subtask[];
+  /** Array of attached images */
+  images: TaskImage[];
+}
+
+export interface TaskImage {
+  filename: string;
+  fileType: string;
+  base64: string;
 }

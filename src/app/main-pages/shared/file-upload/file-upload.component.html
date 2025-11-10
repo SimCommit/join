@@ -24,7 +24,7 @@
     @if (thereAreUploads) {
     <div class="preview-gallery" #previewGallery>
 
-        @for (img of images; track $index) {
+        @for (img of uploadImages; track $index) {
         <div>
             <img src="{{img.base64}}" alt="image">
             <p>{{img.filename}}</p>
