@@ -2,10 +2,10 @@
     <p>Attachments</p>
 
     <div class="upload-info-bar">
-        <small>Allowed files are PNG and JPEG</small>
+        <small>Allowed files are JPEG, JPG and PNG</small>
 
         @if (thereAreUploads) {
-        <button type="button">
+        <button type="button" (click)="deleteAllImagesFromForm()">
             <img src="./img/icons/delete_contact.svg" alt="trash">
             Delete all
         </button>
@@ -18,7 +18,7 @@
 
         <img role="input" src="./img/icons/plus-upload.svg" alt="add image" (click)="filepicker.click()">
 
-        <input type="file" name="filepicker" id="filepicker" #filepicker>
+        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/JPEG, image/PNG">
     </div>
 
     @if (thereAreUploads) {
@@ -31,6 +31,13 @@
         </div>
         }
 
+    </div>
+    }
+
+    @if (errorWrongFormat) {
+    <div class="wrong-format">
+        <p><strong>This file format is not allowed!</strong></p>
+        <p>You can only upload JPEG, JPG and PNG.</p>
     </div>
     }
 </section>

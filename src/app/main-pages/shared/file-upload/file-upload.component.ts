@@ -16,6 +16,8 @@ export class FileUploadComponent {
   // @Input() uploadImages!: TaskImage[];
   uploadImages: TaskImage[] = [];
 
+  errorWrongFormat: boolean = false;
+
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
   thereAreUploads: boolean = true;
@@ -40,17 +42,35 @@ export class FileUploadComponent {
       const files = filepicker.files;
       if (files!.length > 0) {
         Array.from(files!).forEach(async (file) => {
+          if (this.isInvalidImageFormat(file)) {
+            return;
+          }
+
           const blob = new Blob([file], { type: file.type });
           console.log('neue Datei: ', blob);
 
           const base64: string = await this.blobToBase64(blob);
           this.uploadImages.push({ filename: file.name, fileType: blob.type, base64: base64 });
-        });
-        setTimeout(() => {
           this.updatingImages.emit(this.uploadImages);
-        }, 1000);
+        });
       }
     });
+  }
+  // #endregion
+
+  // #region CRUD
+  deleteAllImagesFromForm() {
+    this.uploadImages = [];
+  }
+  // #endregion
+
+  isInvalidImageFormat(file: File): boolean {
+    if (file.type === 'image/png' || file.type === 'image/jpeg') {
+      this.errorWrongFormat = false;
+    } else {
+      this.errorWrongFormat = true;
+    }
+    return this.errorWrongFormat;
   }
 
   // saveImage() {
@@ -72,5 +92,5 @@ export class FileUploadComponent {
       reader.readAsDataURL(blob);
     });
   }
-  // #endregion
+
 }
