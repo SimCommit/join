@@ -13,9 +13,7 @@ export class FileUploadComponent {
 
   thereAreUploads: boolean = true;
 
-  images: { title: string; URL: string }[] = [
-    { title: 'Title Img 1', URL: '' },
-  ];
+  images: { filename: string, fileType: string, base64: string }[] = [];
   // #endregion
 
   constructor() {}
@@ -36,13 +34,26 @@ export class FileUploadComponent {
           const blob = new Blob([file], { type: file.type });
           console.log('neue Datei: ', blob);
 
-          // const img = document.createElement("img");
-          // img.src = URL.createObjectURL(blob);
-
-          const url = URL.createObjectURL(blob);
-          this.images.push({title:"Test", URL: url})          
-        })
+          const base64: string = await this.blobToBase64(blob);
+          this.images.push({ filename: file.name, fileType: blob.type, base64: base64 });
+        });
       }
+    });
+  }
+
+  blobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader: FileReader = new FileReader();
+
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+        } else {
+          reject(new Error('Failed to convert blob to base64'));
+        }
+      };
+
+      reader.readAsDataURL(blob);
     });
   }
   // #endregion

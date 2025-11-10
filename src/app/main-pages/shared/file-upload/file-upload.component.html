@@ -26,8 +26,8 @@
 
         @for (img of images; track $index) {
         <div>
-            <img src="{{img.URL}}" alt="image">
-            <p>{{img.title}}</p>
+            <img src="{{img.base64}}" alt="image">
+            <p>{{img.filename}}</p>
         </div>
         }
 
