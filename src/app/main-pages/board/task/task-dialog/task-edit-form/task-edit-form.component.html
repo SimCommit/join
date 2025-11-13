@@ -80,6 +80,10 @@
         </div>
 
         <div class="form-group">
+          <app-file-upload id="app-file-upload" [imagesForUpload]="images" (updatingImages)="updateImages($event)"></app-file-upload>
+        </div>
+
+        <div class="form-group">
           <label>Subtasks</label>
           <div class="subtasks-input-section">
             <input type="text" placeholder="Add new subtask" class="form-input subtask-input" #subtaskInput

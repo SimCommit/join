@@ -12,9 +12,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Task, Subtask } from '../../../../shared-data/task.interface';
+import { Task, Subtask, TaskImage } from '../../../../shared-data/task.interface';
 import { ContactDataService } from '../../../../shared-data/contact-data.service';
 import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
+import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 
 /**
  * Task edit form component for editing task details
@@ -22,7 +23,7 @@ import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
  */
 @Component({
   selector: 'app-task-edit-form',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, FileUploadComponent],
   templateUrl: './task-edit-form.component.html',
   styleUrl: './task-edit-form.component.scss',
 })
@@ -81,6 +82,8 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   minDate: string = '';
 
+  images: TaskImage[] = [];
+
   /**
    * Utility to get a random background color for contact avatars.
    */
@@ -118,6 +121,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.initializeTaskData();
     this.setMinimumDate();
+    this.initImages();
   }
 
   /**
@@ -133,6 +137,14 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   private initializeTaskData(): void {
     if (this.task) {
       this.populateEditForm(this.task);
+    }
+  }
+
+  initImages() {
+    if (this.task) {
+      this.images = this.task.images;
+    } else {
+      console.log("OH NO");
     }
   }
 
@@ -170,7 +182,12 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       priority: task.priority,
       assignedUsers: task.assignedUsers,
       subtasks: task.subtasks || [],
+      // images: task.images,
     });
+  }
+
+  updateImages(images: TaskImage[]): void {
+    this.images = images;
   }
 
   /**
