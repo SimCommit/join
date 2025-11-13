@@ -15,14 +15,15 @@ export class FileUploadComponent {
   @Input() uploadImages!: TaskImage[];
   // uploadImages: TaskImage[] = [];
 
-  errorWrongFormat: boolean = false;
-
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
+  errorWrongFormat: boolean = false;
+  errorToManyImages: boolean = false;
   thereAreUploads: boolean = true;
+
   // #endregion
 
-  constructor(private taskDataService: TaskDataService) {}
+  // constructor(private taskDataService: TaskDataService) {}
 
   // #region Lifecycle
   async ngAfterViewInit(): Promise<void> {
@@ -37,6 +38,10 @@ export class FileUploadComponent {
       const files = filepicker.files;
       if (files!.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
+          if (this.thereAreToManyImages()) {
+            return;
+          }
+
           if (this.isInvalidImageFormat(file)) {
             return;
           }
@@ -46,6 +51,16 @@ export class FileUploadComponent {
           const newName = `${baseName}.webp`;
           this.uploadImages.push({ filename: newName, oldFilename: file.name, base64: compressedBase64 });
           this.updatingImages.emit(this.uploadImages);
+
+          const byteSize = compressedBase64.length * 0.75;
+          console.log(
+            'img no:',
+            this.uploadImages.length,
+            'file size in byte: ',
+            file.size,
+            'compressed byteSize: ',
+            byteSize
+          );
         });
       }
     });
@@ -55,6 +70,7 @@ export class FileUploadComponent {
   // #region CRUD
   deleteAllImagesFromForm(): void {
     this.uploadImages = [];
+    this.errorToManyImages = false;
   }
   // #endregion
 
@@ -66,6 +82,15 @@ export class FileUploadComponent {
       this.errorWrongFormat = true;
     }
     return this.errorWrongFormat;
+  }
+
+  thereAreToManyImages(): boolean {
+    if (this.uploadImages.length > 4) {
+      this.errorToManyImages = true;
+    } else {
+      this.errorToManyImages = false;
+    }
+    return this.errorToManyImages;
   }
 
   /**

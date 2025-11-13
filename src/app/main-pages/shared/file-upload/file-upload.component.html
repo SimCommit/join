@@ -34,4 +34,11 @@
         <p>You can only upload JPEG, JPG and PNG.</p>
     </div>
     }
+
+    @if (errorToManyImages) {
+    <div class="wrong-format">
+        <p><strong>Too many images</strong></p>
+        <p>You can upload up to 5 images.</p>
+    </div>
+    }
 </section>
