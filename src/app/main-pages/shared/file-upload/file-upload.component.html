@@ -3,7 +3,7 @@
 
     <div class="upload-info-bar">
         <small>Allowed files are JPEG, JPG and PNG</small>
-        @if (thereAreUploads) {
+        @if (imagesForUpload.length > 0) {
         <button type="button" (click)="deleteAllImagesFromForm()">
             <img src="./img/icons/delete_contact.svg" alt="trash">
             Delete all
@@ -17,16 +17,22 @@
         <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/JPEG, image/PNG">
     </div>
 
-    @if (thereAreUploads) {
+
     <div class="preview-gallery">
-        @for (img of uploadImages; track $index) {
-        <div class="img-container">
+        @for (img of imagesForUpload; track $index) {
+        <div class="img-container" (mouseenter)="isHoveringImage = true" (mouseleave)="isHoveringImage = false">
             <img src="{{img.base64}}" alt="image">
             <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
+        
+            <div class="imageButtonOverlay">
+                <button (click)="deleteSingelImage(img)" type="button">
+                    <img src="./img/icons/delete-white.svg" alt="delete">
+                </button>
+            </div>
         </div>
         }
     </div>
-    }
+
 
     @if (errorWrongFormat) {
     <div class="wrong-format">
@@ -35,7 +41,7 @@
     </div>
     }
 
-    @if (errorToManyImages) {
+    @if (errorToManyImages && imagesForUpload.length > 4) {
     <div class="wrong-format">
         <p><strong>Too many images</strong></p>
         <p>You can upload up to 5 images.</p>

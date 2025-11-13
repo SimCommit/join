@@ -1,10 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TaskDataService } from '../../shared-data/task-data.service';
 import { TaskImage } from '../../shared-data/task.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-file-upload',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.scss',
 })
@@ -12,14 +13,14 @@ export class FileUploadComponent {
   // #region Properties
   @ViewChild('filepicker') filepickerRef!: ElementRef<HTMLInputElement>;
 
-  @Input() uploadImages!: TaskImage[];
-  // uploadImages: TaskImage[] = [];
+  @Input() imagesForUpload!: TaskImage[];
+  // imagesForUpload: TaskImage[] = [];
 
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
   errorWrongFormat: boolean = false;
   errorToManyImages: boolean = false;
-  thereAreUploads: boolean = true;
+  isHoveringImage: boolean = false;
 
   // #endregion
 
@@ -49,13 +50,13 @@ export class FileUploadComponent {
           const compressedBase64: string = await this.compressImage(file, 800, 800, 0.7);
           const baseName = file.name.replace(/\.[^/.]+$/, '');
           const newName = `${baseName}.webp`;
-          this.uploadImages.push({ filename: newName, oldFilename: file.name, base64: compressedBase64 });
-          this.updatingImages.emit(this.uploadImages);
+          this.imagesForUpload.push({ filename: newName, oldFilename: file.name, base64: compressedBase64 });
+          this.updatingImages.emit(this.imagesForUpload);
 
           const byteSize = compressedBase64.length * 0.75;
           console.log(
             'img no:',
-            this.uploadImages.length,
+            this.imagesForUpload.length,
             'file size in byte: ',
             file.size,
             'compressed byteSize: ',
@@ -69,8 +70,13 @@ export class FileUploadComponent {
 
   // #region CRUD
   deleteAllImagesFromForm(): void {
-    this.uploadImages = [];
+    this.imagesForUpload = [];
     this.errorToManyImages = false;
+  }
+
+  deleteSingelImage(imageToDelete: TaskImage): void {
+    const index = this.imagesForUpload.indexOf(imageToDelete)
+    this.imagesForUpload.splice(index, 1);
   }
   // #endregion
 
@@ -85,7 +91,7 @@ export class FileUploadComponent {
   }
 
   thereAreToManyImages(): boolean {
-    if (this.uploadImages.length > 4) {
+    if (this.imagesForUpload.length > 4) {
       this.errorToManyImages = true;
     } else {
       this.errorToManyImages = false;
