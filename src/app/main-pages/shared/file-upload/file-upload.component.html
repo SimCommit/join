@@ -3,34 +3,28 @@
 
     <div class="upload-info-bar">
         <small>Allowed files are JPEG, JPG and PNG</small>
-
         @if (thereAreUploads) {
         <button type="button" (click)="deleteAllImagesFromForm()">
             <img src="./img/icons/delete_contact.svg" alt="trash">
             Delete all
         </button>
         }
-
     </div>
 
     <div class="dropzone" dropzone="">
         <span>Drag a file or browse</span>
-
         <img role="input" src="./img/icons/plus-upload.svg" alt="add image" (click)="filepicker.click()">
-
         <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/JPEG, image/PNG">
     </div>
 
     @if (thereAreUploads) {
-    <div class="preview-gallery" #previewGallery>
-
+    <div class="preview-gallery">
         @for (img of uploadImages; track $index) {
-        <div>
+        <div class="img-container">
             <img src="{{img.base64}}" alt="image">
-            <p>{{img.filename}}</p>
+            <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
         </div>
         }
-
     </div>
     }
 

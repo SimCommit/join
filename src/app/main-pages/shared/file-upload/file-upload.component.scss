@@ -46,13 +46,12 @@ button {
   background-color: $hover-grey;
   margin-bottom: 12px;
 
-    img {
-      cursor: pointer;
-      height: 16px;
-      width: 16px;
-      background-color: none;
-    }
-  
+  img {
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    background-color: none;
+  }
 }
 
 #filepicker {
@@ -62,13 +61,29 @@ button {
 .preview-gallery {
   @include dFlex($jc: flex-start, $g: 8px);
 
-  img {
-    width: 120px;
-    height: 80px;
-    object-fit: cover;
+  .img-container {
+    @include dFlex($ai: flex-start, $fd: column);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+
+    img {
+      width: 120px;
+      height: 70px;
+      object-fit: cover;
+    }
+
+    p {
+      max-width: 120px;
+      padding: 4px 8px;
+      font-size: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 }
 
-.wrong-format{
+.wrong-format {
   color: $error-red;
 }

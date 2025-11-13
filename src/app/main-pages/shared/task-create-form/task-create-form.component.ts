@@ -582,7 +582,6 @@ export class TaskCreateFormComponent {
 
   updateImages(images: TaskImage[]): void {
     this.images = images;
-    console.log(images[0].filename);
   }
 
   /**

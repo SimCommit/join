@@ -94,6 +94,6 @@ export interface FirestoreTask {
 
 export interface TaskImage {
   filename: string;
-  fileType: string;
+  oldFilename: string;
   base64: string;
 }
