@@ -2,13 +2,13 @@
   <div class="edit-form-container">
     <div class="edit-form">
       <div class="form-group title-group">
-        <label>Title</label>
+        <p>Title</p>
         <div class="form-display title-display">{{ task?.title }}</div>
       </div>
 
       @if (task?.description) {
       <div class="form-group description-group">
-        <label>Description</label>
+        <p>Description</p>
         <div class="form-display description-display">{{ task?.description }}</div>
       </div>
       }
@@ -51,7 +51,6 @@
                 <div class="contact-icon" [style.background-color]="getRandomColor(user)">
                   {{ contactDataService.extractInitials(user) }}
                 </div>
-                <span class="user-name">{{ user }}</span>
               </div>
               }
             </div>

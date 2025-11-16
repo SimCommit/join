@@ -26,7 +26,7 @@
   width: 100%;
   align-items: flex-start;
 
-  label {
+  p {
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
@@ -160,15 +160,15 @@
 }
 
 .assigned-users {
-  @include dFlex($fd: column, $g: 12px);
+  @include dFlex($jc: flex-start, $fd: row, $g: 12px);
   align-items: flex-start;
+  flex-wrap: wrap;
   width: 100%;
 }
 
 .user-item {
-  @include dFlex($ai: center, $g: 12px);
-  width: 100%;
-  justify-content: flex-start;
+  @include dFlex($jc: flex-start, $g: 12px);
+  // width: 100%;
 }
 
 .contact-icon {
