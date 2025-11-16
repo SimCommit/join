@@ -1,14 +1,21 @@
-    <div class="preview-gallery">
-        @for (img of imagesForUpload; track $index) {
-        <div class="img-container" (mouseenter)="isHoveringImage = true" (mouseleave)="isHoveringImage = false">
-            <img src="{{img.base64}}" alt="image">
-            <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
-        
-            <div class="imageButtonOverlay">
-                <button (click)="sendImageToDeleteToParent(img)" type="button">
-                    <img src="./img/icons/delete-white.svg" alt="delete">
-                </button>
-            </div>
+<div class="preview-gallery">
+    @for (img of imagesForUpload; track $index) {
+    <div class="img-container" (mouseenter)="isHoveringImage = true" (mouseleave)="isHoveringImage = false">
+        <img src="{{img.base64}}" alt="image">
+        <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
+
+        <div class="imageButtonOverlay">
+            @if (deleteIsEnabled) {
+            <button (click)="sendImageToDeleteToParent(img)" type="button">
+                <img class="delete-icon" src="./img/icons/delete-white.svg" alt="delete">
+            </button>
+            } 
+            @if (downloadIsEnabled) {
+            <button type="button">
+                <img class="download-icon" src="./img/icons/download-white.svg" alt="download">
+            </button>
+            }
         </div>
-        }
     </div>
+    }
+</div>

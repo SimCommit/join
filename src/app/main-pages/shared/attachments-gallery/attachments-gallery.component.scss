@@ -53,14 +53,19 @@ button {
 
   > button {
     @include dFlex();
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     transition: background-color 100ms ease-in-out;
 
-    > img {
+    .delete-icon {
       width: 18px;
       height: 20px;
+    }
+
+    .download-icon {
+      width: 24px;
+      height: 24px;
     }
 
     &:hover {

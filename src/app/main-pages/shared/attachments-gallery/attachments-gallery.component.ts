@@ -9,8 +9,9 @@ import { TaskImage } from '../../shared-data/task.interface';
 })
 export class AttachmentsGalleryComponent {
   @Output() deleteSingelImage = new EventEmitter<TaskImage>();
-
   @Input() imagesForUpload!: TaskImage[];
+  @Input() deleteIsEnabled: boolean = false;
+  @Input() downloadIsEnabled: boolean = false;
 
   isHoveringImage: boolean = false;
 
