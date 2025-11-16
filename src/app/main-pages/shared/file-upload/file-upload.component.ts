@@ -1,11 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { TaskDataService } from '../../shared-data/task-data.service';
 import { TaskImage } from '../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
+import { AttachmentsGalleryComponent } from "../attachments-gallery/attachments-gallery.component";
 
 @Component({
   selector: 'app-file-upload',
-  imports: [CommonModule],
+  imports: [CommonModule, AttachmentsGalleryComponent],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.scss',
 })
@@ -20,11 +20,7 @@ export class FileUploadComponent {
 
   errorWrongFormat: boolean = false;
   errorToManyImages: boolean = false;
-  isHoveringImage: boolean = false;
-
   // #endregion
-
-  // constructor(private taskDataService: TaskDataService) {}
 
   // #region Lifecycle
   async ngAfterViewInit(): Promise<void> {

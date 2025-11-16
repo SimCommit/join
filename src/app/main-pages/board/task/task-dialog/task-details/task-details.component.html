@@ -58,6 +58,10 @@
           }
         </div>
 
+        @if (task && task.images && task.images.length > 0) {
+          Hello?
+        }
+
         @if (task && task.subtasks && task.subtasks.length > 0) {
         <div class="subtasks-section">
           <h3 class="subtasks-title">Subtasks</h3>

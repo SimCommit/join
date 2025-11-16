@@ -18,20 +18,8 @@
     </div>
 
 
-    <div class="preview-gallery">
-        @for (img of imagesForUpload; track $index) {
-        <div class="img-container" (mouseenter)="isHoveringImage = true" (mouseleave)="isHoveringImage = false">
-            <img src="{{img.base64}}" alt="image">
-            <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
-        
-            <div class="imageButtonOverlay">
-                <button (click)="deleteSingelImage(img)" type="button">
-                    <img src="./img/icons/delete-white.svg" alt="delete">
-                </button>
-            </div>
-        </div>
-        }
-    </div>
+    <app-attachments-gallery [imagesForUpload]="imagesForUpload"
+        (deleteSingelImage)="deleteSingelImage($event)"></app-attachments-gallery>
 
 
     @if (errorWrongFormat) {
