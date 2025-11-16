@@ -268,6 +268,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       assignedUsers: task.assignedUsers,
       dueDate: task.dueDate,
       subtasks: task.subtasks,
+      images: task.images
     };
 
     await this.taskDataService.updateTask(task.id!, updateData);

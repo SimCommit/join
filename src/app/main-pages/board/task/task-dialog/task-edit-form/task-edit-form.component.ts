@@ -144,7 +144,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     if (this.task) {
       this.images = this.task.images;
     } else {
-      console.log("OH NO");
+      console.error("Could not load task images from firestore collection");
     }
   }
 
@@ -483,6 +483,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       priority: formValue.priority,
       assignedUsers: formValue.assignedUsers,
       subtasks: formValue.subtasks,
+      images: this.images
     };
   }
 
