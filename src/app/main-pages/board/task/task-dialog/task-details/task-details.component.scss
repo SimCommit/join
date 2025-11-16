@@ -21,7 +21,8 @@
 }
 
 .title-group,
-.description-group {
+.description-group,
+.attachments-group {
   @include dFlex($fd: column, $g: 8px);
   width: 100%;
   align-items: flex-start;
@@ -117,6 +118,10 @@
   }
 }
 
+#app-attachments-gallery {
+  width: 100%;
+}
+
 .priority-container {
   display: flex;
   align-items: center;
@@ -168,7 +173,6 @@
 
 .user-item {
   @include dFlex($jc: flex-start, $g: 12px);
-  // width: 100%;
 }
 
 .contact-icon {

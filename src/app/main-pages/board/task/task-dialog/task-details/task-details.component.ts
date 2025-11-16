@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Task, Subtask } from '../../../../shared-data/task.interface';
+import { Task, Subtask, TaskImage } from '../../../../shared-data/task.interface';
 import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
 import { ContactDataService } from '../../../../shared-data/contact-data.service';
+import { AttachmentsGalleryComponent } from '../../../../shared/attachments-gallery/attachments-gallery.component';
 
 /**
  * Task details component for displaying comprehensive task information
@@ -10,7 +11,7 @@ import { ContactDataService } from '../../../../shared-data/contact-data.service
  */
 @Component({
   selector: 'app-task-details',
-  imports: [CommonModule],
+  imports: [CommonModule, AttachmentsGalleryComponent],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss',
 })
@@ -35,21 +36,30 @@ export class TaskDetailsComponent {
    */
   @Output() subtaskToggled = new EventEmitter<Subtask>();
 
-    /**
-     * Constructor initializes the task details component
-     * @param {ContactDataService} contactDataService - Service for contact data operations
-     */
-    constructor(public contactDataService: ContactDataService) {}
+  images: TaskImage[] = [];
+
+  /**
+   * Constructor initializes the task details component
+   * @param {ContactDataService} contactDataService - Service for contact data operations
+   */
+  constructor(public contactDataService: ContactDataService) {}
+
+  ngOnInit(): void {
+    this.initImages();
+  }
+
+  initImages() {
+    if (this.task) {
+      this.images = this.task.images;
+    } else {
+      console.error("Could not load task images from firestore collection");
+    }
+  }
 
   /**
    * Reference to color utility function for generating random colors
    */
   getRandomColor = getRandomColor;
-
-  // /**
-  //  * Reference to utility function for extracting user initials
-  //  */
-  // getInitials = getInitials;
 
   /**
    * Handles edit button click event

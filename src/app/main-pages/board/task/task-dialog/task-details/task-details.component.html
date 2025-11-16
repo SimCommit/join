@@ -59,7 +59,10 @@
         </div>
 
         @if (task && task.images && task.images.length > 0) {
-          Hello?
+        <div class="attachments-group">
+          <p>Attachments</p>
+          <app-attachments-gallery id="app-attachments-gallery" [imagesForUpload]="images"></app-attachments-gallery>
+        </div>
         }
 
         @if (task && task.subtasks && task.subtasks.length > 0) {
