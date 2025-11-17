@@ -10,12 +10,13 @@ import { TaskImage } from '../../main-pages/shared-data/task.interface';
 })
 export class ImageViewerComponent {
   imagesToView: TaskImage[] = [];
+  index: number = 0;
 
   constructor(public imageViewerStateService: ImageViewerStateService) {
   }
 
   ngOnInit(): void {
     this.imagesToView = this.imageViewerStateService.imagesToView();
+    this.index = this.imageViewerStateService.indexCurrentImage();
   }
-
 }

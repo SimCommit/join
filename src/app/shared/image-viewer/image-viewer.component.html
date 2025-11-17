@@ -1,3 +1,32 @@
-<section (click)="imageViewerStateService.imageViewerIsActive.set(false)">
-    <img src="{{imagesToView[imageViewerStateService.indexCurrentImage()].base64}}" alt="">    
+<section>
+    <div>
+        <header>
+            <div>
+                <span>{{imagesToView[imageViewerStateService.indexCurrentImage()].filename}}</span>
+                <span>{{imagesToView[imageViewerStateService.indexCurrentImage()].oldFilename}}</span>
+            </div>
+            
+            <div>
+                <button type="button" (click)="imageViewerStateService.imageViewerIsActive.set(false)">
+                    <img class="download-btn" src="./img/icons/download-white.svg" alt="close">
+                </button>
+                <button type="button" (click)="imageViewerStateService.imageViewerIsActive.set(false)">
+                    <img src="./img/icons/close-button-white.svg" alt="close">
+                </button>
+            </div>
+        </header>
+
+        <img src="{{imagesToView[imageViewerStateService.indexCurrentImage()].base64}}"
+            alt="{{imagesToView[imageViewerStateService.indexCurrentImage()].filename}}">
+
+        <nav>
+            <button type="button" (click)="imageViewerStateService.indexCurrentImage.set(index - 1)">
+                <img src="./img/icons/arrow-left-white.svg" alt="previous image">
+            </button>
+
+            <button type="button" (click)="imageViewerStateService.indexCurrentImage.set(index + 1)">
+                <img src="./img/icons/arrow-right-white.svg" alt="next image">
+            </button>
+        </nav>
+    </div>
 </section>

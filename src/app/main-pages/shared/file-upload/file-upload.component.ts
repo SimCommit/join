@@ -43,10 +43,11 @@ export class FileUploadComponent {
           const compressedBase64: string = await this.compressImage(file, 800, 800, 0.7);
           const baseName = file.name.replace(/\.[^/.]+$/, '');
           const newName = `${baseName}.webp`;
-          this.imagesForUpload.push({ filename: newName, oldFilename: file.name, base64: compressedBase64 });
+          const byteSize = compressedBase64.length * 0.75;
+          
+          this.imagesForUpload.push({ filename: newName, oldFilename: file.name, size: byteSize, base64: compressedBase64 });
           this.updatingImages.emit(this.imagesForUpload);
 
-          const byteSize = compressedBase64.length * 0.75;
           console.log(
             'img no:',
             this.imagesForUpload.length,

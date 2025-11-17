@@ -19,11 +19,12 @@ export class AttachmentsGalleryComponent {
 
   constructor(public downloadFileService: DownloadFileService, public imageViewerStateService: ImageViewerStateService) {}
 
-  sendImageToDeleteToParent(imageToDelete: TaskImage) {
+  sendImageToDeleteToParent(imageToDelete: TaskImage, event: Event) {
+    event.stopPropagation();
     this.deleteSingelImage.emit(imageToDelete);
   }
 
-  fillImageViewerArray(index: number) {
+  setImagesToView(index: number) {
     this.imageViewerStateService.imagesToView.set(this.imagesForUpload);
     this.imageViewerStateService.indexCurrentImage.set(index);
   }

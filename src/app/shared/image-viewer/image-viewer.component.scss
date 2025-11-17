@@ -2,11 +2,85 @@
 @use './../../../styles/_variables' as *;
 
 section {
+  @include dFlex();
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+
+  > div {
+    @include dFlex($fd: column);
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+header {
+  @include dFlex($jc: space-between);
+  width: 100%;
+  height: 48px;
+  z-index: 1;
+  background-color: $blue;
+  padding: 12px 24px;
+
+  span {
+    color: $white;
+  }
+
+  > div {
+    @include dFlex($g: 8px);
+
+    button {
+      border: none;
+      border-radius: 50%;
+      background-color: transparent;
+      @include dFlex();
+      height: 32px;
+      width: 32px;
+
+      .download-btn {
+        height: 26px;
+        width: 26px;
+      }
+
+      img {
+        height: 32px;
+        width: 32px;
+      }
+
+      &:hover {
+        background-color: $light-blue;
+      }
+    }
+  }
+}
+
+nav {
+  margin-top: 24px;
+  @include dFlex($jc: space-between);
+  position: absolute;
+  width: 100%;
+  padding: 20px;
+
+  button {
+    border-radius: 50%;
+    border: none;
     @include dFlex();
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(127, 255, 212, 0.367);
+    background-color: $blue;
+    width: 40px;
+    height: 40px;
+
+    img {
+      height: 22px;
+      width: 28px;
+    }
+
+    &:hover {
+      background-color: $light-blue;
+    }
+  }
 }
