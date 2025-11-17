@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskImage } from '../../shared-data/task.interface';
+import { DownloadFileService } from '../../shared-data/download-file.service';
 
 @Component({
   selector: 'app-attachments-gallery',
@@ -14,6 +15,8 @@ export class AttachmentsGalleryComponent {
   @Input() downloadIsEnabled: boolean = false;
 
   isHoveringImage: boolean = false;
+
+  constructor(public downloadFileService: DownloadFileService) {}
 
   sendImageToDeleteToParent(imageToDelete: TaskImage) {
     this.deleteSingelImage.emit(imageToDelete);

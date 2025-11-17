@@ -12,10 +12,7 @@ import { AttachmentsGalleryComponent } from "../attachments-gallery/attachments-
 export class FileUploadComponent {
   // #region Properties
   @ViewChild('filepicker') filepickerRef!: ElementRef<HTMLInputElement>;
-
-  @Input() imagesForUpload!: TaskImage[];
-  // imagesForUpload: TaskImage[] = [];
-
+  @Input() imagesForUpload: TaskImage[] = [];
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
   errorWrongFormat: boolean = false;
@@ -86,6 +83,7 @@ export class FileUploadComponent {
     return this.errorWrongFormat;
   }
 
+  // Checks array if there are already 5 images
   thereAreToManyImages(): boolean {
     if (this.imagesForUpload.length > 4) {
       this.errorToManyImages = true;

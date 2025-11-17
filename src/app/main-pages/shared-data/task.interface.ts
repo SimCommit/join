@@ -92,8 +92,15 @@ export interface FirestoreTask {
   images: TaskImage[];
 }
 
+/**
+ * Interface for image attachments linked to a task
+ * Represents a single image with metadata and encoded content
+ */
 export interface TaskImage {
+  /** Current filename of the image used in storage or display */
   filename: string;
+  /** Original filename of the image before any renaming operations, used for display on initial upload */
   oldFilename: string;
+  /** Base64-encoded image data used for upload, storage, and inline preview */
   base64: string;
 }
