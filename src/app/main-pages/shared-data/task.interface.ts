@@ -101,8 +101,10 @@ export interface TaskImage {
   filename: string;
   /** Original filename of the image before any renaming operations, used for display on initial upload */
   oldFilename: string;
-  /** File size after compression */
+  /** File size after of the compressed image */
   size: number;
+  /** mimeType of the image */
+  mimeType: string;
   /** Base64-encoded image data used for upload, storage, and inline preview */
   base64: string;
 }

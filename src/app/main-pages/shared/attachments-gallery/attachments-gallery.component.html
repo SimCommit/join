@@ -15,7 +15,7 @@
             </button>
             }
             @if (downloadIsEnabled) {
-            <button type="button" (click)="downloadFileService.base64ToFile(img.base64, 'image/webp', img.filename)">
+            <button type="button" (click)="downloadFileService.base64ToFile(img.base64, img.mimeType , img.filename)">
                 <img class="download-icon" src="./img/icons/download-white.svg" alt="download">
             </button>
             }

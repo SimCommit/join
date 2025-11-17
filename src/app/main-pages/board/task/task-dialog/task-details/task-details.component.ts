@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, Subtask, TaskImage } from '../../../../shared-data/task.interface';
-import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
+import { getRandomColor } from '../../../../../shared/color-utils';
 import { ContactDataService } from '../../../../shared-data/contact-data.service';
 import { AttachmentsGalleryComponent } from '../../../../shared/attachments-gallery/attachments-gallery.component';
 

@@ -1,13 +1,15 @@
 <section>
+    @let i = imageViewerStateService.indexCurrentImage();
+    @let img = imagesToView[i];
     <div>
         <header>
             <div>
-                <span>{{imagesToView[imageViewerStateService.indexCurrentImage()].filename}}</span>
-                <span>{{imagesToView[imageViewerStateService.indexCurrentImage()].oldFilename}}</span>
+                <span>{{img.filename}}</span>
+                <span>{{calcByteIntoKiloByte(img.size)}} KB</span>
             </div>
             
             <div>
-                <button type="button" (click)="imageViewerStateService.imageViewerIsActive.set(false)">
+                <button type="button" (click)="downloadFileService.base64ToFile(img.base64, img.mimeType, img.filename)">
                     <img class="download-btn" src="./img/icons/download-white.svg" alt="close">
                 </button>
                 <button type="button" (click)="imageViewerStateService.imageViewerIsActive.set(false)">
@@ -16,15 +18,15 @@
             </div>
         </header>
 
-        <img src="{{imagesToView[imageViewerStateService.indexCurrentImage()].base64}}"
-            alt="{{imagesToView[imageViewerStateService.indexCurrentImage()].filename}}">
+        <img src="{{img.base64}}"
+            alt="{{img.filename}}">
 
         <nav>
-            <button type="button" (click)="imageViewerStateService.indexCurrentImage.set(index - 1)">
+            <button type="button" (click)="perviousImage(i)">
                 <img src="./img/icons/arrow-left-white.svg" alt="previous image">
             </button>
 
-            <button type="button" (click)="imageViewerStateService.indexCurrentImage.set(index + 1)">
+            <button type="button" (click)="nextImage(i)">
                 <img src="./img/icons/arrow-right-white.svg" alt="next image">
             </button>
         </nav>

@@ -27,12 +27,12 @@ header {
   background-color: $blue;
   padding: 12px 24px;
 
-  span {
-    color: $white;
-  }
-
   > div {
-    @include dFlex($g: 8px);
+    @include dFlex($g: 12px);
+
+    span {
+      color: $white;
+    }
 
     button {
       border: none;
@@ -84,3 +84,5 @@ nav {
     }
   }
 }
+
+

@@ -40,12 +40,12 @@ export class FileUploadComponent {
             return;
           }
 
-          const compressedBase64: string = await this.compressImage(file, 800, 800, 0.7);
+          const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
           const baseName = file.name.replace(/\.[^/.]+$/, '');
           const newName = `${baseName}.webp`;
           const byteSize = compressedBase64.length * 0.75;
-          
-          this.imagesForUpload.push({ filename: newName, oldFilename: file.name, size: byteSize, base64: compressedBase64 });
+
+          this.imagesForUpload.push({ filename: newName, oldFilename: file.name, size: byteSize, mimeType: "image/webp", base64: compressedBase64 });
           this.updatingImages.emit(this.imagesForUpload);
 
           console.log(
