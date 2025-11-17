@@ -1,3 +1,3 @@
-<section>
-    <p>image-viewer works!</p>
+<section (click)="imageViewerStateService.imageViewerIsActive.set(false)">
+    <img src="{{imagesToView[imageViewerStateService.indexCurrentImage()].base64}}" alt="">    
 </section>

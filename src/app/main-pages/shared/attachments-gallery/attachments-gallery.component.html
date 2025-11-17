@@ -8,7 +8,7 @@
         <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
         }
 
-        <div class="imageButtonOverlay">
+        <div class="imageButtonOverlay" (click)="imageViewerStateService.imageViewerIsActive.set(true); fillImageViewerArray($index)">
             @if (deleteIsEnabled) {
             <button (click)="sendImageToDeleteToParent(img)" type="button">
                 <img class="delete-icon" src="./img/icons/delete-white.svg" alt="delete">

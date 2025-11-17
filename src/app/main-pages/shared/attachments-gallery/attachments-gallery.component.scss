@@ -46,6 +46,7 @@ button {
   @include dFlex();
   opacity: 0;
   transition: opacity 100ms ease-in-out;
+  cursor: pointer;
 
   &:hover {
     opacity: 1;
