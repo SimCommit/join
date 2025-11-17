@@ -30,3 +30,7 @@
     </main>
   </div>
 </div>
+
+@if (imageViewerStateService.imageViewerIsActive()) {
+  <app-image-viewer class="app-image-viewer"></app-image-viewer>
+}

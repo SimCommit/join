@@ -6,6 +6,8 @@ import { filter, Subscription } from 'rxjs';
 import { HeaderComponent } from './shared/header/header.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { ContactDataService } from './main-pages/shared-data/contact-data.service';
+import { ImageViewerComponent } from './shared/image-viewer/image-viewer.component';
+import { ImageViewerStateService } from './shared/services/image-viewer-state.service';
 
 /**
  * Main application component managing splash screen animations and layout visibility
@@ -13,7 +15,7 @@ import { ContactDataService } from './main-pages/shared-data/contact-data.servic
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, NavComponent, CommonModule],
+  imports: [RouterOutlet, HeaderComponent, NavComponent, CommonModule, ImageViewerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -88,7 +90,11 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.router.url === '/auth/login';
   }
 
-  constructor(private router: Router, public contactDataService: ContactDataService) {}
+  constructor(
+    private router: Router,
+    public contactDataService: ContactDataService,
+    public imageViewerStateService: ImageViewerStateService
+  ) {}
 
   /**
    * Initializes the component lifecycle
