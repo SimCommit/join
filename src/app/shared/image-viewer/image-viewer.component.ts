@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ImageViewerStateService } from '../services/image-viewer-state.service';
 import { TaskImage } from '../../main-pages/shared-data/task.interface';
 import { DownloadFileService } from '../../main-pages/shared-data/download-file.service';
+import { A11yModule } from '@angular/cdk/a11y';
 
 /**
  * @component ImageViewerComponent
@@ -10,7 +11,7 @@ import { DownloadFileService } from '../../main-pages/shared-data/download-file.
  */
 @Component({
   selector: 'app-image-viewer',
-  imports: [],
+  imports: [A11yModule],
   templateUrl: './image-viewer.component.html',
   styleUrl: './image-viewer.component.scss',
 })

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaskEditFormComponent } from './task-edit-form/task-edit-form.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { Task, Subtask } from '../../../shared-data/task.interface';
+import { A11yModule } from "@angular/cdk/a11y";
 
 /**
  * Component that displays a dialog with task details and editing options.
@@ -11,7 +12,7 @@ import { Task, Subtask } from '../../../shared-data/task.interface';
  */
 @Component({
   selector: 'app-task-dialog',
-  imports: [CommonModule, TaskEditFormComponent, TaskDetailsComponent],
+  imports: [CommonModule, TaskEditFormComponent, TaskDetailsComponent, A11yModule],
   templateUrl: './task-dialog.component.html',
   styleUrl: './task-dialog.component.scss',
 })
