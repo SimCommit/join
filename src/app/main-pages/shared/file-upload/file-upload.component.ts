@@ -3,6 +3,11 @@ import { TaskImage } from '../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-gallery.component';
 
+/**
+ * Component for handling image uploads in Add-Task and Edit-Task views.
+ * Provides file selection, drag-and-drop, validation, compression and event emission.
+ * @component
+ */
 @Component({
   selector: 'app-file-upload',
   imports: [CommonModule, AttachmentsGalleryComponent],
@@ -11,20 +16,60 @@ import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-
 })
 export class FileUploadComponent {
   // #region Properties
+
+  /**
+   * Reference to the hidden file input element used for selecting images.
+   * @type {ElementRef<HTMLInputElement>}
+   */
   @ViewChild('filepicker') filepickerRef!: ElementRef<HTMLInputElement>;
+
+  /**
+   * Holds all images currently selected or uploaded for the task.
+   * Each entry contains filename, size, MIME type and base64 data.
+   * @type {TaskImage[]}
+   */
   @Input() imagesForUpload: TaskImage[] = [];
+
+  /**
+   * Emits the updated array of images whenever files are added or removed.
+   * @type {EventEmitter<TaskImage[]>}
+   */
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
+
+  /**
+   * Indicates whether the last selected file had an invalid format.
+   * Used to show validation messages in the UI.
+   * @type {boolean}
+   */
   errorWrongFormat: boolean = false;
+
+  /**
+   * Signals whether too many images have been selected.
+   * True when more than five images exist.
+   * @type {WritableSignal<boolean>}
+   */
   errorToManyImages: WritableSignal<boolean> = signal(false);
   // #endregion
 
   // #region Lifecycle
+
+  /**
+   * Initializes the component after the view is fully rendered.
+   * Sets up the filepicker change listener.
+   * @returns {Promise<void>}
+   */
   async ngAfterViewInit(): Promise<void> {
     await this.initFilepickerListener();
   }
   // #endregion
 
   // #region Eventlistener
+
+  /**
+   * Attaches a change listener to the hidden filepicker input.
+   * When files are selected, they are forwarded to the addImages workflow.
+   * @returns {Promise<void>}
+   */
   async initFilepickerListener(): Promise<void> {
     const filepicker = this.filepickerRef.nativeElement;
     filepicker.addEventListener('change', async (): Promise<void> => {
@@ -37,7 +82,14 @@ export class FileUploadComponent {
   // #endregion
 
   // #region CRUD
-  addImagesByDrop(event: DragEvent) {
+
+  /**
+   * Handles images dropped into the dropzone.
+   * Extracts files from the DragEvent and forwards them to addImages.
+   * @param {DragEvent} event The drop event containing transferred files.
+   * @returns {void}
+   */
+  addImagesByDrop(event: DragEvent): void {
     event.preventDefault();
     const data = event.dataTransfer;
     if (data != null) {
@@ -47,17 +99,20 @@ export class FileUploadComponent {
     }
   }
 
-  addImages(files: FileList) {
+  /**
+   * Adds one or multiple selected image files.
+   * Validates limits and formats, compresses each file and updates the images array.
+   * Emits the updated image list after each successful addition.
+   * @param {FileList} files The list of image files selected or dropped.
+   * @returns {void}
+   */
+  addImages(files: FileList): void {
     if (files.length + this.imagesForUpload.length < 6) {
       if (files.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
-          if (this.thereAreToManyImages()) {
-            return;
-          }
+          if (this.thereAreToManyImages()) return;
 
-          if (this.isInvalidImageFormat(file)) {
-            return;
-          }
+          if (this.isInvalidImageFormat(file)) return;
 
           const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
           const baseName = file.name.replace(/\.[^/.]+$/, '');
@@ -80,12 +135,23 @@ export class FileUploadComponent {
     }
   }
 
+  /**
+   * Removes all currently stored images from the form.
+   * Resets related validation states for maximum-image errors.
+   * @returns {void}
+   */
   deleteAllImagesFromForm(): void {
     this.imagesForUpload = [];
     this.errorToManyImages.set(false);
     this.thereAreToManyImages();
   }
 
+  /**
+   * Deletes a specific image from the current image list.
+   * Updates validation related to maximum-image limits.
+   * @param {TaskImage} imageToDelete The image object to remove.
+   * @returns {void}
+   */
   deleteSingelImage(imageToDelete: TaskImage): void {
     const index = this.imagesForUpload.indexOf(imageToDelete);
     this.imagesForUpload.splice(index, 1);
@@ -94,6 +160,14 @@ export class FileUploadComponent {
   // #endregion
 
   // #region Helpers
+
+  /**
+   * Validates whether a file has an allowed image format.
+   * Allowed types: PNG, JPEG, WEBP.
+   * Updates errorWrongFormat accordingly.
+   * @param {File} file The file to validate.
+   * @returns {boolean} True if the format is invalid.
+   */
   isInvalidImageFormat(file: File): boolean {
     if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/webp') {
       this.errorWrongFormat = false;
@@ -103,7 +177,11 @@ export class FileUploadComponent {
     return this.errorWrongFormat;
   }
 
-  // Checks array if there are already 5 images
+  /**
+   * Checks whether more than five images are stored.
+   * Updates the errorToManyImages signal based on the result.
+   * @returns {boolean} True if the limit is exceeded.
+   */
   thereAreToManyImages(): boolean {
     if (this.imagesForUpload.length > 4) {
       this.errorToManyImages.set(true);

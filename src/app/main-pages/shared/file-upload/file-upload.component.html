@@ -13,16 +13,16 @@
 
     <div class="dropzone" (dragover)="$event.preventDefault()" (drop)="addImagesByDrop($event)">
         <span>Drag a file or browse</span>
-        <button (click)="filepicker.click()" aria-label="filepicker" aria-describedby="attachments-heading filepicker-error">
+        <button (click)="filepicker.click()" aria-label="filepicker"
+            aria-describedby="attachments-heading filepicker-error">
             <img aria-hidden="true" src="./img/icons/plus-upload.svg" alt="">
         </button>
-        <input aria-hidden="true" type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/png, image/webp" multiple>
+        <input aria-hidden="true" type="file" name="filepicker" id="filepicker" #filepicker
+            accept="image/jpeg, image/png, image/webp" multiple>
     </div>
-
 
     <app-attachments-gallery [imagesForUpload]="imagesForUpload" [deleteIsEnabled]="true"
         (deleteSingelImage)="deleteSingelImage($event)"></app-attachments-gallery>
-
 
     @if (errorWrongFormat) {
     <div id="filepicker-error" class="wrong-format">
