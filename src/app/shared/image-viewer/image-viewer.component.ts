@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ImageViewerStateService } from '../services/image-viewer-state.service';
 import { TaskImage } from '../../main-pages/shared-data/task.interface';
 import { DownloadFileService } from '../../main-pages/shared-data/download-file.service';
@@ -21,6 +21,8 @@ export class ImageViewerComponent {
    */
   imagesToView: TaskImage[] = [];
 
+  @ViewChild ("downloadButton") downloadButton!: ElementRef<HTMLButtonElement>;
+
   /**
    * @constructor
    * @param {ImageViewerStateService} imageViewerStateService Service managing viewer state and image index.
@@ -37,6 +39,10 @@ export class ImageViewerComponent {
    */
   ngOnInit(): void {
     this.imagesToView = this.imageViewerStateService.imagesToView();
+  }
+
+  ngAfterViewInit(): void {
+    this.downloadButton.nativeElement.focus();
   }
 
   /**

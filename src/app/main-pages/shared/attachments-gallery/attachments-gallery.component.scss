@@ -18,7 +18,7 @@ button {
     border: 1px solid $lighter-grey;
     min-width: 120px;
 
-    &:has(:focus-within) .imageButtonOverlay {
+    &:has(:hover, :focus-within) .imageButtonOverlay {
       opacity: 1;
     }
   }
