@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild, WritableSignal } from '@angular/core';
 import { TaskImage } from '../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-gallery.component';
@@ -14,9 +14,8 @@ export class FileUploadComponent {
   @ViewChild('filepicker') filepickerRef!: ElementRef<HTMLInputElement>;
   @Input() imagesForUpload: TaskImage[] = [];
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
-
   errorWrongFormat: boolean = false;
-  errorToManyImages: boolean = false;
+  errorToManyImages: WritableSignal<boolean> = signal(false);
   // #endregion
 
   // #region Lifecycle
@@ -35,65 +34,62 @@ export class FileUploadComponent {
       }
     });
   }
-
-  test(event: DragEvent) {
-    event.preventDefault();
-    if (event.dataTransfer != null) {
-      event.dataTransfer.types;
-      console.log('DROP DETECTED');
-      if (event.dataTransfer.files) {
-        this.addImages(event.dataTransfer.files);
-      }
-    }
-  }
   // #endregion
 
   // #region CRUD
+  addImagesByDrop(event: DragEvent) {
+    event.preventDefault();
+    const data = event.dataTransfer;
+    if (data != null) {
+      if (data.files) {
+        this.addImages(data.files);
+      }
+    }
+  }
+
   addImages(files: FileList) {
-    if (files!.length > 0) {
-      Array.from(files!).forEach(async (file): Promise<void> => {
-        if (this.thereAreToManyImages()) {
-          return;
-        }
+    if (files.length + this.imagesForUpload.length < 6) {
+      if (files.length > 0) {
+        Array.from(files!).forEach(async (file): Promise<void> => {
+          if (this.thereAreToManyImages()) {
+            return;
+          }
 
-        if (this.isInvalidImageFormat(file)) {
-          return;
-        }
+          if (this.isInvalidImageFormat(file)) {
+            return;
+          }
 
-        const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
-        const baseName = file.name.replace(/\.[^/.]+$/, '');
-        const newName = `${baseName}.webp`;
-        const byteSize = compressedBase64.length * 0.75;
+          const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
+          const baseName = file.name.replace(/\.[^/.]+$/, '');
+          const newName = `${baseName}.webp`;
+          const byteSize = compressedBase64.length * 0.75;
 
-        this.imagesForUpload.push({
-          filename: newName,
-          oldFilename: file.name,
-          size: byteSize,
-          mimeType: 'image/webp',
-          base64: compressedBase64,
+          this.imagesForUpload.push({
+            filename: newName,
+            oldFilename: file.name,
+            size: byteSize,
+            mimeType: 'image/webp',
+            base64: compressedBase64,
+          });
+          this.updatingImages.emit(this.imagesForUpload);
         });
-        this.updatingImages.emit(this.imagesForUpload);
-
-        console.log(
-          'img no:',
-          this.imagesForUpload.length,
-          'file size in byte: ',
-          file.size,
-          'compressed byteSize: ',
-          byteSize
-        );
-      });
+      }
+      this.errorToManyImages.set(false);
+    } else {
+      this.errorToManyImages.set(true);
     }
   }
 
   deleteAllImagesFromForm(): void {
     this.imagesForUpload = [];
-    this.errorToManyImages = false;
+    this.errorToManyImages.set(false);
+    this.thereAreToManyImages();
   }
 
   deleteSingelImage(imageToDelete: TaskImage): void {
     const index = this.imagesForUpload.indexOf(imageToDelete);
     this.imagesForUpload.splice(index, 1);
+    this.thereAreToManyImages();
   }
   // #endregion
 
@@ -110,11 +106,11 @@ export class FileUploadComponent {
   // Checks array if there are already 5 images
   thereAreToManyImages(): boolean {
     if (this.imagesForUpload.length > 4) {
-      this.errorToManyImages = true;
+      this.errorToManyImages.set(true);
     } else {
-      this.errorToManyImages = false;
+      this.errorToManyImages.set(false);
     }
-    return this.errorToManyImages;
+    return this.errorToManyImages();
   }
 
   /**

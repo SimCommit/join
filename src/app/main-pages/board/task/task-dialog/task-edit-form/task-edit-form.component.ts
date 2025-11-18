@@ -182,7 +182,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       priority: task.priority,
       assignedUsers: task.assignedUsers,
       subtasks: task.subtasks || [],
-      // images: task.images,
+      images: task.images,
     });
   }
 

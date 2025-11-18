@@ -1,20 +1,22 @@
 <section>
-    <p>Attachments</p>
+    <p id="attachments-heading">Attachments</p>
 
     <div class="upload-info-bar">
         <small>Allowed files are JPEG, JPG and PNG</small>
         @if (imagesForUpload.length > 0) {
         <button type="button" (click)="deleteAllImagesFromForm()">
-            <img src="./img/icons/delete_contact.svg" alt="trash">
+            <img aria-hidden="true" src="./img/icons/delete_contact.svg" alt="">
             Delete all
         </button>
         }
     </div>
 
-    <div class="dropzone" (dragover)="$event.preventDefault()" (drop)="test($event)">
+    <div class="dropzone" (dragover)="$event.preventDefault()" (drop)="addImagesByDrop($event)">
         <span>Drag a file or browse</span>
-        <img tabindex="0" role="button" aria-label="filepicker" src="./img/icons/plus-upload.svg" alt="add image" (click)="filepicker.click()">
-        <input aria-hidden="true" type="file" name="filepicker" id="filepicker" #filepicker accept="image/JPEG, image/PNG" multiple>
+        <button (click)="filepicker.click()" aria-label="filepicker" aria-describedby="attachments-heading filepicker-error">
+            <img aria-hidden="true" src="./img/icons/plus-upload.svg" alt="">
+        </button>
+        <input aria-hidden="true" type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/png, image/webp" multiple>
     </div>
 
 
@@ -23,14 +25,14 @@
 
 
     @if (errorWrongFormat) {
-    <div class="wrong-format">
+    <div id="filepicker-error" class="wrong-format">
         <p><strong>This file format is not allowed!</strong></p>
         <p>You can only upload JPEG, JPG and PNG.</p>
     </div>
     }
 
-    @if (errorToManyImages && imagesForUpload.length > 4) {
-    <div class="wrong-format">
+    @if (errorToManyImages()) {
+    <div id="filepicker-error" class="wrong-format">
         <p><strong>Too many images</strong></p>
         <p>You can upload up to 5 images.</p>
     </div>
