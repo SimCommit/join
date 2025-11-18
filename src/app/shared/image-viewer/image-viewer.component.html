@@ -2,8 +2,8 @@
     @let i = imageViewerStateService.indexCurrentImage();
     @let img = imagesToView[i];
     <div>
-        <header>
-            <div>
+        <header role="none">
+            <div aria-live="polite">
                 <span>{{img.filename}}</span>
                 <span>{{calcByteIntoKiloByte(img.size)}} KB</span>
             </div>
@@ -19,7 +19,7 @@
             </div>
         </header>
 
-        <img src="{{img.base64}}" alt="{{img.filename}} {{calcByteIntoKiloByte(img.size)}} KiloByte">
+        <img src="{{img.base64}}" alt="{{img.filename}} {{calcByteIntoKiloByte(img.size)}} Kilobyte">
 
         @if (imagesToView.length > 1) {
         <nav>

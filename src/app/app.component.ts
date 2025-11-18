@@ -102,6 +102,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.subscribeToRouterEvents();
+    this.initCloseImageViewerListener();
 
     setTimeout(() => {
       if (!this.initialRouteProcessed) {
@@ -117,7 +118,18 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
+    window.removeEventListener('keydown', this.onKeydown);
   }
+
+  initCloseImageViewerListener() {
+    window.addEventListener('keydown', this.onKeydown);
+  }
+
+  onKeydown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
+      this.imageViewerStateService.imageViewerIsActive.set(false);
+    }
+  };
 
   /**
    * Initializes the splash screen animation system
