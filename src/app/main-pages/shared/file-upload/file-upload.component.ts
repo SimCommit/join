@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TaskImage } from '../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
-import { AttachmentsGalleryComponent } from "../attachments-gallery/attachments-gallery.component";
+import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-gallery.component';
 
 @Component({
   selector: 'app-file-upload',
@@ -30,46 +30,69 @@ export class FileUploadComponent {
     const filepicker = this.filepickerRef.nativeElement;
     filepicker.addEventListener('change', async (): Promise<void> => {
       const files = filepicker.files;
-      if (files!.length > 0) {
-        Array.from(files!).forEach(async (file): Promise<void> => {
-          if (this.thereAreToManyImages()) {
-            return;
-          }
-
-          if (this.isInvalidImageFormat(file)) {
-            return;
-          }
-
-          const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
-          const baseName = file.name.replace(/\.[^/.]+$/, '');
-          const newName = `${baseName}.webp`;
-          const byteSize = compressedBase64.length * 0.75;
-
-          this.imagesForUpload.push({ filename: newName, oldFilename: file.name, size: byteSize, mimeType: "image/webp", base64: compressedBase64 });
-          this.updatingImages.emit(this.imagesForUpload);
-
-          console.log(
-            'img no:',
-            this.imagesForUpload.length,
-            'file size in byte: ',
-            file.size,
-            'compressed byteSize: ',
-            byteSize
-          );
-        });
+      if (files) {
+        this.addImages(files);
       }
     });
+  }
+
+  test(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer != null) {
+      event.dataTransfer.types;
+      console.log('DROP DETECTED');
+      if (event.dataTransfer.files) {
+        this.addImages(event.dataTransfer.files);
+      }
+    }
   }
   // #endregion
 
   // #region CRUD
+  addImages(files: FileList) {
+    if (files!.length > 0) {
+      Array.from(files!).forEach(async (file): Promise<void> => {
+        if (this.thereAreToManyImages()) {
+          return;
+        }
+
+        if (this.isInvalidImageFormat(file)) {
+          return;
+        }
+
+        const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
+        const baseName = file.name.replace(/\.[^/.]+$/, '');
+        const newName = `${baseName}.webp`;
+        const byteSize = compressedBase64.length * 0.75;
+
+        this.imagesForUpload.push({
+          filename: newName,
+          oldFilename: file.name,
+          size: byteSize,
+          mimeType: 'image/webp',
+          base64: compressedBase64,
+        });
+        this.updatingImages.emit(this.imagesForUpload);
+
+        console.log(
+          'img no:',
+          this.imagesForUpload.length,
+          'file size in byte: ',
+          file.size,
+          'compressed byteSize: ',
+          byteSize
+        );
+      });
+    }
+  }
+
   deleteAllImagesFromForm(): void {
     this.imagesForUpload = [];
     this.errorToManyImages = false;
   }
 
   deleteSingelImage(imageToDelete: TaskImage): void {
-    const index = this.imagesForUpload.indexOf(imageToDelete)
+    const index = this.imagesForUpload.indexOf(imageToDelete);
     this.imagesForUpload.splice(index, 1);
   }
   // #endregion

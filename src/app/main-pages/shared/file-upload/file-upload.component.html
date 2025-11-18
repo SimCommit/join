@@ -11,10 +11,10 @@
         }
     </div>
 
-    <div class="dropzone" dropzone="">
+    <div class="dropzone" (dragover)="$event.preventDefault()" (drop)="test($event)">
         <span>Drag a file or browse</span>
-        <img tabindex="0" role="input" src="./img/icons/plus-upload.svg" alt="add image" (click)="filepicker.click()">
-        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/JPEG, image/PNG">
+        <img tabindex="0" role="button" aria-label="filepicker" src="./img/icons/plus-upload.svg" alt="add image" (click)="filepicker.click()">
+        <input aria-hidden="true" type="file" name="filepicker" id="filepicker" #filepicker accept="image/JPEG, image/PNG" multiple>
     </div>
 
 
