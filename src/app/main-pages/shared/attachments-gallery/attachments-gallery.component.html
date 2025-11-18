@@ -1,22 +1,26 @@
 <div class="preview-gallery">
     @for (img of imagesForUpload; track $index) {
-    <div class="img-container" (mouseenter)="isHoveringImage = true" (mouseleave)="isHoveringImage = false">
-        <img src="{{img.base64}}" alt="image">
-        @if (downloadIsEnabled) {
-        <p title="{{img.filename}}">{{img.filename}}</p>
-        } @else {
-        <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
-        }
+    <div class="img-container">
+        <button class="perview-img-btn" type="button" [attr.aria-label]="'Open ' + img.filename + ' image'"
+            (click)="imageViewerStateService.imageViewerIsActive.set(true); setImagesToView($index)">
+            <img src="{{img.base64}}" alt="">
 
-        <div class="imageButtonOverlay" (click)="imageViewerStateService.imageViewerIsActive.set(true); setImagesToView($index)">
+            @if (downloadIsEnabled) {
+            <p title="{{img.filename}}">{{img.filename}}</p>
+            } @else {
+            <p title="{{img.oldFilename}}">{{img.oldFilename}}</p>
+            }
+        </button>
+
+        <div class="imageButtonOverlay">
             @if (deleteIsEnabled) {
-            <button (click)="sendImageToDeleteToParent(img, $event);" type="button">
-                <img class="delete-icon" src="./img/icons/delete-white.svg" alt="delete">
+            <button aria-label="delete" (click)="sendImageToDeleteToParent(img, $event);" type="button">
+                <img aria-hidden="true" class="delete-icon" src="./img/icons/delete-white.svg" alt="">
             </button>
             }
             @if (downloadIsEnabled) {
-            <button type="button" (click)="downloadFileService.base64ToFile(img.base64, img.mimeType , img.filename)">
-                <img class="download-icon" src="./img/icons/download-white.svg" alt="download">
+            <button aria-label="download" type="button" (click)="downloadFileService.base64ToFile(img.base64, img.mimeType , img.filename)">
+                <img aria-hidden="true" class="download-icon" src="./img/icons/download-white.svg" alt="">
             </button>
             }
         </div>

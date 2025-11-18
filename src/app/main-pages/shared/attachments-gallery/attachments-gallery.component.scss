@@ -12,27 +12,39 @@ button {
   overflow-x: auto;
 
   .img-container {
-    @include dFlex($ai: flex-start, $fd: column);
     border-radius: 12px;
     overflow: hidden;
     background-color: white;
     border: 1px solid $lighter-grey;
     min-width: 120px;
 
-    > img {
-      width: 120px;
-      height: 70px;
-      object-fit: cover;
+    &:has(:focus-within) .imageButtonOverlay {
+      opacity: 1;
     }
+  }
+}
 
-    > p {
-      width: 120px;
-      padding: 4px 8px;
-      font-size: 14px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
+.perview-img-btn {
+  @include dFlex($ai: flex-start, $fd: column);
+  // outline: none;
+
+  &:hover, :focus-within + .imageButtonOverlay {
+    opacity: 1;
+  }
+
+  > img {
+    width: 120px;
+    height: 70px;
+    object-fit: cover;
+  }
+
+  > p {
+    width: 120px;
+    padding: 4px 8px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
@@ -46,9 +58,10 @@ button {
   @include dFlex();
   opacity: 0;
   transition: opacity 100ms ease-in-out;
-  cursor: pointer;
+  pointer-events: none;
 
-  &:hover {
+  &:hover,
+  :focus-within {
     opacity: 1;
   }
 
@@ -58,6 +71,7 @@ button {
     height: 28px;
     border-radius: 50%;
     transition: background-color 100ms ease-in-out;
+    pointer-events: all;
 
     .delete-icon {
       width: 18px;
@@ -69,7 +83,8 @@ button {
       height: 24px;
     }
 
-    &:hover {
+    &:hover,
+    :focus {
       background-color: $light-blue;
     }
   }
