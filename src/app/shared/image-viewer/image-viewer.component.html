@@ -19,7 +19,7 @@
             </div>
         </header>
 
-        <img src="{{img.base64}}" alt="{{img.filename}}" aria-label="{{img.filename}}">
+        <img src="{{img.base64}}" alt="{{img.filename}}" [attr.aria-label]="img.filename">
 
         <nav>
             <button type="button" (click)="perviousImage(i)" aria-label="previous image">
