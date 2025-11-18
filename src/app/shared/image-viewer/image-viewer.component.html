@@ -4,8 +4,8 @@
     <div>
         <header>
             <div>
-                <span aria-label="image name">{{img.filename}}</span>
-                <span aria-label="image size">{{calcByteIntoKiloByte(img.size)}} KB</span>
+                <span>{{img.filename}}</span>
+                <span>{{calcByteIntoKiloByte(img.size)}} KB</span>
             </div>
 
             <div>
@@ -13,13 +13,13 @@
                     (click)="downloadFileService.base64ToFile(img.base64, img.mimeType, img.filename)">
                     <img aria-hidden="true" class="download-btn" src="./img/icons/download-white.svg" alt="">
                 </button>
-                <button aria-label="close image viewer" type="button" ar (click)="imageViewerStateService.imageViewerIsActive.set(false)">
+                <button aria-label="close image viewer" type="button" (click)="imageViewerStateService.imageViewerIsActive.set(false)">
                     <img aria-hidden="true" src="./img/icons/close-button-white.svg" alt="">
                 </button>
             </div>
         </header>
 
-        <img src="{{img.base64}}" alt="{{img.filename}}" [attr.aria-label]="img.filename">
+        <img src="{{img.base64}}" alt="{{img.filename}} {{calcByteIntoKiloByte(img.size)}} KiloByte">
 
         @if (imagesToView.length > 1) {
         <nav>
