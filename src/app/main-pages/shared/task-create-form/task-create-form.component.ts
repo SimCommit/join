@@ -128,6 +128,8 @@ export class TaskCreateFormComponent {
    * List of all subtasks added to the task.
    */
   images: TaskImage[] = [];
+  
+  invalidFiles: File[] = [];
 
   /**
    * Description of the task.
@@ -694,6 +696,8 @@ export class TaskCreateFormComponent {
     this.overlay2WasOpen = false;
     this.subtasks = [];
     this.images = [];
+    this.invalidFiles = [];
+    
     setTimeout((): void => {
       this.taskForm.resetForm({ priority: 'medium' });
     }, 0);

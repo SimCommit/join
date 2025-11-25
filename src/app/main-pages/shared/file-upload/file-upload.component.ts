@@ -29,6 +29,8 @@ export class FileUploadComponent {
    * @type {TaskImage[]}
    */
   @Input() imagesForUpload: TaskImage[] = [];
+ 
+  @Input() invalidFiles: File[] = [];
 
   /**
    * Emits the updated array of images whenever files are added or removed.
@@ -36,12 +38,6 @@ export class FileUploadComponent {
    */
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
-  /**
-   * Indicates whether the last selected file had an invalid format.
-   * Used to show validation messages in the UI.
-   * @type {boolean}
-   */
-  errorWrongFormat: boolean = false;
 
   /**
    * Signals whether too many images have been selected.
@@ -49,10 +45,12 @@ export class FileUploadComponent {
    * @type {WritableSignal<boolean>}
    */
   errorToManyImages: WritableSignal<boolean> = signal(false);
+
+  lenghtOfImagesToValidate: number = 0;
+
   // #endregion
 
   // #region Lifecycle
-
   /**
    * Initializes the component after the view is fully rendered.
    * Sets up the filepicker change listener.
@@ -107,6 +105,8 @@ export class FileUploadComponent {
    * @returns {void}
    */
   addImages(files: FileList): void {
+    this.lenghtOfImagesToValidate = files.length;
+    this.invalidFiles = [];
     if (files.length + this.imagesForUpload.length < 6) {
       if (files.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
@@ -142,6 +142,7 @@ export class FileUploadComponent {
    */
   deleteAllImagesFromForm(): void {
     this.imagesForUpload = [];
+    this.invalidFiles = [];
     this.errorToManyImages.set(false);
     this.thereAreToManyImages();
   }
@@ -156,6 +157,7 @@ export class FileUploadComponent {
     const index = this.imagesForUpload.indexOf(imageToDelete);
     this.imagesForUpload.splice(index, 1);
     this.thereAreToManyImages();
+    this.invalidFiles = [];
   }
   // #endregion
 
@@ -169,12 +171,14 @@ export class FileUploadComponent {
    * @returns {boolean} True if the format is invalid.
    */
   isInvalidImageFormat(file: File): boolean {
+    let errorWrongFormat: boolean = false;
     if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/webp') {
-      this.errorWrongFormat = false;
+      errorWrongFormat = false;
     } else {
-      this.errorWrongFormat = true;
+      this.invalidFiles.push(file);
+      errorWrongFormat = true;
     }
-    return this.errorWrongFormat;
+    return errorWrongFormat;
   }
 
   /**

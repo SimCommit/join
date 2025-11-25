@@ -13,7 +13,7 @@
 
     <div class="dropzone" (dragover)="$event.preventDefault()" (drop)="addImagesByDrop($event)">
         <span>Drag a file or browse</span>
-        <button (click)="filepicker.click()" aria-label="filepicker"
+        <button type="button" (click)="filepicker.click()" aria-label="filepicker"
             aria-describedby="attachments-heading filepicker-error">
             <img aria-hidden="true" src="./img/icons/plus-upload.svg" alt="">
         </button>
@@ -24,9 +24,11 @@
     <app-attachments-gallery [imagesForUpload]="imagesForUpload" [deleteIsEnabled]="true"
         (deleteSingelImage)="deleteSingelImage($event)"></app-attachments-gallery>
 
-    @if (errorWrongFormat) {
+    @if (invalidFiles.length > 0) {
     <div id="filepicker-error" class="wrong-format">
-        <p><strong>This file format is not allowed!</strong></p>
+        @for (file of invalidFiles; track $index) {
+        <p><strong>The format of {{file.name}} is not allowed!</strong></p>
+        }
         <p>You can only upload JPEG, JPG and PNG.</p>
     </div>
     }
