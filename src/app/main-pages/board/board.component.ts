@@ -92,7 +92,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.setupBreakpointObserver();
     this.initContactDataService();
   }
-  
+
   initContactDataService() {
     this.contactDataService.connectStreams();
   }
@@ -268,7 +268,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       assignedUsers: task.assignedUsers,
       dueDate: task.dueDate,
       subtasks: task.subtasks,
-      images: task.images
+      images: task.images,
     };
 
     await this.taskDataService.updateTask(task.id!, updateData);

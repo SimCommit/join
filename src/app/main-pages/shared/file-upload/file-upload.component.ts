@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild, 
 import { Task, TaskImage } from '../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-gallery.component';
+import { TaskDataService } from '../../shared-data/task-data.service';
 
 /**
  * Component for handling image uploads in Add-Task and Edit-Task views.
@@ -146,6 +147,7 @@ export class FileUploadComponent {
     this.imagesForUpload = [];
     this.errorToManyImages.set(false);
     this.resetWarnings();
+    this.updatingImages.emit(this.imagesForUpload);
   }
 
   /**
@@ -158,6 +160,7 @@ export class FileUploadComponent {
     const index = this.imagesForUpload.indexOf(imageToDelete);
     this.imagesForUpload.splice(index, 1);
     this.resetWarnings();
+    this.updatingImages.emit(this.imagesForUpload);
   }
   // #endregion
 
@@ -165,7 +168,7 @@ export class FileUploadComponent {
   imageIsOversized(name: string, size: number): boolean {
     let isOversized: boolean;
 
-    if (size > 32000) {
+    if (size > 160000) {
       isOversized = true;
       console.log(size);
       this.oversizedImages.push(name);
@@ -178,7 +181,7 @@ export class FileUploadComponent {
 
   resetWarnings() {
     this.invalidFiles = [];
-    this.oversizedImages = [];    
+    this.oversizedImages = [];
     this.thereAreToManyFiles();
   }
 

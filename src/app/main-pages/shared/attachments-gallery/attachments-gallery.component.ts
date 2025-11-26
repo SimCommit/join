@@ -11,13 +11,16 @@ import { ImageViewerStateService } from '../../../shared/services/image-viewer-s
 })
 export class AttachmentsGalleryComponent {
   @Output() deleteSingelImage = new EventEmitter<TaskImage>();
-  @Input() imagesForUpload!: TaskImage[];
+  @Input() imagesForUpload: TaskImage[] = [];
   @Input() deleteIsEnabled: boolean = false;
   @Input() downloadIsEnabled: boolean = false;
 
   isHoveringImage: boolean = false;
 
-  constructor(public downloadFileService: DownloadFileService, public imageViewerStateService: ImageViewerStateService) {}
+  constructor(
+    public downloadFileService: DownloadFileService,
+    public imageViewerStateService: ImageViewerStateService
+  ) {}
 
   sendImageToDeleteToParent(imageToDelete: TaskImage, event: Event) {
     event.stopPropagation();

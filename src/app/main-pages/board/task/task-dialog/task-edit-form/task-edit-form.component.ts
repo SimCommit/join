@@ -82,7 +82,8 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   minDate: string = '';
 
-  images: TaskImage[] = [];
+  imagesOriginal: TaskImage[] = [];
+  imagesCurrent: TaskImage[] = [];
 
   /**
    * Utility to get a random background color for contact avatars.
@@ -142,9 +143,10 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   initImages() {
     if (this.task) {
-      this.images = this.task.images;
+      this.imagesOriginal = [...this.task.images];
+      this.imagesCurrent = [...this.task.images];
     } else {
-      console.error("Could not load task images from firestore collection");
+      console.error('Could not load task images from firestore collection');
     }
   }
 
@@ -187,7 +189,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   }
 
   updateImages(images: TaskImage[]): void {
-    this.images = images;
+    this.imagesCurrent = images;
   }
 
   /**
@@ -483,7 +485,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       priority: formValue.priority,
       assignedUsers: formValue.assignedUsers,
       subtasks: formValue.subtasks,
-      images: this.images
+      images: this.imagesCurrent,
     };
   }
 
