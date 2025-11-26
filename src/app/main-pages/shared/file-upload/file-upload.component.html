@@ -2,7 +2,7 @@
     <p id="attachments-heading">Attachments</p>
 
     <div class="upload-info-bar">
-        <small>Allowed files are JPEG, JPG and PNG</small>
+        <small>Supported formats: JPEG, JPG, PNG</small>
         @if (imagesForUpload.length > 0) {
         <button type="button" (click)="deleteAllImagesFromForm()">
             <img aria-hidden="true" src="./img/icons/delete_contact.svg" alt="">
@@ -27,7 +27,7 @@
     @if (invalidFiles.length > 0) {
     <div id="filepicker-error" class="wrong-format">
         @for (file of invalidFiles; track $index) {
-        <p><strong>The format of {{file.name}} is not allowed!</strong></p>
+        <p><strong>Invalid format: {{file.name}}</strong></p>
         }
         <p>You can only upload JPEG, JPG and PNG.</p>
     </div>
@@ -35,7 +35,7 @@
 
     @if (errorToManyImages()) {
     <div id="filepicker-error" class="wrong-format">
-        <p><strong>Too many images</strong></p>
+        <p><strong>Too many files!</strong></p>
         <p>You can upload up to 5 images.</p>
     </div>
     }

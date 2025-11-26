@@ -65,5 +65,10 @@ button {
 }
 
 .wrong-format {
-  color: $error-red;
+  color: $error-muted;
+  font-weight: 300;
+
+  strong {
+    font-weight: 600;
+  }
 }
