@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild, WritableSignal } from '@angular/core';
-import { TaskImage } from '../../shared-data/task.interface';
+import { Task, TaskImage } from '../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-gallery.component';
 
@@ -29,15 +29,15 @@ export class FileUploadComponent {
    * @type {TaskImage[]}
    */
   @Input() imagesForUpload: TaskImage[] = [];
- 
-  @Input() invalidFiles: File[] = [];
+
+  @Input() invalidFiles: string[] = [];
+
+  @Input() oversizedImages: string[] = [];
 
   /**
    * Emits the updated array of images whenever files are added or removed.
-   * @type {EventEmitter<TaskImage[]>}
    */
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
-
 
   /**
    * Signals whether too many images have been selected.
@@ -106,11 +106,11 @@ export class FileUploadComponent {
    */
   addImages(files: FileList): void {
     this.lenghtOfImagesToValidate = files.length;
-    this.invalidFiles = [];
+    this.resetWarnings();
     if (files.length + this.imagesForUpload.length < 6) {
       if (files.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
-          if (this.thereAreToManyImages()) return;
+          if (this.thereAreToManyFiles()) return;
 
           if (this.isInvalidImageFormat(file)) return;
 
@@ -118,6 +118,8 @@ export class FileUploadComponent {
           const baseName = file.name.replace(/\.[^/.]+$/, '');
           const newName = `${baseName}.webp`;
           const byteSize = compressedBase64.length * 0.75;
+
+          if (this.imageIsOversized(file.name, byteSize)) return;
 
           this.imagesForUpload.push({
             filename: newName,
@@ -142,9 +144,8 @@ export class FileUploadComponent {
    */
   deleteAllImagesFromForm(): void {
     this.imagesForUpload = [];
-    this.invalidFiles = [];
     this.errorToManyImages.set(false);
-    this.thereAreToManyImages();
+    this.resetWarnings();
   }
 
   /**
@@ -156,12 +157,30 @@ export class FileUploadComponent {
   deleteSingelImage(imageToDelete: TaskImage): void {
     const index = this.imagesForUpload.indexOf(imageToDelete);
     this.imagesForUpload.splice(index, 1);
-    this.thereAreToManyImages();
-    this.invalidFiles = [];
+    this.resetWarnings();
   }
   // #endregion
 
   // #region Helpers
+  imageIsOversized(name: string, size: number): boolean {
+    let isOversized: boolean;
+
+    if (size > 32000) {
+      isOversized = true;
+      console.log(size);
+      this.oversizedImages.push(name);
+    } else {
+      isOversized = false;
+    }
+
+    return isOversized;
+  }
+
+  resetWarnings() {
+    this.invalidFiles = [];
+    this.oversizedImages = [];    
+    this.thereAreToManyFiles();
+  }
 
   /**
    * Validates whether a file has an allowed image format.
@@ -175,7 +194,7 @@ export class FileUploadComponent {
     if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/webp') {
       errorWrongFormat = false;
     } else {
-      this.invalidFiles.push(file);
+      this.invalidFiles.push(file.name);
       errorWrongFormat = true;
     }
     return errorWrongFormat;
@@ -186,7 +205,7 @@ export class FileUploadComponent {
    * Updates the errorToManyImages signal based on the result.
    * @returns {boolean} True if the limit is exceeded.
    */
-  thereAreToManyImages(): boolean {
+  thereAreToManyFiles(): boolean {
     if (this.imagesForUpload.length > 4) {
       this.errorToManyImages.set(true);
     } else {

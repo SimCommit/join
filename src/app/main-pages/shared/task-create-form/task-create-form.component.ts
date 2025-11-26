@@ -129,7 +129,9 @@ export class TaskCreateFormComponent {
    */
   images: TaskImage[] = [];
   
-  invalidFiles: File[] = [];
+  invalidFiles: string[] = [];
+
+  oversizedImages: string[] = [];
 
   /**
    * Description of the task.
@@ -697,6 +699,7 @@ export class TaskCreateFormComponent {
     this.subtasks = [];
     this.images = [];
     this.invalidFiles = [];
+    this.oversizedImages = [];
     
     setTimeout((): void => {
       this.taskForm.resetForm({ priority: 'medium' });

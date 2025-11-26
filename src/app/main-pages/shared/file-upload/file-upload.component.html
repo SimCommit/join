@@ -26,10 +26,19 @@
 
     @if (invalidFiles.length > 0) {
     <div id="filepicker-error" class="wrong-format">
-        @for (file of invalidFiles; track $index) {
-        <p><strong>Invalid format: {{file.name}}</strong></p>
+        @for (name of invalidFiles; track $index) {
+        <p><strong>Invalid format: {{name}}</strong></p>
         }
         <p>You can only upload JPEG, JPG and PNG.</p>
+    </div>
+    }
+
+    @if (oversizedImages.length > 0) {
+    <div id="filepicker-error" class="wrong-format">
+        @for (name of oversizedImages; track $index) {
+        <p><strong>Oversized image: {{name}}</strong></p>
+        }
+        <p>Image must be under 160 kb after upload</p>
     </div>
     }
 
