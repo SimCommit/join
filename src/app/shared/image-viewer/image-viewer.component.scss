@@ -12,23 +12,47 @@ section {
 
   > div {
     @include dFlex($fd: column);
+    background-color: $blue;
 
     img {
+      max-height: 80vh;
       width: 100%;
+      object-fit: contain;
     }
   }
 }
 
 header {
   @include dFlex($jc: space-between);
-  width: 100%;
+  // width: 100%;
+  // flex: 1;
   height: 48px;
   z-index: 1;
   background-color: $blue;
   padding: 12px 24px;
 
+  .spacer {
+    width: 16px;
+    height: 8px;
+  }
+
+  .img-info {
+    justify-content: flex-start;
+    gap: 12px;
+
+    > span:first-child {
+      max-width: 40vw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    > span {
+      white-space: nowrap;
+    }
+  }
+
   > div {
-    @include dFlex($g: 12px);
+    @include dFlex($g: 8px);
 
     span {
       color: $white;
@@ -84,5 +108,3 @@ nav {
     }
   }
 }
-
-

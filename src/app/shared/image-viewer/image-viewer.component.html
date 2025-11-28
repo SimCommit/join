@@ -3,10 +3,12 @@
     @let img = imagesToView[i];
     <div>
         <header role="none">
-            <div aria-live="polite">
-                <span>{{img.filename}}</span>
+            <div class="img-info" aria-live="polite">
+                <span title="{{img.filename}}" >{{img.filename}}</span>
                 <span>{{calcByteIntoKiloByte(img.size)}} KB</span>
             </div>
+
+            <div class="spacer"></div>
 
             <div>
                 <button aria-label="download image" type="button" #downloadButton
