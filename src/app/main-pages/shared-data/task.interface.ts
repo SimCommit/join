@@ -103,6 +103,8 @@ export interface TaskImage {
   filenameWithoutType: string;
   /** File size after of the compressed image */
   size: number;
+  /** extension of the image name */
+  fileExtension: string;
   /** mimeType of the image */
   mimeType: string;
   /** Base64-encoded image data used for upload, storage, and inline preview */

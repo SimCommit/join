@@ -4,11 +4,10 @@
     <div>
         <header role="none">
             <div class="img-info" aria-live="polite">
-                <span title="{{img.filename}}" >{{img.filename}}</span>
+                <span>{{img.filenameWithoutType}}</span>
+                <span>{{img.fileExtension}}</span>
                 <span>{{calcByteIntoKiloByte(img.size)}} KB</span>
             </div>
-
-            <div class="spacer"></div>
 
             <div>
                 <button aria-label="download image" type="button" #downloadButton

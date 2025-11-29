@@ -117,6 +117,7 @@ export class FileUploadComponent {
 
           const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
           const baseName = file.name.replace(/\.[^/.]+$/, '');
+          const extension = ".webp";
           const newName = `${baseName}.webp`;
           const byteSize = compressedBase64.length * 0.75;
 
@@ -126,6 +127,7 @@ export class FileUploadComponent {
             filename: newName,
             filenameWithoutType: baseName,
             size: byteSize,
+            fileExtension: extension,
             mimeType: 'image/webp',
             base64: compressedBase64,
           });

@@ -13,7 +13,7 @@ section {
   > div {
     overflow: hidden;
     @include dFlex($fd: column);
-    background-color: rgba(42, 54, 71, 0.6);
+    background-color: rgba(102, 116, 135, 0.825);
     width: min(100%, 800px);
     border-radius: 10px;
 
@@ -32,34 +32,33 @@ section {
 header {
   @include dFlex($jc: space-between);
   width: 100%;
-  // flex: 1;
   height: 48px;
   z-index: 1;
   background-color: $blue;
   padding: 12px 16px;
-
-  .spacer {
-    width: 16px;
-    height: 8px;
-  }
+  flex: 1 1 auto;
+  min-width: 0;
 
   .img-info {
     justify-content: flex-start;
-    gap: 12px;
+    gap: 0;
+    flex: 0 1 auto;
+    min-width: 160px;
 
     > span:first-child {
-      // max-width: 40vw;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      margin-right: 0;
     }
     > span {
       white-space: nowrap;
+      margin-right: 12px;
     }
   }
 
   > div {
-    @include dFlex($g: 8px);
+    @include dFlex($g: 4px);
 
     span {
       color: $white;
