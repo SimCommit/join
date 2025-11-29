@@ -124,7 +124,7 @@ export class FileUploadComponent {
 
           this.imagesForUpload.push({
             filename: newName,
-            oldFilename: file.name,
+            filenameWithoutType: baseName,
             size: byteSize,
             mimeType: 'image/webp',
             base64: compressedBase64,

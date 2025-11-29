@@ -100,7 +100,7 @@ export interface TaskImage {
   /** Current filename of the image used in storage or display */
   filename: string;
   /** Original filename of the image before any renaming operations, used for display on initial upload */
-  oldFilename: string;
+  filenameWithoutType: string;
   /** File size after of the compressed image */
   size: number;
   /** mimeType of the image */
