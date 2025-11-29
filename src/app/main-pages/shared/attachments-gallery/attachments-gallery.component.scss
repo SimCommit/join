@@ -28,7 +28,8 @@ button {
   @include dFlex($ai: flex-start, $fd: column);
   // outline: none;
 
-  &:hover, :focus-within + .imageButtonOverlay {
+  &:hover,
+  :focus-within + .imageButtonOverlay {
     opacity: 1;
   }
 
@@ -87,6 +88,17 @@ button {
     &:hover,
     :focus {
       background-color: $light-blue;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .imageButtonOverlay {
+    opacity: 1;
+    background-color: transparent;
+
+    > button {
+      background-color: rgba(0, 0, 0, 0.2);
     }
   }
 }

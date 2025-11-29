@@ -15,7 +15,7 @@ section {
     @include dFlex($fd: column);
     background-color: rgba(102, 116, 135, 0.825);
     width: min(100%, 800px);
-    border-radius: 10px;
+    border-radius: 12px;
 
     img {
       max-height: 80vh;
