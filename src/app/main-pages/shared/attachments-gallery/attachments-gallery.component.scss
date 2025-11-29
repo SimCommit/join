@@ -55,7 +55,7 @@ button {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  @include dFlex();
+  @include dFlex($jc: flex-end, $ai: flex-start);
   opacity: 0;
   transition: opacity 100ms ease-in-out;
   pointer-events: none;
@@ -69,6 +69,7 @@ button {
     @include dFlex();
     width: 28px;
     height: 28px;
+    margin: 4px;
     border-radius: 50%;
     transition: background-color 100ms ease-in-out;
     pointer-events: all;

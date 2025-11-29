@@ -4,12 +4,7 @@
         <button class="perview-img-btn" type="button" [attr.aria-label]="'Open ' + img.filename + ' image'"
             (click)="imageViewerStateService.imageViewerIsActive.set(true); setImagesToView($index)">
             <img src="{{img.base64}}" alt="">
-
-            @if (downloadIsEnabled) {
-            <p title="{{img.filename}}">{{img.filename}}</p>
-            } @else {
             <p title="{{img.filenameWithoutType}}">{{img.filenameWithoutType}}</p>
-            }
         </button>
 
         <div class="imageButtonOverlay">
