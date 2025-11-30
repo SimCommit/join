@@ -84,29 +84,24 @@ export class BoardComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  /**
-   * Initializes component and sets up data streams
-   */
+  /** Initializes component and sets up data streams */
   ngOnInit(): void {
     this.initializeDataStreams();
     this.setupBreakpointObserver();
     this.initContactDataService();
   }
 
+  /** Initializes contact data streaming by connecting the service streams */
   initContactDataService() {
     this.contactDataService.connectStreams();
   }
 
-  /**
-   * Cleans up subscriptions on component destroy
-   */
+  /** Cleans up subscriptions on component destroy */
   ngOnDestroy(): void {
     this.cleanupSubscriptions();
   }
 
-  /**
-   * Sets up board columns and filtered data streams
-   */
+  /** Sets up board columns and filtered data streams */
   private initializeDataStreams(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
     this.filteredColumns$ = combineLatest([this.columns$, this.searchSubject.asObservable()]).pipe(
@@ -114,20 +109,14 @@ export class BoardComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Sets up responsive breakpoint monitoring
-   */
+  /** Sets up responsive breakpoint monitoring */
   private setupBreakpointObserver(): void {
-    this.breakpointSubscription = this.breakpointObserver
-      .observe(['(max-width: 768px)'])
-      .subscribe((state: BreakpointState) => {
-        this.isMobile = state.matches;
-      });
+    this.breakpointSubscription = this.breakpointObserver.observe(['(max-width: 768px)']).subscribe((state: BreakpointState) => {
+      this.isMobile = state.matches;
+    });
   }
 
-  /**
-   * Cleans up component subscriptions
-   */
+  /** Cleans up component subscriptions */
   private cleanupSubscriptions(): void {
     if (this.breakpointSubscription) {
       this.breakpointSubscription.unsubscribe();
@@ -204,9 +193,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.setTaskDialogData(task);
   }
 
-  /**
-   * Resets dialog state before opening
-   */
+  /** Resets dialog state before opening */
   private resetDialogState(): void {
     this.selectedTask = null;
     this.showTaskDialog = false;
@@ -224,18 +211,14 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  /**
-   * Closes task dialog and resets state
-   */
+  /** Closes task dialog and resets state */
   closeTaskDialog(): void {
     this.showTaskDialog = false;
     this.selectedTask = null;
     this.isEditMode = false;
   }
 
-  /**
-   * Enables task edit mode
-   */
+  /** Enables task edit mode */
   editTask(): void {
     this.isEditMode = true;
   }
@@ -325,9 +308,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Updates subtasks in database
-   */
+  /** Updates subtasks in database */
   private async updateSubtasksInDatabase(): Promise<void> {
     const updateData: Partial<Task> = {
       subtasks: this.selectedTask!.subtasks,
@@ -335,9 +316,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     await this.taskDataService.updateTask(this.selectedTask!.id!, updateData);
   }
 
-  /**
-   * Navigates to add task component
-   */
+  /** Navigates to add task component */
   openAddTaskComponent(): void {
     this.router.navigateByUrl('/addTask');
   }
@@ -379,16 +358,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.setTaskStatus = taskStatus;
   }
 
-  /**
-   * Closes add task window through form component
-   */
+  /** Closes add task window through form component */
   closeWindow(): void {
     this.taskCreateForm.closeWindow();
   }
 
-  /**
-   * Closes add task overlay
-   */
+  /** Closes add task overlay */
   closeAddTaskOverlay(): void {
     this.openAddTask = false;
   }
@@ -401,9 +376,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 
-  /**
-   * Performs search operation
-   */
+  /** Performs search operation */
   performSearch(): void {
     this.searchSubject.next(this.searchTerm.toLowerCase().trim());
   }
@@ -432,10 +405,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @returns {BoardColumn[]} Filtered columns
    */
   private getFilteredColumns(columns: BoardColumn[], searchTerm: string): BoardColumn[] {
-    return columns.map((column) => ({
-      ...column,
-      tasks: column.tasks.filter((task) => this.taskMatchesSearchTerm(task, searchTerm)),
-    }));
+    return columns.map((column) => ({ ...column, tasks: column.tasks.filter((task) => this.taskMatchesSearchTerm(task, searchTerm)) }));
   }
 
   /**

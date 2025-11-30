@@ -1,14 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
-  OnChanges,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -27,121 +17,84 @@ import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.
   templateUrl: './task-edit-form.component.html',
   styleUrl: './task-edit-form.component.scss',
 })
-/**
- * Component for editing an existing task.
- * Provides form handling and emits events for saving and cancelling edits.
- */
 export class TaskEditFormComponent implements OnInit, OnChanges {
-  /**
-   * The task data to be edited.
-   */
+  /** The task data to be edited. */
   @Input() task: Task | null = null;
 
-  /**
-   * Emits the updated task when the save button is clicked.
-   */
+  /** Emits the updated task when the save button is clicked. */
   @Output() saveClicked = new EventEmitter<Task>();
 
-  /**
-   * Emits when the cancel button is clicked.
-   */
+  /** Emits when the cancel button is clicked. */
   @Output() cancelClicked = new EventEmitter<void>();
 
-  /**
-   * Reference to the input element used for editing task title.
-   */
+  /** Reference to the input element used for editing task title. */
   @ViewChild('editInput') editInputRef!: ElementRef<HTMLInputElement>;
 
-  /**
-   * The reactive form for editing the task.
-   */
+  /** The reactive form for editing the task. */
   editForm!: FormGroup;
 
-  /**
-   * Controls the visibility of the contacts list.
-   */
+  /** Controls the visibility of the contacts list. */
   showContactsList = false;
 
-  /**
-   * Search term used to filter contacts.
-   */
+  /** Search term used to filter contacts. */
   contactSearchTerm = '';
 
-  /**
-   * Index of the subtask currently being edited.
-   */
+  /** Index of the subtask currently being edited. */
   editingSubtaskIndex: number | null = null;
 
-  /**
-   * Temporary value for the subtask title being edited.
-   */
+  /** Temporary value for the subtask title being edited. */
   editingSubtaskText: string = '';
 
-  /**
-   * The minimum allowed date for the due date picker.
-   */
+  /** The minimum allowed date for the due date picker. */
   minDate: string = '';
 
+  /** Stores the original task images before any edits are applied */
   imagesOriginal: TaskImage[] = [];
+
+  /** Stores the currently edited images for live form updates */
   imagesCurrent: TaskImage[] = [];
 
-  /**
-   * Utility to get a random background color for contact avatars.
-   */
+  /** Utility to get a random background color for contact avatars. */
   getRandomColor = getRandomColor;
 
-  /**
-   * Utility to get initials from a contact's name.
-   */
+  /** Utility to get initials from a contact's name. */
   getInitials = getInitials;
 
-  /**
-   * Delay in milliseconds before focusing the edit input.
-   */
+  /** Delay in milliseconds before focusing the edit input. */
   private readonly EDIT_INPUT_FOCUS_DELAY = 10;
 
   /**
    * Constructor for the TaskEditFormComponent.
    * Initializes the form and injects required services.
-   *
    * @param formBuilder - Used to build the reactive form.
    * @param contactDataService - Provides access to contact data.
    * @param changeDetectorRef - Used to manually trigger change detection.
    */
-  constructor(
-    private formBuilder: FormBuilder,
-    public contactDataService: ContactDataService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
+  constructor(private formBuilder: FormBuilder, public contactDataService: ContactDataService, private changeDetectorRef: ChangeDetectorRef) {
     this.initializeForm();
   }
 
-  /**
-   * Initializes component and sets minimum date
-   */
+  /** Initializes component and sets minimum date */
   ngOnInit(): void {
     this.initializeTaskData();
     this.setMinimumDate();
     this.initImages();
   }
 
-  /**
-   * Handles input changes
-   */
+  /** Handles input changes */
   ngOnChanges(): void {
     this.initializeTaskData();
   }
 
-  /**
-   * Initializes task data if available
-   */
+  /** Initializes task data if available */
   private initializeTaskData(): void {
     if (this.task) {
       this.populateEditForm(this.task);
     }
   }
 
-  initImages() {
+  /** Initializes image arrays from the task or logs an error */
+  initImages(): void {
     if (this.task) {
       this.imagesOriginal = [...this.task.images];
       this.imagesCurrent = [...this.task.images];
@@ -150,17 +103,13 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Sets minimum date to today
-   */
+  /** Sets minimum date to today */
   private setMinimumDate(): void {
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
   }
 
-  /**
-   * Initializes the reactive form
-   */
+  /** Initializes the reactive form */
   private initializeForm(): void {
     this.editForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -188,6 +137,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     });
   }
 
+  /** Updates the current image list when changes come from child component */
   updateImages(images: TaskImage[]): void {
     this.imagesCurrent = images;
   }
@@ -210,9 +160,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     return date.toISOString().split('T')[0];
   }
 
-  /**
-   * Adds new subtask from user prompt
-   */
+  /** Adds new subtask from user prompt */
   addSubtask(): void {
     const subtaskTitle = this.promptForSubtaskTitle();
     if (subtaskTitle) {
@@ -435,9 +383,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     return null;
   }
 
-  /**
-   * Clears the contact search term
-   */
+  /** Clears the contact search term */
   clearContactSearch(): void {
     this.contactSearchTerm = '';
   }
@@ -452,9 +398,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.changeDetectorRef.detectChanges();
   }
 
-  /**
-   * Handles save button click
-   */
+  /** Handles save button click */
   onSaveClick(): void {
     if (this.isFormValidForSave()) {
       const updatedTask = this.createUpdatedTask();
@@ -498,9 +442,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     return dateValue ? new Date(dateValue) : undefined;
   }
 
-  /**
-   * Handles cancel button click
-   */
+  /** Handles cancel button click */
   onCancelClick(): void {
     this.cancelClicked.emit();
   }
@@ -526,9 +468,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Toggles contacts list visibility
-   */
+  /** Toggles contacts list visibility */
   toggleContactsList(): void {
     this.showContactsList = !this.showContactsList;
   }
@@ -575,18 +515,14 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.editingSubtaskText = title;
   }
 
-  /**
-   * Focuses the edit input field
-   */
+  /** Focuses the edit input field */
   private focusEditInput(): void {
     setTimeout(() => {
       this.selectEditInput();
     }, this.EDIT_INPUT_FOCUS_DELAY);
   }
 
-  /**
-   * Selects text in edit input field
-   */
+  /** Selects text in edit input field */
   private selectEditInput(): void {
     const editInput = document.querySelector('.subtask-edit-input') as HTMLInputElement;
     if (editInput) {
@@ -619,9 +555,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.updateSubtasksInForm(currentSubtasks);
   }
 
-  /**
-   * Cancels subtask editing
-   */
+  /** Cancels subtask editing */
   cancelSubtaskEdit(): void {
     this.editingSubtaskIndex = null;
     this.editingSubtaskText = '';

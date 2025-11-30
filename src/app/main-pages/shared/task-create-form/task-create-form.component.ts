@@ -137,51 +137,87 @@ export class TaskCreateFormComponent {
 
   // #region Lifecycle
   /**
-   * Lifecycle hook that is called after the component has been initialized.
-   * Calls `getTodayAsSting()` to initialize today's date as a string.
+   * Lifecycle hook executed after component initialization.
+   * Initializes today's date, connects contact data streams,
+   * and registers a global keydown listener for overlay keyboard navigation.
    */
   ngOnInit(): void {
     this.getTodayAsSting();
     this.initContactDataService();
-    this.initListeners();
+    window.addEventListener('keydown', this.onKeyDown, { passive: false });
   }
 
+  /**
+   * Removes the global keydown listener when the component is destroyed.
+   * Prevents memory leaks and unintended behavior after component teardown.
+   */
+  ngOnDestroy(): void {
+    window.removeEventListener('keydown', this.onKeyDown);
+  }
+
+  /**
+   * Initializes the contact data service by connecting its internal data streams.
+   * Called during component initialization.
+   */
   initContactDataService(): void {
     this.contactDataService.connectStreams();
   }
   // #endregion
 
   // #region Input Listeners
-  initListeners() {
-    this.listenerAssignedTo();
-  }
 
-  listenerAssignedTo() {
-    window.addEventListener('keydown', this.onKeyDown, { passive: false });
-  }
-
+  /**
+   * Delegates global keyboard events to specialized handlers for overlay navigation and closing.
+   * Routes events to Overlay 1 and Overlay 2 handling functions based on current state.
+   * @param event Keyboard event to process.
+   */
   onKeyDown = (event: KeyboardEvent): void => {
-    // Overlay 1
+    this.handleOverlay1Navigation(event);
+    this.handleOverlay1Close(event);
+    this.handleOverlay2ArrowNavigation(event);
+    this.handleOverlay2TabNavigation(event);
+    this.handleOverlay2Close(event);
+  };
+
+  /**
+   * Handles ArrowUp, ArrowDown and Tab interactions for navigating contacts
+   * inside the assignment overlay (Overlay 1).
+   * @param event Keyboard event used for navigation.
+   */
+  handleOverlay1Navigation(event: KeyboardEvent): void {
     if (event.key === 'ArrowDown' && this.isOverlayOpen1) {
       event.preventDefault();
-      this.nextContact();
+      this.switchContactTo('next');
+    }
+
+    if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
+      event.preventDefault();
+      this.switchContactTo('previous');
     }
 
     if (event.key === 'Tab' && this.isOverlayOpen1 && (document.activeElement != this.assignedToInput.nativeElement || event.shiftKey === true)) {
       this.isOverlayOpen1 = false;
     }
+  }
 
-    if (event.key === 'ArrowUp' && this.isOverlayOpen1) {
-      event.preventDefault();
-      this.previousContact();
-    }
-
+  /**
+   * Handles the closing behavior of the assignment overlay (Overlay 1)
+   * when Escape is pressed.
+   * @param event Keyboard event used to trigger closing.
+   */
+  handleOverlay1Close(event: KeyboardEvent): void {
     if (event.key === 'Escape' && this.isOverlayOpen1) {
       event.preventDefault();
       this.toggleOverlay1();
     }
+  }
 
-    // Overlay 2
+  /**
+   * Handles ArrowUp and ArrowDown navigation between the two
+   * category radio buttons inside Overlay 2.
+   * @param event Keyboard event used for navigation.
+   */
+  handleOverlay2ArrowNavigation(event: KeyboardEvent): void {
     if (event.key === 'ArrowDown' && this.isOverlayOpen2 && document.activeElement) {
       event.preventDefault();
       if (document.activeElement === this.categoryTechnicalTaskRef.nativeElement) {
@@ -199,20 +235,37 @@ export class TaskCreateFormComponent {
         this.categoryUserStoryRef.nativeElement.focus();
       }
     }
+  }
 
+  /**
+   * Handles Tab navigation inside Overlay 2.
+   * Closes the overlay when Tab is pressed while it is open.
+   * @param event Keyboard event triggering the tab handling.
+   */
+  handleOverlay2TabNavigation(event: KeyboardEvent): void {
     if (event.key === 'Tab' && this.isOverlayOpen2) {
       this.toggleOverlay2();
     }
+  }
 
+  /**
+   * Handles closing Overlay 2 when Escape is pressed.
+   * @param event Keyboard event used to trigger closing.
+   */
+  handleOverlay2Close(event: KeyboardEvent): void {
     if (event.key === 'Escape' && this.isOverlayOpen2) {
       event.preventDefault();
       this.toggleOverlay2();
     }
-  };
+  }
   // #endregion
 
   // #region Custom Focus Handlers
-  focusContact() {
+  /**
+   * Updates visual focus styling inside the contact list.
+   * Removes the focus class from all items and applies it to the currently active element.
+   */
+  focusContact(): void {
     this.contactsForAssign.toArray().forEach((e) => {
       e.nativeElement.classList.remove('inFocus');
     });
@@ -220,70 +273,85 @@ export class TaskCreateFormComponent {
     this.renderer.addClass(document.activeElement, 'inFocus');
   }
 
-  nextContact() {
+  /**
+   * Switches keyboard focus to the next or previous contact in the list.
+   * Determines the target index and focuses the corresponding element.
+   * @param direction Direction of movement: 'next' or 'previous'.
+   */
+  switchContactTo(direction: 'next' | 'previous'): void {
     if (this.contactsForAssign.toArray().length <= 0) return;
 
     let contactsArray = this.contactsForAssign.toArray();
     let newIndex: number;
 
-    // Setzt currentFocusedContact auf ersten Contact im Array, falls undefined
-    // und newIndex auf -1, damit er später 0 ist
     if (!this.currentFocusedContact) {
-      this.currentFocusedContact = contactsArray[0];
-      newIndex = -1;
+      newIndex = this.setIndex(direction, contactsArray);
     } else {
       newIndex = contactsArray.indexOf(this.currentFocusedContact);
       this.currentFocusedContact.nativeElement.blur();
     }
 
-    // zählt Index eins hoch, falls noch nicht das letzte Element im Array ausgewählt ist
-    if (newIndex < contactsArray.length - 1) {
-      newIndex = newIndex + 1;
-    }
-
+    newIndex = this.changeIndex(direction, newIndex, contactsArray);
     this.currentFocusedContact = contactsArray[newIndex];
     this.currentFocusedContact.nativeElement.focus();
   }
 
-  previousContact() {
-    if (this.contactsForAssign.toArray().length <= 0) return;
+  /**
+   * Calculates the starting index when no contact is currently focused.
+   * Initializes currentFocusedContact based on navigation direction.
+   * @param direction Navigation direction.
+   * @param contactsArray Array of contact input references.
+   * @returns Initial index used for further offset calculation.
+   */
+  setIndex(direction: 'next' | 'previous', contactsArray: ElementRef<HTMLInputElement>[]): number {
+    let index: number;
 
-    let contactsArray = this.contactsForAssign.toArray();
-    let newIndex: number;
-
-    // Setzt currentFocusedContact auf letzten Contact im Array, falls undefined
-    // und newIndex auf Länge des Array, damit er später der Position des letzten Contacts entspricht
-    if (!this.currentFocusedContact) {
-      this.currentFocusedContact = contactsArray[contactsArray.length - 1];
-      newIndex = contactsArray.length;
+    if (direction === 'next') {
+      this.currentFocusedContact = contactsArray[0];
+      index = -1;
     } else {
-      newIndex = contactsArray.indexOf(this.currentFocusedContact);
-      this.currentFocusedContact.nativeElement.blur();
+      this.currentFocusedContact = contactsArray[contactsArray.length - 1];
+      index = contactsArray.length;
     }
 
-    // zählt Index eins runter, falls noch nicht erste letzte Element im Array ausgewählt ist
-    if (newIndex > 0) {
+    return index;
+  }
+
+  /**
+   * Adjusts the calculated index within valid bounds based on navigation direction.
+   * Prevents overflow and underflow when moving through the contact list.
+   * @param direction Navigation direction.
+   * @param newIndex Current index before adjustment.
+   * @param contactsArray Array of contact input references.
+   * @returns Corrected index that points to a valid contact.
+   */
+  changeIndex(direction: 'next' | 'previous', newIndex: number, contactsArray: ElementRef<HTMLInputElement>[]): number {
+    if (newIndex > 0 && direction === 'previous') {
       newIndex = newIndex - 1;
     }
 
-    this.currentFocusedContact = contactsArray[newIndex];
-    this.currentFocusedContact.nativeElement.focus();
+    if (newIndex < contactsArray.length - 1 && direction === 'next') {
+      newIndex = newIndex + 1;
+    }
+
+    return newIndex;
   }
 
-  handleOverlay2InFocus(event: Event) {
+  /**
+   * Opens the category overlay and shifts focus into the overlay menu.
+   * @param event Event triggering the focus transition.
+   */
+  handleOverlay2InFocus(event: Event): void {
     this.toggleOverlay('category', event);
     this.overlayMenu.nativeElement.focus();
   }
   // #endregion
 
   /**
-   * Toggles the visibility of the specified overlay ('assign' or 'category') based on user interaction.
-   * Stops event propagation to prevent unintended side effects from parent elements.
-   * - If the `type` is `'assign'`, it triggers `toggleOverlay1()`.
-   * - If the `type` is `'category'`, it checks whether the second overlay was previously closed
-   *   and sets a flag before calling `toggleOverlay2()`.
-   * @param {'assign' | 'category'} type - The type of overlay to toggle.
-   * @param {Event} event - The DOM event that triggered this action (e.g., a click).
+   * Toggles the visibility of either the assignment or category overlay.
+   * Stops event propagation to avoid triggering parent handlers.
+   * @param type Overlay type to toggle.
+   * @param event Event that initiated the toggle.
    */
   toggleOverlay(type: 'assign' | 'category', event: Event) {
     event.stopPropagation();
@@ -316,16 +384,16 @@ export class TaskCreateFormComponent {
   }
 
   /**
-   * Checks if the contact list is empty or undefined.
-   * @returns true if contact list is missing or empty.
+   * Checks whether the contact list is missing or empty.
+   * @returns True when no contacts are available.
    */
   private isContactListEmpty(): boolean {
     return !this.contactDataService.contactList || this.contactDataService.contactList.length === 0;
   }
 
   /**
-   * Checks if the search term is empty or whitespace.
-   * @returns true if search term is empty.
+   * Checks whether the search term is empty or contains only whitespace.
+   * @returns True when no valid search term exists.
    */
   private isSearchTermEmpty(): boolean {
     return !this.contactSearchTerm || !this.contactSearchTerm.trim();
@@ -347,7 +415,11 @@ export class TaskCreateFormComponent {
     this.contactSearchTerm = '';
   }
 
-  /** Handles search input changes */
+  /**
+   * Updates the search term when the user types in the search input.
+   * Triggers change detection to refresh the filtered list.
+   * @param event Input event carrying the updated value.
+   */
   onSearchChange(event: Event) {
     const input = event.target as HTMLInputElement;
     this.contactSearchTerm = input.value;
@@ -422,6 +494,11 @@ export class TaskCreateFormComponent {
     this.showCategoryError = false;
   }
 
+  /**
+   * Prevents default form submission on Enter inside the subtask field
+   * and adds the current subtask to the list.
+   * @param event Event triggered by the Enter key.
+   */
   onSubtaskEnter(event: Event): void {
     event.preventDefault();
     this.addSubtaskToArray();
@@ -483,7 +560,10 @@ export class TaskCreateFormComponent {
       completed: false,
     };
   }
-
+  /**
+   * Updates the current list of task images with the provided array.
+   * @param images New image list emitted by the file upload component.
+   */
   updateImages(images: TaskImage[]): void {
     this.images = images;
   }
@@ -558,6 +638,10 @@ export class TaskCreateFormComponent {
     }
   }
 
+    /**
+   * Triggers validation feedback for required form fields.
+   * Marks title and date inputs as touched when invalid and sets the category error flag when needed.
+   */
   checkForErrors(): void {
     if (this.category === 'Select task category') {
       this.showCategoryError = true;

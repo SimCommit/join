@@ -2,7 +2,6 @@ import { Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild, 
 import { Task, TaskImage } from '../../shared-data/task.interface';
 import { CommonModule } from '@angular/common';
 import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-gallery.component';
-import { TaskDataService } from '../../shared-data/task-data.service';
 
 /**
  * Component for handling image uploads in Add-Task and Edit-Task views.
@@ -17,7 +16,6 @@ import { TaskDataService } from '../../shared-data/task-data.service';
 })
 export class FileUploadComponent {
   // #region Properties
-
   /**
    * Reference to the hidden file input element used for selecting images.
    * @type {ElementRef<HTMLInputElement>}
@@ -27,34 +25,32 @@ export class FileUploadComponent {
   /**
    * Holds all images currently selected or uploaded for the task.
    * Each entry contains filename, size, MIME type and base64 data.
-   * @type {TaskImage[]}
    */
   @Input() imagesForUpload: TaskImage[] = [];
 
+  /** Stores filenames of files that failed format validation */
   @Input() invalidFiles: string[] = [];
 
+  /** Stores filenames of compressed images that still exceed the allowed size */
   @Input() oversizedCompressedImages: string[] = [];
 
+  /** Stores filenames of images that exceed the raw file size limit before compression */
   @Input() oversizedImages: string[] = [];
 
   /** Emits the updated array of images whenever files are added or removed. */
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
-  /**
-   * Signals whether too many images have been selected.
-   * True when more than five images exist.
-   * @type {WritableSignal<boolean>}
-   */
+  /** Tracks whether the number of selected images exceeds the allowed limit */
   errorToManyImages: WritableSignal<boolean> = signal(false);
 
+  /** Holds the current number of images for validation checks */
   lenghtOfImagesToValidate: number = 0;
   // #endregion
 
   // #region Lifecycle
   /**
-   * Initializes the component after the view is fully rendered.
-   * Sets up the filepicker change listener.
-   * @returns {Promise<void>}
+   * Initializes the filepicker event listener once the view is rendered
+   * @returns Resolves when the listener has been set
    */
   async ngAfterViewInit(): Promise<void> {
     await this.initFilepickerListener();
@@ -62,7 +58,6 @@ export class FileUploadComponent {
   // #endregion
 
   // #region Eventlistener
-
   /**
    * Attaches a change listener to the hidden filepicker input.
    * When files are selected, they are forwarded to the addImages workflow.
@@ -200,13 +195,17 @@ export class FileUploadComponent {
     return errorWrongFormat;
   }
 
+  /**
+   * Checks if the raw file exceeds the allowed size limit before compression.
+   * Adds the filename to oversizedImages when too large.
+   * @param file The file to check.
+   * @returns True when the file exceeds the maximum size.
+   */
   isOversizedImage(file: File) {
     let oversized: boolean;
 
     if (file.size > 20 * 1024 * 1024) {
       oversized = true;
-      console.log(file.name, file.size);
-      
       this.oversizedImages.push(file.name);
     } else {
       oversized = false;
@@ -215,12 +214,18 @@ export class FileUploadComponent {
     return oversized;
   }
 
+  /**
+   * Checks whether a compressed image still exceeds the allowed size limit.
+   * Pushes the filename into oversizedCompressedImages when too large.
+   * @param name Original filename of the compressed image.
+   * @param size Size of the compressed file in bytes.
+   * @returns True when the compressed image is above the limit.
+   */
   isOversizedCompressedImage(name: string, size: number): boolean {
     let isOversized: boolean;
 
     if (size > 160 * 1024) {
       isOversized = true;
-      console.log(size);
       this.oversizedCompressedImages.push(name);
     } else {
       isOversized = false;
@@ -229,6 +234,10 @@ export class FileUploadComponent {
     return isOversized;
   }
 
+  /**
+   * Resets all file-related warning arrays and recalculates the too-many-files state.
+   * @returns void
+   */
   resetWarnings() {
     this.invalidFiles = [];
     this.oversizedCompressedImages = [];
