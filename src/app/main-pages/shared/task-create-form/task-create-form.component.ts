@@ -9,6 +9,7 @@ import { TaskDataService } from '../../shared-data/task-data.service';
 import { Router } from '@angular/router';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { ContactGroup } from '../../shared-data/contact-group.interface';
+import { KeyboardFocusService } from '../../shared-data/keyboard-focus.service';
 
 /**
  * Component for creating a new task.
@@ -26,12 +27,6 @@ import { ContactGroup } from '../../shared-data/contact-group.interface';
 export class TaskCreateFormComponent {
   /** Utility function for generating a random color. */
   getRandomColor = getRandomColor;
-
-  /** Controls the visibility of the first overlay (e.g., contact assignment). */
-  public isOverlayOpen1: boolean = false;
-
-  /** Controls the visibility of the second overlay (e.g., category selection). */
-  public isOverlayOpen2: boolean = false;
 
   /** Reference to the form element. */
   @ViewChild('taskForm') taskForm!: NgForm;
@@ -129,7 +124,8 @@ export class TaskCreateFormComponent {
     private taskDataService: TaskDataService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    public keyboardFocusService: KeyboardFocusService
   ) {}
 
   // #region Lifecycle
@@ -140,7 +136,22 @@ export class TaskCreateFormComponent {
   ngOnInit(): void {
     this.getTodayAsSting();
     this.initContactDataService();
-    this.initListeners();
+    this.listenerAssignedTo();
+  }
+
+  ngAfterViewInit(): void {
+    this.keyboardFocusService.registerKeydownListener();
+    this.keyboardFocusService.registerFocusableContacts(this.contactsForAssign.toArray());
+    this.keyboardFocusService.registerEnterCallback((index: number) => {
+      const el = this.contactsForAssign.toArray()[index]?.nativeElement;
+      if (el) {
+        el.click(); // Equivalent zu „Kontakt auswählen“
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.keyboardFocusService.unregisterKeydownListener();
   }
 
   initContactDataService(): void {
@@ -149,10 +160,6 @@ export class TaskCreateFormComponent {
   // #endregion
 
   // #region Input Listeners
-  initListeners() {
-    this.listenerAssignedTo();
-  }
-
   listenerAssignedTo() {
     window.addEventListener('keydown', this.onKeyDown, { passive: false });
   }
@@ -308,9 +315,7 @@ export class TaskCreateFormComponent {
     }
 
     const searchTerm = this.contactSearchTerm.toLowerCase();
-
     const filteredGroups = this.contactDataService.contactList.map((group) => this.filterGroupBySearchTerm(group, searchTerm)).filter((group) => group.contacts.length > 0);
-
     return filteredGroups;
   }
 
@@ -480,11 +485,7 @@ export class TaskCreateFormComponent {
    */
   getSubtask(): Subtask {
     const id = Date.now().toString();
-    return {
-      id: id,
-      title: this.addSubtask,
-      completed: false,
-    };
+    return { id: id, title: this.addSubtask, completed: false };
   }
 
   updateImages(images: TaskImage[]): void {
@@ -616,7 +617,7 @@ export class TaskCreateFormComponent {
    */
   openDropdown(event: Event) {
     event.stopPropagation();
-    this.isOverlayOpen1 = true;
+    this.keyboardFocusService.overlay1Open.set(true);
   }
 
   /** Sets the minDate property to today's date as a string in 'YYYY-MM-DD' format. */
@@ -630,8 +631,10 @@ export class TaskCreateFormComponent {
    * When toggling, it also ensures the second overlay is closed.
    */
   toggleOverlay1(): void {
-    this.isOverlayOpen1 = !this.isOverlayOpen1;
-    this.isOverlayOpen2 = false;
+    const current = this.keyboardFocusService.overlay1Open();
+    this.keyboardFocusService.overlay1Open.set(!current);
+
+    this.keyboardFocusService.overlay2Open.set(false);
   }
 
   /**
@@ -639,8 +642,8 @@ export class TaskCreateFormComponent {
    * When toggling, it also ensures the second overlay is closed.
    */
   openOverlay1(): void {
-    this.isOverlayOpen1 = true;
-    this.isOverlayOpen2 = false;
+    this.keyboardFocusService.overlay1Open.set(true);
+    this.keyboardFocusService.overlay2Open.set(false);
   }
 
   /**
@@ -657,7 +660,9 @@ export class TaskCreateFormComponent {
    * Also ensures the first overlay is closed.
    */
   toggleOverlay2(): void {
-    this.isOverlayOpen2 = !this.isOverlayOpen2;
-    this.isOverlayOpen1 = false;
+    const current = this.keyboardFocusService.overlay2Open();
+    this.keyboardFocusService.overlay2Open.set(!current);
+
+    this.keyboardFocusService.overlay1Open.set(false);
   }
 }

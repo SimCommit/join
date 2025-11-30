@@ -105,10 +105,10 @@
 
                 <fieldset (click)="onWrapperClick($event)">
                     <legend id="assignedToLegend">Assigned to</legend>
-                    <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="isOverlayOpen1"
+                    <div class="search-wrapper menu-wrapper overlay-open" [class.visible]="keyboardFocusService.overlay1Open()"
                         (click)="toggleOverlay('assign', $event)">
                         <input autocomplete="off" id="assignedToInput" #assignedToInput (focus)="openOverlay1()"
-                            role="combobox" [attr.aria-expanded]="isOverlayOpen1" aria-autocomplete="list"
+                            role="combobox" [attr.aria-expanded]="keyboardFocusService.overlay1Open()" aria-autocomplete="list"
                             aria-controls="assignedToList" type="text" name="assignedToInput" class="search-input"
                             placeholder="Select contacts to assign" [(ngModel)]="contactSearchTerm"
                             (input)="onSearchChange($event)" (click)="openDropdown($event)">
