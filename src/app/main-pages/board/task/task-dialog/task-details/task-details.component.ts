@@ -16,26 +16,19 @@ import { AttachmentsGalleryComponent } from '../../../../shared/attachments-gall
   styleUrl: './task-details.component.scss',
 })
 export class TaskDetailsComponent {
-  /**
-   * The task object to display details for
-   */
+  /** The task object to display details for */
   @Input() task: Task | null = null;
 
-  /**
-   * Event emitter for edit button clicks
-   */
+  /** Event emitter for edit button clicks */
   @Output() editClicked = new EventEmitter<void>();
 
-  /**
-   * Event emitter for delete button clicks, emits task ID
-   */
+  /** Event emitter for delete button clicks, emits task ID */
   @Output() deleteClicked = new EventEmitter<string>();
 
-  /**
-   * Event emitter for subtask toggle events
-   */
+  /** Event emitter for subtask toggle events */
   @Output() subtaskToggled = new EventEmitter<Subtask>();
 
+  /** Holds the images associated with the current task for display in the attachments gallery */
   images: TaskImage[] = [];
 
   /**
@@ -44,10 +37,12 @@ export class TaskDetailsComponent {
    */
   constructor(public contactDataService: ContactDataService) {}
 
+  /** Lifecycle hook that initializes component data by loading task images */
   ngOnInit(): void {
     this.initImages();
   }
 
+  /** Loads image data from the current task or logs an error if unavailable */
   initImages() {
     if (this.task) {
       this.images = this.task.images;
@@ -56,9 +51,7 @@ export class TaskDetailsComponent {
     }
   }
 
-  /**
-   * Reference to color utility function for generating random colors
-   */
+  /** Reference to color utility function for generating random colors */
   getRandomColor = getRandomColor;
 
   /**

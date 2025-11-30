@@ -20,49 +20,31 @@ import { ImageViewerStateService } from './shared/services/image-viewer-state.se
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
-  /**
-   * The application title
-   */
+  /** The application title  */
   title = 'join';
 
-  /**
-   * Controls the splash screen visibility
-   */
+  /** Controls the splash screen visibility  */
   showSplashScreen = false;
 
-  /**
-   * Controls the logo animation state
-   */
+  /** Controls the logo animation state */
   logoAnimating = false;
 
-  /**
-   * Controls when to hide the animated logo and show the auth logo
-   */
+  /** Controls when to hide the animated logo and show the auth logo  */
   animationComplete = false;
 
-  /**
-   * Controls whether to show the final normal logo on mobile
-   */
+  /** Controls whether to show the final normal logo on mobile */
   showFinalLogo = false;
 
-  /**
-   * Controls the crossfade between mobile logos
-   */
+  /** Controls the crossfade between mobile logos */
   logoSwapping = false;
 
-  /**
-   * Subscription to router events
-   */
+  /** Subscription to router events */
   private routerSubscription: Subscription = new Subscription();
 
-  /**
-   * Flag to track if initial route has been processed
-   */
+  /** Flag to track if initial route has been processed */
   private initialRouteProcessed = false;
 
-  /**
-   * Flag to track if app has been initialized
-   */
+  /** Flag to track if app has been initialized */
   private appInitialized = false;
 
   /**
@@ -90,11 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.router.url === '/auth/login';
   }
 
-  constructor(
-    private router: Router,
-    public contactDataService: ContactDataService,
-    public imageViewerStateService: ImageViewerStateService
-  ) {}
+  constructor(private router: Router, public contactDataService: ContactDataService, public imageViewerStateService: ImageViewerStateService) {}
 
   /**
    * Initializes the component lifecycle
@@ -121,10 +99,12 @@ export class AppComponent implements OnInit, OnDestroy {
     window.removeEventListener('keydown', this.onKeydown);
   }
 
+  /** Adds a global keydown listener to enable closing the ImageViewer via Escape key */
   initCloseImageViewerListener() {
     window.addEventListener('keydown', this.onKeydown);
   }
 
+  /** Handles global Escape key presses to close the ImageViewer if active */
   onKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') {
       this.imageViewerStateService.imageViewerIsActive.set(false);
@@ -144,16 +124,14 @@ export class AppComponent implements OnInit, OnDestroy {
    * Monitors navigation changes to restart animations
    */
   private subscribeToRouterEvents(): void {
-    this.routerSubscription = this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        if (!this.initialRouteProcessed) {
-          this.checkAndStartAnimation();
-          this.initialRouteProcessed = true;
-        } else {
-          this.checkAndStartAnimation();
-        }
-      });
+    this.routerSubscription = this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      if (!this.initialRouteProcessed) {
+        this.checkAndStartAnimation();
+        this.initialRouteProcessed = true;
+      } else {
+        this.checkAndStartAnimation();
+      }
+    });
   }
 
   /**
