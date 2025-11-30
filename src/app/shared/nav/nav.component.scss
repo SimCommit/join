@@ -19,7 +19,7 @@ a {
   color: $grey;
 }
 
-section {
+.link-wrapper {
   margin-top: 4vh;
   margin-top: 4dvh;
   margin-bottom: 4vh;
@@ -277,13 +277,13 @@ section {
     @include dFlex($ai: center);
   }
 
-  section {
+  .link-wrapper {
     @include dFlex($ai: center);
   }
 }
 
 @media (max-width: 1200px) {
-  section {
+  .link-wrapper {
     width: 100%;
   }
   .main-pages-container {

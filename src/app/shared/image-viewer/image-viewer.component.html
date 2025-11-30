@@ -1,4 +1,4 @@
-<section role="dialog" aria-modal="true" aria-label="image viewer" cdkTrapFocus (click)="imageViewerStateService.imageViewerIsActive.set(false)">
+<div class="image-viewer" role="dialog" aria-modal="true" aria-label="image viewer" cdkTrapFocus (click)="imageViewerStateService.imageViewerIsActive.set(false)">
     @let i = imageViewerStateService.indexCurrentImage();
     @let img = imagesToView[i];
     <div (click)="$event.stopPropagation()">
@@ -34,4 +34,4 @@
         </nav>
         }
     </div>
-</section>
+</div>

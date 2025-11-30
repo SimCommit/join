@@ -6,7 +6,7 @@
   height: calc(100vh - 100px);
   background-color: #f6f7f8;
   padding: 40px 24px;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .greeting-content {
@@ -19,8 +19,8 @@
 .greeting-message {
   @include dFlex($fd: column, $ai: center, $g: 12px);
 
-  h1 {
-    font-size: clamp(48px, 12vw, 64px);
+  p {
+    font-size: clamp(40px, 10vw, 64px);
     font-weight: 500;
     margin: 0;
     color: #2a3647;
@@ -28,7 +28,7 @@
   }
 
   .user-name {
-    font-size: clamp(48px, 12vw, 64px);
+    font-size: clamp(40px, 10vw, 64px);
     font-weight: 700;
     margin: 0;
     color: #29abe2;

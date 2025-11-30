@@ -1,7 +1,7 @@
 @use './../../../styles/mixins' as *;
 @use './../../../styles/_variables' as *;
 
-section {
+.image-viewer {
   @include dFlex();
   position: absolute;
   top: 0;

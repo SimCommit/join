@@ -16,15 +16,15 @@
 
                 @if (isDropdownOpen) {
                 <div class="dropdown-menu" (click)="$event.stopPropagation()">
-                    <button class="dropdown-item help-item-mobile" (click)="navigateToHelp()">
+                    <a class="dropdown-item help-item-mobile" (click)="navigateToHelp()">
                         Help
-                    </button>
-                    <button class="dropdown-item" (click)="navigateToLegalNotice()">
+                    </a>
+                    <a class="dropdown-item" (click)="navigateToLegalNotice()">
                         Legal Notice
-                    </button>
-                    <button class="dropdown-item" (click)="navigateToPrivacyPolicy()">
+                    </a>
+                    <a class="dropdown-item" (click)="navigateToPrivacyPolicy()">
                         Privacy Policy
-                    </button>
+                    </a>
                     <button class="dropdown-item logout-item" (click)="logout()">
                         Log out
                     </button>
