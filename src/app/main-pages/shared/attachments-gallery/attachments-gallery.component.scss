@@ -4,6 +4,10 @@
 button {
   border: none;
   background: none;
+
+  img {
+    pointer-events: none;
+  }
 }
 
 .preview-gallery {
