@@ -33,11 +33,11 @@ export class FileUploadComponent {
 
   @Input() invalidFiles: string[] = [];
 
+  @Input() oversizedCompressedImages: string[] = [];
+
   @Input() oversizedImages: string[] = [];
 
-  /**
-   * Emits the updated array of images whenever files are added or removed.
-   */
+  /** Emits the updated array of images whenever files are added or removed. */
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
   /**
@@ -48,7 +48,6 @@ export class FileUploadComponent {
   errorToManyImages: WritableSignal<boolean> = signal(false);
 
   lenghtOfImagesToValidate: number = 0;
-
   // #endregion
 
   // #region Lifecycle
@@ -115,13 +114,15 @@ export class FileUploadComponent {
 
           if (this.isInvalidImageFormat(file)) return;
 
+          if (this.isOversizedImage(file)) return;
+
           const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
           const baseName = file.name.replace(/\.[^/.]+$/, '');
-          const extension = ".webp";
+          const extension = '.webp';
           const newName = `${baseName}.webp`;
           const byteSize = compressedBase64.length * 0.75;
 
-          if (this.imageIsOversized(file.name, byteSize)) return;
+          if (this.isOversizedCompressedImage(file.name, byteSize)) return;
 
           this.imagesForUpload.push({
             filename: newName,
@@ -167,24 +168,18 @@ export class FileUploadComponent {
   // #endregion
 
   // #region Helpers
-  imageIsOversized(name: string, size: number): boolean {
-    let isOversized: boolean;
-
-    if (size > 160000) {
-      isOversized = true;
-      console.log(size);
-      this.oversizedImages.push(name);
+  /**
+   * Checks whether more than five images are stored.
+   * Updates the errorToManyImages signal based on the result.
+   * @returns {boolean} True if the limit is exceeded.
+   */
+  thereAreToManyFiles(): boolean {
+    if (this.imagesForUpload.length > 4) {
+      this.errorToManyImages.set(true);
     } else {
-      isOversized = false;
+      this.errorToManyImages.set(false);
     }
-
-    return isOversized;
-  }
-
-  resetWarnings() {
-    this.invalidFiles = [];
-    this.oversizedImages = [];
-    this.thereAreToManyFiles();
+    return this.errorToManyImages();
   }
 
   /**
@@ -205,18 +200,40 @@ export class FileUploadComponent {
     return errorWrongFormat;
   }
 
-  /**
-   * Checks whether more than five images are stored.
-   * Updates the errorToManyImages signal based on the result.
-   * @returns {boolean} True if the limit is exceeded.
-   */
-  thereAreToManyFiles(): boolean {
-    if (this.imagesForUpload.length > 4) {
-      this.errorToManyImages.set(true);
+  isOversizedImage(file: File) {
+    let oversized: boolean;
+
+    if (file.size > 20 * 1024 * 1024) {
+      oversized = true;
+      console.log(file.name, file.size);
+      
+      this.oversizedImages.push(file.name);
     } else {
-      this.errorToManyImages.set(false);
+      oversized = false;
     }
-    return this.errorToManyImages();
+
+    return oversized;
+  }
+
+  isOversizedCompressedImage(name: string, size: number): boolean {
+    let isOversized: boolean;
+
+    if (size > 160 * 1024) {
+      isOversized = true;
+      console.log(size);
+      this.oversizedCompressedImages.push(name);
+    } else {
+      isOversized = false;
+    }
+
+    return isOversized;
+  }
+
+  resetWarnings() {
+    this.invalidFiles = [];
+    this.oversizedCompressedImages = [];
+    this.oversizedImages = [];
+    this.thereAreToManyFiles();
   }
 
   /**

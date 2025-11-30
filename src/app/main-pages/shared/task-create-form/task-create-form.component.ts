@@ -90,6 +90,9 @@ export class TaskCreateFormComponent {
   /** Filenames rejected due to invalid format. */
   invalidFiles: string[] = [];
 
+  /** Filenames rejected due to exceeding size limits after compression. */
+  oversizedCompressedImages: string[] = [];
+
   /** Filenames rejected due to exceeding size limits. */
   oversizedImages: string[] = [];
 
@@ -308,9 +311,7 @@ export class TaskCreateFormComponent {
     }
 
     const searchTerm = this.contactSearchTerm.toLowerCase();
-
     const filteredGroups = this.contactDataService.contactList.map((group) => this.filterGroupBySearchTerm(group, searchTerm)).filter((group) => group.contacts.length > 0);
-
     return filteredGroups;
   }
 
@@ -338,11 +339,7 @@ export class TaskCreateFormComponent {
    */
   private filterGroupBySearchTerm(group: ContactGroup, searchTerm: string): ContactGroup {
     const filteredContacts = group.contacts.filter((contact) => contact.name.toLowerCase().includes(searchTerm) || contact.email.toLowerCase().includes(searchTerm));
-
-    return {
-      ...group,
-      contacts: filteredContacts,
-    };
+    return { ...group, contacts: filteredContacts };
   }
 
   /** Clears the contact search term */
@@ -595,6 +592,7 @@ export class TaskCreateFormComponent {
     this.subtasks = [];
     this.images = [];
     this.invalidFiles = [];
+    this.oversizedCompressedImages = [];
     this.oversizedImages = [];
 
     setTimeout((): void => {
@@ -652,10 +650,7 @@ export class TaskCreateFormComponent {
     return type === 'assign';
   }
 
-  /**
-   * Toggles the visibility of the second overlay.
-   * Also ensures the first overlay is closed.
-   */
+  /** Toggles the visibility of the second overlay and ensures the first overlay is closed. */
   toggleOverlay2(): void {
     this.isOverlayOpen2 = !this.isOverlayOpen2;
     this.isOverlayOpen1 = false;

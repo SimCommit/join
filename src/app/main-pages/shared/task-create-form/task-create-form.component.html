@@ -101,7 +101,7 @@
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
             
-                <app-file-upload [imagesForUpload]="images" [invalidFiles]="invalidFiles" [oversizedImages]="oversizedImages" (updatingImages)="updateImages($event)"></app-file-upload>
+                <app-file-upload [imagesForUpload]="images" [invalidFiles]="invalidFiles" [oversizedCompressedImages]="oversizedCompressedImages" [oversizedImages]="oversizedImages" (updatingImages)="updateImages($event)"></app-file-upload>
 
                 <fieldset (click)="onWrapperClick($event)">
                     <legend id="assignedToLegend">Assigned to</legend>

@@ -36,9 +36,18 @@
     @if (oversizedImages.length > 0) {
     <div id="filepicker-error" class="wrong-format">
         @for (name of oversizedImages; track $index) {
+        <p><strong>Oversized file: {{name}}</strong></p>
+        }
+        <p>Image file must be smaller than 20 MB.</p>
+    </div>
+    }
+
+    @if (oversizedCompressedImages.length > 0) {
+    <div id="filepicker-error" class="wrong-format">
+        @for (name of oversizedCompressedImages; track $index) {
         <p><strong>Oversized image: {{name}}</strong></p>
         }
-        <p>Image must be under 160 kb after upload</p>
+        <p>Image must be smaller than 160 KB after compression.</p>
     </div>
     }
 
