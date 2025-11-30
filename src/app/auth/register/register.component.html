@@ -40,10 +40,11 @@
                 <img *ngIf="!passwordInput && password.length == 0" src="./img/icons/lock.svg" alt="lock">
                 <img *ngIf="(passwordInput || password.length > 0) && !showPassword"
                     (click)="togglePasswordVisibility('showPassword', passwordInputEle)"
-                    src="./img/icons/visibility.svg" alt="visibility">
+                    src="./img/icons/visibility_off.svg" alt="visibility_off">
+
                 <img *ngIf="(passwordInput || password.length > 0) && showPassword"
                     (click)="togglePasswordVisibility('showPassword', passwordInputEle)"
-                    src="./img/icons/visibility_off.svg" alt="visibility_off">
+                    src="./img/icons/visibility.svg" alt="visibility">
             </div>
             <p class="error" *ngIf="passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)">
                 Please enter your password.
@@ -59,10 +60,10 @@
                 <img *ngIf="!passwordInputConfirm && confirmPassword.length == 0" src="./img/icons/lock.svg" alt="lock">
                 <img *ngIf="(passwordInputConfirm || confirmPassword.length > 0) && !showPasswordConfirm"
                     (click)="togglePasswordVisibility('showPasswordConfirm', passwordConfirmInputEle)"
-                    src="./img/icons/visibility.svg" alt="visibility">
+                    src="./img/icons/visibility_off.svg" alt="visibility_off">
                 <img *ngIf="(passwordInputConfirm || confirmPassword.length > 0) && showPasswordConfirm"
                     (click)="togglePasswordVisibility('showPasswordConfirm', passwordConfirmInputEle)"
-                    src="./img/icons/visibility_off.svg" alt="visibility_off">
+                    src="./img/icons/visibility.svg" alt="visibility">
             </div>
             <p class="error"
                 *ngIf="confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)">

@@ -26,11 +26,11 @@
                 <img class="hover" (mousedown)="preventBlur($event)"
                     (click)="togglePasswordVisibility(passwordInputRef)"
                     *ngIf="(passwordInput || passwordInputTest.length > 0) && !showPassword"
-                    src="./img/icons/visibility.svg" alt="visibility">
+                    src="./img/icons/visibility_off.svg" alt="visibility_off">
                 <img class="hover" (mousedown)="preventBlur($event)"
                     (click)="togglePasswordVisibility(passwordInputRef)"
                     *ngIf="(passwordInput || passwordInputTest.length > 0) && showPassword"
-                    src="./img/icons/visibility_off.svg" alt="visibility_off">
+                    src="./img/icons/visibility.svg" alt="visibility">
             </div>
             <p class="error" *ngIf="passwordRef.invalid && (passwordRef.touched || form.submitted)">
                 Please enter your password.

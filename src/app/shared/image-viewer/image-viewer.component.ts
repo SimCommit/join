@@ -22,6 +22,7 @@ export class ImageViewerComponent {
    */
   imagesToView: TaskImage[] = [];
 
+  /** Reference to the download button element. */
   @ViewChild ("downloadButton") downloadButton!: ElementRef<HTMLButtonElement>;
 
   /**
@@ -42,6 +43,7 @@ export class ImageViewerComponent {
     this.imagesToView = this.imageViewerStateService.imagesToView();
   }
 
+  /** Sets initial focus on the download button after view initialization. */
   ngAfterViewInit(): void {
     this.downloadButton.nativeElement.focus();
   }
@@ -74,7 +76,7 @@ export class ImageViewerComponent {
    * @param {number} i Current image index.
    * @returns {void}
    */
-  nextImage(i: number) {
+  nextImage(i: number): void {
     if (i < this.imagesToView.length - 1) {
       this.imageViewerStateService.indexCurrentImage.set(i + 1);
     } else {
