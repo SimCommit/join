@@ -105,35 +105,63 @@ export class FileUploadComponent {
     if (files.length + this.imagesForUpload.length < 6) {
       if (files.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
-          if (this.thereAreToManyFiles()) return;
-
-          if (this.isInvalidImageFormat(file)) return;
-
-          if (this.isOversizedImage(file)) return;
-
-          const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
-          const baseName = file.name.replace(/\.[^/.]+$/, '');
-          const extension = '.webp';
-          const newName = `${baseName}.webp`;
-          const byteSize = compressedBase64.length * 0.75;
-
-          if (this.isOversizedCompressedImage(file.name, byteSize)) return;
-
-          this.imagesForUpload.push({
-            filename: newName,
-            filenameWithoutType: baseName,
-            size: byteSize,
-            fileExtension: extension,
-            mimeType: 'image/webp',
-            base64: compressedBase64,
-          });
-          this.updatingImages.emit(this.imagesForUpload);
+          await this.handleFile(file);
         });
       }
       this.errorToManyImages.set(false);
     } else {
       this.errorToManyImages.set(true);
     }
+  }
+
+  /**
+   * Processes a single image file by validating, compressing and adding it to the upload list.
+   * Emits the updated image array after successful processing.
+   * @param file The image file to process.
+   */
+  async handleFile(file: File): Promise<void> {
+    if (this.shouldSkipImage(file)) return;
+
+    const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
+    const imageObject = this.createTaskImage(file, compressedBase64);
+
+    if (this.isOversizedCompressedImage(file.name, imageObject.size)) return;
+
+    this.imagesForUpload.push(imageObject);
+    this.updatingImages.emit(this.imagesForUpload);
+  }
+
+  /**
+   * Checks whether a given image file should be skipped.
+   * Returns true when too many images exist or the file format or size is invalid.
+   * @param file The file to validate.
+   * @returns True if the file should not be processed.
+   */
+  shouldSkipImage(file: File): boolean {
+    return this.thereAreToManyFiles() || this.isInvalidImageFormat(file) || this.isOversizedImage(file);
+  }
+
+  /**
+   * Creates a TaskImage object from a file and its compressed Base64 string.
+   * Extracts metadata such as filename, size and MIME type.
+   * @param file The original image file.
+   * @param compressedBase64 The Base64 string of the compressed image.
+   * @returns A fully constructed TaskImage object.
+   */
+  createTaskImage(file: File, compressedBase64: string): TaskImage {
+    const baseName = file.name.replace(/\.[^/.]+$/, '');
+    const extension = '.webp';
+    const newName = `${baseName}.webp`;
+    const byteSize = compressedBase64.length * 0.75;
+
+    return {
+      filename: newName,
+      filenameWithoutType: baseName,
+      size: byteSize,
+      fileExtension: extension,
+      mimeType: 'image/webp',
+      base64: compressedBase64,
+    };
   }
 
   /**
@@ -258,13 +286,11 @@ export class FileUploadComponent {
   compressImage(file: File, maxWidth: number = 800, maxHeight: number = 800, quality: number = 0.8): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d')!;
-
           let width = img.width;
           let height = img.height;
 
@@ -280,9 +306,7 @@ export class FileUploadComponent {
 
           canvas.width = width;
           canvas.height = height;
-
           ctx.drawImage(img, 0, 0, width, height);
-
           const compressedBase64 = canvas.toDataURL('image/webp', quality);
           resolve(compressedBase64);
         };
