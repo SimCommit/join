@@ -36,9 +36,9 @@
     @if (oversizedImages.length > 0) {
     <div id="filepicker-error" class="wrong-format">
         @for (name of oversizedImages; track $index) {
-        <p><strong>Oversized file: {{name}}</strong></p>
+        <p><strong>Oversized image: {{name}}</strong></p>
         }
-        <p>Image file must be smaller than 20 MB.</p>
+        <p>Image file must be smaller than 10 MB.</p>
     </div>
     }
 

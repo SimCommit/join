@@ -115,6 +115,33 @@ export class FileUploadComponent {
   }
 
   /**
+   * Removes all currently stored images from the form.
+   * Resets related validation states for maximum-image errors.
+   * @returns {void}
+   */
+  deleteAllImagesFromForm(): void {
+    this.imagesForUpload = [];
+    this.errorToManyImages.set(false);
+    this.resetWarnings();
+    this.updatingImages.emit(this.imagesForUpload);
+  }
+
+  /**
+   * Deletes a specific image from the current image list.
+   * Updates validation related to maximum-image limits.
+   * @param {TaskImage} imageToDelete The image object to remove.
+   * @returns {void}
+   */
+  deleteSingelImage(imageToDelete: TaskImage): void {
+    const index = this.imagesForUpload.indexOf(imageToDelete);
+    this.imagesForUpload.splice(index, 1);
+    this.resetWarnings();
+    this.updatingImages.emit(this.imagesForUpload);
+  }
+  // #endregion
+
+  // #region Helpers
+  /**
    * Processes a single image file by validating, compressing and adding it to the upload list.
    * Emits the updated image array after successful processing.
    * @param file The image file to process.
@@ -165,33 +192,6 @@ export class FileUploadComponent {
   }
 
   /**
-   * Removes all currently stored images from the form.
-   * Resets related validation states for maximum-image errors.
-   * @returns {void}
-   */
-  deleteAllImagesFromForm(): void {
-    this.imagesForUpload = [];
-    this.errorToManyImages.set(false);
-    this.resetWarnings();
-    this.updatingImages.emit(this.imagesForUpload);
-  }
-
-  /**
-   * Deletes a specific image from the current image list.
-   * Updates validation related to maximum-image limits.
-   * @param {TaskImage} imageToDelete The image object to remove.
-   * @returns {void}
-   */
-  deleteSingelImage(imageToDelete: TaskImage): void {
-    const index = this.imagesForUpload.indexOf(imageToDelete);
-    this.imagesForUpload.splice(index, 1);
-    this.resetWarnings();
-    this.updatingImages.emit(this.imagesForUpload);
-  }
-  // #endregion
-
-  // #region Helpers
-  /**
    * Checks whether more than five images are stored.
    * Updates the errorToManyImages signal based on the result.
    * @returns {boolean} True if the limit is exceeded.
@@ -232,7 +232,7 @@ export class FileUploadComponent {
   isOversizedImage(file: File) {
     let oversized: boolean;
 
-    if (file.size > 20 * 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       oversized = true;
       this.oversizedImages.push(file.name);
     } else {
