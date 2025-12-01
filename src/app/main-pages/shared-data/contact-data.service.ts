@@ -35,8 +35,6 @@ export class ContactDataService {
   /** Angular environment injector for dependency injection context */
   private readonly injector = inject(EnvironmentInjector);
 
-  // public contacts$?: Observable<Contact[]>;
-
   /** Flag indicating if user is not in login state */
   notInLogIn: boolean = false;
 

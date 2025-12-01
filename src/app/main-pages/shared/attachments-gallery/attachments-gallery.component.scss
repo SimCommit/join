@@ -30,7 +30,6 @@ button {
 
 .perview-img-btn {
   @include dFlex($ai: flex-start, $fd: column);
-  // outline: none;
 
   &:hover,
   :focus-within + .imageButtonOverlay {
