@@ -67,6 +67,7 @@ export class FileUploadComponent {
     const filepicker = this.filepickerRef.nativeElement;
     filepicker.addEventListener('change', async (): Promise<void> => {
       const files = filepicker.files;
+      
       if (files) {
         this.addImages(files);
       }
@@ -85,6 +86,7 @@ export class FileUploadComponent {
   addImagesByDrop(event: DragEvent): void {
     event.preventDefault();
     const data = event.dataTransfer;
+
     if (data != null) {
       if (data.files) {
         this.addImages(data.files);
@@ -102,6 +104,7 @@ export class FileUploadComponent {
   addImages(files: FileList): void {
     this.lenghtOfImagesToValidate = files.length;
     this.resetWarnings();
+
     if (files.length + this.imagesForUpload.length < 6) {
       if (files.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
@@ -214,6 +217,7 @@ export class FileUploadComponent {
    */
   isInvalidImageFormat(file: File): boolean {
     let errorWrongFormat: boolean = false;
+
     if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/webp') {
       errorWrongFormat = false;
     } else {
@@ -285,13 +289,13 @@ export class FileUploadComponent {
   compressImage(file: File, maxWidth: number = 800, maxHeight: number = 800, quality: number = 0.8): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
+
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
           const compressedBase64 = this.handleCompression(img, maxWidth, maxHeight, quality);
           resolve(compressedBase64);
         };
-
         img.onerror = () => reject('Failed to load image.');
         const result = event.target?.result as string;
         img.src = result;
@@ -343,10 +347,7 @@ export class FileUploadComponent {
 
     canvas.width = width;
     canvas.height = height;
-    return {
-      width: width,
-      height: height,
-    };
+    return { width: width, height: height };
   }
   // #endregion
 }
