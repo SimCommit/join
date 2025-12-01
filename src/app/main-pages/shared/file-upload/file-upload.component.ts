@@ -274,14 +274,13 @@ export class FileUploadComponent {
   }
 
   /**
-   * Compresses an image file to a target size or quality.
-   * Maintains aspect ratio and outputs the result as a Base64-encoded string.
-   *
-   * @param file The image file to be compressed.
-   * @param maxWidth The maximum width of the image in pixels. Default is 800.
-   * @param maxHeight The maximum height of the image in pixels. Default is 800.
-   * @param quality The quality of the output image, from 0 (lowest) to 1 (highest). Default is 0.8.
-   * @returns A promise that resolves with the Base64 string of the compressed image.
+   * Compresses an image file and returns a Base64 string.
+   * Uses FileReader to load the file and delegates canvas work to helper functions.
+   * @param file The image file to be compressed
+   * @param maxWidth Maximum width in pixels
+   * @param maxHeight Maximum height in pixels
+   * @param quality Output quality from 0 to 1
+   * @returns A promise that resolves with the compressed Base64 string
    */
   compressImage(file: File, maxWidth: number = 800, maxHeight: number = 800, quality: number = 0.8): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -289,25 +288,7 @@ export class FileUploadComponent {
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxWidth || height > maxHeight) {
-            if (width > height) {
-              height = (height * maxWidth) / width;
-              width = maxWidth;
-            } else {
-              width = (width * maxHeight) / height;
-              height = maxHeight;
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          ctx.drawImage(img, 0, 0, width, height);
-          const compressedBase64 = canvas.toDataURL('image/webp', quality);
+          const compressedBase64 = this.handleCompression(img, maxWidth, maxHeight, quality);
           resolve(compressedBase64);
         };
 
@@ -319,6 +300,53 @@ export class FileUploadComponent {
       reader.onerror = () => reject('Failed to read file.');
       reader.readAsDataURL(file);
     });
+  }
+
+  /**
+   * Creates a canvas, adjusts its size, draws the image and generates a compressed Base64 output.
+   * @param img The loaded image element
+   * @param maxWidth Maximum allowed width
+   * @param maxHeight Maximum allowed height
+   * @param quality Output quality from 0 to 1
+   * @returns The compressed image as a Base64 string
+   */
+  handleCompression(img: HTMLImageElement, maxWidth: number, maxHeight: number, quality: number): string {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d')!;
+    const dimensions: { width: number; height: number } = this.setCanvasSize(canvas, img, maxWidth, maxHeight);
+    ctx.drawImage(img, 0, 0, dimensions.width, dimensions.height);
+    const compressedBase64 = canvas.toDataURL('image/webp', quality);
+    return compressedBase64;
+  }
+
+  /**
+   * Calculates and applies the correct canvas size for an image while keeping aspect ratio.
+   * @param canvas The canvas element to adjust
+   * @param img The image used for size calculation
+   * @param maxWidth Maximum allowed width
+   * @param maxHeight Maximum allowed height
+   * @returns An object containing the final width and height
+   */
+  setCanvasSize(canvas: HTMLCanvasElement, img: HTMLImageElement, maxWidth: number, maxHeight: number) {
+    let width = img.width;
+    let height = img.height;
+
+    if (width > maxWidth || height > maxHeight) {
+      if (width > height) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+      } else {
+        width = (width * maxHeight) / height;
+        height = maxHeight;
+      }
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+    return {
+      width: width,
+      height: height,
+    };
   }
   // #endregion
 }
