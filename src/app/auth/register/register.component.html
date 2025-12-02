@@ -35,7 +35,7 @@
                 [(ngModel)]="password"
                 [ngClass]="{'error-border': passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)}"
                 #passwordInputRef="ngModel" [type]="showPassword? 'text' :'password'" required placeholder="Password"
-                name="password" id="password">
+                name="password" id="password" minlength="6">
             <div>
                 <img *ngIf="!passwordInput && password.length == 0" src="./img/icons/lock.svg" alt="lock">
                 <img *ngIf="(passwordInput || password.length > 0) && !showPassword"
@@ -55,7 +55,7 @@
                 [(ngModel)]="confirmPassword" #confirmPasswordInputRef="ngModel"
                 [ngClass]="{'error-border': confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)}"
                 [type]="showPasswordConfirm? 'text' :'password'" required name="confirmPassword" id="confirmPassword"
-                placeholder="Confirm Password">
+                placeholder="Confirm Password" minlength="6">
             <div>
                 <img *ngIf="!passwordInputConfirm && confirmPassword.length == 0" src="./img/icons/lock.svg" alt="lock">
                 <img *ngIf="(passwordInputConfirm || confirmPassword.length > 0) && !showPasswordConfirm"
@@ -67,10 +67,14 @@
             </div>
             <p class="error"
                 *ngIf="confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)">
+                @if (confirmPassword.length > 5 || confirmPassword.length < 1 ) {
                 Please confirm your password.
+                } @else {
+                Your Password must be at least 6 characters
+                }
             </p>
-            <p class="error" *ngIf="passwordDontMatch">
-                Your passwords don't match. Please try again.
+            <p class="error" *ngIf="passwordDontMatch && confirmPassword.length > 5">
+                Your passwords didn't match.
             </p>
         </div>
         <div class="privacy-policy">

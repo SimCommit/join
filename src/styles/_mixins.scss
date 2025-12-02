@@ -36,8 +36,8 @@
   }
 
   &:disabled {
-    background: $light-grey;
-    border-color: $light-grey;
+    background: $high-contrast-grey;
+    border-color: $high-contrast-grey;
     cursor: not-allowed;
   }
 
