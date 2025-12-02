@@ -11,7 +11,7 @@
         <div class="input">
             <input [(ngModel)]="userName" #userNameInput="ngModel"
                 [ngClass]="{'error-border': userNameInput.invalid && (userNameInput.touched || form.submitted)}"
-                placeholder="Full Name" required pattern="[a-z A-Z]*" type="text" name="userName" id="userName">
+                placeholder="Full Name" required pattern="[A-Za-z][A-Za-z0-9]*" maxlength="28" type="text" name="userName" id="userName">
             <div>
                 <img src="./img/icons/person.svg" alt="">
             </div>
@@ -22,7 +22,8 @@
         <div class="input">
             <input [(ngModel)]="email" #emailInput="ngModel"
                 [ngClass]="{'error-border': emailInput.invalid && (emailInput.touched || form.submitted)}"
-                placeholder="Email" required type="email" name="email" id="email">
+                placeholder="Email" required type="email" name="email" id="email"
+                pattern="^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$">
             <div>
                 <img src="./img/icons/mail.svg" alt="">
             </div>
@@ -67,15 +68,11 @@
             </div>
             <p class="error"
                 *ngIf="confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)">
-                @if (confirmPassword.length > 5 || confirmPassword.length < 1 ) {
-                Please confirm your password.
-                } @else {
-                Your Password must be at least 6 characters
-                }
-            </p>
-            <p class="error" *ngIf="passwordDontMatch && confirmPassword.length > 5">
-                Your passwords didn't match.
-            </p>
+                @if (confirmPassword.length > 5 || confirmPassword.length < 1 ) { Please confirm your password. } @else
+                    { Your Password is too short. } </p>
+                    <p class="error" *ngIf="passwordDontMatch && confirmPassword.length > 5">
+                        Your passwords didn't match.
+                    </p>
         </div>
         <div class="privacy-policy">
             <label
