@@ -90,7 +90,7 @@ h1 {
 }
 
 .separator {
-  width: 1px;
+  width: 2px;
   height: 524px;
   background: $lighter-grey;
 }
@@ -471,7 +471,7 @@ input.ng-invalid.ng-touched {
     color: $black;
 
     &::placeholder {
-      color: $lighter-grey;
+      color: $high-contrast-grey;
     }
   }
 
