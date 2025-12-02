@@ -57,7 +57,7 @@
   height: 50px;
   padding: $p;
   background: transparent;
-  border: 1.5px solid $blue;
+  border: 2px solid $blue;
   border-radius: 10px;
   font-weight: $fw;
   font-size: $fs;
@@ -96,7 +96,7 @@
   }
 }
 
-@mixin input($h: 48px, $bw: 1.5px, $fs: 20px, $p: 20px, $br: 10px, $ipr: 20px) {
+@mixin input($h: 48px, $bw: 2px, $fs: 20px, $p: 20px, $br: 10px, $ipr: 20px) {
   > input {
     height: $h;
     width: 100%;

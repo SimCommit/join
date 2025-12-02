@@ -12,13 +12,14 @@
     </div>
 
     <div class="dropzone" (dragover)="$event.preventDefault()" (drop)="addImagesByDrop($event)">
-        <span>Drag a file or browse</span>
+        <label for="filepicker">Drag a file or browse</label>
         <button type="button" (click)="filepicker.click()" aria-label="filepicker"
-            aria-describedby="attachments-heading filepicker-error">
+            aria-describedby="attachments-heading"
+            [attr.aria-describedby]="  oversizedImages.length > 0 || invalidFiles.length > 0   ? 'filepickerError'  : null">
             <img aria-hidden="true" src="./img/icons/plus-upload.svg" alt="">
         </button>
-        <input type="file" name="filepicker" id="filepicker" #filepicker
-            accept="image/jpeg, image/png, image/webp" multiple>
+        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/png, image/webp"
+            multiple>
     </div>
 
     <app-attachments-gallery [imagesForUpload]="imagesForUpload" [deleteIsEnabled]="true"

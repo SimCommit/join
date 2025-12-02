@@ -1,13 +1,13 @@
 <Section [class.board-card]="openFromBoard">
-    <h2 [class.board-bg]="openFromBoard">Add Task</h2>
+    <h1 [class.board-bg]="openFromBoard">Add Task</h1>
     <form #taskForm="ngForm" (ngSubmit)="checkForErrors(); taskForm.valid && submitTaskFromForm()" action="">
         <div class="fullcontent">
             <div class="left-content" [class.board-spacing]="openFromBoard">
                 <div>
                     <label>Title<span class="red" aria-hidden="true">*</span>
                         <input name="title" id="title" [(ngModel)]="title" #titleInput="ngModel" class="input"
-                            aria-describedby="titleError" aria-required="true" required type="text"
-                            placeholder="Enter a title">
+                            [attr.aria-describedby]="titleInput.invalid && (titleInput.dirty || titleInput.touched) ? 'titleError' : null"
+                            aria-required="true" required type="text" placeholder="Enter a title">
                     </label>
                     <p class="error" id="titleError"
                         *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
@@ -23,8 +23,10 @@
                 </div>
                 <div>
                     <label>Due date<span class="red" aria-hidden="true">*</span>
-                        <input class="input" aria-describedby="dateError" aria-required="true" required [min]="minDate"
-                            type="date" name="date" id="date" [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
+                        <input class="input"
+                            [attr.aria-describedby]="dateInput.invalid && (dateInput.dirty || dateInput.touched) ? 'dateError' : null"
+                            aria-required="true" required [min]="minDate" type="date" name="date" id="date"
+                            [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
                     </label>
                     <p class="error" id="dateError" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
                         Due date is required!
@@ -100,8 +102,10 @@
             </div>
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
-            
-                <app-file-upload [imagesForUpload]="images" [invalidFiles]="invalidFiles" [oversizedCompressedImages]="oversizedCompressedImages" [oversizedImages]="oversizedImages" (updatingImages)="updateImages($event)"></app-file-upload>
+
+                <app-file-upload [imagesForUpload]="images" [invalidFiles]="invalidFiles"
+                    [oversizedCompressedImages]="oversizedCompressedImages" [oversizedImages]="oversizedImages"
+                    (updatingImages)="updateImages($event)"></app-file-upload>
 
                 <fieldset (click)="onWrapperClick($event)">
                     <legend id="assignedToLegend">Assigned to</legend>
@@ -168,14 +172,15 @@
                     }
                 </div>
 
-                <div id="category-wrapper">
-                    <p id="categoryLabel">Category<span class="red" aria-hidden="true">*</span></p>
+                <fieldset id="category-wrapper">
+                    <legend id="categoryLabel">Category<span class="red" aria-hidden="true">*</span></legend>
 
                     <div [tabIndex]="isOverlayOpen2 ? -1 : 0" (click)="onWrapperClick($event)"
                         (focus)="handleOverlay2InFocus($event)" aria-labelledby="categoryLabel"
-                        aria-describedby="categoryError" class="menu-wrapper overlay-open" role="button"
-                        aria-haspopup="listbox" [attr.aria-expanded]="isOverlayOpen2"
-                        [class.error-border]="showCategoryError" [class.visible]="isOverlayOpen2">
+                        [attr.aria-describedby]=" showCategoryError  ? 'categoryError'  : null"
+                        class="menu-wrapper overlay-open" role="button" aria-haspopup="listbox"
+                        [attr.aria-expanded]="isOverlayOpen2" [class.error-border]="showCategoryError"
+                        [class.visible]="isOverlayOpen2">
                         <p aria-label="current selection">{{ category }}</p>
                         <div class="input-button" aria-hidden="true">
                             <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen2"
@@ -203,7 +208,7 @@
                     <p class="error" id="categoryError" *ngIf="showCategoryError">
                         Category is required!
                     </p>
-                </div>
+                </fieldset>
 
                 <div>
                     <label>Subtasks
