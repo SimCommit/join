@@ -8,7 +8,7 @@ section {
     @include dFlex($fd: column, $jc: flex-start, $g: 16px);
     margin-bottom: 32px;
 
-    > h2 {
+    > h1 {
       font-size: 61px;
       font-weight: 700;
       text-align: center;
@@ -69,7 +69,7 @@ form {
     padding: 24px 48px;
 
     div {
-      h2 {
+      h1 {
         font-size: clamp(2.5em, 5.866vw + 1.327em, 3.813em);
       }
 
@@ -95,7 +95,7 @@ form {
     padding: 24px clamp(1.2rem, 10.056vw - 2.018rem, 4.8rem);
 
     div {
-      h2 {
+      h1 {
         font-size: clamp(4rem, 5.866vw + 2.123rem, 6.1rem);
       }
 

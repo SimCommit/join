@@ -57,7 +57,7 @@
   height: 50px;
   padding: $p;
   background: transparent;
-  border: 1px solid $blue;
+  border: 1.5px solid $blue;
   border-radius: 10px;
   font-weight: $fw;
   font-size: $fs;
@@ -86,21 +86,21 @@
   }
 
   &:disabled {
-    border-color: $light-grey;
-    color: $light-grey;
+    border-color: $grey;
+    color: $grey;
     cursor: not-allowed;
 
     svg path {
-      stroke: $light-grey;
+      stroke: $grey;
     }
   }
 }
 
-@mixin input($h: 48px, $bw: 1px, $fs: 20px, $p: 20px, $br: 10px, $ipr: 20px) {
+@mixin input($h: 48px, $bw: 1.5px, $fs: 20px, $p: 20px, $br: 10px, $ipr: 20px) {
   > input {
     height: $h;
     width: 100%;
-    border: $bw solid $lighter-grey;
+    border: $bw solid $high-contrast-grey;
     border-radius: $br;
     padding: $p;
     font-size: $fs;
