@@ -55,8 +55,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
    */
   constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) {
     this.contactForm = this.fb.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required, Validators.pattern(/^[A-Za-z][A-Za-z0-9 ]*$/)]],
+      email: ['', [Validators.required, Validators.pattern(/^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/)]],
       phone: ['', [Validators.pattern(/^[\+]?[0-9\s\-\(\)]{10,}$/)]],
     });
   }

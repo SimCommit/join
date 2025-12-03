@@ -16,7 +16,12 @@
         placeholder="Name">
       <img class="input-icon" src="./img/icons/person.svg" alt="Person Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('name') ? 'visible' : 'hidden'">
-        Name is required
+        @if (contactForm.value.name && contactForm.value.name.length < 1) {
+          Name is required
+        }
+        @else {
+          Name must start with letter
+        }
       </div>
     </div>
 

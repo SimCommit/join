@@ -11,7 +11,8 @@
         <div class="input">
             <input [(ngModel)]="userName" #userNameInput="ngModel"
                 [ngClass]="{'error-border': userNameInput.invalid && (userNameInput.touched || form.submitted)}"
-                placeholder="Full Name" required pattern="[A-Za-z][A-Za-z0-9]*" maxlength="28" type="text" name="userName" id="userName">
+                placeholder="Full Name" required pattern="[A-Za-z][A-Za-z0-9]*" maxlength="28" type="text"
+                name="userName" id="userName">
             <div>
                 <img src="./img/icons/person.svg" alt="">
             </div>
@@ -23,7 +24,7 @@
             <input [(ngModel)]="email" #emailInput="ngModel"
                 [ngClass]="{'error-border': emailInput.invalid && (emailInput.touched || form.submitted)}"
                 placeholder="Email" required type="email" name="email" id="email"
-                pattern="^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$">
+                pattern="^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$">
             <div>
                 <img src="./img/icons/mail.svg" alt="">
             </div>
@@ -48,8 +49,7 @@
                     src="./img/icons/visibility.svg" alt="visibility">
             </div>
             <p class="error" *ngIf="passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)">
-                Please enter your password.
-            </p>
+                @if (password.length < 1 ) { Please enter your password. } @else { Your password ist too short. } </p>
         </div>
         <div class="input">
             <input #passwordConfirmInputEle (focus)="passwordInputConfirm = true" (blur)="passwordInputConfirm = false"
