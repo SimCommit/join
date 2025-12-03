@@ -30,9 +30,13 @@
                     </label>
 
 
-                    @if ( dateInput.value && showDateError) {
+                    @if ( dateInput.value && showDateError && dateInput.value.length === 10) {
                     <p class="error">
                         Date cannot be in the past!
+                    </p>
+                    } @else if (dateInput.value && dateInput.value.length > 10 ) {
+                    <p class="error" id="dateError">
+                        Date too far in the future!
                     </p>
                     } @else if (dateInput.invalid && (dateInput.dirty || dateInput.touched)) {
                     <p class="error" id="dateError">
