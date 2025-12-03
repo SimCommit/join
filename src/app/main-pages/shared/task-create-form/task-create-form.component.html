@@ -29,7 +29,6 @@
                             [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
                     </label>
 
-
                     @if ( dateInput.value && showDateError && dateInput.value.length === 10) {
                     <p class="error">
                         Date cannot be in the past!

@@ -687,7 +687,6 @@ export class TaskCreateFormComponent {
     } else {
       this.showDateError = true;
     }
-    console.log(this.showDateError);
   }
 
   /** Navigates the application to the board page. */

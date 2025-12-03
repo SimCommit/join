@@ -15,7 +15,7 @@ import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.
   selector: 'app-task-edit-form',
   imports: [CommonModule, ReactiveFormsModule, FormsModule, FileUploadComponent],
   templateUrl: './task-edit-form.component.html',
-  styleUrl: './task-edit-form.component.scss',
+  styleUrls: ['./task-edit-form.component.scss', './task-edit-form-additional.scss']
 })
 export class TaskEditFormComponent implements OnInit, OnChanges {
   /** The task data to be edited. */

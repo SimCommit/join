@@ -3,8 +3,16 @@
     <form [formGroup]="editForm" class="edit-form">
       <div class="form-group title-group">
         <label>Title</label>
-        <textarea formControlName="title" class="form-textarea title-textarea" rows="2"></textarea>
+        <textarea formControlName="title" class="form-textarea title-textarea" rows="2"
+          [ngClass]="{'error-border': editForm.invalid && (editForm.dirty || editForm.touched)}"
+        ></textarea>
       </div>
+
+      @if (editForm.invalid && (editForm.dirty || editForm.touched)) {
+        <p class="error" id="titleError">
+          Title is required!
+        </p>
+      }
 
       <div class="form-group description-group">
         <label>Description</label>
@@ -53,7 +61,8 @@
           <div class="contacts-list" *ngIf="showContactsList">
             <div class="search-input-wrapper">
               <input type="text" class="contact-search-input" placeholder="Search contacts..."
-                [(ngModel)]="contactSearchTerm" [ngModelOptions]="{ standalone: true }" (input)="onSearchChange($event)" (click)="$event.stopPropagation()">
+                [(ngModel)]="contactSearchTerm" [ngModelOptions]="{ standalone: true }" (input)="onSearchChange($event)"
+                (click)="$event.stopPropagation()">
               <button type="button" class="clear-search-btn" *ngIf="contactSearchTerm" (click)="clearContactSearch()">
                 ×
               </button>
@@ -80,7 +89,8 @@
         </div>
 
         <div class="form-group">
-          <app-file-upload id="app-file-upload" [imagesForUpload]="imagesOriginal" (updatingImages)="updateImages($event)"></app-file-upload>
+          <app-file-upload id="app-file-upload" [imagesForUpload]="imagesOriginal"
+            (updatingImages)="updateImages($event)"></app-file-upload>
         </div>
 
         <div class="form-group">

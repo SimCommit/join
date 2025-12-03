@@ -1,0 +1,14 @@
+@use '../../../../../../styles/mixins' as *;
+@use '../../../../../../styles/variables' as *;
+
+.error {
+  margin-top: -10px;
+  color: $error-muted;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.error-border,
+.error-border:focus {
+  border: 2px solid $error-muted;
+}
