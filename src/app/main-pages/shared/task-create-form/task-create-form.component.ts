@@ -505,11 +505,13 @@ export class TaskCreateFormComponent {
   }
 
   /**
-   * Adds a new subtask to the subtasks array if the input is not empty.
-   * Uses the `getSubtask()` method to generate the subtask object,
-   * then clears the input field after successful addition.
+   * Adds a new subtask to the list if the current input contains non-whitespace characters.
+   * Leading spaces are removed before validation. Empty or whitespace-only input is ignored.
+   * After a valid subtask is added the input field is cleared.
    */
   addSubtaskToArray() {
+    this.addSubtask = this.addSubtask.trimStart();
+
     if (this.addSubtask != '') {
       this.subtasks.push(this.getSubtask());
       this.addSubtask = '';
@@ -638,7 +640,7 @@ export class TaskCreateFormComponent {
     }
   }
 
-    /**
+  /**
    * Triggers validation feedback for required form fields.
    * Marks title and date inputs as touched when invalid and sets the category error flag when needed.
    */
