@@ -1,6 +1,12 @@
 @use '../../../../../../styles/mixins' as *;
 @use '../../../../../../styles/variables' as *;
 
+.form-textarea:focus,
+.form-input:focus,
+.subtask-input:focus {
+  border-color: $light-blue;
+}
+
 .error {
   margin-top: -10px;
   color: $error-muted;
