@@ -272,7 +272,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    */
   private handleTaskSaveError(error: any): void {
     console.error('Error updating task:', error);
-    alert('Failed to update task. Please try again.');
+    alert('Failed to update task. Please try again.'); //lösch mich!
   }
 
   /**

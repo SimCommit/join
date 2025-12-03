@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Task, Subtask, TaskImage } from '../../../../shared-data/task.interface';
 import { ContactDataService } from '../../../../shared-data/contact-data.service';
@@ -15,7 +15,7 @@ import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.
   selector: 'app-task-edit-form',
   imports: [CommonModule, ReactiveFormsModule, FormsModule, FileUploadComponent],
   templateUrl: './task-edit-form.component.html',
-  styleUrls: ['./task-edit-form.component.scss', './task-edit-form-additional.scss']
+  styleUrls: ['./task-edit-form.component.scss', './task-edit-form-additional.scss'],
 })
 export class TaskEditFormComponent implements OnInit, OnChanges {
   /** The task data to be edited. */
@@ -74,6 +74,14 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.initializeForm();
   }
 
+  get dueDateControl() {
+    return this.editForm.get('dueDate');
+  }
+
+  get titleControl() {
+    return this.editForm.get('title');
+  }
+
   /** Initializes component and sets minimum date */
   ngOnInit(): void {
     this.initializeTaskData();
@@ -114,12 +122,28 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.editForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: [''],
-      dueDate: [''],
+      dueDate: ['', [Validators.required, this.validDate]],
       priority: ['medium'],
       assignedUsers: [[]],
       subtasks: [[]],
     });
   }
+
+  validDate = (control: AbstractControl): Object | null => {
+    const value = control.value;
+    if (!value) return null;
+
+    let dueDate = new Date(value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const maxFuture = new Date();
+    maxFuture.setFullYear(maxFuture.getFullYear() + 25);
+    
+    if(dueDate <= today)  return  { pastDate: true };
+    if(dueDate > maxFuture)  return  { futureLimit: true };
+
+    return null;
+  };
 
   /**
    * Populates form with task data

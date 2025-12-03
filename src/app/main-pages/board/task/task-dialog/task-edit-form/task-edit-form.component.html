@@ -4,14 +4,13 @@
       <div class="form-group title-group">
         <label>Title</label>
         <textarea formControlName="title" class="form-textarea title-textarea" rows="2"
-          [ngClass]="{'error-border': editForm.invalid && (editForm.dirty || editForm.touched)}"
-        ></textarea>
+          [ngClass]="{'error-border': titleControl?.invalid && (titleControl?.dirty || titleControl?.touched)}"></textarea>
       </div>
 
-      @if (editForm.invalid && (editForm.dirty || editForm.touched)) {
-        <p class="error" id="titleError">
-          Title is required!
-        </p>
+      @if (titleControl?.invalid && (titleControl?.dirty || titleControl?.touched)) {
+      <p class="error" id="titleError">
+        Title is required!
+      </p>
       }
 
       <div class="form-group description-group">
@@ -22,8 +21,23 @@
       <div class="form-info-section">
         <div class="form-group">
           <label>Due date</label>
-          <input type="date" [min]="minDate" formControlName="dueDate" class="form-input" lang="en-US" />
+          <input type="date" [min]="minDate" formControlName="dueDate" class="form-input" lang="en-US" 
+          [ngClass]="{'error-border': dueDateControl?.invalid && dueDateControl?.touched}"/>
         </div>
+
+        @if ( dueDateControl?.errors?.["pastDate"] && dueDateControl?.touched) {
+        <p class="error">
+          Date cannot be in the past!
+        </p>
+        } @else if (dueDateControl?.errors?.["futureLimit"] && dueDateControl?.touched) {
+        <p class="error" id="dateError">
+          Date exceeds allowed range (max: 25 years)
+        </p>
+        } @else if (dueDateControl?.invalid && dueDateControl?.touched) {
+        <p class="error" id="dateError">
+          Due date is required!
+        </p>
+        }
 
         <div class="form-group">
           <label>Priority</label>
