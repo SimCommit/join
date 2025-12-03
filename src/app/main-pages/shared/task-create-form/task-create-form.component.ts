@@ -75,6 +75,8 @@ export class TaskCreateFormComponent {
   /** Flag to show a validation error when no category is selected. */
   showCategoryError: boolean = false;
 
+  showDateError: boolean = false;
+
   /** Holds the input value for a new subtask. */
   addSubtask: string = '';
 
@@ -505,13 +507,11 @@ export class TaskCreateFormComponent {
   }
 
   /**
-   * Adds a new subtask to the list if the current input contains non-whitespace characters.
-   * Leading spaces are removed before validation. Empty or whitespace-only input is ignored.
-   * After a valid subtask is added the input field is cleared.
+   * Adds a new subtask to the subtasks array if the input is not empty.
+   * Uses the `getSubtask()` method to generate the subtask object,
+   * then clears the input field after successful addition.
    */
   addSubtaskToArray() {
-    this.addSubtask = this.addSubtask.trimStart();
-
     if (this.addSubtask != '') {
       this.subtasks.push(this.getSubtask());
       this.addSubtask = '';
@@ -614,7 +614,7 @@ export class TaskCreateFormComponent {
    * Returns undefined if no date is set.
    * @returns {Date | undefined} The date as a Date object, or undefined if no date is set.
    */
-  getDate() {
+  getDate(): Date | undefined {
     if (this.date != null) {
       if (this.date instanceof Date) return this.date;
       return new Date(this.date);
@@ -629,15 +629,34 @@ export class TaskCreateFormComponent {
    * - If the category is not selected (default), sets flags to show the category error and mark the overlay as opened.
    */
   submitTaskFromForm(): void {
-    if (this.category != 'Select task category') {
+    if (this.category != 'Select task category' && this.dateIsValid()) {
       let task = this.getCleanTask();
       this.taskDataService.addTask(task);
       this.openBoard();
       this.colseAddTaskOverlayBoard();
     } else {
-      this.overlay2WasOpen = true;
-      this.showCategoryError = true;
+      if (!this.dateIsValid()) {
+        this.showDateError = true;
+      }
+      if (this.category === 'Select task category') {
+        this.overlay2WasOpen = true;
+        this.showCategoryError = true;
+      }
     }
+  }
+
+  dateIsValid(): boolean {
+    let date: string;
+
+    if (this.date === null) {
+      date = '1970-01-01';
+    } else if (this.date instanceof Date) {
+      date = this.date.toISOString().split('T')[0];
+    } else {
+      date = this.date;
+    }
+
+    return date > this.minDate;
   }
 
   /**
@@ -649,6 +668,10 @@ export class TaskCreateFormComponent {
       this.showCategoryError = true;
     }
 
+    if (this.dateIsValid()) {
+      this.showDateError = true;
+    }
+
     if (this.taskForm.controls['title'].invalid) {
       this.taskForm.controls['title'].markAsTouched();
     }
@@ -656,6 +679,15 @@ export class TaskCreateFormComponent {
     if (this.taskForm.controls['date'].invalid) {
       this.taskForm.controls['date'].markAsTouched();
     }
+  }
+
+  checkDateError() {
+    if (this.dateIsValid()) {
+      this.showDateError = false;
+    } else {
+      this.showDateError = true;
+    }
+    console.log(this.showDateError);
   }
 
   /** Navigates the application to the board page. */
@@ -674,6 +706,7 @@ export class TaskCreateFormComponent {
     this.assignetTo = [];
     this.category = 'Select task category';
     this.showCategoryError = false;
+    this.showDateError = false;
     this.overlay2WasOpen = false;
     this.subtasks = [];
     this.images = [];

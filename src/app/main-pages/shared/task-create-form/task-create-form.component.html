@@ -23,14 +23,22 @@
                 </div>
                 <div>
                     <label>Due date<span class="red" aria-hidden="true">*</span>
-                        <input class="input"
+                        <input class="input" (change)="checkDateError()"
                             [attr.aria-describedby]="dateInput.invalid && (dateInput.dirty || dateInput.touched) ? 'dateError' : null"
                             aria-required="true" required [min]="minDate" type="date" name="date" id="date"
                             [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
                     </label>
-                    <p class="error" id="dateError" *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)">
+
+
+                    @if ( dateInput.value && showDateError) {
+                    <p class="error">
+                        Date cannot be in the past!
+                    </p>
+                    } @else if (dateInput.invalid && (dateInput.dirty || dateInput.touched)) {
+                    <p class="error" id="dateError">
                         Due date is required!
                     </p>
+                    }
                 </div>
                 <fieldset>
                     <legend>Priority</legend>
