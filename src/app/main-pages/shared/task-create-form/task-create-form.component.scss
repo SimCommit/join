@@ -401,6 +401,13 @@ input.ng-invalid.ng-touched {
   }
 }
 
+// #region error handling
+.error-border,
+.error-border:focus {
+  border: 2px solid $error-muted;
+}
+// #endregion
+
 // #region Media Queries
 @media (max-width: 1200px) {
   section {

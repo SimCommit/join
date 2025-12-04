@@ -74,12 +74,14 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.initializeForm();
   }
 
-  get dueDateControl() {
-    return this.editForm.get('dueDate');
-  }
-
+  /** FormControl for the title field */
   get titleControl() {
     return this.editForm.get('title');
+  }
+
+  /** FormControl for the due date field */
+  get dueDateControl() {
+    return this.editForm.get('dueDate');
   }
 
   /** Initializes component and sets minimum date */
@@ -138,9 +140,9 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     today.setHours(0, 0, 0, 0);
     const maxFuture = new Date();
     maxFuture.setFullYear(maxFuture.getFullYear() + 25);
-    
-    if(dueDate <= today)  return  { pastDate: true };
-    if(dueDate > maxFuture)  return  { futureLimit: true };
+
+    if (dueDate <= today) return { pastDate: true };
+    if (dueDate > maxFuture) return { futureLimit: true };
 
     return null;
   };

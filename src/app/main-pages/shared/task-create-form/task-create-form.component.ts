@@ -75,8 +75,6 @@ export class TaskCreateFormComponent {
   /** Flag to show a validation error when no category is selected. */
   showCategoryError: boolean = false;
 
-  showDateError: boolean = false;
-
   /** Holds the input value for a new subtask. */
   addSubtask: string = '';
 
@@ -622,6 +620,27 @@ export class TaskCreateFormComponent {
     return undefined;
   }
 
+  getDateErrors(date: Date | string): { pastDate: boolean; futureLimit: boolean } {
+    let dueDate: Date;
+    let error = { pastDate: false, futureLimit: false };
+
+    if (date instanceof Date) {
+      dueDate = date;
+    } else {
+      dueDate = new Date(date);
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const maxFuture = new Date();
+    maxFuture.setFullYear(maxFuture.getFullYear() + 25);
+
+    if (dueDate <= today) error.pastDate = true;
+    if (dueDate > maxFuture) error.futureLimit = true;
+
+    return error;
+  }
+
   /**
    * Submits the task form if a valid category is selected.
    * - If the category is not the default 'Select task category', creates a clean task,
@@ -635,9 +654,6 @@ export class TaskCreateFormComponent {
       this.openBoard();
       this.colseAddTaskOverlayBoard();
     } else {
-      if (!this.dateIsValid()) {
-        this.showDateError = true;
-      }
       if (this.category === 'Select task category') {
         this.overlay2WasOpen = true;
         this.showCategoryError = true;
@@ -646,17 +662,17 @@ export class TaskCreateFormComponent {
   }
 
   dateIsValid(): boolean {
-    let date: string;
+    let date: Date;
 
     if (this.date === null) {
-      date = '1970-01-01';
+      date = new Date('1970-01-01');
     } else if (this.date instanceof Date) {
-      date = this.date.toISOString().split('T')[0];
-    } else {
       date = this.date;
+    } else {
+      date = new Date(this.date);
     }
 
-    return date > this.minDate;
+    return !this.getDateErrors(date).pastDate && !this.getDateErrors(date).futureLimit;
   }
 
   /**
@@ -668,10 +684,6 @@ export class TaskCreateFormComponent {
       this.showCategoryError = true;
     }
 
-    if (this.dateIsValid()) {
-      this.showDateError = true;
-    }
-
     if (this.taskForm.controls['title'].invalid) {
       this.taskForm.controls['title'].markAsTouched();
     }
@@ -681,13 +693,6 @@ export class TaskCreateFormComponent {
     }
   }
 
-  checkDateError() {
-    if (this.dateIsValid()) {
-      this.showDateError = false;
-    } else {
-      this.showDateError = true;
-    }
-  }
 
   /** Navigates the application to the board page. */
   openBoard() {
@@ -705,7 +710,6 @@ export class TaskCreateFormComponent {
     this.assignetTo = [];
     this.category = 'Select task category';
     this.showCategoryError = false;
-    this.showDateError = false;
     this.overlay2WasOpen = false;
     this.subtasks = [];
     this.images = [];

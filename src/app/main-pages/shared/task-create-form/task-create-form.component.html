@@ -21,23 +21,26 @@
                             placeholder="Enter a Description"></textarea>
                     </label>
                 </div>
-                <div>
+                <div>                      
+                    @let hasValue = dateInput.value;
+                    @let errors = getDateErrors(hasValue);                  
                     <label>Due date<span class="red" aria-hidden="true">*</span>
-                        <input class="input" (change)="checkDateError()"
-                            [attr.aria-describedby]="dateInput.invalid && (dateInput.dirty || dateInput.touched) ? 'dateError' : null"
+                        <input class="input" 
+                            [attr.aria-describedby]="(!hasValue || hasValue && errors.futureLimit || hasValue && errors.pastDate ) && (dateInput.dirty || dateInput.touched) ? 'dateError' : null"
+                            [ngClass]="{'error-border': (!hasValue || hasValue && errors.futureLimit || hasValue && errors.pastDate ) && (dateInput.dirty || dateInput.touched)}"
                             aria-required="true" required [min]="minDate" type="date" name="date" id="date"
                             [(ngModel)]="date" #dateInput="ngModel" lang="en-US">
                     </label>
 
-                    @if ( dateInput.value && showDateError && dateInput.value.length === 10) {
-                    <p class="error">
+                    @if (hasValue && errors.pastDate) {
+                    <p class="error" id="dateError">
                         Date cannot be in the past!
                     </p>
-                    } @else if (dateInput.value && dateInput.value.length > 10 ) {
+                    } @else if (hasValue && errors.futureLimit) {
                     <p class="error" id="dateError">
-                        Date too far in the future!
+                        Date is too far in the future! (Max: 25 years)
                     </p>
-                    } @else if (dateInput.invalid && (dateInput.dirty || dateInput.touched)) {
+                    } @else if (!hasValue && (dateInput.dirty || dateInput.touched)) {
                     <p class="error" id="dateError">
                         Due date is required!
                     </p>
