@@ -26,6 +26,7 @@ import { ToastService } from '../../shared/services/toast.service';
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit, OnDestroy {
+  /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
 
   /** Stream of all board columns */
@@ -271,7 +272,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   /** Handles task save errors  */
   private handleTaskSaveError(): void {
-    this.toastService.throwToast({ code: 'task/update/error'});
+    this.toastService.throwToast({ code: 'task/update/error' });
   }
 
   /**
@@ -292,7 +293,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param {any} error - Error that occurred
    */
   private handleTaskDeleteError(): void {
-    this.toastService.throwToast({code: "task/delete/error"});
+    this.toastService.throwToast({ code: 'task/delete/error' });
   }
 
   /**

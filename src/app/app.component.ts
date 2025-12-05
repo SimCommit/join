@@ -22,6 +22,7 @@ import { ToastService } from './shared/services/toast.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
+    /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
 
   /** The application title  */

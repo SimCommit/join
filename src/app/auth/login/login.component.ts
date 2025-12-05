@@ -20,7 +20,7 @@ import { ToastService } from '../../shared/services/toast.service';
 })
 export class LoginComponent {
   // #region Properties
-
+  /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
 
   /**

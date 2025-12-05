@@ -5,8 +5,9 @@ import { ToastService } from '../../services/toast.service';
   selector: 'app-toast',
   imports: [],
   templateUrl: './toast.component.html',
-  styleUrl: './toast.component.scss'
+  styleUrl: './toast.component.scss',
 })
 export class ToastComponent {
-  toastService = inject(ToastService);
+  /** Provides access to the toast service for UI messages */
+  public toastService = inject(ToastService);
 }

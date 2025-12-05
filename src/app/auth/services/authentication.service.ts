@@ -29,6 +29,7 @@ export class AuthenticationService {
    */
   private readonly injector = inject(EnvironmentInjector);
 
+    /** Provides access to the toast service for UI messages */
   private toastService = inject(ToastService);
 
   /**
