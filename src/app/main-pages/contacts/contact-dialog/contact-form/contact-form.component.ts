@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../../shared-data/contact.interface';
 import { getRandomColor } from '../../../../shared/color-utils';
@@ -55,10 +55,26 @@ export class ContactFormComponent implements OnInit, OnChanges {
    */
   constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) {
     this.contactForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/^[A-Za-z][A-Za-z0-9 ]*$/)]],
+      name: ['', [Validators.required, this.validateName]],
       email: ['', [Validators.required, Validators.pattern(/^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/)]],
       phone: ['', [Validators.pattern(/^[\+]?[0-9\s\-\(\)]{10,}$/)]],
     });
+  }
+
+  /** FormControl for the title field */
+  get nameControl() {
+    return this.contactForm.get('name');
+  }
+
+  validateName(control: AbstractControl): Object | null {
+    if (!control.value) return null;
+    const name = control.value;
+
+    if (!/^[A-Za-z].*$/.test(name)) return { nameInvalidStart: true };
+
+    if (!/^[A-Za-z][A-Za-z0-9 ]*$/.test(name)) return { nameInvalidCharacter: true };
+
+    return null;
   }
 
   /**

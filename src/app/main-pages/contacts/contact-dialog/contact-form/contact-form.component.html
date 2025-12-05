@@ -13,14 +13,17 @@
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
     <div class="form-group">
       <input type="text" id="name" formControlName="name" class="form-input" [class.error]="isFieldInvalid('name')"
-        placeholder="Name">
+        placeholder="Name" maxlength="28">
       <img class="input-icon" src="./img/icons/person.svg" alt="Person Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('name') ? 'visible' : 'hidden'">
-        @if (contactForm.value.name && contactForm.value.name.length < 1) {
-          Name is required
+        @if (nameControl?.errors?.["nameInvalidStart"]) {
+        Name must start with letter
+        }
+        @else if (nameControl?.errors?.["nameInvalidCharacter"]) {
+        Only letters and numbers are allowed 
         }
         @else {
-          Name must start with letter
+        Name is required
         }
       </div>
     </div>
