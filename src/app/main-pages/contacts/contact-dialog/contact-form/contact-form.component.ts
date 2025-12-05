@@ -61,7 +61,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
     });
   }
 
-  /** FormControl for the title field */
+  /** FormControl for the name field */
   get nameControl() {
     return this.contactForm.get('name');
   }

@@ -34,7 +34,7 @@
       <img class="input-icon" src="./img/icons/mail.svg" alt="Mail Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('email') ? 'visible' : 'hidden'">
         <span *ngIf="contactForm.get('email')?.errors?.['required']">E-Mail is required</span>
-        <span *ngIf="contactForm.get('email')?.errors?.['email']">Please enter valid email address</span>
+        <span *ngIf="contactForm.get('email')?.errors?.['pattern']">Please enter valid email address</span>
       </div>
     </div>
 
