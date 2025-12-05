@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
@@ -8,6 +8,8 @@ import { NavComponent } from './shared/nav/nav.component';
 import { ContactDataService } from './main-pages/shared-data/contact-data.service';
 import { ImageViewerComponent } from './shared/image-viewer/image-viewer.component';
 import { ImageViewerStateService } from './shared/services/image-viewer-state.service';
+import { ToastComponent } from './shared/widgets/toast/toast.component';
+import { ToastService } from './shared/services/toast.service';
 
 /**
  * Main application component managing splash screen animations and layout visibility
@@ -15,11 +17,13 @@ import { ImageViewerStateService } from './shared/services/image-viewer-state.se
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, NavComponent, CommonModule, ImageViewerComponent],
+  imports: [RouterOutlet, HeaderComponent, NavComponent, CommonModule, ImageViewerComponent, ToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
+  toastService = inject(ToastService)
+
   /** The application title  */
   title = 'join';
 

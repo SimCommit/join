@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 /**
  * Login Component
@@ -19,6 +20,9 @@ import { ContactDataService } from '../../main-pages/shared-data/contact-data.se
 })
 export class LoginComponent {
   // #region Properties
+
+  toastService = inject(ToastService);
+
   /**
    * Indicates whether the password input field is focused or active.
    */
@@ -127,6 +131,7 @@ export class LoginComponent {
 
     try {
       await this.authenticationService.guestSignIn();
+      this.toastService.throwToast({code: 'guest/login/success'})
       await this.contactDataService.loadExistingContacts();
       await this.contactDataService.setCleanContacts();
 

@@ -89,7 +89,6 @@ export class AuthenticationService {
         createUserWithEmailAndPassword(this.auth, email, password)
       );
     } catch (error: unknown) {
-      console.error(error);
       throw new Error(this.handleFirebaseAuthError(error));
     }
   }
@@ -112,7 +111,6 @@ export class AuthenticationService {
       );
       return result;
     } catch (error: unknown) {
-      console.error(error);
       throw new Error(this.handleFirebaseAuthError(error));
     }
   }
@@ -128,7 +126,6 @@ export class AuthenticationService {
     try {
       return await runInInjectionContext(this.injector, () => signInAnonymously(this.auth));
     } catch (error) {
-      console.error(error);
       throw new Error('Could not log-in anonymously');
     }
   }
@@ -150,7 +147,6 @@ export class AuthenticationService {
         updateProfile(this.auth.currentUser!, { displayName: name })
       );
     } catch (error) {
-      console.error(error);
       throw new Error('Could not update user data');
     }
   }
@@ -170,7 +166,6 @@ export class AuthenticationService {
       await runInInjectionContext(this.injector, () => signOut(this.auth));
       this.currentUser = null;
     } catch (error) {
-      console.error(error);
       throw new Error('Something went wrong');
     }
   }
@@ -239,7 +234,6 @@ export class AuthenticationService {
       case 'auth/popup-blocked':
         return 'The sign-in popup was blocked by your browser.';
       default:
-        console.warn('Unhandled Firebase Auth error:', error);
         return 'An unknown error occurred. Please try again.';
     }
   }

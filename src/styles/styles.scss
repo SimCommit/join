@@ -83,6 +83,20 @@ button {
   animation: slideUpDown 4s ease-in-out forwards;
 }
 
+.toast {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $blue;
+  color: $white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  z-index: 9999;
+  animation: slideUpDown 2.5s ease-in-out forwards;
+}
+
 @keyframes slideUpDown {
   0% {
     bottom: -100px;

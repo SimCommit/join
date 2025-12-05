@@ -31,6 +31,10 @@
   </div>
 </div>
 
+@if (toastService.showToast()) {
+  <app-toast></app-toast>
+}
+
 @if (imageViewerStateService.imageViewerIsActive()) {
   <app-image-viewer class="app-image-viewer"></app-image-viewer>
 }
