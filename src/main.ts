@@ -61,15 +61,7 @@ function overrideNavigatorLanguages(): void {
  * Handles startup errors gracefully
  */
 function initializeApplication(): void {
-  bootstrapApplication(AppComponent, appConfig).catch(handleBootstrapError);
-}
-
-/**
- * Handles application bootstrap errors
- * @param {any} error - The bootstrap error
- */
-function handleBootstrapError(error: any): void {
-  console.error('Application bootstrap failed:', error);
+  bootstrapApplication(AppComponent, appConfig);
 }
 
 configureBrowserLocale();

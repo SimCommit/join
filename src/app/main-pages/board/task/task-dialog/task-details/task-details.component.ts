@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, Subtask, TaskImage } from '../../../../shared-data/task.interface';
 import { getRandomColor } from '../../../../../shared/color-utils';
 import { ContactDataService } from '../../../../shared-data/contact-data.service';
 import { AttachmentsGalleryComponent } from '../../../../shared/attachments-gallery/attachments-gallery.component';
+import { ToastService } from '../../../../../shared/services/toast.service';
 
 /**
  * Task details component for displaying comprehensive task information
@@ -28,6 +29,9 @@ export class TaskDetailsComponent {
   /** Event emitter for subtask toggle events */
   @Output() subtaskToggled = new EventEmitter<Subtask>();
 
+  /** Provides access to the toast service for UI messages */
+  toastService = inject(ToastService);
+
   /** Holds the images associated with the current task for display in the attachments gallery */
   images: TaskImage[] = [];
 
@@ -47,7 +51,7 @@ export class TaskDetailsComponent {
     if (this.task) {
       this.images = this.task.images;
     } else {
-      console.error("Could not load task images from firestore collection");
+      this.toastService.throwToast({ code: 'image/load/error' });
     }
   }
 

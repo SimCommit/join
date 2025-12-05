@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { map, Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { Contact } from '../../shared-data/contact.interface';
 import { ContactDialogComponent } from '../contact-dialog/contact-dialog.component';
 import { ContactDataService } from '../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../auth/services/authentication.service';
+import { ToastService } from '../../../shared/services/toast.service';
 
 /**
  * Contact details component that displays comprehensive information about a selected contact
@@ -30,6 +31,9 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   /** Event emitted when back navigation is requested */
   @Output() backRequested = new EventEmitter<void>();
+
+  /** Provides access to the toast service for UI messages */
+  toastService = inject(ToastService);
 
   /** Observable stream of the current contact data */
   contact$!: Observable<Contact | null>;
@@ -250,8 +254,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
       this.closeDialog();
       this.loadContact();
     } catch (error) {
-      console.error('Error updating contact:', error);
-      alert('Fehler beim Speichern des Kontakts. Bitte versuchen Sie es erneut.');
+      this.toastService.throwToast({ code: 'contact/save/error' });
     }
   }
 

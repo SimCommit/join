@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
@@ -6,6 +6,7 @@ import { ContactDialogComponent } from './contact-dialog/contact-dialog.componen
 import { Contact } from './../shared-data/contact.interface';
 import { filter } from 'rxjs/operators';
 import { ContactDataService } from '../shared-data/contact-data.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 /**
  * Main contacts management component that orchestrates contact operations
@@ -18,6 +19,9 @@ import { ContactDataService } from '../shared-data/contact-data.service';
   styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent implements OnInit, OnDestroy {
+  /** Provides access to the toast service for UI messages */
+  toastService = inject(ToastService);
+
   /** Currently selected contact ID for detail view */
   selectedContactId: string | null = null;
 
@@ -211,7 +215,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       }
       this.closeDialog();
     } catch (error) {
-      this.handleContactError(error, 'saving');
+      this.toastService.throwToast({ code: 'contact/save/error' });
     }
   }
 
@@ -226,19 +230,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.selectedContactId = null;
       }
     } catch (error) {
-      this.handleContactError(error, 'deleting');
+      this.toastService.throwToast({ code: 'contact/delete/error' });
     }
-  }
-
-  /**
-   * Handles contact operation errors
-   * @param error - The error object
-   * @param operation - The operation that failed
-   */
-  private handleContactError(error: unknown, operation: string) {
-    console.error(`Error ${operation} contact:`, error);
-    alert(
-      `Fehler beim ${operation === 'saving' ? 'Speichern' : 'Löschen'} des Kontakts. Bitte versuchen Sie es erneut.`
-    );
   }
 }

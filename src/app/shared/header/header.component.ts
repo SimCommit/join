@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { AuthenticationService } from '../../auth/services/authentication.service';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 import { TaskDataService } from '../../main-pages/shared-data/task-data.service';
+import { ToastService } from '../services/toast.service';
 
 /**
  * Header component managing navigation, user authentication status and dropdown menu
@@ -17,6 +18,9 @@ import { TaskDataService } from '../../main-pages/shared-data/task-data.service'
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
+  /** Provides access to the toast service for UI messages */
+  toastService = inject(ToastService);
+
   /**
    * Controls the visibility of the user dropdown menu
    */
@@ -162,7 +166,7 @@ export class HeaderComponent implements OnInit {
       await this.contactDataService.disconnectContactAndUserStreams();
       await this.performLogout();
     } catch (error) {
-      this.handleLogoutError(error);
+      this.handleLogoutError();
     }
   }
 
@@ -178,10 +182,9 @@ export class HeaderComponent implements OnInit {
 
   /**
    * Handles logout errors with fallback cleanup
-   * @param {any} error - The error that occurred during logout
    */
-  private handleLogoutError(error: any): void {
-    console.error('Logout error:', error);
+  private handleLogoutError(): void {
+    this.toastService.throwToast({ code: 'auth/logout/error' });
     this.clearUserData();
     this.redirectToLogin();
   }

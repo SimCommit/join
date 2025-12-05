@@ -1,18 +1,8 @@
 import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import {
-  Firestore,
-  collection,
-  doc,
-  addDoc,
-  deleteDoc,
-  updateDoc,
-  DocumentData,
-  CollectionReference,
-  Timestamp,
-  collectionData,
-} from '@angular/fire/firestore';
+import { Firestore, collection, doc, addDoc, deleteDoc, updateDoc, DocumentData, CollectionReference, Timestamp, collectionData } from '@angular/fire/firestore';
 import { Task, BoardColumn, FirestoreTask } from './task.interface';
+import { ToastService } from '../../shared/services/toast.service';
 
 /**
  * Service for managing tasks in Firestore.
@@ -25,6 +15,9 @@ import { Task, BoardColumn, FirestoreTask } from './task.interface';
 })
 export class TaskDataService {
   // #region Properties
+  /** Provides access to the toast service for UI messages */
+  toastService = inject(ToastService);
+  
   /**
    * Holds the current list of Task objects as a reactive data stream.
    */
@@ -155,8 +148,7 @@ export class TaskDataService {
     try {
       await runInInjectionContext(this.injector, () => addDoc(this.getTasksRef(), taskToAdd));
     } catch (error: unknown) {
-      console.error('Error adding task:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'task/save/error' });
     }
   }
 
@@ -173,8 +165,7 @@ export class TaskDataService {
         return deleteDoc(docRef);
       });
     } catch (error: unknown) {
-      console.error('Error deleting task:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'task/delete/error' });
     }
   }
 
@@ -194,8 +185,7 @@ export class TaskDataService {
         return updateDoc(docRef, updateDataFirestore);
       });
     } catch (error: unknown) {
-      console.error('Error editing task:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'task/update/error' });
     }
   }
   // #endregion

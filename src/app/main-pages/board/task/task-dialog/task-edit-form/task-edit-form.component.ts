@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { Task, Subtask, TaskImage } from '../../../../shared-data/task.interface
 import { ContactDataService } from '../../../../shared-data/contact-data.service';
 import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
+import { ToastService } from '../../../../../shared/services/toast.service';
 
 /**
  * Task edit form component for editing task details
@@ -29,6 +30,9 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   /** Reference to the input element used for editing task title. */
   @ViewChild('editInput') editInputRef!: ElementRef<HTMLInputElement>;
+
+  /** Provides access to the toast service for UI messages */
+  toastService = inject(ToastService);
 
   /** The reactive form for editing the task. */
   editForm!: FormGroup;
@@ -109,7 +113,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
       this.imagesOriginal = [...this.task.images];
       this.imagesCurrent = [...this.task.images];
     } else {
-      console.error('Could not load task images from firestore collection');
+      this.toastService.throwToast({ code: 'image/load/error' });
     }
   }
 

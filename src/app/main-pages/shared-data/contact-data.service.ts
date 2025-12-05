@@ -20,6 +20,7 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
 import { getDocs } from 'firebase/firestore';
 import { Contacts } from './contacts.data';
 import { FIRESTORE_GUEST_USER_ID } from '../../app.config';
+import { ToastService } from '../../shared/services/toast.service';
 
 /**
  * Service for managing contact data operations with Firebase Firestore
@@ -34,6 +35,9 @@ export class ContactDataService {
 
   /** Angular environment injector for dependency injection context */
   private readonly injector = inject(EnvironmentInjector);
+
+  /** Provides access to the toast service for UI messages */
+  toastService = inject(ToastService);
 
   /** Flag indicating if user is not in login state */
   notInLogIn: boolean = false;
@@ -175,8 +179,7 @@ export class ContactDataService {
       }
       await this.addCurrentUserToContacts();
     } catch (error) {
-      console.error('Failed to upload dummy data to firestore ', error);
-      throw error;
+      this.toastService.throwToast({ code: 'contact/add/dummyError' });
     }
   }
 
@@ -187,10 +190,7 @@ export class ContactDataService {
   async addCurrentUserToContacts(): Promise<void> {
     if (this.authenticationService.currentUser) {
       if (this.authenticationService.currentUser.email && this.authenticationService.currentUser.displayName)
-        await this.addContactToUserCollection(
-          this.authenticationService.currentUser.email,
-          this.authenticationService.currentUser.displayName
-        );
+        await this.addContactToUserCollection(this.authenticationService.currentUser.email, this.authenticationService.currentUser.displayName);
     }
   }
 
@@ -389,8 +389,7 @@ export class ContactDataService {
     try {
       await runInInjectionContext(this.injector, () => addDoc(this.getContactRef(), contactData));
     } catch (error: unknown) {
-      console.error('Error adding contact:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'contact/add/error' });
     }
   }
 
@@ -406,8 +405,7 @@ export class ContactDataService {
     try {
       await runInInjectionContext(this.injector, () => addDoc(this.getUserRef(), userData));
     } catch (error: unknown) {
-      console.error('Error adding user:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'user/add/error' });
     }
   }
 
@@ -432,8 +430,7 @@ export class ContactDataService {
         })
       );
     } catch (error: unknown) {
-      console.error('Error adding collection to user: ', error);
-      throw error;
+      this.toastService.throwToast({ code: 'user/add/colleciton/error' });
     }
   }
 
@@ -447,8 +444,7 @@ export class ContactDataService {
     try {
       await runInInjectionContext(this.injector, () => deleteDoc(doc(this.getContactRef(), contactId)));
     } catch (error: unknown) {
-      console.error('Error deleting contact:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'contact/delete/error' });
     }
   }
 
@@ -461,8 +457,7 @@ export class ContactDataService {
       await this.deleteContactsFromLastSession();
       this.fillContactsWithDummyData();
     } catch (error: unknown) {
-      console.error('Error deleting all contacts:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'contact/delete/all/error' });
     }
   }
 
@@ -492,8 +487,7 @@ export class ContactDataService {
         this.fillContactsWithDummyData();
       }
     } catch (error) {
-      console.error('Error checking contacts from last session:', error);
-      throw error;
+      this.toastService.throwToast({ code: 'contact/read/existingContacts/error' });
     }
   }
 
@@ -506,15 +500,9 @@ export class ContactDataService {
     if (contactData.id === undefined) return;
     const contactDataId: string = contactData.id;
     try {
-      await runInInjectionContext(this.injector, () =>
-        updateDoc(
-          this.getSingleDocRef(`users/${this.getCurrentUserId()}/contacts`, contactDataId),
-          this.getCleanJson(contactData)
-        )
-      );
+      await runInInjectionContext(this.injector, () => updateDoc(this.getSingleDocRef(`users/${this.getCurrentUserId()}/contacts`, contactDataId), this.getCleanJson(contactData)));
     } catch (err: unknown) {
-      console.error('Error updating contact:', err);
-      throw err;
+      this.toastService.throwToast({ code: 'contact/update/error' });
     }
   }
 

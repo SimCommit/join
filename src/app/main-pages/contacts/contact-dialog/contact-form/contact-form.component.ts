@@ -5,6 +5,7 @@ import { Contact } from '../../../shared-data/contact.interface';
 import { getRandomColor } from '../../../../shared/color-utils';
 import { ContactDataService } from '../../../shared-data/contact-data.service';
 import { AuthenticationService } from '../../../../auth/services/authentication.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 /**
  * Component responsible for rendering and managing the contact form.
@@ -32,6 +33,9 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * Emits an event when the user cancels the form action.
    */
   @Output() formCancelled = new EventEmitter<void>();
+
+  /** Provides access to the toast service for UI messages */
+  private toastService = inject(ToastService);
 
   /**
    * The reactive form group that holds the contact form fields.
@@ -202,7 +206,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
       await this.performContactDeletion();
       this.handleSuccessfulDeletion();
     } catch (error) {
-      this.handleDeletionError(error);
+      this.handleDeletionError();
     }
   }
 
@@ -230,11 +234,9 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   /**
    * Handles contact deletion errors
-   * @param {any} error - The error that occurred
    */
-  private handleDeletionError(error: any): void {
-    console.error('Error:', error);
-    alert('Error. Cannot delete contact.');
+  private handleDeletionError(): void {
+    this.toastService.throwToast({ code: 'contact/delete/error' });
   }
 
   /**

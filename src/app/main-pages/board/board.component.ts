@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, BehaviorSubject, combineLatest, Subscription } from 'rxjs';
@@ -12,6 +12,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { TaskCreateFormComponent } from '../shared/task-create-form/task-create-form.component';
 import { Router } from '@angular/router';
 import { ContactDataService } from '../shared-data/contact-data.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 /**
  * Board component for managing kanban board with drag-and-drop functionality
@@ -25,6 +26,8 @@ import { ContactDataService } from '../shared-data/contact-data.service';
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit, OnDestroy {
+  toastService = inject(ToastService);
+
   /** Stream of all board columns */
   columns$!: Observable<BoardColumn[]>;
 
@@ -234,7 +237,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       await this.updateTaskInDatabase(task);
       this.updateLocalTaskState(task);
     } catch (error) {
-      this.handleTaskSaveError(error);
+      this.handleTaskSaveError();
     }
   }
 
@@ -266,13 +269,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.isEditMode = false;
   }
 
-  /**
-   * Handles task save errors
-   * @param {any} error - Error that occurred
-   */
-  private handleTaskSaveError(error: any): void {
-    console.error('Error updating task:', error);
-    alert('Failed to update task. Please try again.'); //lösch mich!
+  /** Handles task save errors  */
+  private handleTaskSaveError(): void {
+    this.toastService.throwToast({ code: 'task/update/error'});
   }
 
   /**
@@ -284,7 +283,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       await this.taskDataService.deleteTask(taskId);
       this.closeTaskDialog();
     } catch (error) {
-      this.handleTaskDeleteError(error);
+      this.handleTaskDeleteError();
     }
   }
 
@@ -292,9 +291,8 @@ export class BoardComponent implements OnInit, OnDestroy {
    * Handles task deletion errors
    * @param {any} error - Error that occurred
    */
-  private handleTaskDeleteError(error: any): void {
-    console.error('Error deleting task:', error);
-    alert('Failed to delete task. Please try again.');
+  private handleTaskDeleteError(): void {
+    this.toastService.throwToast({code: "task/delete/error"});
   }
 
   /**

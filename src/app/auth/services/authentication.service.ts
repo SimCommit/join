@@ -9,6 +9,7 @@ import {
 } from '@angular/fire/auth';
 import { onAuthStateChanged, signInAnonymously, User } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ToastService } from '../../shared/services/toast.service';
 
 /**
  * Service that manages all authentication-related logic using Firebase Auth.
@@ -27,6 +28,8 @@ export class AuthenticationService {
    * within the correct injection context.
    */
   private readonly injector = inject(EnvironmentInjector);
+
+  private toastService = inject(ToastService);
 
   /**
    * Emits the current authentication state of the user.
@@ -126,6 +129,7 @@ export class AuthenticationService {
     try {
       return await runInInjectionContext(this.injector, () => signInAnonymously(this.auth));
     } catch (error) {
+      // this.toastService.throwToast({ code: 'Could not log-in anonymously' })
       throw new Error('Could not log-in anonymously');
     }
   }

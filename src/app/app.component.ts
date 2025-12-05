@@ -22,7 +22,7 @@ import { ToastService } from './shared/services/toast.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
-  toastService = inject(ToastService)
+  toastService = inject(ToastService);
 
   /** The application title  */
   title = 'join';

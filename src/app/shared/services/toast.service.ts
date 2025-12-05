@@ -13,13 +13,54 @@ export class ToastService {
   constructor() {}
 
   private handleToast(error: unknown): string {
-    const err = error as { code?: string };
+    const err = error as { code?: string; message?: string };
 
     switch (err.code) {
-      case 'test/test':
-        return 'This is a test.';
+      case 'contact/save/error':
+        return 'Failed to update contact.';
+
+      case 'contact/update/error':
+        return 'Failed to update contact.';
+
+      case 'contact/delete/error':
+        return 'Failed to delete contact.';
+
+      case 'contact/delete/all/error':
+        return 'Failed to delete all contacts.';
+
+      case 'contact/read/existingContacts/error':
+        return 'Failed to load existing contact';
+
+      case 'contact/add/error':
+        return 'Failed to add contact';
+
+      case 'contact/add/dummyError':
+        return 'Failed to upload dummy data to database';
+
+      case 'user/add/error':
+        return 'Failed to add user';
+
+      case 'user/add/colleciton/error':
+        return 'Failed to add contacts collection to user';
+
+      case 'task/update/error':
+        return 'Failed to update task.';
+
+      case 'task/save/error':
+        return 'Failed to save task.';
+
+      case 'task/delete/error':
+        return 'Failed to delete task.';
+
+      case 'image/load/error':
+        return 'Could not load task images from database';
+
+      case 'auth/logout/error':
+        return 'Failed to logout';
+
       case 'guest/login/success':
-        return 'Guest Login: success';
+        return 'Guest successfully logged in';
+
       default:
         return 'An unknown error occurred. Please try again.';
     }
@@ -28,7 +69,7 @@ export class ToastService {
   throwToast(error: unknown) {
     this.showToast.set(true);
 
-    this.toastMessage.set(this.handleToast(error))
+    this.toastMessage.set(this.handleToast(error));
 
     setTimeout(() => {
       this.showToast.set(false);
