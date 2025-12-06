@@ -57,6 +57,12 @@ export class TaskDialogComponent {
    */
   @Output() subtaskToggled = new EventEmitter<Subtask>();
 
+  taskEditFormIsValid: boolean = true;
+
+  checkValidationState(state: boolean):void {
+    this.taskEditFormIsValid = state;
+  }
+
   /**
    * Emits the closeClicked event to close the dialog.
    */

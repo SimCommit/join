@@ -524,7 +524,7 @@ export class TaskCreateFormComponent {
    */
   openSubtaskInput(index: number) {
     this.changeSubtask = index;
-    this.subtasksInput = this.subtasks[index].title;
+    this.subtasksInput = this.subtasks[index].title.trim();
   }
 
   /**
@@ -533,7 +533,7 @@ export class TaskCreateFormComponent {
    * @param {number} index - The index of the subtask to update.
    */
   changeSubtaskTitle(index: number) {
-    this.subtasks[index].title = this.subtasksInput;
+    this.subtasks[index].title = this.subtasksInput.trim();
     this.changeSubtask = null;
   }
 

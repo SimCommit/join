@@ -13,7 +13,7 @@
         (subtaskToggled)="onSubtaskToggled($event)">
       </app-task-details>
       } @else {
-      <app-task-edit-form [task]="task" (saveClicked)="onSaveClicked($event)" (cancelClicked)="onCancelClicked()">
+      <app-task-edit-form [task]="task" (saveClicked)="onSaveClicked($event)" (validationChange)="checkValidationState($event)" (cancelClicked)="onCancelClicked()">
       </app-task-edit-form>
       }
     </div>
@@ -23,7 +23,7 @@
       <button class="action-btn cancel-btn" (click)="onCancelClicked()">
         <span>Cancel</span>
       </button>
-      <button class="action-btn save-btn" (click)="onSaveButtonClicked()" [disabled]="false">
+      <button class="action-btn save-btn" (click)="onSaveButtonClicked()" [disabled]="!taskEditFormIsValid">
         <span>Ok</span>
       </button>
     </div>

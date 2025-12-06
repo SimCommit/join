@@ -7,6 +7,7 @@ import { ContactDataService } from '../../../../shared-data/contact-data.service
 import { getRandomColor, getInitials } from '../../../../../shared/color-utils';
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 import { ToastService } from '../../../../../shared/services/toast.service';
+import { Subscription } from 'rxjs';
 
 /**
  * Task edit form component for editing task details
@@ -27,6 +28,9 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   /** Emits when the cancel button is clicked. */
   @Output() cancelClicked = new EventEmitter<void>();
+
+  /** Emits when the validation state may have changed. */
+  @Output() validationChange = new EventEmitter<boolean>();
 
   /** Reference to the input element used for editing task title. */
   @ViewChild('editInput') editInputRef!: ElementRef<HTMLInputElement>;
@@ -67,6 +71,9 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   /** Delay in milliseconds before focusing the edit input. */
   private readonly EDIT_INPUT_FOCUS_DELAY = 10;
 
+  /** Subscription for tracking reactive form validation state changes */
+  private validationSub?: Subscription;
+
   /**
    * Constructor for the TaskEditFormComponent.
    * Initializes the form and injects required services.
@@ -79,12 +86,12 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   }
 
   /** FormControl for the title field */
-  get titleControl() {
+  get titleControl(): AbstractControl | null {
     return this.editForm.get('title');
   }
 
   /** FormControl for the due date field */
-  get dueDateControl() {
+  get dueDateControl(): AbstractControl | null {
     return this.editForm.get('dueDate');
   }
 
@@ -93,11 +100,33 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     this.initializeTaskData();
     this.setMinimumDate();
     this.initImages();
+    this.initValidationStateSubcribtion();
   }
 
   /** Handles input changes */
   ngOnChanges(): void {
     this.initializeTaskData();
+  }
+
+  /**
+   * Cleans up component resources before destruction.
+   * Unsubscribes from the validation state subscription to prevent memory leaks.
+   */
+  ngOnDestroy(): void {
+    if (this.validationSub) {
+      this.validationSub.unsubscribe();
+    }
+  }
+
+  /**
+   * Subscribes to the form's status changes and emits the current validation state.
+   * Emits true when the form is valid and false otherwise.
+   */
+  private initValidationStateSubcribtion(): void {
+    this.validationSub = this.editForm.statusChanges.subscribe((status: string) => {
+      const isValid: boolean = status === 'VALID';
+      this.validationChange.emit(isValid);
+    });
   }
 
   /** Initializes task data if available */
@@ -135,6 +164,12 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
     });
   }
 
+  /**
+   * Custom validator for due dates.
+   * Ensures the selected date is not in the past and does not exceed the allowed future range.
+   * @param control The form control containing the date value.
+   * @returns An error object when invalid, otherwise null.
+   */
   validDate = (control: AbstractControl): Object | null => {
     const value = control.value;
     if (!value) return null;
