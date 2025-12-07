@@ -21,11 +21,11 @@
                             placeholder="Enter a Description"></textarea>
                     </label>
                 </div>
-                <div>                      
+                <div>
                     @let hasValue = dateInput.value;
-                    @let errors = getDateErrors(hasValue);                  
+                    @let errors = getDateErrors(hasValue);
                     <label>Due date<span class="red" aria-hidden="true">*</span>
-                        <input class="input" 
+                        <input class="input"
                             [attr.aria-describedby]="(!hasValue || hasValue && errors.futureLimit || hasValue && errors.pastDate ) && (dateInput.dirty || dateInput.touched) ? 'dateError' : null"
                             [ngClass]="{'error-border': (!hasValue || hasValue && errors.futureLimit || hasValue && errors.pastDate ) && (dateInput.dirty || dateInput.touched)}"
                             aria-required="true" required [min]="minDate" type="date" name="date" id="date"
@@ -228,9 +228,10 @@
                     <label>Subtasks
                         <div class="subtask-wrapper">
                             <input name="subtask" (keydown.enter)="onSubtaskEnter($event)"
-                                (focus)="subtaskInputFocus = true" (blur)="subtaskInputFocus = false"
-                                [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text"
-                                placeholder="Add new subtask">
+                                (change)="subtaskInvalid()" (focus)="subtaskInputFocus = true"
+                                (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel"
+                                class="input" type="text"
+                                [placeholder]="invalidSubtask() ? 'Subtask cannot be empty' : 'Add new subtask'">
                             <div *ngIf="!subtaskInputFocus">
                                 <div tabindex="-1" class="input-button center-img">
                                     <img src="./img/icons/add_task.svg" alt="Add subtask">
@@ -246,8 +247,15 @@
                                     <img src="./img/icons/delete_contact.svg" alt="Delete subtask">
                                 </button>
                             </div>
+
                         </div>
                     </label>
+
+                    @if (invalidSubtask()) {
+                    <p class="error-subtask">
+                        Subtask cannot be empty.
+                    </p>
+                    }
 
                     <ul class="subtask-container" role="list">
                         @for (item of subtasks; track $index) {

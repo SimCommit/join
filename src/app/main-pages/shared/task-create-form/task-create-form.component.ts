@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ChangeDetectorRef, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, signal } from '@angular/core';
 import { ContactDataService } from '../../shared-data/contact-data.service';
 import { getRandomColor } from '../../../shared/color-utils';
 import { Contact } from '../../shared-data/contact.interface';
@@ -110,6 +110,9 @@ export class TaskCreateFormComponent {
 
   /** Search term used to filter contacts during assignment. */
   contactSearchTerm: string = '';
+
+  /** Flags whether the current subtask input is invalid. */
+  invalidSubtask = signal<boolean>(false);
 
   /** Task status that determines which board column it belongs to (e.g., 'todo', 'inProgress', 'done'). This is passed in as an input to the component. */
   @Input() taskStatus: BoardStatus = 'todo';
@@ -510,9 +513,11 @@ export class TaskCreateFormComponent {
    * then clears the input field after successful addition.
    */
   addSubtaskToArray() {
-    if (this.addSubtask != '') {
+    if (this.addSubtask.trim() != '') {
       this.subtasks.push(this.getSubtask());
       this.addSubtask = '';
+    } else {
+      this.subtaskInvalid();
     }
   }
 
@@ -661,6 +666,16 @@ export class TaskCreateFormComponent {
     }
   }
 
+  subtaskInvalid(): void {
+    let value = this.addSubtask;
+    if (/.*\S.*/.test(value) || value === "") {
+      console.log("hey");      
+      this.invalidSubtask.set(false);
+    } else {
+      this.invalidSubtask.set(true);
+    }
+  }
+
   dateIsValid(): boolean {
     let date: Date;
 
@@ -692,7 +707,6 @@ export class TaskCreateFormComponent {
       this.taskForm.controls['date'].markAsTouched();
     }
   }
-
 
   /** Navigates the application to the board page. */
   openBoard() {

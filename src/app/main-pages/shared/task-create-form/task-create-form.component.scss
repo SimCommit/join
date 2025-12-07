@@ -281,6 +281,13 @@ input.ng-invalid.ng-touched {
   position: absolute;
 }
 
+.error-subtask {
+  margin-top: 4px;
+  color: $error-muted;
+  font-size: 16px;
+  font-weight: 300;
+}
+
 .error-border {
   border-color: $error-muted;
 }
