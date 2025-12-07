@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild, ElementRef, ChangeDetectorRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -73,6 +73,9 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
   /** Subscription for tracking reactive form validation state changes */
   private validationSub?: Subscription;
+
+  /** Flags whether the current subtask input is invalid. */
+  invalidSubtask = signal<boolean>(false);
 
   /**
    * Constructor for the TaskEditFormComponent.
@@ -185,6 +188,19 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
     return null;
   };
+
+  /**
+   * Validates a subtask input and updates the invalidSubtask signal.
+   * Marks the subtask as invalid if the value contains only whitespace.
+   * @param value Raw user input of the subtask field
+   */
+  subtaskInvalid(value: string): void {
+    if (/.*\S.*/.test(value) || value === '') {
+      this.invalidSubtask.set(false);
+    } else {
+      this.invalidSubtask.set(true);
+    }
+  }
 
   /**
    * Populates form with task data

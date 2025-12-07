@@ -21,8 +21,8 @@
       <div class="form-info-section">
         <div class="form-group">
           <label>Due date</label>
-          <input type="date" [min]="minDate" formControlName="dueDate" class="form-input" lang="en-US" 
-          [ngClass]="{'error-border': dueDateControl?.invalid && dueDateControl?.touched}"/>
+          <input type="date" [min]="minDate" formControlName="dueDate" class="form-input" lang="en-US"
+            [ngClass]="{'error-border': dueDateControl?.invalid && dueDateControl?.touched}" />
         </div>
 
         @if ( dueDateControl?.errors?.["pastDate"] && dueDateControl?.touched) {
@@ -111,9 +111,16 @@
           <label>Subtasks</label>
           <div class="subtasks-input-section">
             <input type="text" placeholder="Add new subtask" class="form-input subtask-input" #subtaskInput
-              (keyup.enter)="addSubtaskFromInput(subtaskInput)" />
+              (keyup.enter)="addSubtaskFromInput(subtaskInput)" (change)="subtaskInvalid(subtaskInput.value)" />
             <button type="button" class="add-subtask-icon" (click)="addSubtaskFromInput(subtaskInput)">+</button>
           </div>
+
+          @if (invalidSubtask()) {
+          <p class="error-subtask">
+            Subtask cannot be empty.
+          </p>
+          }
+
           <div class="subtasks-edit-list">
             @for (subtask of editForm.get('subtasks')?.value; track $index) {
             <div class="subtask-edit-item">

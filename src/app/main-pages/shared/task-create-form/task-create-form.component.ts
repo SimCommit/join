@@ -625,6 +625,13 @@ export class TaskCreateFormComponent {
     return undefined;
   }
 
+  /**
+   * Evaluates a due-date value and returns validation flags.
+   * Flags pastDate when the date is today or earlier.
+   * Flags futureLimit when the date exceeds the 25-year future limit.
+   * @param date Input date as Date object or ISO string
+   * @returns Object containing pastDate and futureLimit flags
+   */
   getDateErrors(date: Date | string): { pastDate: boolean; futureLimit: boolean } {
     let dueDate: Date;
     let error = { pastDate: false, futureLimit: false };
@@ -666,16 +673,24 @@ export class TaskCreateFormComponent {
     }
   }
 
+  /**
+   * Validates the current subtask input and updates the invalidSubtask signal.
+   * Marks the subtask as invalid when the value contains only whitespace.
+   */
   subtaskInvalid(): void {
     let value = this.addSubtask;
-    if (/.*\S.*/.test(value) || value === "") {
-      console.log("hey");      
+    if (/.*\S.*/.test(value) || value === '') {
       this.invalidSubtask.set(false);
     } else {
       this.invalidSubtask.set(true);
     }
   }
 
+  /**
+   * Checks whether the current due date is valid.
+   * Converts the stored date to a Date object and checks for past or far-future limits.
+   * @returns True when the date passes all validation rules
+   */
   dateIsValid(): boolean {
     let date: Date;
 
