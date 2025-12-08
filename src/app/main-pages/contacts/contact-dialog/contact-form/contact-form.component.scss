@@ -61,7 +61,7 @@ label {
 .form-input {
   width: 100%;
   padding: 12px 36px 12px 16px;
-  border: 2px solid $high-contrast-grey;
+  border: 2px solid $a11y-grey;
   border-radius: 10px;
   font-size: 16px;
   transition: border-color 0.3s;
@@ -76,7 +76,7 @@ label {
   }
 
   &::placeholder {
-    color: $high-contrast-grey;
+    color: $a11y-grey;
   }
 }
 

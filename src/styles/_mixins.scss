@@ -36,8 +36,8 @@
   }
 
   &:disabled {
-    background: $high-contrast-grey;
-    border-color: $high-contrast-grey;
+    background: $a11y-grey;
+    border-color: $a11y-grey;
     cursor: not-allowed;
   }
 
@@ -100,7 +100,7 @@
   > input {
     height: $h;
     width: 100%;
-    border: $bw solid $high-contrast-grey;
+    border: $bw solid $a11y-grey;
     border-radius: $br;
     padding: $p;
     font-size: $fs;

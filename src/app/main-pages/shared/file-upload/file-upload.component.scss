@@ -16,7 +16,7 @@ button {
 
   small {
     font-size: 14px;
-    color: $high-contrast-grey;
+    color: $a11y-grey;
     margin-bottom: 4px;
     align-self: flex-end;
   }
@@ -38,11 +38,11 @@ button {
   @include dFlex();
   font-size: 16px;
   width: 100%;
-  border: 2px dashed $high-contrast-grey;
+  border: 2px dashed $a11y-grey;
   border-radius: 12px;
   padding: 20px;
   resize: none;
-  color: $high-contrast-grey;
+  color: $a11y-grey;
   gap: 8px;
   background-color: $white;
   margin-bottom: 12px;

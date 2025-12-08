@@ -48,13 +48,13 @@ h1 {
     textarea {
       width: 100%;
       height: 120px;
-      border: 2px solid $high-contrast-grey;
+      border: 2px solid $a11y-grey;
       border-radius: 12px;
       padding: 20px;
       resize: none;
       color: black;
       &::placeholder {
-        color: $high-contrast-grey;
+        color: $a11y-grey;
         font-size: 16px;
       }
       &:focus {
@@ -76,11 +76,11 @@ h1 {
 .input {
   width: 100%;
   height: clamp(40px, calc(3vw + 2px), 48px);
-  border: 2px solid $high-contrast-grey;
+  border: 2px solid $a11y-grey;
   border-radius: 12px;
   padding-inline: 20px;
   &::placeholder {
-    color: $high-contrast-grey;
+    color: $a11y-grey;
     font-size: 16px;
   }
   &:focus {
@@ -92,7 +92,7 @@ h1 {
 .separator {
   width: 2px;
   height: 524px;
-  background: $lighter-grey;
+  background: $a11y-grey;
 }
 
 .right-content {
@@ -173,7 +173,7 @@ h1 {
   @include dFlex($jc: space-between);
   background: $white;
   padding: 20px;
-  border: 2px solid $high-contrast-grey;
+  border: 2px solid $a11y-grey;
   border-radius: 12px;
   &:hover {
     cursor: pointer;
@@ -277,7 +277,7 @@ input.ng-invalid.ng-touched {
   margin-top: 4px;
   color: $error-muted;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 700;
   position: absolute;
 }
 
@@ -310,7 +310,7 @@ input.ng-invalid.ng-touched {
     width: 25%;
     height: clamp(40px, 3vw + 2px, 48px);
     background: $white;
-      border: 2px solid $high-contrast-grey;
+      border: 2px solid $a11y-grey;
     border-left: none;
     border-bottom-right-radius: 12px;
     border-top-right-radius: 12px;
@@ -485,7 +485,7 @@ input.ng-invalid.ng-touched {
     color: $black;
 
     &::placeholder {
-      color: $high-contrast-grey;
+      color: $a11y-grey;
     }
   }
 

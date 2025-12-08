@@ -59,9 +59,9 @@ form {
   @include dFlex($g: 12px);
   > span {
     > a {
-      color: $high-contrast-grey;
+      color: $a11y-grey;
       &:visited {
-        color: $high-contrast-grey;
+        color: $a11y-grey;
       }
       &:hover {
         color: $light-blue;
