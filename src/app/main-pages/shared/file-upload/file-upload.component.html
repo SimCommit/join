@@ -2,7 +2,7 @@
     <p id="attachments-heading">Attachments</p>
 
     <div class="upload-info-bar">
-        <small>Supported formats: JPEG, JPG, PNG, WEBP</small>
+        <small>Supported formats: JPEG, JPG, WEBP</small>
         @if (imagesForUpload.length > 0) {
         <button type="button" (click)="deleteAllImagesFromForm()">
             <img aria-hidden="true" src="./img/icons/delete_contact.svg" alt="">
@@ -15,10 +15,10 @@
         <label for="filepicker">Drag a file or browse</label>
         <button type="button" (click)="filepicker.click()" aria-label="filepicker"
             aria-describedby="attachments-heading"
-            [attr.aria-describedby]="  oversizedImages.length > 0 || invalidFiles.length > 0   ? 'filepickerError'  : null">
+            [attr.aria-describedby]="  invalidFiles.length > 0   ? 'filepickerError'  : null">
             <img aria-hidden="true" src="./img/icons/plus-upload-high-contrast-grey.svg" alt="">
         </button>
-        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/png, image/webp"
+        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/webp"
             multiple>
     </div>
 
@@ -30,11 +30,11 @@
         @for (name of invalidFiles; track $index) {
         <p><strong>Invalid format: {{name}}</strong></p>
         }
-        <p>You can only upload JPEG, JPG, PNG and WEBP.</p>
+        <p>You can only upload JPEG, JPG and WEBP.</p>
     </div>
     }
 
-    @if (oversizedImages.length > 0) {
+    <!-- @if (oversizedImages.length > 0) {
     <div id="filepicker-error" class="wrong-format">
         @for (name of oversizedImages; track $index) {
         <p><strong>Oversized image: {{name}}</strong></p>
@@ -50,7 +50,7 @@
         }
         <p>Image must be smaller than 160 KB after compression.</p>
     </div>
-    }
+    } -->
 
     @if (errorToManyImages()) {
     <div id="filepicker-error" class="wrong-format">

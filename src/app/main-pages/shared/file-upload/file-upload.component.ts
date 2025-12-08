@@ -31,11 +31,11 @@ export class FileUploadComponent {
   /** Stores filenames of files that failed format validation */
   @Input() invalidFiles: string[] = [];
 
-  /** Stores filenames of compressed images that still exceed the allowed size */
-  @Input() oversizedCompressedImages: string[] = [];
+  // /** Stores filenames of compressed images that still exceed the allowed size */
+  // @Input() oversizedCompressedImages: string[] = [];
 
   /** Stores filenames of images that exceed the raw file size limit before compression */
-  @Input() oversizedImages: string[] = [];
+  // @Input() oversizedImages: string[] = [];
 
   /** Emits the updated array of images whenever files are added or removed. */
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
@@ -152,13 +152,38 @@ export class FileUploadComponent {
   async handleFile(file: File): Promise<void> {
     if (this.shouldSkipImage(file)) return;
 
-    const compressedBase64: string = await this.compressImage(file, 800, 800, 0.8);
+    const compressedBase64 = await this.compressToTargetSize(file);
     const imageObject = this.createTaskImage(file, compressedBase64);
-
-    if (this.isOversizedCompressedImage(file.name, imageObject.size)) return;
-
     this.imagesForUpload.push(imageObject);
     this.updatingImages.emit(this.imagesForUpload);
+  }
+
+  /**
+   * Compresses an image until a target file size is reached.
+   * Performs repeated compression steps with decreasing quality while always using the original file as input.
+   * Stops early when the compressed output is below the defined size limit.
+   * Returns the final compressed image as a Base64 string.
+   * @param file The image file to compress toward the target size.
+   * @returns The Base64 string of the compressed image.
+   */
+  async compressToTargetSize(file: File): Promise<string> {
+    let quality: number = 0.9;
+    let compressedBase64: string = await this.compressImage(file, 800, 800, quality);
+    let currentSize = compressedBase64.length * 0.75;
+
+    for (let i = 0; i < 4; i++) {
+      if (currentSize > 160 * 1024) {
+        quality -= 0.2;
+        compressedBase64 = await this.compressImage(file, 800, 800, quality);
+        currentSize = compressedBase64.length * 0.75;
+        console.log("index: ", i, "quality; ", quality, "size: ", currentSize, "oversized", currentSize > 160 * 1024);
+      } else {
+        console.log("SCHLUSS, size: ", currentSize);
+        break;
+      }
+    }
+
+    return compressedBase64;
   }
 
   /**
@@ -168,7 +193,7 @@ export class FileUploadComponent {
    * @returns True if the file should not be processed.
    */
   shouldSkipImage(file: File): boolean {
-    return this.thereAreToManyFiles() || this.isInvalidImageFormat(file) || this.isOversizedImage(file);
+    return this.thereAreToManyFiles() || this.isInvalidImageFormat(file);
   }
 
   /**
@@ -184,9 +209,6 @@ export class FileUploadComponent {
     const filename = file.name;
     const baseName = filename.replace(/\.[^/.]+$/, '');
     const byteSize = compressedBase64.length * 0.75;
-
-    console.log("mimeType: ", mimeType);
-    console.log("extension: ", extension);
 
     return {
       filename: filename,
@@ -214,7 +236,7 @@ export class FileUploadComponent {
 
   /**
    * Validates whether a file has an allowed image format.
-   * Allowed types: PNG, JPEG, WEBP.
+   * Allowed types: JPEG, WEBP.
    * Updates errorWrongFormat accordingly.
    * @param {File} file The file to validate.
    * @returns {boolean} True if the format is invalid.
@@ -222,7 +244,7 @@ export class FileUploadComponent {
   isInvalidImageFormat(file: File): boolean {
     let errorWrongFormat: boolean = false;
 
-    if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/webp') {
+    if (file.type === 'image/jpeg' || file.type === 'image/webp') {
       errorWrongFormat = false;
     } else {
       this.invalidFiles.push(file.name);
@@ -232,52 +254,11 @@ export class FileUploadComponent {
   }
 
   /**
-   * Checks if the raw file exceeds the allowed size limit before compression.
-   * Adds the filename to oversizedImages when too large.
-   * @param file The file to check.
-   * @returns True when the file exceeds the maximum size.
-   */
-  isOversizedImage(file: File) {
-    let oversized: boolean;
-
-    if (file.size > 10 * 1024 * 1024) {
-      oversized = true;
-      this.oversizedImages.push(file.name);
-    } else {
-      oversized = false;
-    }
-
-    return oversized;
-  }
-
-  /**
-   * Checks whether a compressed image still exceeds the allowed size limit.
-   * Pushes the filename into oversizedCompressedImages when too large.
-   * @param name Original filename of the compressed image.
-   * @param size Size of the compressed file in bytes.
-   * @returns True when the compressed image is above the limit.
-   */
-  isOversizedCompressedImage(name: string, size: number): boolean {
-    let isOversized: boolean;
-
-    if (size > 160 * 1024) {
-      isOversized = true;
-      this.oversizedCompressedImages.push(name);
-    } else {
-      isOversized = false;
-    }
-
-    return isOversized;
-  }
-
-  /**
    * Resets all file-related warning arrays and recalculates the too-many-files state.
    * @returns void
    */
   resetWarnings() {
     this.invalidFiles = [];
-    this.oversizedCompressedImages = [];
-    this.oversizedImages = [];
     this.thereAreToManyFiles();
   }
 
