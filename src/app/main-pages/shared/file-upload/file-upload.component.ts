@@ -176,9 +176,7 @@ export class FileUploadComponent {
         quality -= 0.2;
         compressedBase64 = await this.compressImage(file, 800, 800, quality);
         currentSize = compressedBase64.length * 0.75;
-        console.log("index: ", i, "quality; ", quality, "size: ", currentSize, "oversized", currentSize > 160 * 1024);
       } else {
-        console.log("SCHLUSS, size: ", currentSize);
         break;
       }
     }

@@ -118,7 +118,6 @@
             <div class="right-content" [class.board-spacing]="openFromBoard">
 
                 <app-file-upload [imagesForUpload]="images" [invalidFiles]="invalidFiles"
-                    [oversizedCompressedImages]="oversizedCompressedImages" [oversizedImages]="oversizedImages"
                     (updatingImages)="updateImages($event)"></app-file-upload>
 
                 <fieldset (click)="onWrapperClick($event)">
@@ -231,7 +230,7 @@
                                 (change)="subtaskInvalid()" (focus)="subtaskInputFocus = true"
                                 (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel"
                                 class="input" type="text"
-                                [placeholder]="invalidSubtask() ? 'Subtask cannot be empty' : 'Add new subtask'">
+                                placeholder="Add new subtask">
                             <div *ngIf="!subtaskInputFocus">
                                 <div tabindex="-1" class="input-button center-img">
                                     <img src="./img/icons/add_task.svg" alt="Add subtask">

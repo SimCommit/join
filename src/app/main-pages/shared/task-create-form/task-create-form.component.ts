@@ -90,12 +90,6 @@ export class TaskCreateFormComponent {
   /** Filenames rejected due to invalid format. */
   invalidFiles: string[] = [];
 
-  /** Filenames rejected due to exceeding size limits after compression. */
-  oversizedCompressedImages: string[] = [];
-
-  /** Filenames rejected due to exceeding size limits. */
-  oversizedImages: string[] = [];
-
   /** Description of the task. */
   description: string = '';
 
@@ -743,8 +737,7 @@ export class TaskCreateFormComponent {
     this.subtasks = [];
     this.images = [];
     this.invalidFiles = [];
-    this.oversizedCompressedImages = [];
-    this.oversizedImages = [];
+    this.invalidSubtask.set(false);
 
     setTimeout((): void => {
       this.taskForm.resetForm({ priority: 'medium' });
