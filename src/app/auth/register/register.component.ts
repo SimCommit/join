@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 /**
  * Register Component
@@ -59,17 +60,16 @@ export class RegisterComponent {
   passwordDontMatch: boolean = false;
   // #endregion
 
+  /** Provides access to the toast service for UI messages */
+  private toastService = inject(ToastService);
+
   /**
    * Creates an instance of RegisterComponent.
    * @param {AuthenticationService} authenticationService - Service for handling authentication logic
    * @param {Router} router - Angular Router for navigation
    * @param {ContactDataService} contactDataService - Shared service for managing contact data and UI state
    */
-  constructor(
-    private authenticationService: AuthenticationService,
-    private router: Router,
-    private contactDataService: ContactDataService
-  ) {}
+  constructor(private authenticationService: AuthenticationService, private router: Router, private contactDataService: ContactDataService) {}
 
   // #region Auth Methods
   /**
@@ -83,7 +83,7 @@ export class RegisterComponent {
    * @returns {Promise<void>} Resolves when signup and initialization are complete.
    */
   async onSignUp(): Promise<void> {
-    if (this.doesPasswordMatch()) {
+    if (this.doesPasswordMatch() && this.emailValid && this.userNameValid) {
       try {
         await this.signUp();
         await this.createNewUser();
@@ -96,6 +96,7 @@ export class RegisterComponent {
       }
     } else {
       this.passwordDontMatch = true;
+      this.toastService.throwToast({ code: 'auth/signup/error' });
     }
   }
 
@@ -157,6 +158,48 @@ export class RegisterComponent {
     this.errorMessage = (error as Error).message;
     this.clearError();
   }
+  // #endregion
+
+  // #region Validation
+  /**
+   * Checks if the username is valid.
+   * @param value The username.
+   * @returns True if valid.
+   */
+  private isUserNameValid(value: string): boolean {
+    if (!value) return false;
+
+    if (!/^[A-Za-z].*$/.test(value)) return false;
+
+    if (!/^[A-Za-z][A-Za-z0-9 ]*$/.test(value)) return false;
+
+    return true;
+  }
+
+  get userNameValid(): boolean {
+    return this.isUserNameValid(this.userName);
+  }
+
+  /**
+   * Validates a simple email format.
+   * @param value The email string.
+   * @returns True if valid.
+   */
+  private isEmailValid(value: string): boolean {
+    if (!value) return false;
+
+    if (/^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/.test(value)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /** True if the current email input is valid */
+  get emailValid(): boolean {
+    return this.isEmailValid(this.email);
+  }
+
   // #endregion
 
   // #region Register Methods

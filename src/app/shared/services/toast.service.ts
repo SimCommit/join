@@ -58,6 +58,12 @@ export class ToastService {
       case 'auth/logout/error':
         return 'Failed to logout';
 
+      case 'INVALID_PASSWORD':
+        return 'Invalid password or email.';
+
+      case 'auth/signup/error':
+        return 'Failed to create account. Please try again';
+
       case 'guest/login/success':
         return 'Guest successfully logged in';
 

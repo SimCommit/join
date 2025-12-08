@@ -67,11 +67,7 @@ export class LoginComponent {
    * @param {Router} router - Angular router for navigation
    * @param {ContactDataService} contactDataService - Service for contact data operations
    */
-  constructor(
-    private authenticationService: AuthenticationService,
-    private router: Router,
-    public contactDataService: ContactDataService
-  ) {}
+  constructor(private authenticationService: AuthenticationService, private router: Router, public contactDataService: ContactDataService) {}
 
   // #region UI Interactions
   /**
@@ -110,7 +106,7 @@ export class LoginComponent {
 
       this.contactDataService.notInLogIn = true;
     } catch (error) {
-      this.errorMessage = (error as Error).message;
+      this.toastService.throwToast({ code: 'INVALID_PASSWORD' });
       this.clearError();
     }
   }
@@ -131,7 +127,7 @@ export class LoginComponent {
 
     try {
       await this.authenticationService.guestSignIn();
-      this.toastService.throwToast({code: 'guest/login/success'})
+      this.toastService.throwToast({ code: 'guest/login/success' });
       await this.contactDataService.loadExistingContacts();
       await this.contactDataService.setCleanContacts();
 

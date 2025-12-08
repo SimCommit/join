@@ -10,25 +10,23 @@
     <form #form="ngForm" action="signUp">
         <div class="input">
             <input [(ngModel)]="userName" #userNameInput="ngModel"
-                [ngClass]="{'error-border': userNameInput.invalid && (userNameInput.touched || form.submitted)}"
-                placeholder="Full Name" required pattern="[A-Za-z][A-Za-z0-9]*" maxlength="28" type="text"
-                name="userName" id="userName">
+                [ngClass]="{'error-border': !userNameValid && (userNameInput.touched || form.submitted)}"
+                placeholder="Full Name" required maxlength="28" type="text" name="userName" id="userName">
             <div>
                 <img src="./img/icons/person.svg" alt="">
             </div>
-            <p class="error" *ngIf="userNameInput.invalid && (userNameInput.touched || form.submitted)">
+            <p class="error" *ngIf="!userNameValid && (userNameInput.touched || form.submitted)">
                 Please enter a valid username.
             </p>
         </div>
         <div class="input">
             <input [(ngModel)]="email" #emailInput="ngModel"
-                [ngClass]="{'error-border': emailInput.invalid && (emailInput.touched || form.submitted)}"
-                placeholder="Email" required type="email" name="email" id="email"
-                pattern="^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$">
+                [ngClass]="{'error-border': (!emailValid) && (emailInput.touched || form.submitted)}"
+                placeholder="Email" required type="email" name="email" id="email">
             <div>
                 <img src="./img/icons/mail.svg" alt="">
             </div>
-            <p class="error" *ngIf="emailInput.invalid && (emailInput.touched || form.submitted)">
+            <p class="error" *ngIf="(!emailValid) && (emailInput.touched || form.submitted)">
                 Please enter a valid email.
             </p>
         </div>
@@ -49,12 +47,12 @@
                     src="./img/icons/visibility.svg" alt="visibility">
             </div>
             <p class="error" *ngIf="passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)">
-                @if (password.length < 1 ) { Please enter your password. } @else { Your password ist too short. } </p>
+                @if (password.length < 1 ) { Please enter your password. } @else { Your password is too short. } </p>
         </div>
         <div class="input">
             <input #passwordConfirmInputEle (focus)="passwordInputConfirm = true" (blur)="passwordInputConfirm = false"
                 [(ngModel)]="confirmPassword" #confirmPasswordInputRef="ngModel"
-                [ngClass]="{'error-border': confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)}"
+                [ngClass]="{'error-border': (!doesPasswordMatch() || confirmPasswordInputRef.invalid) && (confirmPasswordInputRef.touched || form.submitted)}"
                 [type]="showPasswordConfirm? 'text' :'password'" required name="confirmPassword" id="confirmPassword"
                 placeholder="Confirm Password" minlength="6">
             <div>
@@ -70,8 +68,8 @@
                 *ngIf="confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)">
                 @if (confirmPassword.length > 5 || confirmPassword.length < 1 ) { Please confirm your password. } @else
                     { Your Password is too short. } </p>
-                    <p class="error" *ngIf="passwordDontMatch && confirmPassword.length > 5">
-                        Your passwords didn't match.
+                    <p class="error" *ngIf="!doesPasswordMatch() && confirmPassword.length > 5 && (confirmPasswordInputRef.touched || form.submitted)">
+                        Your passwords do not match.
                     </p>
         </div>
         <div class="privacy-policy">
@@ -92,7 +90,7 @@
             </p>
         </div>
         <div class="button-wrapper">
-            <button (click)="onSignUp()" [disabled]="form.invalid" type="submit">Sign up</button>
+            <button (click)="onSignUp()" [disabled]="form.invalid || !emailValid || !userNameValid || !doesPasswordMatch()" type="submit">Sign up</button>
         </div>
     </form>
 
