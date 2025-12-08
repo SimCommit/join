@@ -7,16 +7,34 @@
   min-height: 100vh;
 }
 
-.splash-screen {
+.splash-background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: $white;
+  z-index: 9998;
+  @include dFlex($jc: center, $ai: center);
+  transition: background-color 0.5s ease-out 1.1s;
+
+  &.hide-background {
+    background-color: transparent;
+  }
+}
+
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  translate: -50%;
+  width: 100vw;
+  height: 100vh;
+  background-color: $white;
   z-index: 9999;
   @include dFlex($jc: center, $ai: center);
   transition: background-color 0.5s ease-out 1.1s;
+  @include generalMaxWidth();
 
   &.mobile-splash {
     background-color: $blue !important;
@@ -89,7 +107,7 @@
     transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     &.animate-to-header {
-      transform: translate(calc(-50vw + 82px), calc(-50vh + 92px)) scale(0.5);
+      transform: translate(calc(max(-50vw, -720px) + 82px), calc(-50vh + 92px)) scale(0.5);
     }
   }
 
@@ -161,7 +179,6 @@
   height: 100%;
   overflow: hidden;
   background-color: $lightest-grey;
-  align-items: center;
 }
 
 .app-header {
@@ -183,7 +200,7 @@
 }
 
 .page-container {
-  // @include generalMaxWidth();
+  @include generalMaxWidth();
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -191,7 +208,18 @@
   overflow-y: auto;
 }
 
+main {
+  @include generalMaxWidth();
+}
 
+.d-flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
 
 @media (max-width: 1200px) {
   .layout {
@@ -202,8 +230,4 @@
     width: 100%;
     margin-top: auto;
   }
-}
-
-.full-width {
-  width: 100%;
 }

@@ -1,5 +1,6 @@
 @if (showSplashScreen && isOnLoginPage) {
-<div aria-hidden="true" tabindex="-1" class="splash-screen" [class.hide-background]="!isMobile && logoAnimating" [class.mobile-splash]="isMobile">
+<div aria-hidden="true" tabindex="-1" class="splash-screen" [class.hide-background]="!isMobile && logoAnimating"
+  [class.mobile-splash]="isMobile">
   @if (isMobile) {
   <img src="./img/icons/logo_join_responsiv.svg" alt="" class="splash-logo mobile-logo mobile-logo-1"
     [class.animate-to-login]="logoAnimating" [class.fade-out]="logoSwapping">
@@ -11,30 +12,36 @@
 </div>
 }
 
+@if (showSplashScreen && isOnLoginPage) {
+<div class="splash-background" [class.hide-background]="!isMobile && logoAnimating" [class.mobile-splash]="isMobile">
+</div>
+}
+
 @if (isMobile && showSplashScreen && isOnLoginPage) {
 <img src="./img/login/join-logo-100x120.svg" alt="" aria-hidden="true" class="mobile-crossfade-logo"
   [class.animate-to-login]="logoAnimating" [class.fade-in]="logoSwapping">
 }
 
-<div class="layout" [class.show]="logoAnimating || animationComplete"
+<div class="layout" [class.show]="logoAnimating || animationComplete" [ngClass]="{'d-flex-center': !shouldShowLayout()}"
   [class.mobile-auth-layout]="isMobile && logoAnimating">
-  @if (this.shouldShowLayout()) {
+  @if (shouldShowLayout()) {
   <app-nav class="app-nav"></app-nav>
   }
-  <div class="view-container">
-    @if (this.shouldShowLayout()) {
+  <div class="view-container" [ngClass]="{'d-flex-center': !shouldShowLayout()}">
+    @if (shouldShowLayout()) {
     <app-header class="app-header"></app-header>
     }
-    <main [class.page-container]="contactDataService.notInLogIn" [class.full-width]="!contactDataService.notInLogIn">
+    <main [class.page-container]="contactDataService.notInLogIn" class="full-width"
+      [ngClass]="{'test3': !shouldShowLayout()}">
       <router-outlet />
     </main>
   </div>
 </div>
 
 @if (toastService.showToast()) {
-  <app-toast></app-toast>
+<app-toast></app-toast>
 }
 
 @if (imageViewerStateService.imageViewerIsActive()) {
-  <app-image-viewer class="app-image-viewer"></app-image-viewer>
+<app-image-viewer class="app-image-viewer"></app-image-viewer>
 }

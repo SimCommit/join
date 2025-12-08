@@ -165,6 +165,7 @@ export class HeaderComponent implements OnInit {
       this.taskDataService.disconnectTaskStream();
       await this.contactDataService.disconnectContactAndUserStreams();
       await this.performLogout();
+      this.contactDataService.notInLogIn = false;
     } catch (error) {
       this.handleLogoutError();
     }
