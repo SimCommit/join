@@ -67,7 +67,7 @@ export class FileUploadComponent {
     const filepicker = this.filepickerRef.nativeElement;
     filepicker.addEventListener('change', async (): Promise<void> => {
       const files = filepicker.files;
-      
+
       if (files) {
         this.addImages(files);
       }
@@ -152,7 +152,7 @@ export class FileUploadComponent {
   async handleFile(file: File): Promise<void> {
     if (this.shouldSkipImage(file)) return;
 
-    const compressedBase64: string = await this.compressImage(file, 800, 800, 0.9);
+    const compressedBase64: string = await this.compressImage(file, 800, 800, 0.8);
     const imageObject = this.createTaskImage(file, compressedBase64);
 
     if (this.isOversizedCompressedImage(file.name, imageObject.size)) return;
@@ -179,17 +179,21 @@ export class FileUploadComponent {
    * @returns A fully constructed TaskImage object.
    */
   createTaskImage(file: File, compressedBase64: string): TaskImage {
-    const baseName = file.name.replace(/\.[^/.]+$/, '');
-    const extension = '.webp';
-    const newName = `${baseName}.webp`;
+    const mimeType = file.type;
+    const extension = mimeType.replace(/^image\//, '.');
+    const filename = file.name;
+    const baseName = filename.replace(/\.[^/.]+$/, '');
     const byteSize = compressedBase64.length * 0.75;
 
+    console.log("mimeType: ", mimeType);
+    console.log("extension: ", extension);
+
     return {
-      filename: newName,
+      filename: filename,
       filenameWithoutType: baseName,
       size: byteSize,
       fileExtension: extension,
-      mimeType: 'image/webp',
+      mimeType: mimeType,
       base64: compressedBase64,
     };
   }
@@ -293,7 +297,7 @@ export class FileUploadComponent {
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
-          const compressedBase64 = this.handleCompression(img, maxWidth, maxHeight, quality);
+          const compressedBase64 = this.handleCompression(img, file.type, maxWidth, maxHeight, quality);
           resolve(compressedBase64);
         };
         img.onerror = () => reject('Failed to load image.');
@@ -314,12 +318,12 @@ export class FileUploadComponent {
    * @param quality Output quality from 0 to 1
    * @returns The compressed image as a Base64 string
    */
-  handleCompression(img: HTMLImageElement, maxWidth: number, maxHeight: number, quality: number): string {
+  handleCompression(img: HTMLImageElement, mimeType: string, maxWidth: number, maxHeight: number, quality: number): string {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d')!;
     const dimensions: { width: number; height: number } = this.setCanvasSize(canvas, img, maxWidth, maxHeight);
     ctx.drawImage(img, 0, 0, dimensions.width, dimensions.height);
-    const compressedBase64 = canvas.toDataURL('image/webp', quality);
+    const compressedBase64 = canvas.toDataURL(mimeType, quality);
     return compressedBase64;
   }
 
