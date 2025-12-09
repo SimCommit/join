@@ -61,13 +61,18 @@ export class ContactFormComponent implements OnInit, OnChanges {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, this.validateName]],
       email: ['', [Validators.required, Validators.pattern(/^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/)]],
-      phone: ['', [Validators.pattern(/^[\+]?[0-9\s\-\(\)]{10,}$/)]],
+      phone: ['', [this.validatePhone]],
     });
   }
 
   /** FormControl for the name field */
   get nameControl() {
     return this.contactForm.get('name');
+
+  }
+  /** FormControl for the name field */
+  get phoneControl() {
+    return this.contactForm.get('phone');
   }
 
   validateName(control: AbstractControl): Object | null {
@@ -77,6 +82,18 @@ export class ContactFormComponent implements OnInit, OnChanges {
     if (!/^[A-Za-z].*$/.test(name)) return { nameInvalidStart: true };
 
     if (!/^[A-Za-z][A-Za-z0-9 ]*$/.test(name)) return { nameInvalidCharacter: true };
+
+    return null;
+  }
+
+  validatePhone(control: AbstractControl): Object | null {
+    if (!control.value) return null;
+
+    const phone = control.value.trim();
+
+    if (!/^[\+]?[0-9\s\-\(\)]{10,}$/.test(phone)) return { phoneInvalid: true };
+
+    console.log("hey");
 
     return null;
   }
@@ -166,7 +183,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
     const contactData: Contact = {
       name: this.contactForm.value.name,
       email: this.contactForm.value.email,
-      phone: this.contactForm.value.phone || '',
+      phone: this.contactForm.value.phone.trim() || '',
     };
 
     if (this.editingContact) {

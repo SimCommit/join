@@ -39,10 +39,10 @@
     </div>
 
     <div class="form-group">
-      <input type="tel" id="phone" formControlName="phone" class="form-input" [class.error]="isFieldInvalid('phone')"
+      <input type="tel" id="phone" formControlName="phone" class="form-input" [class.error]="phoneControl?.errors?.['phoneInvalid']"
         placeholder="Phone">
       <img class="input-icon" src="./img/icons/call.svg" alt="Call Icon">
-      <div class="error-message" [style.visibility]="isFieldInvalid('phone') ? 'visible' : 'hidden'">
+      <div class="error-message" [style.visibility]="phoneControl?.errors?.['phoneInvalid'] ? 'visible' : 'hidden'">
         Please enter valid phone number
       </div>
     </div>
