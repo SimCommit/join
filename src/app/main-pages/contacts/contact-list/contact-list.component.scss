@@ -100,7 +100,7 @@ section {
 
   a {
     width: 100%;
-    color: $email-blue;
+    color: $dark-email-blue;
     text-decoration: none;
     font-size: 14px;
 
@@ -118,7 +118,7 @@ section {
     }
 
     a {
-      color: $email-blue;
+      color: $light-email-blue;
     }
   }
 }
@@ -127,7 +127,7 @@ section {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: $email-blue;
+  color: $dark-email-blue;
 }
 
 h3 {
