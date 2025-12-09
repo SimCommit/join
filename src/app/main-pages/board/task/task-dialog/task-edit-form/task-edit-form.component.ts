@@ -32,9 +32,6 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   /** Emits when the validation state may have changed. */
   @Output() validationChange = new EventEmitter<boolean>();
 
-  /** Reference to the input element used for editing task title. */
-  @ViewChild('editInput') editInputRef!: ElementRef<HTMLInputElement>;
-
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
 
@@ -208,8 +205,8 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private populateEditForm(task: Task): void {
     this.editForm.patchValue({
-      title: task.title,
-      description: task.description,
+      title: task.title.trim().replace(/\s+/g, ' '),
+      description: task.description.trim(),
       dueDate: this.getFormattedDueDate(task.dueDate),
       priority: task.priority,
       assignedUsers: task.assignedUsers,
@@ -239,22 +236,6 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    */
   private formatDateForInput(date: Date): string {
     return date.toISOString().split('T')[0];
-  }
-
-  /** Adds new subtask from user prompt */
-  addSubtask(): void {
-    const subtaskTitle = this.promptForSubtaskTitle();
-    if (subtaskTitle) {
-      this.createAndAddSubtask(subtaskTitle);
-    }
-  }
-
-  /**
-   * Prompts user for subtask title
-   * @returns {string | null} Subtask title or null
-   */
-  private promptForSubtaskTitle(): string | null {
-    return prompt('Enter subtask title:');
   }
 
   /**
@@ -504,8 +485,8 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
     return {
       ...this.task!,
-      title: formValue.title,
-      description: formValue.description,
+      title: formValue.title.trim().replace(/\s+/g, ' '),
+      description: formValue.description.trim(),
       dueDate: this.parseDueDate(formValue.dueDate),
       priority: formValue.priority,
       assignedUsers: formValue.assignedUsers,
@@ -541,7 +522,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
    * @param {HTMLInputElement} inputElement - Input element
    */
   addSubtaskFromInput(inputElement: HTMLInputElement): void {
-    const title = inputElement.value.trim();
+    const title = inputElement.value.trim().replace(/\s+/g, ' ');
 
     if (title) {
       this.createAndAddSubtask(title);

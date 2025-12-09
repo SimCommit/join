@@ -96,7 +96,7 @@ export class LoginComponent {
    */
   async onLogin(): Promise<void> {
     try {
-      await this.authenticationService.signIn(this.emailInputTest, this.passwordInputTest);
+      await this.authenticationService.signIn(this.emailInputTest.trim(), this.passwordInputTest);
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);

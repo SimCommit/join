@@ -115,7 +115,7 @@ export class RegisterComponent {
    */
   async signUp(): Promise<void> {
     await this.authenticationService.signUp(this.email, this.password);
-    await this.authenticationService.updateUserDisplayName(this.userName);
+    await this.authenticationService.updateUserDisplayName(this.userName.trim());
   }
 
   /**
@@ -127,8 +127,8 @@ export class RegisterComponent {
    */
   async createNewUser(): Promise<void> {
     await this.contactDataService.addUser({
-      name: this.userName,
-      email: this.email,
+      name: this.userName.trim(),
+      email: this.email.trim(),
     });
   }
 
@@ -177,7 +177,7 @@ export class RegisterComponent {
   }
 
   get userNameValid(): boolean {
-    return this.isUserNameValid(this.userName);
+    return this.isUserNameValid(this.userName.trim());
   }
 
   /**
@@ -197,7 +197,7 @@ export class RegisterComponent {
 
   /** True if the current email input is valid */
   get emailValid(): boolean {
-    return this.isEmailValid(this.email);
+    return this.isEmailValid(this.email.trim());
   }
 
   // #endregion

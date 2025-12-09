@@ -532,7 +532,7 @@ export class TaskCreateFormComponent {
    * @param {number} index - The index of the subtask to update.
    */
   changeSubtaskTitle(index: number) {
-    this.subtasks[index].title = this.subtasksInput.trim();
+    this.subtasks[index].title = this.subtasksInput.trim().replace(/\s+/g, ' ');
     this.changeSubtask = null;
   }
 
@@ -555,7 +555,7 @@ export class TaskCreateFormComponent {
     const id = Date.now().toString();
     return {
       id: id,
-      title: this.addSubtask,
+      title: this.addSubtask.trim().replace(/\s+/g, ' '),
       completed: false,
     };
   }
@@ -591,8 +591,8 @@ export class TaskCreateFormComponent {
    */
   getCleanTask(): Task {
     return {
-      title: this.title,
-      description: this.description,
+      title: this.title.trim().replace(/\s+/g, ' '),
+      description: this.description.trim(),
       category: this.category,
       priority: this.priority,
       status: this.taskStatus,

@@ -181,7 +181,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
    */
   private createContactDataFromForm(): Contact {
     const contactData: Contact = {
-      name: this.contactForm.value.name.trim().replace(/\s+/g, ' '),
+      name: this.contactForm.value.name.trim(),
       email: this.contactForm.value.email.trim(),
       phone: this.contactForm.value.phone.trim().replace(/\s+/g, ' ') || '',
     };
