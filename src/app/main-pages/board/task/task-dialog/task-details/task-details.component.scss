@@ -216,7 +216,7 @@
 }
 
 .subtasks-list {
-  @include dFlex($fd: column, $g: 12px);
+  @include dFlex($fd: column, $g: 4px);
   width: 100%;
   align-items: flex-start;
 }
@@ -228,8 +228,8 @@
 }
 
 .custom-checkbox {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
   flex-shrink: 0;
   background-image: url('../../../../../../../public/img/unchecked_button.svg');
