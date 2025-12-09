@@ -77,7 +77,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   validateName(control: AbstractControl): Object | null {
     if (!control.value) return null;
-    const name = control.value;
+    const name = control.value.trim();
 
     if (!/^[A-Za-z].*$/.test(name)) return { nameInvalidStart: true };
 
@@ -89,7 +89,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   validatePhone(control: AbstractControl): Object | null {
     if (!control.value) return null;
 
-    const phone = control.value.trim();
+    const phone = control.value.trim().replace(/\s+/g, ' ');
 
     if (!/^[\+]?[0-9\s\-\(\)]{10,}$/.test(phone)) return { phoneInvalid: true };
 
@@ -181,9 +181,9 @@ export class ContactFormComponent implements OnInit, OnChanges {
    */
   private createContactDataFromForm(): Contact {
     const contactData: Contact = {
-      name: this.contactForm.value.name,
-      email: this.contactForm.value.email,
-      phone: this.contactForm.value.phone.trim() || '',
+      name: this.contactForm.value.name.trim().replace(/\s+/g, ' '),
+      email: this.contactForm.value.email.trim(),
+      phone: this.contactForm.value.phone.trim().replace(/\s+/g, ' ') || '',
     };
 
     if (this.editingContact) {
