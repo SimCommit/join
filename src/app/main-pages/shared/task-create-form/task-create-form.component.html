@@ -226,10 +226,9 @@
                 <div>
                     <label>Subtasks
                         <div class="subtask-wrapper">
-                            <input name="subtask" (keydown.enter)="onSubtaskEnter($event)"
-                                (change)="subtaskInvalid()" (focus)="subtaskInputFocus = true"
-                                (blur)="subtaskInputFocus = false" [(ngModel)]="addSubtask" #subtaskInput="ngModel"
-                                class="input" type="text"
+                            <input name="subtask" (keydown.enter)="onSubtaskEnter($event)" (change)="subtaskInvalid()"
+                                (focus)="subtaskInputFocus = true" (blur)="subtaskInputFocus = false"
+                                [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text"
                                 placeholder="Add new subtask">
                             <div *ngIf="!subtaskInputFocus">
                                 <div tabindex="-1" class="input-button center-img">
@@ -250,11 +249,11 @@
                         </div>
                     </label>
 
-                    @if (invalidSubtask()) {
-                    <p class="error-subtask">
+                    <p class="error-subtask" [attr.aria-hidden]="!invalidSubtask() ? 'true' : null"
+                        [ngClass]="{'show': invalidSubtask()}">
                         Subtask cannot be empty.
                     </p>
-                    }
+
 
                     <ul class="subtask-container" role="list">
                         @for (item of subtasks; track $index) {

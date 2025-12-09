@@ -115,11 +115,11 @@
             <button type="button" class="add-subtask-icon" (click)="addSubtaskFromInput(subtaskInput)">+</button>
           </div>
 
-          @if (invalidSubtask()) {
-          <p class="error-subtask">
+          <p class="error-subtask" [attr.aria-hidden]="!invalidSubtask() ? 'true' : null"
+            [ngClass]="{'show': invalidSubtask()}">
             Subtask cannot be empty.
           </p>
-          }
+
 
           <div class="subtasks-edit-list">
             @for (subtask of editForm.get('subtasks')?.value; track $index) {

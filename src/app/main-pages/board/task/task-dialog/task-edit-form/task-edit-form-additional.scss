@@ -11,13 +11,19 @@
   margin-top: -10px;
   color: $error-muted;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .error-subtask {
+  margin-bottom: -4px;
   color: $error-muted;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
+  opacity: 0;
+
+  &.show{
+    opacity: 1;
+  }
 }
 
 .error-border,
