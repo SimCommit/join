@@ -100,10 +100,10 @@
 
 .priority-buttons {
   @include dFlex($g: 12px);
+  padding: 0 4px;
 }
 
 .priority-btn {
-  margin-left: 2px;
   @include dFlex($ai: center, $g: 8px);
   padding: 12px 20px;
   border: none;
