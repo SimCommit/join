@@ -4,7 +4,9 @@
       <div class="task-category-badge" [ngClass]="task?.category === 'User Story' ? 'user-story' : 'technical-task'">
         {{ task?.category }}
       </div>
-      <button class="close-btn" (click)="closeDialog()">×</button>
+      <button class="close-btn" (click)="closeDialog()">
+        <img src="./img/icons/close-button.svg" alt="">
+      </button>
     </div>
 
     <div class="dialog-body">

@@ -4,8 +4,6 @@
 // #region variables
 $p16-32-480-768: clamp(1.6rem, 5.556vw - 1.067rem, 3.2rem);
 $p8-16-480-768: clamp(0.8rem, 2.778vw - 0.533rem, 1.6rem);
-
-
 // #endregion
 
 .dialog-overlay {
@@ -68,6 +66,11 @@ $p8-16-480-768: clamp(0.8rem, 2.778vw - 0.533rem, 1.6rem);
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    width: 28px;
+    height: 28px;
   }
 }
 

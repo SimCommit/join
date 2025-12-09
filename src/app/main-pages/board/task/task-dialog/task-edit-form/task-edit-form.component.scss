@@ -115,7 +115,6 @@
   transition: all 0.3s ease;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 
-
   .priority-svg {
     width: 20px;
     height: 20px;
@@ -326,19 +325,23 @@
     width: 30px;
     height: 30px;
     position: absolute;
-    right: 16px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
-    font-size: 20px;
-    color: $blue;
     cursor: pointer;
-    padding: 4px;
     border-radius: 50%;
 
     &:hover {
       background: rgba(42, 54, 71, 0.1);
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      object-position: center;
     }
   }
 }
@@ -382,6 +385,9 @@
     font-size: 16px;
     color: $black;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .subtask-actions {
@@ -404,8 +410,8 @@
     cursor: pointer;
     padding: 4px;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     @include dFlex($jc: center, $ai: center);
     transition: all 0.3s ease;
 
@@ -427,14 +433,14 @@
   }
 
   .icon-edit {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     background: url('../../../../../../../public/img/icons/edit_contact.svg') center / contain no-repeat;
   }
 
   .icon-delete {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     background: url('../../../../../../../public/img/icons/delete_contact.svg') center / contain no-repeat;
   }
 }
@@ -448,6 +454,7 @@
   outline: none;
   padding: 0;
   text-align: left;
+  width: 100%;
 
   &:focus {
     background: $white;
@@ -551,30 +558,14 @@
   }
 
   .subtask-edit-item {
-    padding: 6px 8px;
     gap: 8px;
 
     .bullet {
       font-size: 14px;
     }
 
-    .subtask-title {
-      font-size: 14px;
-    }
-
     .subtask-actions {
       gap: 6px;
-    }
-
-    .subtask-action-btn {
-      width: 20px;
-      height: 20px;
-
-      .icon-edit,
-      .icon-delete {
-        width: 14px;
-        height: 14px;
-      }
     }
   }
 }
@@ -609,18 +600,5 @@
     width: 28px;
     height: 28px;
     font-size: 9px;
-  }
-
-  .subtask-edit-item {
-    padding: 4px 6px;
-
-    .subtask-title {
-      font-size: 14px;
-    }
-  }
-
-  .action-btn {
-    padding: 12px 20px;
-    font-size: 14px;
   }
 }

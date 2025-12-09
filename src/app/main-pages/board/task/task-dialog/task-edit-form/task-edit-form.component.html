@@ -112,7 +112,9 @@
           <div class="subtasks-input-section">
             <input type="text" placeholder="Add new subtask" class="form-input subtask-input" #subtaskInput
               (keyup.enter)="addSubtaskFromInput(subtaskInput)" (change)="subtaskInvalid(subtaskInput.value)" />
-            <button type="button" class="add-subtask-icon" (click)="addSubtaskFromInput(subtaskInput)">+</button>
+            <button type="button" class="add-subtask-icon" (click)="addSubtaskFromInput(subtaskInput)">
+              <img src="./img/icons/plus-upload-a11y-grey.svg" alt="">
+            </button>
           </div>
 
           <p class="error-subtask" [attr.aria-hidden]="!invalidSubtask() ? 'true' : null"
