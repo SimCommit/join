@@ -196,6 +196,16 @@ h1 {
   }
 }
 
+.confirm,
+.add-task {
+  width: 24px;
+  height: 24px;
+  > img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 img.rotated {
   transform: rotate(180deg);
   transition: all 0.3s ease;
@@ -289,7 +299,7 @@ input.ng-invalid.ng-touched {
   font-weight: 400;
   opacity: 0;
 
-  &.show{
+  &.show {
     opacity: 1;
   }
 }
@@ -316,7 +326,7 @@ input.ng-invalid.ng-touched {
     width: 25%;
     height: clamp(40px, 3vw + 2px, 48px);
     background: $white;
-      border: 2px solid $a11y-grey;
+    border: 2px solid $a11y-grey;
     border-left: none;
     border-bottom-right-radius: 12px;
     border-top-right-radius: 12px;
@@ -331,6 +341,7 @@ input.ng-invalid.ng-touched {
   width: 100%;
   height: 100px;
   margin-top: 16px;
+  padding: 0 4px;
   overflow: auto;
   > .first-item {
     width: 100%;
@@ -338,6 +349,11 @@ input.ng-invalid.ng-touched {
     border-radius: 12px;
     padding: 0 12px;
     @include dFlex($jc: space-between);
+    > span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     > div {
       opacity: 0;
       width: 16%;
@@ -367,19 +383,22 @@ input.ng-invalid.ng-touched {
   @include dFlex();
   > input,
   > div {
-    width: 80%;
+    width: 75%;
     height: 32px;
     border: none;
     border-bottom: 2px solid $light-blue;
   }
   > input {
     padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   > div {
     @include dFlex($jc: space-between);
     background: $white;
-    width: 20%;
-    padding-right: 20px;
+    width: 25%;
+    padding-right: 10px;
   }
 }
 

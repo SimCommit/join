@@ -231,7 +231,7 @@
                                 [(ngModel)]="addSubtask" #subtaskInput="ngModel" class="input" type="text"
                                 placeholder="Add new subtask">
                             <div *ngIf="!subtaskInputFocus">
-                                <div tabindex="-1" class="input-button center-img">
+                                <div tabindex="-1" class="input-button add-task center-img">
                                     <img src="./img/icons/add_task.svg" alt="Add subtask">
                                 </div>
                             </div>
@@ -258,7 +258,9 @@
                     <ul class="subtask-container" role="list">
                         @for (item of subtasks; track $index) {
                         <li *ngIf="changeSubtask != $index" class="first-item" role="listitem" tabindex="-1">
-                            {{item.title}}
+                            <span>
+                                {{item.title}}
+                            </span>
                             <div>
                                 <button type="button" class="input-button" (click)="openSubtaskInput($index)">
                                     <img src="./img/icons/edit_contact.svg" alt="Edit subtask">
@@ -274,7 +276,7 @@
                                 [attr.aria-label]="'Edit subtask ' + item.title"
                                 (keydown.enter)="changeSubtaskTitle($index)">
                             <div>
-                                <button type="button" class="input-button" (click)="changeSubtaskTitle($index)"
+                                <button type="button" class="input-button confirm" (click)="changeSubtaskTitle($index)"
                                     (keydown.enter)="changeSubtaskTitle($index)">
                                     <img src="./img/icons/dark-check.svg" alt="Confirm changes">
                                 </button>
