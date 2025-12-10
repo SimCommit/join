@@ -207,14 +207,7 @@ h1 {
   transition: background-color 0.125s ease, border-color 0.125s ease;
   background: no-repeat top center / 252px 48px;
   border: 2px dotted transparent;
-
   overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .empty-column {
