@@ -44,9 +44,8 @@
         </div>
 
         <div class="column-content" [cdkDropListOrientation]="isMobile ? 'horizontal' : 'vertical'" cdkDropList
-          [id]="column.status"
-          [ngClass]="[ column.tasks.length < 1 ?
-        'column-content-' + column.status + '-bg' : '', isDragging ? 'indicate-drop-ready' : '', column.tasks.length === 0 ? 'empty-column' : '']"
+          [id]="column.status" [ngClass]="[ column.tasks.length < 1 ? 'column-content-' + column.status + '-bg' : '', 
+          isDragging ? 'indicate-drop-ready' : '', column.tasks.length === 0 ? 'empty-column' : '', isDragging || column.tasks.length > 0 ? 'show' : '']"
           [cdkDropListData]="column.tasks" [cdkDropListConnectedTo]="column.connectedStatuses"
           (cdkDropListDropped)="drop($event)">
 
@@ -55,6 +54,11 @@
             [isMobile]="isMobile" (taskClicked)="openTaskDetails($event)">
           </app-task-card>
           }
+
+        </div>
+
+        <div class="empty-column-illusion" [ngClass]="[ column.tasks.length < 1 && !isDragging ?
+          'empty-column-illusion-' + column.status + '-bg' : 'd-none']">
 
         </div>
       </div>
