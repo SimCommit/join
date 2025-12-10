@@ -46,6 +46,46 @@
                     </p>
                     }
                 </div>
+
+
+                <fieldset id="category-wrapper">
+                    <legend id="categoryLabel">Category<span class="red" aria-hidden="true">*</span></legend>
+
+                    <div [tabIndex]="isOverlayOpen2 ? -1 : 0" (click)="onWrapperClick($event)"
+                        (focus)="handleOverlay2InFocus($event)" aria-labelledby="categoryLabel"
+                        [attr.aria-describedby]=" showCategoryError  ? 'categoryError'  : null"
+                        class="menu-wrapper overlay-open" role="button" aria-haspopup="listbox"
+                        [attr.aria-expanded]="isOverlayOpen2" [class.error-border]="showCategoryError"
+                        [class.visible]="isOverlayOpen2">
+                        <p aria-label="current selection" class="no-margin">{{ category }}</p>
+                        <div class="input-button" aria-hidden="true">
+                            <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen2"
+                                alt="dropdown arrow icon">
+                        </div>
+                    </div>
+
+                    <div class="overlay-menu" #overlayMenu [tabIndex]="-1" role="listbox"
+                        aria-labelledby="categoryLabel" [class.visible]="isOverlayOpen2"
+                        [class.hidden]="!isOverlayOpen2">
+                        <label tabindex="-1" class="assignt-contact-wrapper">
+                            Technical Task
+                            <input (click)="selectCategory('Technical Task')" #categoryTechnicalTaskRef tabindex="-1"
+                                type="radio" name="category" role="radio"
+                                [attr.aria-checked]="category === 'Technical Task'">
+                        </label>
+                        <label tabindex="-1" class="assignt-contact-wrapper">
+                            User Story
+                            <input (click)="selectCategory('User Story')" #categoryUserStoryRef tabindex="-1"
+                                type="radio" name="category" role="radio"
+                                [attr.aria-checked]="category === 'User Story'">
+                        </label>
+                    </div>
+
+                    <p class="error" id="categoryError" *ngIf="showCategoryError">
+                        Category is required!
+                    </p>
+                </fieldset>
+
                 <fieldset>
                     <legend>Priority</legend>
                     <div class="radio-button-wrapper">
@@ -184,44 +224,6 @@
                     }
                     }
                 </div>
-
-                <fieldset id="category-wrapper">
-                    <legend id="categoryLabel">Category<span class="red" aria-hidden="true">*</span></legend>
-
-                    <div [tabIndex]="isOverlayOpen2 ? -1 : 0" (click)="onWrapperClick($event)"
-                        (focus)="handleOverlay2InFocus($event)" aria-labelledby="categoryLabel"
-                        [attr.aria-describedby]=" showCategoryError  ? 'categoryError'  : null"
-                        class="menu-wrapper overlay-open" role="button" aria-haspopup="listbox"
-                        [attr.aria-expanded]="isOverlayOpen2" [class.error-border]="showCategoryError"
-                        [class.visible]="isOverlayOpen2">
-                        <p aria-label="current selection">{{ category }}</p>
-                        <div class="input-button" aria-hidden="true">
-                            <img src="./img/icons/arrow_drop_down.svg" [class.rotated]="isOverlayOpen2"
-                                alt="dropdown arrow icon">
-                        </div>
-                    </div>
-
-                    <div class="overlay-menu" #overlayMenu [tabIndex]="-1" role="listbox"
-                        aria-labelledby="categoryLabel" [class.visible]="isOverlayOpen2"
-                        [class.hidden]="!isOverlayOpen2">
-                        <label tabindex="-1" class="assignt-contact-wrapper">
-                            Technical Task
-                            <input (click)="selectCategory('Technical Task')" #categoryTechnicalTaskRef tabindex="-1"
-                                type="radio" name="category" role="radio"
-                                [attr.aria-checked]="category === 'Technical Task'">
-                        </label>
-                        <label tabindex="-1" class="assignt-contact-wrapper">
-                            User Story
-                            <input (click)="selectCategory('User Story')" #categoryUserStoryRef tabindex="-1"
-                                type="radio" name="category" role="radio"
-                                [attr.aria-checked]="category === 'User Story'">
-                        </label>
-                    </div>
-
-                    <p class="error" id="categoryError" *ngIf="showCategoryError">
-                        Category is required!
-                    </p>
-                </fieldset>
 
                 <div>
                     <label>Subtasks

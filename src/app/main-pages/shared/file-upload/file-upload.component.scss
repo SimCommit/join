@@ -8,6 +8,8 @@ section {
 button {
   border: none;
   background: none;
+  transition: background-color 100ms ease-in-out;
+
 }
 
 .upload-info-bar {
