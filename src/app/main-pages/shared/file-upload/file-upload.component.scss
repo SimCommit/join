@@ -25,11 +25,18 @@ button {
     @include dFlex($g: 4px);
     font-size: 16px;
     padding: 4px;
+    border-radius: 10px;
+    margin: 4px;
+    font-weight: 500;
 
     img {
-      height: 18px;
-      width: 18px;
+      height: 24px;
+      width: 24px;
       background-color: none;
+    }
+
+    &:hover {
+      background-color: $lighter-grey;
     }
   }
 }
@@ -49,14 +56,19 @@ button {
 
   button {
     @include dFlex();
-    height: 22px;
-    width: 22px;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
 
     img {
       cursor: pointer;
-      height: 18px;
-      width: 18px;
+      height: 24px;
+      width: 24px;
       background-color: none;
+    }
+
+    &:hover {
+      background-color: $lighter-grey;
     }
   }
 }
