@@ -29,8 +29,8 @@
     <div id="filepicker-error" class="error-wrapper">
         @for (name of invalidFiles; track $index) {
         <p class="wrong-format"><strong>
-            Invalid format: {{name}}
-        </strong></p>
+                Invalid format: {{name}}
+            </strong></p>
         }
         @if (invalidFiles.length > 0) {
         <p class="wrong-format">
@@ -47,6 +47,19 @@
         </p>
         }
 
+        @if (totalSizeExceededFiles.length > 0) {
+        @for (name of totalSizeExceededFiles; track $index) {
+        <p class="wrong-format">
+            <strong>Stopped uploading image: {{totalSizeExceededFiles[$index]}}</strong>
+        </p>
+        }
+
+        <p class="wrong-format">
+            The task would exceed the 1 MB storage limit.
+            Try images smaller than 800x800 px or a more efficient format such as WEBP.
+        </p>
+        }
+
         @if (oversizedCompressedImages.length > 0) {
         @for (name of oversizedCompressedImages; track $index) {
         <p class="wrong-format">
@@ -54,7 +67,8 @@
         </p>
         }
         <p class="wrong-format">
-            Image may be up to 400 KB after compression. Try a more efficient format such as WEBP.
+            Image may be up to 400 KB after compression.
+            Try an image smaller than 800x800 px or a more efficient format such as WEBP.
         </p>
         }
     </div>

@@ -90,6 +90,10 @@ export class TaskCreateFormComponent {
   /** Filenames rejected due to invalid format. */
   invalidFiles: string[] = [];
 
+  oversizedCompressedImages: string[] = [];
+
+  totalSizeExceededFiles: string[] = [];
+
   /** Description of the task. */
   description: string = '';
 
@@ -737,6 +741,8 @@ export class TaskCreateFormComponent {
     this.subtasks = [];
     this.images = [];
     this.invalidFiles = [];
+    this.oversizedCompressedImages = [];
+    this.totalSizeExceededFiles = [];
     this.invalidSubtask.set(false);
 
     setTimeout((): void => {

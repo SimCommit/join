@@ -31,6 +31,9 @@ export class FileUploadComponent {
   /** Stores filenames of files that failed format validation */
   @Input() invalidFiles: string[] = [];
 
+  /** Stores filenames of images blocked because they would exceed the total size limit */
+  @Input() totalSizeExceededFiles: string[] = [];
+
   /** Stores filenames of compressed images that still exceed the allowed size */
   @Input() oversizedCompressedImages: string[] = [];
 
@@ -40,12 +43,12 @@ export class FileUploadComponent {
   /** Tracks whether the number of selected images exceeds the allowed limit */
   errorToManyImages: WritableSignal<boolean> = signal(false);
 
-  errorTotalImagesBytesExceeded: WritableSignal<boolean> = signal(false);
+  // errorTotalImagesBytesExceeded: WritableSignal<boolean> = signal(false);
 
   /** Holds the current number of images for validation checks */
   lenghtOfImagesToValidate: number = 0;
 
-  MAX_SINGLE_IMAGE_BYTES: number = 400 * 1024; 
+  MAX_SINGLE_IMAGE_BYTES: number = 400 * 1024;
 
   MAX_TOTAL_IMAGES_BYTES: number = 810 * 1024;
   // #endregion
@@ -158,9 +161,9 @@ export class FileUploadComponent {
     const compressedBase64 = await this.compressToTargetSize(file);
     const imageObject = this.createTaskImage(file, compressedBase64);
 
-    if (!this.imageExceedsSizeLimit(imageObject.size, file.name)) return;
+    if (this.imageExceedsSizeLimit(imageObject.size, file.name)) return;
 
-    if (this.noRoomForAnotherImage(imageObject.size)) return;
+    if (this.noRoomForAnotherImage(imageObject.size, file.name)) return;
 
     this.imagesForUpload.push(imageObject);
     this.updatingImages.emit(this.imagesForUpload);
@@ -245,23 +248,29 @@ export class FileUploadComponent {
   imageExceedsSizeLimit(newImageBytes: number, newImageName: string): boolean {
     if (newImageBytes > this.MAX_SINGLE_IMAGE_BYTES) {
       this.oversizedCompressedImages.push(newImageName);
-      return false
-    } else {
       return true;
+    } else {
+      return false;
     }
   }
 
-  noRoomForAnotherImage(newImageBytes: number): boolean {
+  noRoomForAnotherImage(newImageBytes: number, newImageName: string): boolean {
     let currentTotalImageBytes = 0;
+    // this.totalSizeExceededFiles = [];
+    let thereIsNoRoom = true;
     this.imagesForUpload.forEach((img) => (currentTotalImageBytes += img.size));
 
     if (currentTotalImageBytes + newImageBytes < this.MAX_TOTAL_IMAGES_BYTES) {
-      this.errorTotalImagesBytesExceeded.set(false);
+      thereIsNoRoom = false;
     } else {
-      this.errorTotalImagesBytesExceeded.set(true);
+      this.totalSizeExceededFiles.push(newImageName);
+      thereIsNoRoom = true;
     }
 
-    return this.errorTotalImagesBytesExceeded();
+    console.log(this.totalSizeExceededFiles);
+    
+
+    return thereIsNoRoom;
   }
 
   /**
@@ -289,6 +298,7 @@ export class FileUploadComponent {
    */
   resetWarnings() {
     this.invalidFiles = [];
+    this.totalSizeExceededFiles = [];
     this.thereAreToManyFiles();
   }
 
