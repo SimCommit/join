@@ -155,7 +155,7 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
   /** Initializes the reactive form */
   private initializeForm(): void {
     this.editForm = this.formBuilder.group({
-      title: ['', Validators.required],
+      title: ['', [Validators.required, this.validTitle]],
       description: [''],
       dueDate: ['', [Validators.required, this.validDate]],
       priority: ['medium'],
@@ -185,6 +185,17 @@ export class TaskEditFormComponent implements OnInit, OnChanges {
 
     return null;
   };
+
+  validTitle(control: AbstractControl): Object | null {
+    const title = control.value;
+    if (!title) return null;
+
+    if (title.trim().length <= 0) {
+      return { titleEmpty: true}
+    }
+
+    return null;
+  }
 
   /**
    * Validates a subtask input and updates the invalidSubtask signal.

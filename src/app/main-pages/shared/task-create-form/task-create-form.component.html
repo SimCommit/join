@@ -6,11 +6,12 @@
                 <div>
                     <label>Title<span class="red" aria-hidden="true">*</span>
                         <input name="title" id="title" [(ngModel)]="title" #titleInput="ngModel" class="input"
-                            [attr.aria-describedby]="titleInput.invalid && (titleInput.dirty || titleInput.touched) ? 'titleError' : null"
-                            aria-required="true" required type="text" placeholder="Enter a title">
+                            [attr.aria-describedby]="(titleInput.invalid || !titleIsValid()) && (titleInput.dirty || titleInput.touched) ? 'titleError' : null"
+                            [ngClass]="{'error-border': !titleIsValid() && (titleInput.dirty || titleInput.touched) }" aria-required="true" required type="text"
+                            placeholder="Enter a title">
                     </label>
                     <p class="error" id="titleError"
-                        *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
+                        *ngIf="(titleInput.invalid || !titleIsValid()) && (titleInput.dirty || titleInput.touched)">
                         Title is required!
                     </p>
                 </div>

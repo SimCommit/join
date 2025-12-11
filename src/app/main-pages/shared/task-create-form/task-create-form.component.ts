@@ -658,7 +658,7 @@ export class TaskCreateFormComponent {
    * - If the category is not selected (default), sets flags to show the category error and mark the overlay as opened.
    */
   submitTaskFromForm(): void {
-    if (this.category != 'Select task category' && this.dateIsValid()) {
+    if (this.category != 'Select task category' && this.dateIsValid() && this.titleIsValid()) {
       let task = this.getCleanTask();
       this.taskDataService.addTask(task);
       this.openBoard();
@@ -701,6 +701,16 @@ export class TaskCreateFormComponent {
     }
 
     return !this.getDateErrors(date).pastDate && !this.getDateErrors(date).futureLimit;
+  }
+
+  /**
+   * Validates the task title for the create-task form.
+   * Ensures the value is defined and contains at least one non-whitespace character.
+   * @returns True when the title is non-empty after trimming. False otherwise.
+   */
+  titleIsValid(): boolean {
+    if (!this.title) return false;
+    return this.title.trim().length > 0;
   }
 
   /**
