@@ -28,15 +28,34 @@
 
     <div id="filepicker-error" class="error-wrapper">
         @for (name of invalidFiles; track $index) {
-        <p class="wrong-format"><strong>Invalid format: {{name}}</strong></p>
+        <p class="wrong-format"><strong>
+            Invalid format: {{name}}
+        </strong></p>
         }
         @if (invalidFiles.length > 0) {
-        <p class="wrong-format">You can only upload JPEG, JPG and WEBP.</p>
+        <p class="wrong-format">
+            You can only upload JPEG, JPG and WEBP.
+        </p>
         }
 
         @if (errorToManyImages()) {
-        <p class="wrong-format"><strong>Too many files!</strong></p>
-        <p class="wrong-format">You can upload up to 5 images.</p>
+        <p class="wrong-format">
+            <strong>Too many files!</strong>
+        </p>
+        <p class="wrong-format">
+            You can upload up to 5 images per task.
+        </p>
+        }
+
+        @if (oversizedCompressedImages.length > 0) {
+        @for (name of oversizedCompressedImages; track $index) {
+        <p class="wrong-format">
+            <strong>Oversized image: {{name}}</strong>
+        </p>
+        }
+        <p class="wrong-format">
+            Image may be up to 400 KB after compression. Try a more efficient format such as WEBP.
+        </p>
         }
     </div>
 

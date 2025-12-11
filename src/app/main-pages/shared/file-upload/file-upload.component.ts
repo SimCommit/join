@@ -31,11 +31,8 @@ export class FileUploadComponent {
   /** Stores filenames of files that failed format validation */
   @Input() invalidFiles: string[] = [];
 
-  // /** Stores filenames of compressed images that still exceed the allowed size */
-  // @Input() oversizedCompressedImages: string[] = [];
-
-  /** Stores filenames of images that exceed the raw file size limit before compression */
-  // @Input() oversizedImages: string[] = [];
+  /** Stores filenames of compressed images that still exceed the allowed size */
+  @Input() oversizedCompressedImages: string[] = [];
 
   /** Emits the updated array of images whenever files are added or removed. */
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
@@ -43,8 +40,14 @@ export class FileUploadComponent {
   /** Tracks whether the number of selected images exceeds the allowed limit */
   errorToManyImages: WritableSignal<boolean> = signal(false);
 
+  errorTotalImagesBytesExceeded: WritableSignal<boolean> = signal(false);
+
   /** Holds the current number of images for validation checks */
   lenghtOfImagesToValidate: number = 0;
+
+  MAX_SINGLE_IMAGE_BYTES: number = 400 * 1024; 
+
+  MAX_TOTAL_IMAGES_BYTES: number = 810 * 1024;
   // #endregion
 
   // #region Lifecycle
@@ -154,6 +157,11 @@ export class FileUploadComponent {
 
     const compressedBase64 = await this.compressToTargetSize(file);
     const imageObject = this.createTaskImage(file, compressedBase64);
+
+    if (!this.imageExceedsSizeLimit(imageObject.size, file.name)) return;
+
+    if (this.noRoomForAnotherImage(imageObject.size)) return;
+
     this.imagesForUpload.push(imageObject);
     this.updatingImages.emit(this.imagesForUpload);
   }
@@ -167,15 +175,17 @@ export class FileUploadComponent {
    * @returns The Base64 string of the compressed image.
    */
   async compressToTargetSize(file: File): Promise<string> {
-    let quality: number = 0.9;
+    let quality: number = 0.95;
     let compressedBase64: string = await this.compressImage(file, 800, 800, quality);
     let currentSize = compressedBase64.length * 0.75;
+    console.log('1. Erstellung: ', currentSize);
 
     for (let i = 0; i < 4; i++) {
-      if (currentSize > 160 * 1024) {
+      if (currentSize > this.MAX_SINGLE_IMAGE_BYTES) {
         quality -= 0.2;
         compressedBase64 = await this.compressImage(file, 800, 800, quality);
         currentSize = compressedBase64.length * 0.75;
+        console.log(`${i + 2}. Erstellung: `, currentSize);
       } else {
         break;
       }
@@ -230,6 +240,28 @@ export class FileUploadComponent {
       this.errorToManyImages.set(false);
     }
     return this.errorToManyImages();
+  }
+
+  imageExceedsSizeLimit(newImageBytes: number, newImageName: string): boolean {
+    if (newImageBytes > this.MAX_SINGLE_IMAGE_BYTES) {
+      this.oversizedCompressedImages.push(newImageName);
+      return false
+    } else {
+      return true;
+    }
+  }
+
+  noRoomForAnotherImage(newImageBytes: number): boolean {
+    let currentTotalImageBytes = 0;
+    this.imagesForUpload.forEach((img) => (currentTotalImageBytes += img.size));
+
+    if (currentTotalImageBytes + newImageBytes < this.MAX_TOTAL_IMAGES_BYTES) {
+      this.errorTotalImagesBytesExceeded.set(false);
+    } else {
+      this.errorTotalImagesBytesExceeded.set(true);
+    }
+
+    return this.errorTotalImagesBytesExceeded();
   }
 
   /**
