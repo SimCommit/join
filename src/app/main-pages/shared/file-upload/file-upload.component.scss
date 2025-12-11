@@ -14,13 +14,12 @@ button {
 
 .upload-info-bar {
   @include dFlex($jc: space-between);
-  min-height: 28px;
+  min-height: 40px;
 
   small {
     font-size: 14px;
     color: $a11y-grey;
-    margin-bottom: 4px;
-    align-self: flex-end;
+    align-self: center;
   }
 
   button {
@@ -77,6 +76,10 @@ button {
 
 #filepicker {
   display: none;
+}
+
+.error-wrapper {
+  min-height: 48px;
 }
 
 .wrong-format {

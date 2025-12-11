@@ -18,21 +18,27 @@
             [attr.aria-describedby]="  invalidFiles.length > 0   ? 'filepickerError'  : null">
             <img aria-hidden="true" src="./img/icons/plus-upload-a11y-grey.svg" alt="">
         </button>
-        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/webp"
-            multiple>
+        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/webp" multiple>
     </div>
 
     <app-attachments-gallery [imagesForUpload]="imagesForUpload" [deleteIsEnabled]="true"
         (deleteSingelImage)="deleteSingelImage($event)"></app-attachments-gallery>
 
-    @if (invalidFiles.length > 0) {
-    <div id="filepicker-error" class="wrong-format">
+
+
+    <div id="filepicker-error" class="error-wrapper">
         @for (name of invalidFiles; track $index) {
-        <p><strong>Invalid format: {{name}}</strong></p>
+        <p class="wrong-format"><strong>Invalid format: {{name}}</strong></p>
         }
-        <p>You can only upload JPEG, JPG and WEBP.</p>
+        @if (invalidFiles.length > 0) {
+        <p class="wrong-format">You can only upload JPEG, JPG and WEBP.</p>
+        }
+
+        @if (errorToManyImages()) {
+        <p class="wrong-format"><strong>Too many files!</strong></p>
+        <p class="wrong-format">You can upload up to 5 images.</p>
+        }
     </div>
-    }
 
     <!-- @if (oversizedImages.length > 0) {
     <div id="filepicker-error" class="wrong-format">
@@ -52,10 +58,4 @@
     </div>
     } -->
 
-    @if (errorToManyImages()) {
-    <div id="filepicker-error" class="wrong-format">
-        <p><strong>Too many files!</strong></p>
-        <p>You can upload up to 5 images.</p>
-    </div>
-    }
 </section>
