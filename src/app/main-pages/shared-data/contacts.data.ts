@@ -35,8 +35,8 @@ export const Contacts: Contact[] =
       phone: '+49 152 99008877',
     },
     {
-      name: 'Matteo Mendel',
-      email: 'mendel@gmail.com',
+      name: 'Matteo Müller',
+      email: 'müller@gmail.com',
       phone: '+49 1234 849494',
     },
     {

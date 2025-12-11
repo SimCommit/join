@@ -111,7 +111,7 @@ export class FileUploadComponent {
     this.lenghtOfImagesToValidate = files.length;
     this.resetWarnings();
 
-    if (files.length + this.imagesForUpload.length < 6) {
+    if (files.length + this.imagesForUpload.length < 9) {
       if (files.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
           await this.handleFile(file);
@@ -256,7 +256,6 @@ export class FileUploadComponent {
 
   noRoomForAnotherImage(newImageBytes: number, newImageName: string): boolean {
     let currentTotalImageBytes = 0;
-    // this.totalSizeExceededFiles = [];
     let thereIsNoRoom = true;
     this.imagesForUpload.forEach((img) => (currentTotalImageBytes += img.size));
 
@@ -268,7 +267,6 @@ export class FileUploadComponent {
     }
 
     console.log(this.totalSizeExceededFiles);
-    
 
     return thereIsNoRoom;
   }

@@ -22,9 +22,8 @@
     </div>
 
     <app-attachments-gallery [imagesForUpload]="imagesForUpload" [deleteIsEnabled]="true"
-        (deleteSingelImage)="deleteSingelImage($event)"></app-attachments-gallery>
-
-
+        (deleteSingelImage)="deleteSingelImage($event)">
+    </app-attachments-gallery>
 
     <div id="filepicker-error" class="error-wrapper">
         @for (name of invalidFiles; track $index) {
@@ -43,7 +42,7 @@
             <strong>Too many files!</strong>
         </p>
         <p class="wrong-format">
-            You can upload up to 5 images per task.
+            You can upload up to 8 images per task.
         </p>
         }
 
@@ -55,8 +54,8 @@
         }
 
         <p class="wrong-format">
-            The task would exceed the 1 MB storage limit.
-            Try images smaller than 800x800 px or a more efficient format such as WEBP.
+            The task would exceed the 1 MB storage limit of Firestore.
+            Try images smaller than 800x800 px or the more efficient format WEBP.
         </p>
         }
 
@@ -68,7 +67,7 @@
         }
         <p class="wrong-format">
             Image may be up to 400 KB after compression.
-            Try an image smaller than 800x800 px or a more efficient format such as WEBP.
+            Try an image smaller than 800x800 px or the more efficient format WEBP.
         </p>
         }
     </div>
