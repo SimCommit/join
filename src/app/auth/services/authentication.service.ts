@@ -130,7 +130,6 @@ export class AuthenticationService {
     try {
       return await runInInjectionContext(this.injector, () => signInAnonymously(this.auth));
     } catch (error) {
-      // this.toastService.throwToast({ code: 'Could not log-in anonymously' })
       throw new Error('Could not log-in anonymously');
     }
   }

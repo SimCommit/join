@@ -93,11 +93,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.initialRouteProcessed = true;
       }
     }, 100);
-
-    // setInterval(() => {
-    //   console.log('shoudShowLayout ', this.shouldShowLayout());
-    //   console.log('notInLogIn ', this.contactDataService.notInLogIn);
-    // }, 2000);
   }
 
   /**

@@ -15,7 +15,7 @@ import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-
   styleUrl: './file-upload.component.scss',
 })
 export class FileUploadComponent {
-  // #region Properties
+  // #region Properties / Inputs / Outputs
   /**
    * Reference to the hidden file input element used for selecting images.
    * @type {ElementRef<HTMLInputElement>}
@@ -41,7 +41,7 @@ export class FileUploadComponent {
   @Output() updatingImages = new EventEmitter<TaskImage[]>();
 
   /** Tracks whether the number of selected images exceeds the allowed limit */
-  errorToManyImages: WritableSignal<boolean> = signal(false);
+  errorTooManyImages: WritableSignal<boolean> = signal(false);
 
   /** Holds the current number of images for validation checks */
   lenghtOfImagesToValidate: number = 0;
@@ -89,8 +89,7 @@ export class FileUploadComponent {
   }
   // #endregion
 
-  // #region CRUD
-
+  // #region Public Actions
   /**
    * Handles images dropped into the dropzone.
    * Extracts files from the DragEvent and forwards them to addImages.
@@ -116,7 +115,6 @@ export class FileUploadComponent {
    * @returns {void}
    */
   addImages(files: FileList): void {
-    this.lenghtOfImagesToValidate = files.length;
     this.resetWarnings();
 
     if (files.length + this.imagesForUpload.length < 9) {
@@ -125,9 +123,9 @@ export class FileUploadComponent {
           await this.handleFile(file);
         });
       }
-      this.errorToManyImages.set(false);
+      this.errorTooManyImages.set(false);
     } else {
-      this.errorToManyImages.set(true);
+      this.errorTooManyImages.set(true);
     }
   }
 
@@ -138,7 +136,7 @@ export class FileUploadComponent {
    */
   deleteAllImagesFromForm(): void {
     this.imagesForUpload = [];
-    this.errorToManyImages.set(false);
+    this.errorTooManyImages.set(false);
     this.resetWarnings();
     this.updatingImages.emit(this.imagesForUpload);
   }
@@ -157,7 +155,7 @@ export class FileUploadComponent {
   }
   // #endregion
 
-  // #region Helpers
+  // #region File Handling Workflow
   /**
    * Processes a single image file by validating, compressing and adding it to the upload list.
    * Emits the updated image array after successful processing.
@@ -178,77 +176,29 @@ export class FileUploadComponent {
   }
 
   /**
-   * Compresses an image until a target file size is reached.
-   * Performs repeated compression steps with decreasing quality while always using the original file as input.
-   * Stops early when the compressed output is below the defined size limit.
-   * Returns the final compressed image as a Base64 string.
-   * @param file The image file to compress toward the target size.
-   * @returns The Base64 string of the compressed image.
-   */
-  async compressToTargetSize(file: File): Promise<string> {
-    let quality: number = 0.95;
-    let compressedBase64: string = await this.compressImage(file, 800, 800, quality);
-    let currentSize = compressedBase64.length * 0.75;
-
-    for (let i = 0; i < 4; i++) {
-      if (currentSize > this.MAX_SINGLE_IMAGE_BYTES) {
-        quality -= 0.2;
-        compressedBase64 = await this.compressImage(file, 800, 800, quality);
-        currentSize = compressedBase64.length * 0.75;
-      } else {
-        break;
-      }
-    }
-
-    return compressedBase64;
-  }
-
-  /**
    * Checks whether a given image file should be skipped.
    * Returns true when too many images exist or the file format or size is invalid.
    * @param file The file to validate.
    * @returns True if the file should not be processed.
    */
   shouldSkipImage(file: File): boolean {
-    return this.thereAreToManyFiles() || this.isInvalidImageFormat(file);
+    return this.thereAreTooManyFiles() || this.isInvalidImageFormat(file);
   }
+  // #endregion
 
+  // #region Validation and Constraints
   /**
-   * Creates a TaskImage object from a file and its compressed Base64 string.
-   * Extracts metadata such as filename, size and MIME type.
-   * @param file The original image file.
-   * @param compressedBase64 The Base64 string of the compressed image.
-   * @returns A fully constructed TaskImage object.
-   */
-  createTaskImage(file: File, compressedBase64: string): TaskImage {
-    const mimeType = file.type;
-    const extension = mimeType.replace(/^image\//, '.');
-    const filename = file.name;
-    const baseName = filename.replace(/\.[^/.]+$/, '');
-    const byteSize = compressedBase64.length * 0.75;
-
-    return {
-      filename: filename,
-      filenameWithoutType: baseName,
-      size: byteSize,
-      fileExtension: extension,
-      mimeType: mimeType,
-      base64: compressedBase64,
-    };
-  }
-
-  /**
-   * Checks whether more than five images are stored.
-   * Updates the errorToManyImages signal based on the result.
+   * Checks whether more than eight images are stored.
+   * Updates the errorTooManyImages signal based on the result.
    * @returns {boolean} True if the limit is exceeded.
    */
-  thereAreToManyFiles(): boolean {
+  thereAreTooManyFiles(): boolean {
     if (this.imagesForUpload.length > 7) {
-      this.errorToManyImages.set(true);
+      this.errorTooManyImages.set(true);
     } else {
-      this.errorToManyImages.set(false);
+      this.errorTooManyImages.set(false);
     }
-    return this.errorToManyImages();
+    return this.errorTooManyImages();
   }
 
   /**
@@ -317,7 +267,63 @@ export class FileUploadComponent {
   resetWarnings() {
     this.invalidFiles = [];
     this.totalSizeExceededFiles = [];
-    this.thereAreToManyFiles();
+    this.oversizedCompressedImages = [];
+    this.thereAreTooManyFiles();
+    // this.errorTooManyImages.set(false);
+  }
+  // #endregion
+
+  // #region Image Model Creation
+  /**
+   * Creates a TaskImage object from a file and its compressed Base64 string.
+   * Extracts metadata such as filename, size and MIME type.
+   * @param file The original image file.
+   * @param compressedBase64 The Base64 string of the compressed image.
+   * @returns A fully constructed TaskImage object.
+   */
+  createTaskImage(file: File, compressedBase64: string): TaskImage {
+    const mimeType = file.type;
+    const extension = mimeType.replace(/^image\//, '.');
+    const filename = file.name;
+    const baseName = filename.replace(/\.[^/.]+$/, '');
+    const byteSize = compressedBase64.length * 0.75;
+
+    return {
+      filename: filename,
+      filenameWithoutType: baseName,
+      size: byteSize,
+      fileExtension: extension,
+      mimeType: mimeType,
+      base64: compressedBase64,
+    };
+  }
+  // #endregion
+
+  // #region Image Compression Logic
+  /**
+   * Compresses an image until a target file size is reached.
+   * Performs repeated compression steps with decreasing quality while always using the original file as input.
+   * Stops early when the compressed output is below the defined size limit.
+   * Returns the final compressed image as a Base64 string.
+   * @param file The image file to compress toward the target size.
+   * @returns The Base64 string of the compressed image.
+   */
+  async compressToTargetSize(file: File): Promise<string> {
+    let quality: number = 0.95;
+    let compressedBase64: string = await this.compressImage(file, 800, 800, quality);
+    let currentSize = compressedBase64.length * 0.75;
+
+    for (let i = 0; i < 4; i++) {
+      if (currentSize > this.MAX_SINGLE_IMAGE_BYTES) {
+        quality -= 0.2;
+        compressedBase64 = await this.compressImage(file, 800, 800, quality);
+        currentSize = compressedBase64.length * 0.75;
+      } else {
+        break;
+      }
+    }
+
+    return compressedBase64;
   }
 
   /**
@@ -348,7 +354,9 @@ export class FileUploadComponent {
       reader.readAsDataURL(file);
     });
   }
+  // #endregion
 
+  // #region Canvas Helpers
   /**
    * Creates a canvas, adjusts its size, draws the image and generates a compressed Base64 output.
    * @param img The loaded image element
