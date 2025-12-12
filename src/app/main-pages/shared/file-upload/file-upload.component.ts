@@ -43,13 +43,21 @@ export class FileUploadComponent {
   /** Tracks whether the number of selected images exceeds the allowed limit */
   errorToManyImages: WritableSignal<boolean> = signal(false);
 
-  // errorTotalImagesBytesExceeded: WritableSignal<boolean> = signal(false);
-
   /** Holds the current number of images for validation checks */
   lenghtOfImagesToValidate: number = 0;
 
+  /**
+   * Maximum allowed file size in bytes for a single uploaded image
+   * after compression. Used to validate individual images before
+   * adding them to a task.
+   */
   MAX_SINGLE_IMAGE_BYTES: number = 400 * 1024;
 
+  /**
+   * Maximum allowed combined file size in bytes for all images
+   * attached to a single task. Ensures the Firestore document
+   * stays below the database size limit.
+   */
   MAX_TOTAL_IMAGES_BYTES: number = 810 * 1024;
   // #endregion
 
@@ -181,14 +189,12 @@ export class FileUploadComponent {
     let quality: number = 0.95;
     let compressedBase64: string = await this.compressImage(file, 800, 800, quality);
     let currentSize = compressedBase64.length * 0.75;
-    console.log('1. Erstellung: ', currentSize);
 
     for (let i = 0; i < 4; i++) {
       if (currentSize > this.MAX_SINGLE_IMAGE_BYTES) {
         quality -= 0.2;
         compressedBase64 = await this.compressImage(file, 800, 800, quality);
         currentSize = compressedBase64.length * 0.75;
-        console.log(`${i + 2}. Erstellung: `, currentSize);
       } else {
         break;
       }
@@ -237,7 +243,7 @@ export class FileUploadComponent {
    * @returns {boolean} True if the limit is exceeded.
    */
   thereAreToManyFiles(): boolean {
-    if (this.imagesForUpload.length > 4) {
+    if (this.imagesForUpload.length > 7) {
       this.errorToManyImages.set(true);
     } else {
       this.errorToManyImages.set(false);
@@ -245,6 +251,14 @@ export class FileUploadComponent {
     return this.errorToManyImages();
   }
 
+  /**
+   * Checks whether a single compressed image exceeds the allowed
+   * maximum file size. If the limit is exceeded, the image name
+   * is collected for user feedback.
+   * @param newImageBytes Size of the compressed image in bytes
+   * @param newImageName File name of the image
+   * @returns True if the single-image size limit is exceeded
+   */
   imageExceedsSizeLimit(newImageBytes: number, newImageName: string): boolean {
     if (newImageBytes > this.MAX_SINGLE_IMAGE_BYTES) {
       this.oversizedCompressedImages.push(newImageName);
@@ -254,6 +268,14 @@ export class FileUploadComponent {
     }
   }
 
+  /**
+   * Checks whether adding another image would exceed the maximum
+   * allowed total image size for a task. If the limit would be
+   * exceeded, the image name is collected for user feedback.
+   * @param newImageBytes Size of the compressed image in bytes
+   * @param newImageName File name of the image
+   * @returns True if there is no remaining space for another image
+   */
   noRoomForAnotherImage(newImageBytes: number, newImageName: string): boolean {
     let currentTotalImageBytes = 0;
     let thereIsNoRoom = true;
@@ -265,8 +287,6 @@ export class FileUploadComponent {
       this.totalSizeExceededFiles.push(newImageName);
       thereIsNoRoom = true;
     }
-
-    console.log(this.totalSizeExceededFiles);
 
     return thereIsNoRoom;
   }

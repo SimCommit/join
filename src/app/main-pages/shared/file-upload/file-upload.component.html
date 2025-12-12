@@ -39,7 +39,7 @@
 
         @if (errorToManyImages()) {
         <p class="wrong-format">
-            <strong>Too many files!</strong>
+            <strong>Too many files.</strong>
         </p>
         <p class="wrong-format">
             You can upload up to 8 images per task.
@@ -52,7 +52,6 @@
             <strong>Stopped uploading image: {{totalSizeExceededFiles[$index]}}</strong>
         </p>
         }
-
         <p class="wrong-format">
             The task would exceed the 1 MB storage limit of Firestore.
             Try images smaller than 800x800 px or the more efficient format WEBP.
@@ -71,23 +70,4 @@
         </p>
         }
     </div>
-
-    <!-- @if (oversizedImages.length > 0) {
-    <div id="filepicker-error" class="wrong-format">
-        @for (name of oversizedImages; track $index) {
-        <p><strong>Oversized image: {{name}}</strong></p>
-        }
-        <p>Image file must be smaller than 10 MB.</p>
-    </div>
-    }
-
-    @if (oversizedCompressedImages.length > 0) {
-    <div id="filepicker-error" class="wrong-format">
-        @for (name of oversizedCompressedImages; track $index) {
-        <p><strong>Oversized image: {{name}}</strong></p>
-        }
-        <p>Image must be smaller than 160 KB after compression.</p>
-    </div>
-    } -->
-
 </section>
