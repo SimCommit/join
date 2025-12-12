@@ -158,9 +158,7 @@
             <div class="separator"></div>
             <div class="right-content" [class.board-spacing]="openFromBoard">
 
-                <app-file-upload [imagesForUpload]="images" [invalidFiles]="invalidFiles"
-                    [oversizedCompressedImages]="oversizedCompressedImages"
-                    [totalSizeExceededFiles]="totalSizeExceededFiles"
+                <app-file-upload #fileUploadComponent [imagesForUpload]="images" 
                     (updatingImages)="updateImages($event)"></app-file-upload>
 
                 <fieldset (click)="onWrapperClick($event)">

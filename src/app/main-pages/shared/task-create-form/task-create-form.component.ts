@@ -51,6 +51,9 @@ export class TaskCreateFormComponent {
   /** Radio input for selecting 'User Story'. */
   @ViewChild('categoryUserStoryRef') categoryUserStoryRef!: ElementRef<HTMLInputElement>;
 
+  /** Child component FileUpload */
+  @ViewChild('fileUploadComponent') fileUploadComponent!: FileUploadComponent;
+
   /** Currently focused contact checkbox. */
   currentFocusedContact?: ElementRef<HTMLInputElement>;
 
@@ -86,13 +89,6 @@ export class TaskCreateFormComponent {
 
   /** List of all subtasks added to the task. */
   images: TaskImage[] = [];
-
-  /** Filenames rejected due to invalid format. */
-  invalidFiles: string[] = [];
-
-  oversizedCompressedImages: string[] = [];
-
-  totalSizeExceededFiles: string[] = [];
 
   /** Description of the task. */
   description: string = '';
@@ -750,9 +746,7 @@ export class TaskCreateFormComponent {
     this.overlay2WasOpen = false;
     this.subtasks = [];
     this.images = [];
-    this.invalidFiles = [];
-    this.oversizedCompressedImages = [];
-    this.totalSizeExceededFiles = [];
+    this.fileUploadComponent.resetWarnings();
     this.invalidSubtask.set(false);
 
     setTimeout((): void => {

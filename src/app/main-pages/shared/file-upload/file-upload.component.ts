@@ -269,7 +269,6 @@ export class FileUploadComponent {
     this.totalSizeExceededFiles = [];
     this.oversizedCompressedImages = [];
     this.thereAreTooManyFiles();
-    // this.errorTooManyImages.set(false);
   }
   // #endregion
 
