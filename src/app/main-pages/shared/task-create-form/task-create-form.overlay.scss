@@ -2,6 +2,8 @@
 @use './../../../../styles/_variables' as *;
 
 .overlay-menu {
+  margin-top: -2px;
+  position: absolute;
   width: 100%;
   max-height: 0;
   overflow: hidden;
@@ -14,6 +16,7 @@
   padding-top: 0;
   border: 2px solid $lighter-grey;
   border-top: none;
+  z-index: 2;
 
   .search-input-wrapper {
     position: sticky;
@@ -91,7 +94,7 @@
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   border: 2px solid $input-focus-blue;
-  border-bottom: none;
+  border-bottom: 2px solid transparent;
   > p {
     visibility: hidden;
   }
@@ -107,7 +110,6 @@
   max-height: 288px;
   opacity: 1;
   position: absolute;
-  z-index: 2;
   border: 2px solid $input-focus-blue;
   border-top: none;
 }
