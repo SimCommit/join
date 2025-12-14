@@ -95,6 +95,10 @@ button {
   }
 }
 
+.download-btn {
+  justify-content: flex-start;
+}
+
 @media (max-width: 768px) {
   .imageButtonOverlay {
     opacity: 1;

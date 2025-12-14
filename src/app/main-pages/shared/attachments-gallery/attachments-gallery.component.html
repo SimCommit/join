@@ -7,7 +7,7 @@
             <p title="{{img.filenameWithoutType}}">{{img.filenameWithoutType}}</p>
         </button>
 
-        <div class="imageButtonOverlay">
+        <div class="imageButtonOverlay" [ngClass]="{'download-btn': downloadIsEnabled}">
             @if (deleteIsEnabled) {
             <button [attr.aria-label]="'Delete ' + img.filename + ' image'" (click)="sendImageToDeleteToParent(img, $event);" type="button">
                 <img aria-hidden="true" class="delete-icon" src="./img/icons/delete-white.svg" alt="">

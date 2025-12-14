@@ -13,10 +13,10 @@ button {
 
 .upload-info-bar {
   @include dFlex($jc: space-between);
+  margin-top: 4px;
   min-height: 44px;
 
   > p {
-    margin-top: 4px;
     @include dFlex($fd: column, $ai: flex-start);
     small {
       font-size: 14px;

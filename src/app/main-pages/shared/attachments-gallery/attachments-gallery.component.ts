@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskImage } from '../../shared-data/task.interface';
 import { DownloadFileService } from '../../shared-data/download-file.service';
 import { ImageViewerStateService } from '../../../shared/services/image-viewer-state.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-attachments-gallery',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './attachments-gallery.component.html',
   styleUrl: './attachments-gallery.component.scss',
 })
