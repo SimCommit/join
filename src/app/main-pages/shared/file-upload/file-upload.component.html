@@ -2,7 +2,10 @@
     <p id="attachments-heading">Attachments</p>
 
     <div class="upload-info-bar">
-        <small>Supported formats: JPEG, JPG, WEBP</small>
+        <p>
+            <small>You can attach up to 8 images per task.</small>
+            <small>Supported formats: JPEG, JPG, WEBP</small>
+        </p>
         @if (imagesForUpload.length > 0) {
         <button type="button" (click)="deleteAllImagesFromForm()">
             <img aria-hidden="true" src="./img/icons/delete_contact.svg" alt="">
@@ -15,7 +18,7 @@
         <label for="filepicker">Drag a file or browse</label>
         <button type="button" (click)="filepicker.click()" aria-label="filepicker"
             aria-describedby="attachments-heading"
-            [attr.aria-describedby]="  invalidFiles.length > 0   ? 'filepickerError'  : null">
+            [attr.aria-describedby]="  invalidFiles.length > 0 ? 'filepicker-error'  : null">
             <img aria-hidden="true" src="./img/icons/plus-upload-a11y-grey.svg" alt="">
         </button>
         <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/webp" multiple>
@@ -26,6 +29,15 @@
     </app-attachments-gallery>
 
     <div id="filepicker-error" class="error-wrapper">
+        @if (errorTooManyImages()) {
+        <p class="wrong-format">
+            <strong>Too many files.</strong>
+        </p>
+        <p class="wrong-format">
+            You can upload up to 8 images per task.
+        </p>
+        }
+
         @for (name of invalidFiles; track $index) {
         <p class="wrong-format"><strong>
                 Invalid format: {{name}}
@@ -34,15 +46,6 @@
         @if (invalidFiles.length > 0) {
         <p class="wrong-format">
             You can only upload JPEG, JPG and WEBP.
-        </p>
-        }
-
-        @if (errorTooManyImages()) {
-        <p class="wrong-format">
-            <strong>Too many files.</strong>
-        </p>
-        <p class="wrong-format">
-            You can upload up to 8 images per task.
         </p>
         }
 

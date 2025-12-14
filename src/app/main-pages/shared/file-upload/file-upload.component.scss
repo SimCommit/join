@@ -9,21 +9,25 @@ button {
   border: none;
   background: none;
   transition: background-color 100ms ease-in-out;
-
 }
 
 .upload-info-bar {
   @include dFlex($jc: space-between);
-  min-height: 40px;
+  min-height: 44px;
 
-  small {
-    font-size: 14px;
-    color: $a11y-grey;
-    align-self: center;
+  > p {
+    margin-top: 4px;
+    @include dFlex($fd: column, $ai: flex-start);
+    small {
+      font-size: 14px;
+      color: $a11y-grey;
+      margin-bottom: 4px;
+    }
   }
 
   button {
     @include dFlex($g: 4px);
+    min-width: 106px;
     font-size: 16px;
     padding: 4px;
     border-radius: 10px;
@@ -85,7 +89,7 @@ button {
 .wrong-format {
   color: $error-muted;
   font-weight: 300;
-  margin-bottom: 8px;
+  margin-top: 4px;
 
   strong {
     font-weight: 600;
