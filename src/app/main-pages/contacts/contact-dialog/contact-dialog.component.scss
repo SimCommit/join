@@ -46,7 +46,7 @@
     background: url('./../../../../../public/img/icons/close-button.svg') center no-repeat;
 
     &:hover {
-      background-color: $transparent-blue;
+      background-color: $light-blue;
     }
   }
 }
@@ -188,6 +188,10 @@
 }
 
 @media (max-width: 512px) {
+.dialog-header {
+  right: 12px;
+}
+
   .dialog-intro {
     width: clamp(296px, 90vw, 460px);
     padding: 0 20px 0 20px;

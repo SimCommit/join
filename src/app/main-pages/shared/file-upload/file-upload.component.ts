@@ -17,6 +17,27 @@ import { AttachmentsGalleryComponent } from '../attachments-gallery/attachments-
 export class FileUploadComponent {
   // #region Properties / Inputs / Outputs
   /**
+   * Maximum allowed file size in bytes for a single uploaded image
+   * after compression. Used to validate individual images before
+   * adding them to a task.
+   */
+  readonly MAX_SINGLE_IMAGE_BYTES: number = 400 * 1024;
+
+  /**
+   * Maximum allowed combined file size in bytes for all images
+   * attached to a single task. Ensures the Firestore document
+   * stays below the database size limit.
+   */
+  readonly MAX_TOTAL_IMAGES_BYTES: number = 810 * 1024;
+
+  /**
+   * Maximum number of images that can be attached to a single task.
+   * This limit ensures manageable upload sizes and prevents excessive
+   * storage consumption in Firestore documents.
+   */
+  readonly MAX_IMAGES: number = 8;
+
+  /**
    * Reference to the hidden file input element used for selecting images.
    * @type {ElementRef<HTMLInputElement>}
    */
@@ -42,23 +63,6 @@ export class FileUploadComponent {
 
   /** Tracks whether the number of selected images exceeds the allowed limit */
   errorTooManyImages: WritableSignal<boolean> = signal(false);
-
-  /** Holds the current number of images for validation checks */
-  lenghtOfImagesToValidate: number = 0;
-
-  /**
-   * Maximum allowed file size in bytes for a single uploaded image
-   * after compression. Used to validate individual images before
-   * adding them to a task.
-   */
-  MAX_SINGLE_IMAGE_BYTES: number = 400 * 1024;
-
-  /**
-   * Maximum allowed combined file size in bytes for all images
-   * attached to a single task. Ensures the Firestore document
-   * stays below the database size limit.
-   */
-  MAX_TOTAL_IMAGES_BYTES: number = 810 * 1024;
   // #endregion
 
   // #region Lifecycle
@@ -117,7 +121,7 @@ export class FileUploadComponent {
   addImages(files: FileList): void {
     this.resetWarnings();
 
-    if (files.length + this.imagesForUpload.length < 9) {
+    if (!this.wouldExceedImageLimit(files.length)) {
       if (files.length > 0) {
         Array.from(files!).forEach(async (file): Promise<void> => {
           await this.handleFile(file);
@@ -162,7 +166,7 @@ export class FileUploadComponent {
    * @param file The image file to process.
    */
   async handleFile(file: File): Promise<void> {
-    if (this.shouldSkipImage(file)) return;
+    if (this.shouldSkipFile(file)) return;
 
     const compressedBase64 = await this.compressToTargetSize(file);
     const imageObject = this.createTaskImage(file, compressedBase64);
@@ -181,24 +185,23 @@ export class FileUploadComponent {
    * @param file The file to validate.
    * @returns True if the file should not be processed.
    */
-  shouldSkipImage(file: File): boolean {
-    return this.thereAreTooManyFiles() || this.isInvalidImageFormat(file);
+  shouldSkipFile(file: File): boolean {
+    return this.wouldExceedImageLimit() || this.isInvalidImageFormat(file);
   }
   // #endregion
 
   // #region Validation and Constraints
   /**
-   * Checks whether more than eight images are stored.
-   * Updates the errorTooManyImages signal based on the result.
-   * @returns {boolean} True if the limit is exceeded.
+   * Validates whether adding additional images would exceed the maximum allowed count.
+   * Updates the errorTooManyImages signal based on the validation result.
+   * @param additionalCount Number of images to be added (default: 0 for checking current state only)
+   * @returns True if the image limit would be exceeded
    */
-  thereAreTooManyFiles(): boolean {
-    if (this.imagesForUpload.length > 7) {
-      this.errorTooManyImages.set(true);
-    } else {
-      this.errorTooManyImages.set(false);
-    }
-    return this.errorTooManyImages();
+  wouldExceedImageLimit(additionalCount: number = 0) {
+    const totalCount = this.imagesForUpload.length + additionalCount;
+    const exceedsLimit = totalCount > this.MAX_IMAGES;
+    this.errorTooManyImages.set(exceedsLimit);
+    return exceedsLimit;
   }
 
   /**
@@ -244,7 +247,6 @@ export class FileUploadComponent {
   /**
    * Validates whether a file has an allowed image format.
    * Allowed types: JPEG, WEBP.
-   * Updates errorWrongFormat accordingly.
    * @param {File} file The file to validate.
    * @returns {boolean} True if the format is invalid.
    */
@@ -261,14 +263,15 @@ export class FileUploadComponent {
   }
 
   /**
-   * Resets all file-related warning arrays and recalculates the too-many-files state.
+   * Resets all file-related warning arrays and recalculates the image limit state.
+   * Should be called before processing new files to clear previous validation results.
    * @returns void
    */
   resetWarnings() {
     this.invalidFiles = [];
     this.totalSizeExceededFiles = [];
     this.oversizedCompressedImages = [];
-    this.thereAreTooManyFiles();
+    this.wouldExceedImageLimit();
   }
   // #endregion
 
