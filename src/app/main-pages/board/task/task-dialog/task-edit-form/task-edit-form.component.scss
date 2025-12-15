@@ -350,7 +350,7 @@
 }
 
 .subtasks-edit-list {
-  @include dFlex($fd: column, $g: 8px);
+  @include dFlex($fd: column, $g: 8px, $jc: flex-start);
   max-height: 250px;
   overflow-y: auto;
   width: 100%;
