@@ -92,6 +92,10 @@ section {
     border-radius: 10px;
   }
 
+  .contact-icon-list-version {
+    min-width: 40px;
+  }
+
   p {
     color: $black;
     margin: 0 0 5px 0;
@@ -128,6 +132,12 @@ section {
   white-space: nowrap;
   text-overflow: ellipsis;
   color: $dark-email-blue;
+
+  p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
 h3 {
