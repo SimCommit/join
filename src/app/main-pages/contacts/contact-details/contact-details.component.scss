@@ -28,22 +28,27 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 15px;
-
-  h2 {
-    font-weight: 500;
-    font-size: clamp(28px, calc(6vw + 1rem), 47px);
-    line-height: 120%;
-    letter-spacing: 0%;
-    vertical-align: middle;
-    margin: 0;
-    color: $black;
-    white-space: nowrap;
-  }
+  width: 100%;
 
   .contact-info-section {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    h2 {
+      font-weight: 500;
+      font-size: clamp(28px, calc(6vw + 1rem), 47px);
+      line-height: 120%;
+      letter-spacing: 0%;
+      vertical-align: middle;
+      margin: 0;
+      color: $black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 
@@ -51,7 +56,7 @@
   flex-shrink: 0;
   @include dFlex($jc: space-between, $ai: center);
 
-  h2 {
+  h3 {
     font-weight: 400;
     font-size: 20px;
     line-height: 120%;
@@ -401,6 +406,12 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
+  }
+
+  .contact-name {
+    .contact-info-section {
+      white-space: normal;
+    }
   }
 
   .back-button {
