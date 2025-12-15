@@ -22,6 +22,7 @@ section {
 h1 {
   padding-top: 24px;
   align-self: flex-start;
+  z-index: 3;
 }
 
 .fullcontent {
@@ -232,7 +233,14 @@ img.rotated {
   }
   > div {
     @include dFlex($jc: flex-start);
+    width: 100%;
     gap: 12px;
+    > p {
+      max-width: 66%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 }
 
@@ -360,7 +368,6 @@ input.ng-invalid.ng-touched {
     }
     > div {
       opacity: 0;
-      width: 16%;
       @include dFlex($jc: space-between);
     }
     &:hover,
