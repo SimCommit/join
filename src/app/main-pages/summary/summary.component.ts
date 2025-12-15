@@ -35,11 +35,7 @@ export class SummaryComponent {
    * @param breakpointService Detects viewport size for responsive behavior.
    * @param authenticationService Provides information about the current user.
    */
-  constructor(
-    public taskDataService: TaskDataService,
-    public breakpointService: BreakpointService,
-    private authenticationService: AuthenticationService
-  ) {}
+  constructor(public taskDataService: TaskDataService, public breakpointService: BreakpointService, private authenticationService: AuthenticationService) {}
 
   // #region Lifecycle
   /**
@@ -82,17 +78,16 @@ export class SummaryComponent {
    * @returns The number of open urgent tasks.
    */
   countUrgentOpenTasks(columns: BoardColumn[]): number {
-    return columns.flatMap((col) => col.tasks).filter((task) => task.priority === 'urgent' && task.status !== 'done')
-      .length;
+    return columns.flatMap((col) => col.tasks).filter((task) => task.priority === 'urgent' && task.status !== 'done').length;
   }
 
   /**
-   * Counts all tasks across board columns based on their status.
-   * If the status is 'incomplete', it counts all tasks that are not marked as 'done'.
+   * Counts tasks across all board columns by status.
+   * If status is 'incomplete', all tasks except 'done' are counted.
    *
-   * @param columns Array of board columns containing tasks.
-   * @param status The status to filter by ('todo', 'inprogress', 'awaiting', 'done', or 'incomplete').
-   * @returns The number of matching tasks.
+   * @param columns Board columns with tasks.
+   * @param status Status to count.
+   * @returns Number of matching tasks.
    */
   countOpenTaskWithStatus(columns: BoardColumn[], status: string): number {
     if (status === 'incomplete') {
@@ -100,6 +95,19 @@ export class SummaryComponent {
     } else {
       return columns.flatMap((col) => col.tasks).filter((task) => task.status === status).length;
     }
+  }
+
+  /**
+   * Counts all tasks across the entire board regardless of status.
+   * All task arrays from each column are flattened into a single array
+   * to ensure every task is included in the count.
+   *
+   * @param columns Board columns containing task arrays.
+   * @returns Total number of tasks in the board.
+   */
+  countAllTasksInBoard(columns: BoardColumn[]): number {
+    const count = columns.flatMap((col) => col.tasks).length;
+    return count;
   }
 
   /**

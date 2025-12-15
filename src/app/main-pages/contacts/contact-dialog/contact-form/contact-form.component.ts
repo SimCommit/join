@@ -93,8 +93,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
     if (!/^[\+]?[0-9\s\-\(\)]{10,}$/.test(phone)) return { phoneInvalid: true };
 
-    console.log("hey");
-
     return null;
   }
 
