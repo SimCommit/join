@@ -37,16 +37,10 @@ export class FileUploadComponent {
    */
   readonly MAX_IMAGES: number = 8;
 
-  /**
-   * Reference to the hidden file input element used for selecting images.
-   * @type {ElementRef<HTMLInputElement>}
-   */
+  /** Reference to the hidden file input element used for selecting images. */
   @ViewChild('filepicker') filepickerRef!: ElementRef<HTMLInputElement>;
 
-  /**
-   * Holds all images currently selected or uploaded for the task.
-   * Each entry contains filename, size, MIME type and base64 data.
-   */
+  /** Holds all images currently selected or uploaded for the task. Each entry contains filename, size, MIME type and base64 data. */
   @Input() imagesForUpload: TaskImage[] = [];
 
   /** Stores filenames of files that failed format validation */
