@@ -1,57 +1,69 @@
 <section>
-    <div class="head">
+    <header class="head">
         <h1>Join 360</h1>
         <div class="spacer-blue"></div>
         <span class="tagline">Key Metrics at a Glance</span>
-    </div>
+    </header>
 
     <div class="body">
         <div *ngIf="columns$ | async as columns" class="card-container">
             <div class="card-row">
-                <div class="card-to-do" routerLink="/board">
-                    <div class="icon"></div>
-                    <div class="text">
-                        <p class="count">{{columns[0].tasks.length}}</p>
-                        <p>To-do</p>
-                    </div>
-                </div>
-                <div class="card-done" routerLink="/board">
-                    <div class="icon"></div>
-                    <div class="text">
-                        <p class="count">{{columns[3].tasks.length}}</p>
-                        <p>Done</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-row">
-                <div class="card-deadline" routerLink="/board">
-                    <div class="highest-priority-badge">
-                        <div class="icon"></div>
+                <article class="card-to-do">
+                    <a routerLink="/board">
+                        <div aria-hidden="true" class="icon"></div>
                         <div class="text">
-                            <p class="count">{{countUrgentOpenTasks(columns)}}</p>
-                            <p>Urgent</p>
+                            <p class="count">{{columns[0].tasks.length}}</p>
+                            <h2>To-do</h2>
                         </div>
-                    </div>
-                    <img src="./img/summary/spacer-line-grey.svg" alt="spacer line" class="spacer">
-                    <div class="deadline">
-                        <p class="date">{{getNextDeadline(columns)}}</p>
-                        <p>Upcoming Deadline</p>
-                    </div>
-                </div>
+                    </a>
+                </article>
+                <article class="card-done">
+                    <a routerLink="/board">
+                        <div aria-hidden="true" class="icon"></div>
+                        <div class="text">
+                            <p class="count">{{columns[3].tasks.length}}</p>
+                            <h2>Done</h2>
+                        </div>
+                    </a>
+                </article>
             </div>
             <div class="card-row">
-                <div class="card-all-tasks" routerLink="/board">
-                    <p class="count">{{countAllTasksInBoard(columns)}}</p>
-                    <p>Tasks&nbsp;in<br>Board</p>
-                </div>
-                <div class="card-in-progress" routerLink="/board">
-                    <p class="count">{{countOpenTaskWithStatus(columns, "inprogress")}}</p>
-                    <p>Tasks in Progress</p>
-                </div>
-                <div class="card-awaiting-feedback" routerLink="/board">
-                    <p class="count">{{countOpenTaskWithStatus(columns, "awaiting")}}</p>
-                    <p>Awaiting Feedback</p>
-                </div>
+                <article class="card-deadline">
+                    <a routerLink="/board">
+                        <div class="highest-priority-badge">
+                            <div aria-hidden="true" class="icon"></div>
+                            <div class="text">
+                                <p class="count">{{countUrgentOpenTasks(columns)}}</p>
+                                <h2>Urgent</h2>
+                            </div>
+                        </div>
+                        <img src="./img/summary/spacer-line-grey.svg" alt="" class="spacer">
+                        <div class="deadline">
+                            <p class="date">{{getNextDeadline(columns)}}</p>
+                            <p>Upcoming Deadline</p>
+                        </div>
+                    </a>
+                </article>
+            </div>
+            <div class="card-row">
+                <article class="card-all-tasks">
+                    <a routerLink="/board">
+                        <p class="count">{{countAllTasksInBoard(columns)}}</p>
+                        <h2>Tasks&nbsp;in<br>Board</h2>
+                    </a>
+                </article>
+                <article class="card-in-progress">
+                    <a routerLink="/board">
+                        <p class="count">{{countOpenTaskWithStatus(columns, "inprogress")}}</p>
+                        <h2>Tasks in Progress</h2>
+                    </a>
+                </article>
+                <article class="card-awaiting-feedback">
+                    <a routerLink="/board">
+                        <p class="count">{{countOpenTaskWithStatus(columns, "awaiting")}}</p>
+                        <h2>Awaiting Feedback</h2>
+                    </a>
+                </article>
             </div>
         </div>
 

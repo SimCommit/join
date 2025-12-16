@@ -224,8 +224,10 @@
       }
     }
 
-    p {
+    p,
+    h2 {
       font-size: 20px;
+      font-weight: 400;
       color: $blue;
       white-space: nowrap;
 
@@ -241,7 +243,8 @@
     background-color: $blue;
   }
 
-  &:hover .text p {
+  &:hover .text p,
+  &:hover .text h2 {
     color: $white;
   }
 }
