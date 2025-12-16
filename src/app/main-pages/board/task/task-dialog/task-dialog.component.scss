@@ -29,6 +29,7 @@ $p8-16-480-768: clamp(0.8rem, 2.778vw - 0.533rem, 1.6rem);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: unset;
 }
 
 .dialog-header {

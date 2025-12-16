@@ -70,7 +70,7 @@
 </div>
 
 <div class="overlay-background" *ngIf="openAddTask" (click)="closeAddTaskOverlay()">
-  <div (click)="stopEvent($event)" class="overlay-panel slide-in">
+  <dialog (click)="stopEvent($event)" class="overlay-panel slide-in">
     <div (click)="closeAddTaskOverlay()">
       <img src="./img/icons/close-button.svg" alt="">
     </div>
@@ -78,7 +78,7 @@
       <app-task-create-form (closeAddTaskOverlay)="closeAddTaskOverlay()" [openFromBoard]="true"
         [taskStatus]="setTaskStatus" />
     </div>
-  </div>
+  </dialog>
 </div>
 
 @if (showTaskDialog && selectedTask) {

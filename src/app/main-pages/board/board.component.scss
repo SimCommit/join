@@ -286,6 +286,8 @@ h1 {
 }
 
 .overlay-panel {
+  display: block;
+  border: unset;
   width: 1116px;
   max-height: 860px;
   background: $white;
@@ -453,6 +455,10 @@ h1 {
 
   .empty {
     height: fit-content;
+  }
+
+  .overlay-panel {
+    display: none;
   }
 }
 

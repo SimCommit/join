@@ -1,5 +1,5 @@
 <div class="dialog-overlay" (click)="closeDialog()" cdkTrapFocus>
-  <div class="dialog-content" (click)="$event.stopPropagation()">
+  <dialog class="dialog-content" (click)="$event.stopPropagation()">
     <div class="dialog-header">
       <div class="task-category-badge" [ngClass]="task?.category === 'User Story' ? 'user-story' : 'technical-task'">
         {{ task?.category }}
@@ -30,5 +30,5 @@
       </button>
     </div>
     }
-  </div>
+  </dialog>
 </div>
