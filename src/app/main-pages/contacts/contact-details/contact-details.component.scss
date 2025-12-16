@@ -40,7 +40,7 @@
 
     h2 {
       font-weight: 500;
-      font-size: clamp(28px, calc(6vw + 1rem), 47px);
+      font-size: 36px;
       line-height: 120%;
       letter-spacing: 0%;
       vertical-align: middle;
@@ -222,12 +222,22 @@
   }
 }
 
-.desktop-header {
-  display: block;
-  margin-bottom: 20px;
+.head {
+  @include dFlex($g: 16px, $jc: flex-start);
 
-  .contact-header-image {
-    max-width: 100%;
+  h1 {
+    font-size: clamp(4.2rem, 8.537vw - 2.766rem, 5.6rem);
+  }
+
+  .spacer-blue {
+    width: 4px;
+    height: 64px;
+    background-color: $light-blue;
+    border-radius: 2px;
+  }
+
+  span {
+    font-size: clamp(1.6rem, 2.439vw - 0.39rem, 2rem);
   }
 }
 
@@ -395,7 +405,17 @@
   }
 }
 
-@media screen and (max-width: 815px) {
+@media (max-width: 815px) {
+  .head {
+    h1 {
+      font-size: 56px;
+    }
+
+    span {
+      font-size: 20px;
+    }
+  }
+
   .contact-detail {
     position: relative;
     width: 100%;
@@ -411,6 +431,10 @@
   .contact-name {
     .contact-info-section {
       white-space: normal;
+
+      h2 {
+        font-size: clamp(28px, calc(6vw + 1rem), 47px);
+      }
     }
   }
 
@@ -449,15 +473,34 @@
     font-size: 32px;
   }
 
-  .contact-name h2 {
-    font-size: 32px;
-  }
-
   .contact-actions {
     display: none !important;
   }
 
   .mobile-menu-fab {
     display: flex !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .head {
+    @include dFlex($fd: column, $ai: flex-start);
+
+    h1 {
+      order: 1;
+    }
+
+    .spacer-blue {
+      margin-top: 14px;
+      order: 3;
+      height: 4px;
+      width: 90px;
+    }
+
+    span {
+      margin-top: 8px;
+      order: 2;
+      font-size: 20px;
+    }
   }
 }

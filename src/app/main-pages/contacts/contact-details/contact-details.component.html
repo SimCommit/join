@@ -1,18 +1,11 @@
 <section class="contact-detail">
-  <div class="desktop-header">
-    <img src="img/Contacts_better_with_a_team_for_contact_details.svg"
-      alt="Contacts - better with a team for contact details" class="contact-header-image" />
+  <div class="head">
+    <h1>Contacts</h1>
+    <div class="spacer-blue"></div>
+    <span class="tagline">Better with a team</span>
   </div>
 
   @if (contact$ | async; as contact) {
-  <div class="mobile-header">
-    <img src="img/Contacts_better_with_a_team_for_contact_details.svg"
-      alt="Contacts - better with a team for contact details" class="contact-header-image" />
-    <button (click)="goBack()" class="mobile-back-arrow">
-      <img src="img/icons/arrow-left-line.svg" alt="Back" />
-    </button>
-  </div>
-
   <div class="contact-details-content" [class.animateContent]="animated">
     <div class="contact-name">
       <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">
@@ -80,13 +73,11 @@
   } @else {
   @if (isMobileView) {
   <div class="mobile-header">
-    <img src="img/Contacts_better_with_a_team_for_contact_details.svg"
-      alt="Contacts - better with a team for contact details" class="contact-header-image" />
     <button (click)="goBack()" class="mobile-back-arrow">
       <img src="img/icons/arrow-left-line.svg" alt="Back" />
     </button>
   </div>
-  <p>Contact deleted</p>
+  <p>No contact selected</p>
   }
   }
 </section>
