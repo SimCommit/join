@@ -424,6 +424,7 @@ input.ng-invalid.ng-touched {
 
 .board-card {
   height: calc(88vh - 96px) !important;
+  max-height: 784px;
   padding-top: 0;
 }
 
