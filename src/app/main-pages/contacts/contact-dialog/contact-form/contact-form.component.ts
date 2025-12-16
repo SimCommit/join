@@ -68,7 +68,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
   /** FormControl for the name field */
   get nameControl() {
     return this.contactForm.get('name');
-
   }
   /** FormControl for the name field */
   get phoneControl() {
@@ -174,14 +173,21 @@ export class ContactFormComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Creates contact data object from form values
+   * Creates a normalized contact data object from form values
    * @returns {Contact} Contact data object
    */
   private createContactDataFromForm(): Contact {
+    let phone: string;
+    if (this.contactForm.value.phone) {
+      phone = this.contactForm.value.phone.trim().replace(/\s+/g, ' ');
+    } else {
+      phone = '';
+    }
+
     const contactData: Contact = {
       name: this.contactForm.value.name.trim(),
       email: this.contactForm.value.email.trim(),
-      phone: this.contactForm.value.phone.trim().replace(/\s+/g, ' ') || '',
+      phone: phone,
     };
 
     if (this.editingContact) {
