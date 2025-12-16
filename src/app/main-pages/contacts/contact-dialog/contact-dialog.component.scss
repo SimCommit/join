@@ -28,6 +28,8 @@
 
 .dialog-container {
   @include dFlex();
+  border: unset;
+  background-color: unset;
 }
 
 .dialog-header {
@@ -188,9 +190,9 @@
 }
 
 @media (max-width: 512px) {
-.dialog-header {
-  right: 12px;
-}
+  .dialog-header {
+    right: 12px;
+  }
 
   .dialog-intro {
     width: clamp(296px, 90vw, 460px);
@@ -206,12 +208,29 @@
 @media (max-width: 420px) {
   .dialog-headline {
     h2 {
-      font-size: clamp(40px, 12vw, 50px);
+      font-size: 48px;
     }
 
     p {
-      font-size: clamp(16px, 5.3vw, 22px);
+      font-size: 20px;
     }
+  }
+
+  .dialog-container {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .dialog-intro {
+    width: 100%;
+    padding: 0 20px 0 20px;
+    border-radius: 0;
+  }
+
+  .dialog-main {
+    width: 100%;
+    padding: 0 16px 24px 16px;
+    border-radius: 0;
   }
 }
 
