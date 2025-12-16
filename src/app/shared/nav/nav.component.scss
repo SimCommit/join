@@ -29,12 +29,18 @@ a {
 }
 
 .main-pages-container,
-.guest-nav-container,
+.logged-out-nav-container,
 .legal-pages-container {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   @include dFlex($fd: column);
   width: 100%;
 
-  div {
+  div,
+  li {
+    margin: 0;
+    padding: 0;
     width: 100%;
 
     a {
@@ -70,10 +76,11 @@ a {
   }
 }
 
-.guest-nav-container {
+.logged-out-nav-container {
   @include dFlex($fd: column, $jc: center, $ai: center);
 
-  div {
+  div,
+  li {
     a {
       @include dFlex($jc: center, $ai: center);
       padding: 0.8rem 2rem;
@@ -110,13 +117,14 @@ a {
     display: none;
   }
 
-  .guest-nav-container {
+  .logged-out-nav-container {
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: flex-start !important;
 
-    div:first-child {
+    div:first-child,
+    li:first-child {
       order: -1;
       margin-bottom: 0.8rem;
 
@@ -149,7 +157,8 @@ a {
 }
 
 .legal-pages-container {
-  div {
+  div,
+  li {
     a {
       padding-right: calc(5rem + 40px) !important;
 
@@ -183,7 +192,8 @@ a {
   .main-pages-container {
     @include dFlex($fd: row, $ai: center, $g: 12px);
 
-    div {
+    div,
+    li {
       @include dFlex($fd: column);
       a {
         @include dFlex();
@@ -195,10 +205,11 @@ a {
     }
   }
 
-  .guest-nav-container {
+  .logged-out-nav-container {
     @include dFlex($jc: center, $ai: center);
 
-    div {
+    div,
+    li {
       a {
         @include dFlex($jc: center, $ai: center);
         padding: 8px 36px;
@@ -290,7 +301,8 @@ a {
     width: 100%;
     @include dFlex($fd: row, $jc: space-between, $g: unset);
 
-    div {
+    div,
+    li {
       a {
         @include dFlex($fd: column);
         padding: 0;
@@ -309,11 +321,12 @@ a {
     }
   }
 
-  .guest-nav-container {
+  .logged-out-nav-container {
     width: 100%;
     @include dFlex($jc: space-between, $ai: center);
 
-    div:not(.legal-nav-mobile) {
+    div:not(.legal-nav-mobile),
+    li:not(.legal-nav-mobile) {
       a {
         @include dFlex($fd: column, $jc: center, $ai: center);
         padding: 0;

@@ -3,43 +3,43 @@
 
     <div class="link-wrapper">
         @if (isLoggedIn) {
-        <div class="main-pages-container">
-            <div>
+        <ul class="main-pages-container">
+            <li>
                 <a class="nav-link--summary" routerLink="/summary" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }">Summary</a>
-            </div>
-            <div>
+            </li>
+            <li>
                 <a class="nav-link--add-task" routerLink="/addTask" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: false }">Add Task</a>
-            </div>
-            <div>
+            </li>
+            <li>
                 <a class="nav-link--board" routerLink="/board" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }">Board</a>
-            </div>
-            <div>
+            </li>
+            <li>
                 <a class="nav-link--contacts" routerLink="/contacts" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }">Contacts</a>
-            </div>
-        </div>
+            </li>
+        </ul>
         } @else {
-        <div class="guest-nav-container">
-            <div>
+        <ul class="logged-out-nav-container">
+            <li>
                 <a class="nav-link--login" routerLink="/auth/login" routerLinkActive="active">Log In</a>
-            </div>
-            <div class="legal-nav-mobile">
+            </li>
+            <li class="legal-nav-mobile">
                 <a class="nav-link--privacy" routerLink="/privacy-policy" routerLinkActive="active">Privacy Policy</a>
                 <a class="nav-link--legal" routerLink="/legal-notice" routerLinkActive="active">Legal Notice</a>
-            </div>
-        </div>
+            </li>
+        </ul>
         }
 
-        <div class="legal-pages-container">
-            <div>
+        <ul class="legal-pages-container">
+            <li>
                 <a routerLink="/privacy-policy" routerLinkActive="active">Privacy Policy</a>
-            </div>
-            <div>
+            </li>
+            <li>
                 <a routerLink="/legal-notice" routerLinkActive="active">Legal Notice</a>
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
 </nav>
