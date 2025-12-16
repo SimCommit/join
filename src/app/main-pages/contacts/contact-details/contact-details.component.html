@@ -32,19 +32,19 @@
       <h3>Contact Information</h3>
     </div>
 
-    <div class="contact-info">
+    <address class="contact-info">
       <div class="info-item">
-        <label>Email</label>
+        <span class="label">Email</span>
         <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
       </div>
 
       @if (contact.phone) {
       <div class="info-item">
-        <label>Phone</label>
+        <span class="label">Phone</span>
         <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
       </div>
       }
-    </div>
+    </address>
   </div>
 
   <button class="mobile-menu-fab" (click)="toggleMobileMenu()" title="Options">
