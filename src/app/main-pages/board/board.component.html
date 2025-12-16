@@ -5,7 +5,7 @@
         @if (isMobile) {
         <h1>Board</h1>
         }
-        <button class="add-task-button-icon mobile-only" (click)="openAddTaskComponent()">
+        <button class="add-task-button-icon mobile-only" aria-label="Add new task" (click)="openAddTaskComponent()">
           <img src="img/icons/plus _add_task_mobile.svg" alt="Add task" class="add-task-icon">
         </button>
       </div>
@@ -16,10 +16,12 @@
 
       <div class="board-actions">
         <div class="search-container">
-          <input type="text" placeholder="Find Task" class="search-input" [(ngModel)]="searchTerm"
-            (input)="performSearch()" />
+          <input type="text" placeholder="Find Task" aria-label="Find task" class="search-input"
+            [(ngModel)]="searchTerm" (input)="performSearch()" />
           <div class="search-separator">|</div>
-          <img src="img/icons/search.svg" alt="Search" class="search-icon" (click)="performSearch()">
+          <button type="button" class="search-icon" (click)="performSearch()">
+            <img src="img/icons/search.svg" alt="">
+          </button>
         </div>
 
         <button class="add-task-button desktop-only" (click)="openAddTaskOverlay('todo')">
@@ -37,19 +39,18 @@
 
     <div class="board-columns">
       @for (column of filteredColumns$ | async; track column.id) {
-      <div class="column" [ngClass]="{ 'empty': column.tasks.length === 0 }">
+      <section class="column" [ngClass]="{ 'empty': column.tasks.length === 0 }"
+        [attr.aria-labelledby]="'column-title-' + column.id">
         <div class="column-header">
-          <h2>{{ column.title }}</h2>
+          <h2 [id]="'column-title-' + column.id">{{ column.title }}</h2>
           <button (click)="openAddTaskOverlay(column.status)" class="add-task-btn" title="Add new task"> </button>
         </div>
 
         <div class="column-content" [cdkDropListOrientation]="isMobile ? 'horizontal' : 'vertical'" cdkDropList
-          [id]="column.status"
-          [ngClass]="[ column.tasks.length < 1 ? 'column-content-' + column.status + '-bg' : '', 
+          [id]="column.status" [ngClass]="[ column.tasks.length < 1 ? 'column-content-' + column.status + '-bg' : '', 
           isDragging ? 'indicate-drop-ready' : '', column.tasks.length === 0 ? 'empty-column' : '',
-          isDragging || column.tasks.length > 0 ? 'show' : '']"
-          [cdkDropListData]="column.tasks" [cdkDropListConnectedTo]="column.connectedStatuses"
-          (cdkDropListDropped)="drop($event)">
+          isDragging || column.tasks.length > 0 ? 'show' : '']" [cdkDropListData]="column.tasks"
+          [cdkDropListConnectedTo]="column.connectedStatuses" (cdkDropListDropped)="drop($event)">
 
           @for (task of column.tasks; track task.id) {
           <app-task-card class="app-task-card" (dropIndication)="dropIndication($event)" [task]="task"
@@ -63,7 +64,7 @@
           'empty-column-illusion-' + column.status + '-bg' : 'd-none']">
 
         </div>
-      </div>
+      </section>
       }
     </div>
   </div>
@@ -71,9 +72,9 @@
 
 <div class="overlay-background" *ngIf="openAddTask" (click)="closeAddTaskOverlay()">
   <dialog (click)="stopEvent($event)" class="overlay-panel slide-in">
-    <div (click)="closeAddTaskOverlay()">
+    <button type="button" (click)="closeAddTaskOverlay()">
       <img src="./img/icons/close-button.svg" alt="">
-    </div>
+    </button>
     <div (click)="closeWindow()">
       <app-task-create-form (closeAddTaskOverlay)="closeAddTaskOverlay()" [openFromBoard]="true"
         [taskStatus]="setTaskStatus" />
