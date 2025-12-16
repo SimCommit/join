@@ -23,28 +23,13 @@ export class NavComponent {
    * @param {ContactDataService} contactDataService - Service for contact data operations
    * @param {Router} router - Angular router for navigation
    */
-  constructor(
-    public authService: AuthenticationService,
-    public contactDataService: ContactDataService,
-    private router: Router
-  ) {}
+  constructor(public authService: AuthenticationService, public contactDataService: ContactDataService, private router: Router) {}
 
   /**
-   * Check if user should see the full navigation
-   * Guest users see simplified nav only on legal pages
-   * @returns {boolean} True if user should see full navigation
+   * Determines if user is currently logged in
+   * @returns {boolean} True if user is regular user or guest user
    */
   get isLoggedIn(): boolean {
-    if (this.authService.isRegularUser()) {
-      return true;
-    }
-
-    if (this.authService.isGuestUser()) {
-      const currentUrl = this.router.url;
-      const isLegalPage = currentUrl.includes('/legal-notice') || currentUrl.includes('/privacy-policy');
-      return !isLegalPage;
-    }
-
-    return false;
+    return this.authService.isRegularUser() || this.authService.isGuestUser();
   }
 }
