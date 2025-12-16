@@ -49,6 +49,9 @@ span {
 }
 
 .dropdown-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   position: absolute;
   top: calc(100% + 4px);
   right: -8px;

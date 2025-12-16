@@ -15,20 +15,28 @@
                 </button>
 
                 @if (isDropdownOpen) {
-                <div class="dropdown-menu" (click)="$event.stopPropagation()">
-                    <a class="dropdown-item help-item-mobile" (click)="navigateToHelp()">
-                        Help
-                    </a>
-                    <a class="dropdown-item" (click)="navigateToLegalNotice()">
-                        Legal Notice
-                    </a>
-                    <a class="dropdown-item" (click)="navigateToPrivacyPolicy()">
-                        Privacy Policy
-                    </a>
-                    <button class="dropdown-item logout-item" (click)="logout()">
-                        Log out
-                    </button>
-                </div>
+                <ul class="dropdown-menu" (click)="$event.stopPropagation()">
+                    <li>
+                        <a class="dropdown-item help-item-mobile" (click)="navigateToHelp()">
+                            Help
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" (click)="navigateToLegalNotice()">
+                            Legal Notice
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" (click)="navigateToPrivacyPolicy()">
+                            Privacy Policy
+                        </a>
+                    </li>
+                    <li>
+                        <button class="dropdown-item logout-item" (click)="logout()">
+                            Log out
+                        </button>
+                    </li>
+                </ul>
                 }
             </div>
             }
