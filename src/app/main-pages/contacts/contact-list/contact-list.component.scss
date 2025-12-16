@@ -2,7 +2,10 @@
 @use './../../../../styles/mixins' as *;
 @use './../../../../styles/_variables' as *;
 
-section {
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   width: 456px;
   height: calc(100vh - 96px);
   padding: min(5%, 32px);
@@ -140,7 +143,7 @@ section {
   }
 }
 
-h3 {
+.letter {
   border-bottom: 1px solid $lighter-grey;
   padding: 28px;
   font-size: 20px;
@@ -149,19 +152,19 @@ h3 {
 }
 
 @media (max-width: 1200px) {
-  section {
+  ul {
     height: calc(100vh - 176px);
   }
 }
 
 @media (max-width: 955px) {
-  section {
+  ul {
     width: clamp(395px, calc(47vw + 1rem), 456px);
   }
 }
 
 @media (max-width: 815px) {
-  section {
+  ul {
     width: 100%;
   }
 

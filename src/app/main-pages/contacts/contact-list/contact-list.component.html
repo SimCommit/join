@@ -1,32 +1,33 @@
-<section>
-    <div class="contact-list-header">
+<ul>
+    <li class="contact-list-header">
         <button class="add-contact-btn desktop-only" (click)="openAddContactDialog()">
             <span class="btn-text">Add new contact</span>
             <img class="btn-icon" src="./img/icons/person_add.svg" alt="Add contact">
         </button>
-    </div>
+    </li>
     @for (item of contactDataService.contactList; track item.letter) {
     @if(item.contacts.length > 0){
-    <h3>{{item.letter}}</h3>
+    <li class="letter" aria-hidden="true">{{item.letter}}</li>
     }
 
     @for (singleContact of item.contacts; track $index) {
 
-    <div class="contact-item" [class.selected]="singleContact.id === selectedContactId"
+    <li class="contact-item" [class.selected]="singleContact.id === selectedContactId"
         (click)="selectContact(singleContact.id)" [attr.data-contact-id]="singleContact.id"
         [attr.data-selected]="singleContact.id === selectedContactId">
-        <div class="contact-icon contact-icon-list-version" [style.background-color]="getRandomColor(singleContact.name)">
+        <div class="contact-icon contact-icon-list-version"
+            [style.background-color]="getRandomColor(singleContact.name)">
             {{ contactDataService.extractInitials(singleContact.name) }}
         </div>
         <div class="contact-info">
             <p>{{ singleContact.name }}</p>
             <a href="mailto:{{ singleContact.email }}" (click)="$event.stopPropagation()">{{ singleContact.email }}</a>
         </div>
-    </div>
+    </li>
     }
     }
 
-</section>
+</ul>
 
 <button class="mobile-fab" (click)="openMobileAddContactDialog()" title="Add new contact">
     <img src="./img/icons/person_add.svg" alt="Add contact">
