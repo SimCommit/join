@@ -468,6 +468,18 @@ input.ng-invalid.ng-touched {
   }
 }
 
+@media (max-width: 950px) {
+  .radio-button-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    > label {
+      width: 100%;
+    }
+  }
+}
+
 @media (max-width: 850px) {
   section {
     padding-top: 0px;
@@ -495,6 +507,15 @@ input.ng-invalid.ng-touched {
 
   .board-spacing {
     width: clamp(62.2rem, 82.927vw - 1.488rem, 69rem);
+  }
+
+  .radio-button-wrapper {
+    flex-direction: row;
+    align-items: center;
+    
+    > label {
+      width: clamp(120px, calc(7vw + 10px), 136px);
+    }
   }
 
   .btn-button-wrapper {
