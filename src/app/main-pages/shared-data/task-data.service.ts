@@ -1,8 +1,24 @@
 import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { Firestore, collection, doc, addDoc, deleteDoc, updateDoc, DocumentData, CollectionReference, Timestamp, collectionData } from '@angular/fire/firestore';
+import { BehaviorSubject, map, Observable, take } from 'rxjs';
+import {
+  Firestore,
+  collection,
+  doc,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  DocumentData,
+  CollectionReference,
+  Timestamp,
+  collectionData,
+  DocumentReference,
+  QueryDocumentSnapshot,
+} from '@angular/fire/firestore';
 import { Task, BoardColumn, FirestoreTask } from './task.interface';
 import { ToastService } from '../../shared/services/toast.service';
+import { FIRESTORE_GUEST_USER_ID } from '../../app.config';
+import { AuthenticationService } from '../../auth/services/authentication.service';
+import { ContactDataService } from './contact-data.service';
 
 /**
  * Service for managing tasks in Firestore.
@@ -17,7 +33,20 @@ export class TaskDataService {
   // #region Properties
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
-  
+
+  authenticationService = inject(AuthenticationService);
+
+  contactDataService = inject(ContactDataService);
+
+  userIsReady: boolean = false;
+
+  // /**
+  //  * List of all users fetched from the Firestore 'users' collection.
+  //  * Used to identify the current user by comparing email addresses
+  //  * and to retrieve the correct Firestore document ID for that user.
+  //  */
+  // userList: { email: string; id: string }[] = [];
+
   /**
    * Holds the current list of Task objects as a reactive data stream.
    */
@@ -86,14 +115,14 @@ export class TaskDataService {
    * - Subscribes to the Firestore 'tasks' collection as an observable stream.
    * - Uses the RxJS `map` operator to transform the emitted list of tasks.
    * - Inside the RxJS `map`, uses JavaScript’s `Array.map` to convert each FirestoreTask object:
-   *   - Transforms Firestore Timestamp fields (e.g., createdDate, dueDate) into native JavaScript Date objects
-   *     using `translateTimestampToDate`.
+   * - Transforms Firestore Timestamp fields (e.g., createdDate, dueDate) into native JavaScript Date objects
+   *   using `translateTimestampToDate`.
    * - Updates the `tasksSubject` with the converted Task array for reactive use in the UI.
    * - Stores the unsubscribe function to allow proper cleanup later.
    */
-  connectTaskStream(): void {
+  async connectTaskStream(): Promise<void> {
     runInInjectionContext(this.injector, () => {
-      const taskSubStream = collectionData(this.getTasksRef(), {
+      const taskSubStream = collectionData(this.getUserTaskRef(), {
         idField: 'id',
       })
         .pipe(map((tasks) => (tasks as FirestoreTask[]).map((task) => this.translateTimestampToDate(task))))
@@ -117,6 +146,42 @@ export class TaskDataService {
    */
   getTasksRef(): CollectionReference<DocumentData, DocumentData> {
     return collection(this.firestore, 'tasks');
+  }
+
+  getUserTaskRef() {
+    return collection(this.firestore, `users/${this.getCurrentUserId()}/tasks`);
+  }
+
+  getUserRef(): CollectionReference<DocumentData> {
+    return collection(this.firestore, 'users');
+  }
+
+  getCurrentUserId(): string | void {
+    let id: string = FIRESTORE_GUEST_USER_ID;
+    let user: { email: string; id: string } | undefined;
+
+    console.log('user ID step 1');
+
+    if (this.authenticationService.currentUser === null) {
+      this.toastService.throwToast({ code: 'task/user/id/error' });
+      return;
+    }
+
+    console.log('user ID step 2');
+
+    const emailCurrentUser = this.authenticationService.currentUser.email;
+    user = this.contactDataService.userList.find((u) => u.email === emailCurrentUser);
+
+    if (user === undefined) return id;
+
+    console.log('user ID step 3');
+
+    id = user.id;
+    return id;
+  }
+
+  getSingleDocRef(colId: string, docId: string): DocumentReference<DocumentData> {
+    return doc(collection(this.firestore, colId), docId);
   }
 
   /**
@@ -146,7 +211,7 @@ export class TaskDataService {
     const taskToAdd: FirestoreTask = this.translateTaskToFirestoreTask(task);
 
     try {
-      await runInInjectionContext(this.injector, () => addDoc(this.getTasksRef(), taskToAdd));
+      await runInInjectionContext(this.injector, () => addDoc(this.getUserTaskRef(), taskToAdd));
     } catch (error: unknown) {
       this.toastService.throwToast({ code: 'task/save/error' });
     }
@@ -161,7 +226,7 @@ export class TaskDataService {
   async deleteTask(taskId: string): Promise<void> {
     try {
       await runInInjectionContext(this.injector, () => {
-        const docRef = doc(this.firestore, 'tasks', taskId);
+        const docRef = doc(this.getUserTaskRef(), taskId);
         return deleteDoc(docRef);
       });
     } catch (error: unknown) {
@@ -181,7 +246,7 @@ export class TaskDataService {
 
     try {
       await runInInjectionContext(this.injector, () => {
-        const docRef = doc(this.firestore, 'tasks', taskId);
+        const docRef = doc(this.getUserTaskRef(), taskId);
         return updateDoc(docRef, updateDataFirestore);
       });
     } catch (error: unknown) {

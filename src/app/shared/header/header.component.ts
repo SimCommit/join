@@ -54,9 +54,9 @@ export class HeaderComponent implements OnInit {
    * Ensures that the stream is only initialized when a user (regular or guest)
    * is authenticated to prevent unauthorized Firestore access.
    */
-  connectTaskDataServiceStream(): void {
+  async connectTaskDataServiceStream(): Promise<void> {
     if (this.authService.currentUser) {
-      this.taskDataService.connectTaskStream();
+      await this.taskDataService.connectTaskStream();
     }
   }
 

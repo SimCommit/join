@@ -52,6 +52,9 @@ export class ToastService {
       case 'task/delete/error':
         return 'Failed to delete task.';
 
+      case 'task/user/id/error':
+        return 'Failed to read user id.';
+
       case 'image/load/error':
         return 'Could not load task images from database';
 
