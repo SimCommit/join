@@ -7,6 +7,7 @@ import { Contact } from './../shared-data/contact.interface';
 import { filter } from 'rxjs/operators';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { ToastService } from '../../shared/services/toast.service';
+import { OrchestratorService } from '../../shared/services/orchestrator.service';
 
 /**
  * Main contacts management component that orchestrates contact operations
@@ -21,6 +22,8 @@ import { ToastService } from '../../shared/services/toast.service';
 export class ContactsComponent implements OnInit, OnDestroy {
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  orchestratorService = inject(OrchestratorService);
 
   /** Currently selected contact ID for detail view */
   selectedContactId: string | null = null;
@@ -63,7 +66,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
    */
   async ngOnDestroy() {
     window.removeEventListener('resize', this.checkScreenSize.bind(this));
-    await this.contactDataService.disconnectContactAndUserStreams();
+    // await this.contactDataService.disconnectContactAndUserStreams();
+    this.orchestratorService.afterLogout();
   }
 
   /**

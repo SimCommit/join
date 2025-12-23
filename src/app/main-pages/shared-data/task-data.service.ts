@@ -121,6 +121,13 @@ export class TaskDataService {
    * - Stores the unsubscribe function to allow proper cleanup later.
    */
   async connectTaskStream(): Promise<void> {
+    const userId = this.getCurrentUserId();
+
+    if (!userId) {
+      console.log('Stopped from Guard');
+      return;
+    }
+
     runInInjectionContext(this.injector, () => {
       const taskSubStream = collectionData(this.getUserTaskRef(), {
         idField: 'id',
@@ -152,32 +159,51 @@ export class TaskDataService {
     return collection(this.firestore, `users/${this.getCurrentUserId()}/tasks`);
   }
 
-  getUserRef(): CollectionReference<DocumentData> {
-    return collection(this.firestore, 'users');
-  }
+  // getUserRef(): CollectionReference<DocumentData> {
+  //   return collection(this.firestore, 'users');
+  // }
 
-  getCurrentUserId(): string | void {
-    let id: string = FIRESTORE_GUEST_USER_ID;
-    let user: { email: string; id: string } | undefined;
+  // getCurrentUserId(): string | void {
+  //   let id: string;
+  //   let user: { email: string; id: string } | undefined;
 
-    console.log('user ID step 1');
+  //   if (this.authenticationService.currentUser === null) {
+  //     this.toastService.throwToast({ code: 'task/user/id/error' });
+  //     console.log('step 1 user ID: vermutlich null');
+  //     return;
+  //   }
 
-    if (this.authenticationService.currentUser === null) {
-      this.toastService.throwToast({ code: 'task/user/id/error' });
-      return;
+  //   if (this.authenticationService.isGuestUser()) {
+  //     id = FIRESTORE_GUEST_USER_ID;
+  //     console.log('step 2 user ID: ', id);
+  //   }
+
+  //   const emailCurrentUser = this.authenticationService.currentUser.email;
+  //   user = this.contactDataService.userList.find((u) => u.email === emailCurrentUser);
+
+  //   if (user === null || user === undefined) return;
+
+  //   id = user.id;
+  //   console.log('step 3 user ID: ', id);
+  //   return id;
+  // }
+
+  getCurrentUserId(): string | null {
+    const currentUser = this.authenticationService.currentUser;
+
+    if (!currentUser?.email) {
+      return null;
     }
 
-    console.log('user ID step 2');
+    const email: string | null = currentUser.email;
 
-    const emailCurrentUser = this.authenticationService.currentUser.email;
-    user = this.contactDataService.userList.find((u) => u.email === emailCurrentUser);
+    if (email === null) {
+      return null;
+    }
 
-    if (user === undefined) return id;
+    const user = this.contactDataService.userList.find((u) => u.email === email);
 
-    console.log('user ID step 3');
-
-    id = user.id;
-    return id;
+    return user ? user.id : null;
   }
 
   getSingleDocRef(colId: string, docId: string): DocumentReference<DocumentData> {

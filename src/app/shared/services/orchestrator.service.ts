@@ -19,15 +19,26 @@ export class OrchestratorService {
     this.initOrchestratorEffect();
   }
 
-  async afterLogin(): Promise<void> {
+  async afterLogin(who: string = ''): Promise<void> {
     console.log(this.joinAppState());
     if (this.authenticationService.currentUser === null) throw new Error('auth/login/error');
+
+    if (who === 'guest') {
+      await this.createGuestUser();
+    }
 
     this.joinAppState.set('AUTHENTICATED');
     console.log(this.joinAppState());
 
     this.initData();
     console.log(this.joinAppState());
+  }
+
+  async createGuestUser() {
+    const name = `gu_${Date.now().toString(36)}`;
+    const email = `${name}@gu.com`;
+
+    await this.contactDataService.addUser({ name: name, email: email });
   }
 
   private async initData() {
@@ -72,8 +83,8 @@ export class OrchestratorService {
   async afterLogout() {
     // Streams stoppen
     // und mehr
-    await this.contactDataService.disconnectContactAndUserStreams();
-    await this.taskDataService.disconnectTaskStream();
+    this.contactDataService.disconnectContactAndUserStreams();
+    this.taskDataService.disconnectTaskStream();
     this.orchestratorStarted.set(false);
     this.guestInitDone.set(false);
 

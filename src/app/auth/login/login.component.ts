@@ -150,7 +150,7 @@ export class LoginComponent {
     try {
       await this.authenticationService.guestSignIn();
       this.toastService.throwToast({ code: 'guest/login/success' });
-      await this.orchestratorService.afterLogin();
+      await this.orchestratorService.afterLogin("guest");
       // await this.contactDataService.loadExistingContacts();
       // await this.contactDataService.setCleanContacts();
 
