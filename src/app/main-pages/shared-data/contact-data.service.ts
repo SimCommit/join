@@ -12,7 +12,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from '@angular/fire/firestore';
-import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
+import { EnvironmentInjector, Injectable, inject, runInInjectionContext, signal } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contact } from './../shared-data/contact.interface';
 import { User } from './user.interface';
@@ -21,6 +21,7 @@ import { getDocs } from 'firebase/firestore';
 import { Contacts } from './contacts.data';
 import { FIRESTORE_GUEST_USER_ID } from '../../app.config';
 import { ToastService } from '../../shared/services/toast.service';
+import { OrchestratorService } from '../../shared/services/orchestrator.service';
 
 /**
  * Service for managing contact data operations with Firebase Firestore
@@ -38,6 +39,8 @@ export class ContactDataService {
 
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  readonly currentUserIdSignal = signal<string | null>(null);
 
   /** Flag indicating if user is not in login state */
   notInLogIn: boolean = false;
@@ -92,10 +95,10 @@ export class ContactDataService {
 
   constructor(private authenticationService: AuthenticationService) {}
 
-  /** Initializes the Firestore user listeners which initializes the contact listener*/
-  public connectStreams() {
-    this.connectUserStream();
-  }
+  // /** Initializes the Firestore user listeners which initializes the contact listener*/
+  // public connectStreams() {
+  //   this.connectUserStream();
+  // }
 
   /**
    * Loads all currently existing contacts from Firestore
@@ -121,7 +124,7 @@ export class ContactDataService {
    * For each snapshot update, adds users to `userList`.
    * When the list is first populated, marks `userIsReady` and connects the contact stream.
    */
-  private connectUserStream(): void {
+  connectUserStream(): void {
     if (this.unsubUserList) return;
 
     this.userList = [];
@@ -130,10 +133,13 @@ export class ContactDataService {
       this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
         list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
 
-        if (!this.userIsReady) {
-          this.userIsReady = true;
-          this.connectContactStream();
-        }
+        const id = this.getCurrentUserId();
+        this.currentUserIdSignal.set(id ?? null)
+
+        // if (!this.userIsReady) {
+        //   this.userIsReady = true;
+        //   this.connectContactStream();
+        // }
       });
     });
   }
@@ -153,7 +159,7 @@ export class ContactDataService {
    * Idempotent: returns immediately if a listener is already active.
    * On each snapshot, resets and rebuilds the internal contact list.
    */
-  private async connectContactStream(): Promise<void> {
+  async connectContactStream(): Promise<void> {
     if (this.unsubList) return;
 
     runInInjectionContext(this.injector, () => {

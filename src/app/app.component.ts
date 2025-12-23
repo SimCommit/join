@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, runInInjectionContext, EnvironmentInjector } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { ImageViewerComponent } from './shared/image-viewer/image-viewer.compone
 import { ImageViewerStateService } from './shared/services/image-viewer-state.service';
 import { ToastComponent } from './shared/widgets/toast/toast.component';
 import { ToastService } from './shared/services/toast.service';
+import { OrchestratorService } from './shared/services/orchestrator.service';
 
 /**
  * Main application component managing splash screen animations and layout visibility
@@ -24,6 +25,11 @@ import { ToastService } from './shared/services/toast.service';
 export class AppComponent implements OnInit, OnDestroy {
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  orchestratorService = inject(OrchestratorService);
+
+  /** Angular environment injector for dependency injection context */
+  private readonly injector = inject(EnvironmentInjector);
 
   /** The application title  */
   title = 'join';
@@ -84,6 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Sets up animation triggers and router event subscriptions
    */
   ngOnInit(): void {
+    // runInInjectionContext(this.injector, () => this.orchestratorService.startAuthSyncListener()) BÖSE BÖSE :D
     this.subscribeToRouterEvents();
     this.initCloseImageViewerListener();
 

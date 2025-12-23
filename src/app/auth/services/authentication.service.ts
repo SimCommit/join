@@ -1,4 +1,4 @@
-import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
+import { EnvironmentInjector, inject, Injectable, runInInjectionContext, signal, WritableSignal } from '@angular/core';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -43,6 +43,8 @@ export class AuthenticationService {
    */
   authState$: Observable<boolean | null> = this.authStateSubject.asObservable();
 
+  isLoggedIn = signal(false);
+
   /**
    * Currently signed-in Firebase user.
    * `null` if no user is authenticated.
@@ -69,9 +71,10 @@ export class AuthenticationService {
       if (user) {
         this.authStateSubject.next(true);
         this.currentUser = user;
-        
+        this.isLoggedIn.set(true)
       } else {
         this.authStateSubject.next(false);
+        this.isLoggedIn.set(false)
       }
     });
   }
@@ -182,7 +185,7 @@ export class AuthenticationService {
    * @returns `true` if a user is authenticated, otherwise `false`.
    */
   isAuthenticated(): boolean | null {
-    return this.authStateSubject.value;
+    return this.auth.currentUser !== null;
   }
 
   /**
@@ -195,8 +198,8 @@ export class AuthenticationService {
   /**
    * Check if the current user is a regular (non-anonymous) user
    */
-  isRegularUser(): boolean | null {
-    return this.isAuthenticated() && !this.isGuestUser();
+  isRegularUser(): boolean {
+    return this.auth.currentUser !== null && !this.auth.currentUser.isAnonymous;
   }
 
   /**

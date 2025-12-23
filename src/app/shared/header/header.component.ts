@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 import { TaskDataService } from '../../main-pages/shared-data/task-data.service';
 import { ToastService } from '../services/toast.service';
+import { OrchestratorService } from '../services/orchestrator.service';
 
 /**
  * Header component managing navigation, user authentication status and dropdown menu
@@ -20,6 +21,8 @@ import { ToastService } from '../services/toast.service';
 export class HeaderComponent implements OnInit {
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  orchestratorService = inject(OrchestratorService);
 
   /**
    * Controls the visibility of the user dropdown menu
@@ -162,8 +165,9 @@ export class HeaderComponent implements OnInit {
    */
   async logout(): Promise<void> {
     try {
-      this.taskDataService.disconnectTaskStream();
-      await this.contactDataService.disconnectContactAndUserStreams();
+      // this.taskDataService.disconnectTaskStream();
+      // await this.contactDataService.disconnectContactAndUserStreams();
+      this.orchestratorService.afterLogout();
       await this.performLogout();
       this.contactDataService.notInLogIn = false;
     } catch (error) {

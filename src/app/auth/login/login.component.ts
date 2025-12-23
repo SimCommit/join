@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 import { ToastService } from '../../shared/services/toast.service';
+import { OrchestratorService } from '../../shared/services/orchestrator.service';
 
 /**
  * Login Component
@@ -22,6 +23,9 @@ export class LoginComponent {
   // #region Properties
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  /** Provides access to the orchestrator service for app state handling */
+  orchestratorService = inject(OrchestratorService);
 
   /**
    * Indicates whether the password input field is focused or active.
@@ -97,6 +101,7 @@ export class LoginComponent {
   async onLogin(): Promise<void> {
     try {
       await this.authenticationService.signIn(this.emailInputTest.trim(), this.passwordInputTest);
+      await this.orchestratorService.afterLogin();
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
@@ -106,9 +111,26 @@ export class LoginComponent {
 
       this.contactDataService.notInLogIn = true;
     } catch (error) {
-      this.toastService.throwToast({ code: 'INVALID_PASSWORD' });
-      this.clearError();
+      this.handleOnLoginError(error);
     }
+  }
+
+  /**
+   * Handles login failures and triggers an appropriate toast message.
+   * Uses the error message to distinguish orchestrator-related failures
+   * from invalid credential errors, then clears the UI error state.
+   * @param error - The caught error from the login flow.
+   */
+  handleOnLoginError(error: unknown): void {
+    const message: string = error instanceof Error ? error.message : '';
+
+    if (message === 'auth/login/error') {
+      this.toastService.throwToast({ code: 'auth/login/error' });
+    } else {
+      this.toastService.throwToast({ code: 'INVALID_PASSWORD' });
+    }
+
+    this.clearError();
   }
 
   /**
@@ -128,8 +150,9 @@ export class LoginComponent {
     try {
       await this.authenticationService.guestSignIn();
       this.toastService.throwToast({ code: 'guest/login/success' });
-      await this.contactDataService.loadExistingContacts();
-      await this.contactDataService.setCleanContacts();
+      await this.orchestratorService.afterLogin();
+      // await this.contactDataService.loadExistingContacts();
+      // await this.contactDataService.setCleanContacts();
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);

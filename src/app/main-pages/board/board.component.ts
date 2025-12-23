@@ -92,13 +92,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeDataStreams();
     this.setupBreakpointObserver();
-    this.initContactDataService();
+    // this.initContactDataService();
   }
 
   /** Initializes contact data streaming by connecting the service streams */
-  initContactDataService() {
-    this.contactDataService.connectStreams();
-  }
+  // initContactDataService() {
+  //   this.contactDataService.connectStreams();
+  // }
 
   /** Cleans up subscriptions on component destroy */
   ngOnDestroy(): void {

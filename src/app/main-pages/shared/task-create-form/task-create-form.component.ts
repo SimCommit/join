@@ -140,7 +140,7 @@ export class TaskCreateFormComponent {
    */
   ngOnInit(): void {
     this.getTodayAsSting();
-    this.initContactDataService();
+    // this.initContactDataService();
     window.addEventListener('keydown', this.onKeyDown, { passive: false });
   }
 
@@ -156,9 +156,9 @@ export class TaskCreateFormComponent {
    * Initializes the contact data service by connecting its internal data streams.
    * Called during component initialization.
    */
-  initContactDataService(): void {
-    this.contactDataService.connectStreams();
-  }
+  // initContactDataService(): void {
+  //   this.contactDataService.connectStreams();
+  // }
   // #endregion
 
   // #region Input Listeners

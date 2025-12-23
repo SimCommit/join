@@ -58,6 +58,9 @@ export class ToastService {
       case 'image/load/error':
         return 'Could not load task images from database';
 
+      case 'auth/login/error':
+        return 'Failed to authenticate user. Please try again';
+
       case 'auth/logout/error':
         return 'Failed to logout';
 
