@@ -34,4 +34,4 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 
-export const FIRESTORE_GUEST_USER_ID = '7PMzKYXI38pcWcJGD5QA';
+// export const FIRESTORE_GUEST_USER_ID = '7PMzKYXI38pcWcJGD5QA';

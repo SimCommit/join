@@ -19,7 +19,6 @@ import { User } from './user.interface';
 import { AuthenticationService } from '../../auth/services/authentication.service';
 import { getDocs } from 'firebase/firestore';
 import { Contacts } from './contacts.data';
-import { FIRESTORE_GUEST_USER_ID } from '../../app.config';
 import { ToastService } from '../../shared/services/toast.service';
 
 /**
@@ -203,15 +202,21 @@ export class ContactDataService {
    * @returns {string | void} The Firestore user ID or `void` if no authenticated user exists.
    */
   getCurrentUserId(): string | void {
-    let id: string = FIRESTORE_GUEST_USER_ID;
+    let id: string;
     let user: { email: string; id: string } | undefined;
 
-    if (this.authenticationService.currentUser === null) return;
+    if (this.authenticationService.currentUser === null) {
+      this.toastService.throwToast({ code: 'user/id/error' });
+      return;
+    }
 
     const emailCurrentUser = this.authenticationService.currentUser.email;
     user = this.userList.find((u) => u.email === emailCurrentUser);
 
-    if (user === undefined) return id;
+    if (user === undefined) {
+      this.toastService.throwToast({ code: 'user/id/error' });
+      return;
+    }
 
     id = user.id;
     return id;

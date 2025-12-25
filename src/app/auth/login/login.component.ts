@@ -98,6 +98,10 @@ export class LoginComponent {
     try {
       await this.authenticationService.signIn(this.emailInputTest.trim(), this.passwordInputTest);
 
+      // if (this.authenticationService.currentUser) {
+      //   console.log(this.authenticationService.currentUser.uid);
+      // }
+
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
       } else {
@@ -126,10 +130,12 @@ export class LoginComponent {
     this.spamGuard();
 
     try {
-      await this.authenticationService.guestSignIn();
+      let userCredentialRef = await this.authenticationService.guestSignIn();
+      await this.createNewGuestUser(userCredentialRef.user.uid);
       this.toastService.throwToast({ code: 'guest/login/success' });
-      await this.contactDataService.loadExistingContacts();
-      await this.contactDataService.setCleanContacts();
+      // await this.contactDataService.loadExistingContacts();
+      // await this.contactDataService.setCleanContacts();
+     
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
@@ -142,6 +148,19 @@ export class LoginComponent {
       this.errorMessage = (error as Error).message;
       this.clearError();
     }
+  }
+
+  async createNewGuestUser(uid: string): Promise<void> {
+    const name = `gu_${Date.now().toString(36)}`;
+    const email = `${name}@gu.com`;
+
+    await this.contactDataService.addUser({
+      uid: uid,
+      name: name,
+      email: email,
+    });
+
+    console.log('createNewGuestUser: ', uid, '; ', name, '; ', email);
   }
   // #endregion
 

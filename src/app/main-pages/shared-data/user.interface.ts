@@ -6,6 +6,8 @@ export interface User {
   /** Unique identifier for the user (optional for new users) */
   id?: string;
 
+  uid: string;
+
   /** Full name of the user */
   name: string;
 

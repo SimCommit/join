@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 import { ToastService } from '../../shared/services/toast.service';
+import { UserCredential } from 'firebase/auth';
 
 /**
  * Register Component
@@ -85,8 +86,8 @@ export class RegisterComponent {
   async onSignUp(): Promise<void> {
     if (this.doesPasswordMatch() && this.emailValid && this.userNameValid) {
       try {
-        await this.signUp();
-        await this.createNewUser();
+        let userCredentialRef = await this.signUp();
+        await this.createNewUser(userCredentialRef.user.uid);
         this.navigateToLoginAfterUserfeedback();
         this.userFeedbackSuccess();
         this.passwordDontMatch = false;
@@ -113,9 +114,10 @@ export class RegisterComponent {
    * and updates the user's display name.
    * @returns A promise that resolves when the signup and update are complete.
    */
-  async signUp(): Promise<void> {
-    await this.authenticationService.signUp(this.email, this.password);
+  async signUp(): Promise<UserCredential> {
+    let user = await this.authenticationService.signUp(this.email, this.password);
     await this.authenticationService.updateUserDisplayName(this.userName.trim());
+    return user;
   }
 
   /**
@@ -125,8 +127,9 @@ export class RegisterComponent {
    * @returns {Promise<void>} Resolves after the user document has been successfully written.
    * @throws Propagates Firestore errors if permissions or network issues occur.
    */
-  async createNewUser(): Promise<void> {
+  async createNewUser(uid: string): Promise<void> {
     await this.contactDataService.addUser({
+      uid: uid,
       name: this.userName.trim(),
       email: this.email.trim(),
     });

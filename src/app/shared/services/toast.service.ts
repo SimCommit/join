@@ -43,6 +43,9 @@ export class ToastService {
       case 'user/add/colleciton/error':
         return 'Failed to add contacts collection to user';
 
+      case 'user/id/error':
+        return 'Failed to load user ID';
+
       case 'task/update/error':
         return 'Failed to update task.';
 
