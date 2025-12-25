@@ -449,19 +449,6 @@ export class ContactDataService {
   }
 
   /**
-   * Clears existing contacts and repopulates the Firestore collection with dummy data.
-   * Used for resetting guest user contact lists between sessions.
-   */
-  async setCleanContacts(): Promise<void> {
-    try {
-      await this.deleteContactsFromLastSession();
-      this.fillContactsWithDummyData();
-    } catch (error: unknown) {
-      this.toastService.throwToast({ code: 'contact/delete/all/error' });
-    }
-  }
-
-  /**
    * Deletes all contacts stored from the last user session.
    * Iterates through `existingContactsList` and removes each contact from Firestore.
    */

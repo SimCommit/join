@@ -98,10 +98,6 @@ export class LoginComponent {
     try {
       await this.authenticationService.signIn(this.emailInputTest.trim(), this.passwordInputTest);
 
-      // if (this.authenticationService.currentUser) {
-      //   console.log(this.authenticationService.currentUser.uid);
-      // }
-
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
       } else {
@@ -132,10 +128,7 @@ export class LoginComponent {
     try {
       let userCredentialRef = await this.authenticationService.guestSignIn();
       await this.createNewGuestUser(userCredentialRef.user.uid);
-      this.toastService.throwToast({ code: 'guest/login/success' });
-      // await this.contactDataService.loadExistingContacts();
-      // await this.contactDataService.setCleanContacts();
-     
+      // this.toastService.throwToast({ code: 'guest/login/success' });    
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
