@@ -21,7 +21,6 @@ import { getDocs } from 'firebase/firestore';
 import { Contacts } from './contacts.data';
 import { FIRESTORE_GUEST_USER_ID } from '../../app.config';
 import { ToastService } from '../../shared/services/toast.service';
-import { OrchestratorService } from '../../shared/services/orchestrator.service';
 
 /**
  * Service for managing contact data operations with Firebase Firestore

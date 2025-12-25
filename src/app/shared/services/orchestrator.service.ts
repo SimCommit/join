@@ -50,6 +50,11 @@ export class OrchestratorService {
 
     this.orchestratorStarted.set(true);
 
+    effect((): void => {
+      if (this.joinAppState() !== 'AUTHENTICATED') return;
+      this.resolveAndSetUserId();
+    });
+
     effect(async (): Promise<void> => {
       const userId = this.contactDataService.currentUserIdSignal();
       const state = this.joinAppState();
@@ -73,6 +78,29 @@ export class OrchestratorService {
         this.joinAppState.set('APP_READY');
       }
     });
+  }
+
+  resolveAndSetUserId(): void {
+    const authUser = this.authenticationService.currentUser;
+
+    if (!authUser) {
+      throw new Error('No authenticacted user');
+    }
+
+    const email = authUser.email;
+
+    if (!email) {
+      throw new Error('Authenticated user has no email');
+    }
+
+    const user = this.contactDataService.userList.find((u) => u.email === email);
+
+    if (!user) return;
+
+    const userId = user.id;
+
+    // this.contactDataService.setActiveUserId(userId);
+    this.taskDataService.setActiveUserId(userId);
   }
 
   private async handleGuestInit(): Promise<void> {

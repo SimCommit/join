@@ -106,7 +106,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   /** Sets up board columns and filtered data streams */
-  private initializeDataStreams(): void {
+  initializeDataStreams(): void {
     this.columns$ = this.taskDataService.getBoardColumns();
     this.filteredColumns$ = combineLatest([this.columns$, this.searchSubject.asObservable()]).pipe(
       map(([columns, searchTerm]) => this.filterTasksBySearchTerm(columns, searchTerm))

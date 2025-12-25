@@ -1,4 +1,4 @@
-import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
+import { EnvironmentInjector, Injectable, inject, runInInjectionContext, signal } from '@angular/core';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import {
   Firestore,
@@ -39,6 +39,8 @@ export class TaskDataService {
   contactDataService = inject(ContactDataService);
 
   userIsReady: boolean = false;
+
+  activeUserId = signal<string | null>(null);
 
   // /**
   //  * List of all users fetched from the Firestore 'users' collection.
@@ -121,7 +123,7 @@ export class TaskDataService {
    * - Stores the unsubscribe function to allow proper cleanup later.
    */
   async connectTaskStream(): Promise<void> {
-    const userId = this.getCurrentUserId();
+    const userId = this.getActiveUserId();
 
     if (!userId) {
       console.log('Stopped from Guard');
@@ -156,7 +158,7 @@ export class TaskDataService {
   }
 
   getUserTaskRef() {
-    return collection(this.firestore, `users/${this.getCurrentUserId()}/tasks`);
+    return collection(this.firestore, `users/${this.getActiveUserId()}/tasks`);
   }
 
   // getUserRef(): CollectionReference<DocumentData> {
@@ -188,23 +190,37 @@ export class TaskDataService {
   //   return id;
   // }
 
-  getCurrentUserId(): string | null {
-    const currentUser = this.authenticationService.currentUser;
-
-    if (!currentUser?.email) {
-      return null;
-    }
-
-    const email: string | null = currentUser.email;
-
-    if (email === null) {
-      return null;
-    }
-
-    const user = this.contactDataService.userList.find((u) => u.email === email);
-
-    return user ? user.id : null;
+  setActiveUserId(userId: string): void {
+    this.activeUserId.set(userId);
   }
+
+  getActiveUserId(): string {
+    const id = this.activeUserId();
+
+    if (!id) {
+      throw new Error('Active user ID not set');
+    }
+
+    return id;
+  }
+
+  // getCurrentUserId(): string | null {
+  //   const currentUser = this.authenticationService.currentUser;
+
+  //   if (!currentUser?.email) {
+  //     return null;
+  //   }
+
+  //   const email: string | null = currentUser.email;
+
+  //   if (email === null) {
+  //     return null;
+  //   }
+
+  //   const user = this.contactDataService.userList.find((u) => u.email === email);
+
+  //   return user ? user.id : null;
+  // }
 
   getSingleDocRef(colId: string, docId: string): DocumentReference<DocumentData> {
     return doc(collection(this.firestore, colId), docId);
