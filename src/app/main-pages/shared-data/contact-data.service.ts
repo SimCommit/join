@@ -78,7 +78,7 @@ export class ContactDataService {
    * Used to identify the current user by comparing email addresses
    * and to retrieve the correct Firestore document ID for that user.
    */
-  userList: { email: string; id: string }[] = [];
+  userList: { uid: string; email: string; id: string }[] = [];
 
   /** Predefined dummy contacts used for guest users */
   initialDummyContactsList: Contact[] = Contacts;
@@ -142,9 +142,10 @@ export class ContactDataService {
    * @param {QueryDocumentSnapshot<DocumentData>} element - Firestore document snapshot containing user data
    */
   addUserToUserList(element: QueryDocumentSnapshot<DocumentData>): void {
+    const uid = element.data()['uid'] as string;
     const email = element.data()['email'] as string;
     const id = element.id;
-    this.userList.push({ email, id });
+    this.userList.push({ uid, email, id });
   }
 
   /**
@@ -195,31 +196,25 @@ export class ContactDataService {
 
   /**
    * Returns the Firestore document ID of the currently authenticated user.
-   * - If no user is authenticated (`currentUser` is null), the function exits early.
-   * - If the current user's email does not exist in `userList`, returns the predefined guest user ID.
-   * - If the user exists, returns the corresponding Firestore user document ID.
+   * Assumes that a user is authenticated and a corresponding user document exists.
+   * Throws an error if this invariant is violated.
    *
-   * @returns {string | void} The Firestore user ID or `void` if no authenticated user exists.
+   * @returns {string} The Firestore user document ID.
    */
-  getCurrentUserId(): string | void {
-    let id: string;
-    let user: { email: string; id: string } | undefined;
+  getCurrentUserId(): string {
+    const currentUser = this.authenticationService.currentUser;
 
-    if (this.authenticationService.currentUser === null) {
-      this.toastService.throwToast({ code: 'user/id/error' });
-      return;
+    if (currentUser === null) {
+      throw new Error('Invariant violation: no authenticated user');
     }
 
-    const emailCurrentUser = this.authenticationService.currentUser.email;
-    user = this.userList.find((u) => u.email === emailCurrentUser);
+    let user = this.userList.find((u) => u.uid === currentUser.uid);
 
     if (user === undefined) {
-      this.toastService.throwToast({ code: 'user/id/error' });
-      return;
+      throw new Error('Invariant violation: user document not found');
     }
 
-    id = user.id;
-    return id;
+    return user.id;
   }
 
   /**
