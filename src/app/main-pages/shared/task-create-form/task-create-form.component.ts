@@ -157,7 +157,7 @@ export class TaskCreateFormComponent {
    * Called during component initialization.
    */
   initContactDataService(): void {
-    this.contactDataService.connectStreams();
+    // this.contactDataService.connectStreams();
   }
   // #endregion
 

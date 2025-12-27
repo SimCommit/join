@@ -97,7 +97,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   /** Initializes contact data streaming by connecting the service streams */
   initContactDataService() {
-    this.contactDataService.connectStreams();
+    // this.contactDataService.connectStreams();
   }
 
   /** Cleans up subscriptions on component destroy */

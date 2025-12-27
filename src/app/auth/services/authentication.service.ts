@@ -1,12 +1,5 @@
-import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  Auth,
-  UserCredential,
-  updateProfile,
-} from '@angular/fire/auth';
+import { EnvironmentInjector, inject, Injectable, runInInjectionContext, signal } from '@angular/core';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, Auth, UserCredential, updateProfile } from '@angular/fire/auth';
 import { onAuthStateChanged, signInAnonymously, User } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastService } from '../../shared/services/toast.service';
@@ -29,7 +22,7 @@ export class AuthenticationService {
    */
   private readonly injector = inject(EnvironmentInjector);
 
-    /** Provides access to the toast service for UI messages */
+  /** Provides access to the toast service for UI messages */
   private toastService = inject(ToastService);
 
   /**
@@ -42,6 +35,8 @@ export class AuthenticationService {
    * Public observable for components/guards to react to auth state changes
    */
   authState$: Observable<boolean | null> = this.authStateSubject.asObservable();
+
+  authenticatedSignal = signal<boolean>(false);
 
   /**
    * Currently signed-in Firebase user.
@@ -69,9 +64,11 @@ export class AuthenticationService {
       if (user) {
         this.authStateSubject.next(true);
         this.currentUser = user;
-        
+        this.authenticatedSignal.set(true);
       } else {
         this.authStateSubject.next(false);
+        this.currentUser = null;
+        this.authenticatedSignal.set(false);
       }
     });
   }
@@ -89,9 +86,7 @@ export class AuthenticationService {
    */
   async signUp(email: string, password: string): Promise<UserCredential> {
     try {
-      return await runInInjectionContext(this.injector, () =>
-        createUserWithEmailAndPassword(this.auth, email, password)
-      );
+      return await runInInjectionContext(this.injector, () => createUserWithEmailAndPassword(this.auth, email, password));
     } catch (error: unknown) {
       throw new Error(this.handleFirebaseAuthError(error));
     }
@@ -110,9 +105,7 @@ export class AuthenticationService {
    */
   async signIn(email: string, password: string): Promise<UserCredential> {
     try {
-      const result: UserCredential = await runInInjectionContext(this.injector, () =>
-        signInWithEmailAndPassword(this.auth, email, password)
-      );
+      const result: UserCredential = await runInInjectionContext(this.injector, () => signInWithEmailAndPassword(this.auth, email, password));
       return result;
     } catch (error: unknown) {
       throw new Error(this.handleFirebaseAuthError(error));
@@ -147,9 +140,7 @@ export class AuthenticationService {
   async updateUserDisplayName(name: string): Promise<void> {
     if (this.auth.currentUser === null) return;
     try {
-      return await runInInjectionContext(this.injector, () =>
-        updateProfile(this.auth.currentUser!, { displayName: name })
-      );
+      return await runInInjectionContext(this.injector, () => updateProfile(this.auth.currentUser!, { displayName: name }));
     } catch (error) {
       throw new Error('Could not update user data');
     }

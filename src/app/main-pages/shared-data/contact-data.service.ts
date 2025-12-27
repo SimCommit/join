@@ -20,6 +20,7 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
 import { getDocs } from 'firebase/firestore';
 import { Contacts } from './contacts.data';
 import { ToastService } from '../../shared/services/toast.service';
+import { UserDataService } from '../../shared/services/user-data.service';
 
 /**
  * Service for managing contact data operations with Firebase Firestore
@@ -37,6 +38,9 @@ export class ContactDataService {
 
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  /** Manages user-related data and resolves Firestore user documents. */
+  private readonly userDataService = inject(UserDataService);
 
   /** Flag indicating if user is not in login state */
   notInLogIn: boolean = false;
@@ -93,7 +97,8 @@ export class ContactDataService {
 
   /** Initializes the Firestore user listeners which initializes the contact listener*/
   public connectStreams() {
-    this.connectUserStream();
+    // this.connectUserStream();
+    this.connectContactStream();
   }
 
   /**
@@ -114,28 +119,28 @@ export class ContactDataService {
     });
   }
 
-  /**
-   * Establishes a real-time Firestore listener for the 'users' collection.
-   * Clears the current user list before subscribing.
-   * For each snapshot update, adds users to `userList`.
-   * When the list is first populated, marks `userIsReady` and connects the contact stream.
-   */
-  private connectUserStream(): void {
-    if (this.unsubUserList) return;
+  // /**
+  //  * Establishes a real-time Firestore listener for the 'users' collection.
+  //  * Clears the current user list before subscribing.
+  //  * For each snapshot update, adds users to `userList`.
+  //  * When the list is first populated, marks `userIsReady` and connects the contact stream.
+  //  */
+  // private connectUserStream(): void {
+  //   if (this.unsubUserList) return;
 
-    this.userList = [];
+  //   this.userList = [];
 
-    runInInjectionContext(this.injector, () => {
-      this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
-        list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
+  //   runInInjectionContext(this.injector, () => {
+  //     this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
+  //       list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
 
-        if (!this.userIsReady) {
-          this.userIsReady = true;
-          this.connectContactStream();
-        }
-      });
-    });
-  }
+  //       if (!this.userIsReady) {
+  //         this.userIsReady = true;
+  //         this.connectContactStream();
+  //       }
+  //     });
+  //   });
+  // }
 
   /**
    * Extracts user data from a Firestore document and adds it to `userList`.
@@ -194,28 +199,28 @@ export class ContactDataService {
     }
   }
 
-  /**
-   * Returns the Firestore document ID of the currently authenticated user.
-   * Assumes that a user is authenticated and a corresponding user document exists.
-   * Throws an error if this invariant is violated.
-   *
-   * @returns {string} The Firestore user document ID.
-   */
-  getCurrentUserId(): string {
-    const currentUser = this.authenticationService.currentUser;
+  // /**
+  //  * Returns the Firestore document ID of the currently authenticated user.
+  //  * Assumes that a user is authenticated and a corresponding user document exists.
+  //  * Throws an error if this invariant is violated.
+  //  *
+  //  * @returns {string} The Firestore user document ID.
+  //  */
+  // getCurrentUserId(): string {
+  //   const currentUser = this.authenticationService.currentUser;
 
-    if (currentUser === null) {
-      throw new Error('Invariant violation: no authenticated user');
-    }
+  //   if (currentUser === null) {
+  //     throw new Error('Invariant violation: no authenticated user');
+  //   }
 
-    let user = this.userList.find((u) => u.uid === currentUser.uid);
+  //   let user = this.userList.find((u) => u.uid === currentUser.uid);
 
-    if (user === undefined) {
-      throw new Error('Invariant violation: user document not found');
-    }
+  //   if (user === undefined) {
+  //     throw new Error('Invariant violation: user document not found');
+  //   }
 
-    return user.id;
-  }
+  //   return user.id;
+  // }
 
   /**
    * Resets the contact list with alphabetical structure
@@ -286,16 +291,16 @@ export class ContactDataService {
    * @returns {CollectionReference<DocumentData>} Firestore collection reference for user contacts
    */
   getContactRef(): CollectionReference<DocumentData> {
-    return collection(this.firestore, `users/${this.getCurrentUserId()}/contacts`);
+    return collection(this.firestore, `users/${this.userDataService.getCurrentUserId()}/contacts`);
   }
 
-  /**
-   * Returns the Firestore collection reference for all registered users.
-   * @returns {CollectionReference<DocumentData>} Firestore collection reference for users
-   */
-  getUserRef(): CollectionReference<DocumentData> {
-    return collection(this.firestore, 'users');
-  }
+  // /**
+  //  * Returns the Firestore collection reference for all registered users.
+  //  * @returns {CollectionReference<DocumentData>} Firestore collection reference for users
+  //  */
+  // getUserRef(): CollectionReference<DocumentData> {
+  //   return collection(this.firestore, 'users');
+  // }
 
   /**
    * Returns the Firestore collection reference for the predefined dummy contacts.
@@ -403,7 +408,7 @@ export class ContactDataService {
    */
   async addUser(userData: User): Promise<void> {
     try {
-      await runInInjectionContext(this.injector, () => addDoc(this.getUserRef(), userData));
+      await runInInjectionContext(this.injector, () => addDoc(this.userDataService.getUserRef(), userData));
     } catch (error: unknown) {
       this.toastService.throwToast({ code: 'user/add/error' });
     }
@@ -487,7 +492,9 @@ export class ContactDataService {
     if (contactData.id === undefined) return;
     const contactDataId: string = contactData.id;
     try {
-      await runInInjectionContext(this.injector, () => updateDoc(this.getSingleDocRef(`users/${this.getCurrentUserId()}/contacts`, contactDataId), this.getCleanJson(contactData)));
+      await runInInjectionContext(this.injector, () =>
+        updateDoc(this.getSingleDocRef(`users/${this.userDataService.getCurrentUserId()}/contacts`, contactDataId), this.getCleanJson(contactData))
+      );
     } catch (err: unknown) {
       this.toastService.throwToast({ code: 'contact/update/error' });
     }

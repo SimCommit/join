@@ -10,6 +10,7 @@ import { ImageViewerComponent } from './shared/image-viewer/image-viewer.compone
 import { ImageViewerStateService } from './shared/services/image-viewer-state.service';
 import { ToastComponent } from './shared/widgets/toast/toast.component';
 import { ToastService } from './shared/services/toast.service';
+import { AppStateService } from './shared/services/app-state.service';
 
 /**
  * Main application component managing splash screen animations and layout visibility
@@ -24,6 +25,9 @@ import { ToastService } from './shared/services/toast.service';
 export class AppComponent implements OnInit, OnDestroy {
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  /** Ensures the AppStateService is instantiated on app start and page reload. */
+  appStateService = inject(AppStateService);
 
   /** The application title  */
   title = 'join';

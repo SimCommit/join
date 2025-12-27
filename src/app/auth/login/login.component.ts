@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router, RouterModule } from '@angular/router';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 import { ToastService } from '../../shared/services/toast.service';
+import { AppStateService } from '../../shared/services/app-state.service';
 
 /**
  * Login Component
@@ -22,6 +23,9 @@ export class LoginComponent {
   // #region Properties
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  /** Central application state orchestrator for authentication and data stream initialization. */
+  appStateService = inject(AppStateService);
 
   /**
    * Indicates whether the password input field is focused or active.
@@ -97,6 +101,7 @@ export class LoginComponent {
   async onLogin(): Promise<void> {
     try {
       await this.authenticationService.signIn(this.emailInputTest.trim(), this.passwordInputTest);
+      this.appStateService.afterLogin();
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
@@ -128,7 +133,9 @@ export class LoginComponent {
     try {
       let userCredentialRef = await this.authenticationService.guestSignIn();
       await this.createNewGuestUser(userCredentialRef.user.uid);
-      // this.toastService.throwToast({ code: 'guest/login/success' });    
+      this.appStateService.afterLogin();
+
+      // this.toastService.throwToast({ code: 'guest/login/success' });
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);

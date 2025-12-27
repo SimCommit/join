@@ -1,4 +1,4 @@
-import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
+import { EnvironmentInjector, inject, Injectable, runInInjectionContext, signal } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { collection, CollectionReference, DocumentData, onSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import { AuthenticationService } from '../../auth/services/authentication.service';
@@ -15,6 +15,8 @@ export class UserDataService {
   private readonly injector = inject(EnvironmentInjector);
 
   private readonly authenticationService = inject(AuthenticationService);
+
+  userListLengthSignal = signal<number>(0);
 
   /**
    * List of all users fetched from the Firestore 'users' collection.
@@ -45,6 +47,8 @@ export class UserDataService {
         list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
       });
     });
+
+    console.log('Started User Stream from UserDataService');
   }
 
   /** Stops the active Firestore contacts and user listeners if present. */
@@ -67,6 +71,7 @@ export class UserDataService {
     const email = element.data()['email'] as string;
     const id = element.id;
     this.userList.push({ uid, email, id });
+    this.userListLengthSignal.set(this.userList.length);
   }
 
   /**
