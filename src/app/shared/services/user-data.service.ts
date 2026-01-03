@@ -1,4 +1,4 @@
-import { EnvironmentInjector, inject, Injectable, runInInjectionContext, signal } from '@angular/core';
+import { EnvironmentInjector, inject, Injectable, NgZone, runInInjectionContext, signal } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { collection, CollectionReference, DocumentData, onSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import { AuthenticationService } from '../../auth/services/authentication.service';
@@ -15,6 +15,8 @@ export class UserDataService {
   private readonly injector = inject(EnvironmentInjector);
 
   private readonly authenticationService = inject(AuthenticationService);
+
+  private readonly zone = inject(NgZone);
 
   userListLengthSignal = signal<number>(0);
 
@@ -44,7 +46,9 @@ export class UserDataService {
 
     runInInjectionContext(this.injector, () => {
       this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
-        list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
+        this.zone.run(() => {
+          list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
+        });
       });
     });
 

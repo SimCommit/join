@@ -12,7 +12,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from '@angular/fire/firestore';
-import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '@angular/core';
+import { EnvironmentInjector, Injectable, NgZone, inject, runInInjectionContext } from '@angular/core';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { Contact } from './../shared-data/contact.interface';
 import { User } from './user.interface';
@@ -35,6 +35,8 @@ export class ContactDataService {
 
   /** Angular environment injector for dependency injection context */
   private readonly injector = inject(EnvironmentInjector);
+
+  private readonly zone = inject(NgZone);
 
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
@@ -60,8 +62,8 @@ export class ContactDataService {
   /** Unsubscribe handle for the active Firestore listener (undefined when disconnected). */
   unsubList?: () => void;
 
-  /** Unsubscribe handle for the Firestore user listener */
-  unsubUserList?: () => void;
+  // /** Unsubscribe handle for the Firestore user listener */
+  // unsubUserList?: () => void;
 
   /**
    * Organized contact list grouped alphabetically by initial letter.
@@ -77,12 +79,12 @@ export class ContactDataService {
    */
   existingContactsList: { email: string; id: string }[] = [];
 
-  /**
-   * List of all users fetched from the Firestore 'users' collection.
-   * Used to identify the current user by comparing email addresses
-   * and to retrieve the correct Firestore document ID for that user.
-   */
-  userList: { uid: string; email: string; id: string }[] = [];
+  // /**
+  //  * List of all users fetched from the Firestore 'users' collection.
+  //  * Used to identify the current user by comparing email addresses
+  //  * and to retrieve the correct Firestore document ID for that user.
+  //  */
+  // userList: { uid: string; email: string; id: string }[] = [];
 
   /** Predefined dummy contacts used for guest users */
   initialDummyContactsList: Contact[] = Contacts;
@@ -142,16 +144,25 @@ export class ContactDataService {
   //   });
   // }
 
-  /**
-   * Extracts user data from a Firestore document and adds it to `userList`.
-   * @param {QueryDocumentSnapshot<DocumentData>} element - Firestore document snapshot containing user data
-   */
-  addUserToUserList(element: QueryDocumentSnapshot<DocumentData>): void {
-    const uid = element.data()['uid'] as string;
-    const email = element.data()['email'] as string;
-    const id = element.id;
-    this.userList.push({ uid, email, id });
-  }
+  // /**
+  //  * Extracts user data from a Firestore document and adds it to `userList`.
+  //  * @param {QueryDocumentSnapshot<DocumentData>} element - Firestore document snapshot containing user data
+  //  */
+  // addUserToUserList(element: QueryDocumentSnapshot<DocumentData>): void {
+  //   const uid = element.data()['uid'] as string;
+  //   const email = element.data()['email'] as string;
+  //   const id = element.id;
+  //   this.userList.push({ uid, email, id });
+  // }
+
+
+//   2) Baue pro Stream eine Guard-Variable ein
+// Prinzip:
+// Jede Stream-Verbindung hat eine generation oder isActive Flag.
+// Beim connect wird ein Snapshot-Callback registriert, der als erstes prüft:
+// “bin ich noch die aktuelle Generation?”
+// “bin ich noch aktiv?”
+// Wenn nein: return. Kein getCurrentUserId(). Kein Array-Rebuild. Kein Toast. Nichts.
 
   /**
    * Starts the Firestore contacts listener inside Angular's injection context.
@@ -163,12 +174,29 @@ export class ContactDataService {
 
     runInInjectionContext(this.injector, () => {
       this.unsubList = onSnapshot(this.getContactRef(), (list) => {
-        this.resetContactList();
-        this.processContactList(list);
+        this.zone.run(() => {
+          this.resetContactList();
+          this.processContactList(list);
+        });
       });
     });
 
     this.checkForRefillContacts();
+  }
+
+  /**
+   * Stops the active Firestore contacts and user listeners if present.
+   * Idempotent: safe to call multiple times; clears the unsubscribe handle
+   * so a later reconnect is possible.
+   */
+  async disconnectContactStream(): Promise<void> {
+    if (this.unsubList) {
+      this.unsubList();
+      this.unsubList = undefined;
+    }
+
+    this.contactList = [];
+    this.existingContactsList = [];
   }
 
   /**
@@ -268,29 +296,14 @@ export class ContactDataService {
   }
 
   /**
-   * Stops the active Firestore contacts and user listeners if present.
-   * Idempotent: safe to call multiple times; clears the unsubscribe handle
-   * so a later reconnect is possible.
-   */
-  async disconnectContactAndUserStreams(): Promise<void> {
-    if (this.unsubList) {
-      this.unsubList();
-      this.unsubList = undefined;
-    }
-
-    if (this.unsubUserList) {
-      this.unsubUserList();
-      this.unsubUserList = undefined;
-      this.userIsReady = false;
-    }
-  }
-
-  /**
    * Returns the Firestore collection reference for the current user's contacts.
    * Uses the current user's Firestore document ID or the guest ID if no user is logged in.
    * @returns {CollectionReference<DocumentData>} Firestore collection reference for user contacts
    */
   getContactRef(): CollectionReference<DocumentData> {
+    // const userId = this.userDataService.getCurrentUserId();
+    // if (!userId) return null;
+
     return collection(this.firestore, `users/${this.userDataService.getCurrentUserId()}/contacts`);
   }
 
@@ -453,17 +466,17 @@ export class ContactDataService {
     }
   }
 
-  /**
-   * Deletes all contacts stored from the last user session.
-   * Iterates through `existingContactsList` and removes each contact from Firestore.
-   */
-  async deleteContactsFromLastSession() {
-    const list: { email: string; id: string }[] = this.existingContactsList;
+  // /**
+  //  * Deletes all contacts stored from the last user session.
+  //  * Iterates through `existingContactsList` and removes each contact from Firestore.
+  //  */
+  // async deleteContactsFromLastSession() {
+  //   const list: { email: string; id: string }[] = this.existingContactsList;
 
-    for (let i = 0; i < this.existingContactsList.length; i++) {
-      await this.deleteContact(list[i].id);
-    }
-  }
+  //   for (let i = 0; i < this.existingContactsList.length; i++) {
+  //     await this.deleteContact(list[i].id);
+  //   }
+  // }
 
   /**
    * Checks if the current Firestore contact collection is empty.

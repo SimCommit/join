@@ -39,6 +39,10 @@ export class AppStateService {
     this.appStateSignal.set('AUTHENTICATED');
   }
 
+  afterLogout() {
+    this.appStateSignal.set("SIGNED_OUT")
+  }
+
   reloadEffect() {
     effect(() => {
       console.log('Hello from reloadEffect');
@@ -61,28 +65,14 @@ export class AppStateService {
         this.contactDataService.connectStreams();
         this.taskDataService.connectTaskStream();
       }
+
+      if (this.appStateSignal() === 'SIGNED_OUT') {
+        this.contactDataService.disconnectContactStream();
+        this.taskDataService.disconnectTaskStream();
+        this.userDataService.disconnectUserStream();
+      }
     });
   }
-
-  // handleAuthenticationPhase() {
-  //   if (this.appStateSignal() === 'SIGNED_OUT') {
-  //     if (this.authenticationService.currentUser === null) throw new Error('auth/login/error');
-
-  //     this.appStateSignal.set('AUTHENTICATED');
-  //   }
-  // }
-
-  // handleUserInitPhase() {
-  //   this.userDataService.connectUserStream();
-
-  //   this.appStateSignal.set('USER_INITIALIZED');
-  // }
-
-  // handleFinalizePhase() {
-  //   this.appStateSignal.set('APP_READY');
-  // }
-
-  afterLogout() {}
 }
 
 type AppState = 'SIGNED_OUT' | 'AUTHENTICATED';
