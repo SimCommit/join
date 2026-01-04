@@ -50,19 +50,19 @@ export class HeaderComponent implements OnInit {
    */
   ngOnInit(): void {
     this.setupGlobalClickListener();
-    this.connectTaskDataServiceStream();
+    // this.connectTaskDataServiceStream();
   }
 
-  /**
-   * Connects the task data stream for real-time updates from Firestore.
-   * Ensures that the stream is only initialized when a user (regular or guest)
-   * is authenticated to prevent unauthorized Firestore access.
-   */
-  connectTaskDataServiceStream(): void {
-    if (this.authService.currentUser) {
-      this.taskDataService.connectTaskStream();
-    }
-  }
+  // /**
+  //  * Connects the task data stream for real-time updates from Firestore.
+  //  * Ensures that the stream is only initialized when a user (regular or guest)
+  //  * is authenticated to prevent unauthorized Firestore access.
+  //  */
+  // connectTaskDataServiceStream(): void {
+  //   // if (this.authService.currentUser) {
+  //   //   this.taskDataService.connectTaskStream();
+  //   // }
+  // }
 
   /**
    * Sets up document click listener to close dropdown when clicking outside
@@ -167,7 +167,7 @@ export class HeaderComponent implements OnInit {
   async logout(): Promise<void> {
     try {
       this.taskDataService.disconnectTaskStream();
-      await this.contactDataService.disconnectContactAndUserStreams();
+      await this.contactDataService.disconnectContactStream();
       this.userDataService.disconnectUserStream();
       await this.performLogout();
       this.contactDataService.notInLogIn = false;

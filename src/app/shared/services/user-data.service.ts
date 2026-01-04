@@ -3,6 +3,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { collection, CollectionReference, DocumentData, onSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import { AuthenticationService } from '../../auth/services/authentication.service';
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
+import { TaskDataService } from '../../main-pages/shared-data/task-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,8 @@ export class UserDataService {
   private readonly authenticationService = inject(AuthenticationService);
 
   contactDataService = inject(ContactDataService);
+
+  taskDataService = inject(TaskDataService);
 
   /**
    * List of all users fetched from the Firestore 'users' collection.
@@ -53,6 +56,7 @@ export class UserDataService {
           this.userIsReady = true;
           this.contactDataService.currentUserId = this.getCurrentUserId();
           this.contactDataService.connectContactStream();
+          this.taskDataService.connectTaskStream();
           console.log("currentUserId: ", this.contactDataService.currentUserId);
         }
       });
