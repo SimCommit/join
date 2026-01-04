@@ -44,20 +44,8 @@ export class ContactDataService {
   /** Controls visibility of signup button */
   signUpButtonVisible = true;
 
-  // /**
-  //  * Flag that indicates whether the user list has been loaded
-  //  * and the Firestore user stream is ready.
-  //  *
-  //  * Used to ensure that `connectContactStream()` is only called
-  //  * after the list of users (including the current one) has been populated.
-  //  */
-  // userIsReady: boolean = false;
-
   /** Unsubscribe handle for the active Firestore listener (undefined when disconnected). */
   unsubList?: () => void;
-
-  /** Unsubscribe handle for the Firestore user listener */
-  // unsubUserList?: () => void;
 
   /**
    * Organized contact list grouped alphabetically by initial letter.
@@ -93,11 +81,6 @@ export class ContactDataService {
 
   constructor(private authenticationService: AuthenticationService) {}
 
-  // /** Initializes the Firestore user listeners which initializes the contact listener*/
-  // public connectStreams() {
-  //   this.connectUserStream();
-  // }
-
   /**
    * Loads all currently existing contacts from Firestore
    * into `existingContactsList`. Used to determine which
@@ -115,29 +98,6 @@ export class ContactDataService {
       this.existingContactsList.push({ id, email });
     });
   }
-
-  // /**
-  //  * Establishes a real-time Firestore listener for the 'users' collection.
-  //  * Clears the current user list before subscribing.
-  //  * For each snapshot update, adds users to `userList`.
-  //  * When the list is first populated, marks `userIsReady` and connects the contact stream.
-  //  */
-  // private connectUserStream(): void {
-  //   if (this.unsubUserList) return;
-
-  //   this.userList = [];
-
-  //   runInInjectionContext(this.injector, () => {
-  //     this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
-  //       list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
-
-  //       if (!this.userIsReady) {
-  //         this.userIsReady = true;
-  //         this.connectContactStream();
-  //       }
-  //     });
-  //   });
-  // }
 
   /**
    * Extracts user data from a Firestore document and adds it to `userList`.
@@ -197,29 +157,6 @@ export class ContactDataService {
   }
 
   /**
-   * Returns the Firestore document ID of the currently authenticated user.
-   * Assumes that a user is authenticated and a corresponding user document exists.
-   * Throws an error if this invariant is violated.
-   *
-   * @returns {string} The Firestore user document ID.
-   */
-  getCurrentUserId(): string {
-    // const currentUser = this.authenticationService.currentUser;
-
-    // if (currentUser === null) {
-    //   throw new Error('Invariant violation: no authenticated user');
-    // }
-
-    // let user = this.userList.find((u) => u.uid === currentUser.uid);
-
-    // if (user === undefined) {
-    //   throw new Error('Invariant violation: user document not found');
-    // }
-
-    return this.currentUserId;
-  }
-
-  /**
    * Resets the contact list with alphabetical structure
    */
   private resetContactList(): void {
@@ -274,12 +211,6 @@ export class ContactDataService {
       this.unsubList();
       this.unsubList = undefined;
     }
-
-    // if (this.unsubUserList) {
-    //   this.unsubUserList();
-    //   this.unsubUserList = undefined;
-    //   this.userIsReady = false;
-    // }
   }
 
   /**
@@ -288,7 +219,7 @@ export class ContactDataService {
    * @returns {CollectionReference<DocumentData>} Firestore collection reference for user contacts
    */
   getContactRef(): CollectionReference<DocumentData> {
-    return collection(this.firestore, `users/${this.getCurrentUserId()}/contacts`);
+    return collection(this.firestore, `users/${this.currentUserId}/contacts`);
   }
 
   /**
@@ -489,7 +420,7 @@ export class ContactDataService {
     if (contactData.id === undefined) return;
     const contactDataId: string = contactData.id;
     try {
-      await runInInjectionContext(this.injector, () => updateDoc(this.getSingleDocRef(`users/${this.getCurrentUserId()}/contacts`, contactDataId), this.getCleanJson(contactData)));
+      await runInInjectionContext(this.injector, () => updateDoc(this.getSingleDocRef(`users/${this.currentUserId}/contacts`, contactDataId), this.getCleanJson(contactData)));
     } catch (err: unknown) {
       this.toastService.throwToast({ code: 'contact/update/error' });
     }

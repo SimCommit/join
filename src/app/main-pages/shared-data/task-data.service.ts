@@ -77,6 +77,8 @@ export class TaskDataService {
    * Angular EnvironmentInjector for running code in the correct injection context.
    */
   private readonly injector = inject(EnvironmentInjector);
+
+  currentUserId!: string;
   // #endregion
 
   // #region Lifecycle
@@ -116,7 +118,7 @@ export class TaskDataService {
    * @returns {CollectionReference<DocumentData, DocumentData>} Firestore collection reference for tasks.
    */
   getTasksRef(): CollectionReference<DocumentData, DocumentData> {
-    return collection(this.firestore, 'tasks');
+    return collection(this.firestore, `users/${this.currentUserId}/tasks`);
   }
 
   /**
@@ -161,7 +163,7 @@ export class TaskDataService {
   async deleteTask(taskId: string): Promise<void> {
     try {
       await runInInjectionContext(this.injector, () => {
-        const docRef = doc(this.firestore, 'tasks', taskId);
+        const docRef = doc(this.firestore, `users/${this.currentUserId}/tasks`, taskId);
         return deleteDoc(docRef);
       });
     } catch (error: unknown) {
@@ -181,7 +183,7 @@ export class TaskDataService {
 
     try {
       await runInInjectionContext(this.injector, () => {
-        const docRef = doc(this.firestore, 'tasks', taskId);
+        const docRef = doc(this.firestore, `users/${this.currentUserId}/tasks`, taskId);
         return updateDoc(docRef, updateDataFirestore);
       });
     } catch (error: unknown) {

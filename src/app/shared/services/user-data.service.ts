@@ -55,6 +55,7 @@ export class UserDataService {
         if (!this.userIsReady) {
           this.userIsReady = true;
           this.contactDataService.currentUserId = this.getCurrentUserId();
+          this.taskDataService.currentUserId = this.getCurrentUserId();
           this.contactDataService.connectContactStream();
           this.taskDataService.connectTaskStream();
           console.log("currentUserId: ", this.contactDataService.currentUserId);
