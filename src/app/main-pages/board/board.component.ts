@@ -13,6 +13,7 @@ import { TaskCreateFormComponent } from '../shared/task-create-form/task-create-
 import { Router } from '@angular/router';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { ToastService } from '../../shared/services/toast.service';
+import { UserDataService } from '../../shared/services/user-data.service';
 
 /**
  * Board component for managing kanban board with drag-and-drop functionality
@@ -28,6 +29,9 @@ import { ToastService } from '../../shared/services/toast.service';
 export class BoardComponent implements OnInit, OnDestroy {
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  /** Provides access to the user data service to start firestore data streams */
+  userDataService = inject(UserDataService);
 
   /** Stream of all board columns */
   columns$!: Observable<BoardColumn[]>;
@@ -82,7 +86,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    */
   constructor(
     private taskDataService: TaskDataService,
-    private contactDataService: ContactDataService,
+    // private contactDataService: ContactDataService,
     private changeDetectorRef: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
     private router: Router
@@ -92,12 +96,12 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeDataStreams();
     this.setupBreakpointObserver();
-    this.initContactDataService();
+    this.initUserStream();
   }
 
-  /** Initializes contact data streaming by connecting the service streams */
-  initContactDataService() {
-    this.contactDataService.connectStreams();
+  /** Initializes user data streaming by connecting the service streams */
+  initUserStream() {
+    this.userDataService.connectUserStream();
   }
 
   /** Cleans up subscriptions on component destroy */

@@ -2,6 +2,7 @@ import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '
 import { Firestore } from '@angular/fire/firestore';
 import { collection, CollectionReference, DocumentData, onSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import { AuthenticationService } from '../../auth/services/authentication.service';
+import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +17,15 @@ export class UserDataService {
 
   private readonly authenticationService = inject(AuthenticationService);
 
+  contactDataService = inject(ContactDataService);
+
   /**
    * List of all users fetched from the Firestore 'users' collection.
    * Used to resolve Firestore user documents by authentication UID.
    */
   userList: { uid: string; email: string; id: string }[] = [];
+
+  userIsReady: boolean = false;
 
   /** Unsubscribe handle for the Firestore user listener */
   unsubUserList?: () => void;
@@ -43,6 +48,13 @@ export class UserDataService {
     runInInjectionContext(this.injector, () => {
       this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
         list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
+
+        if (!this.userIsReady) {
+          this.userIsReady = true;
+          this.contactDataService.currentUserId = this.getCurrentUserId();
+          this.contactDataService.connectContactStream();
+          console.log("currentUserId: ", this.contactDataService.currentUserId);
+        }
       });
     });
   }
@@ -52,7 +64,8 @@ export class UserDataService {
     if (this.unsubUserList) {
       this.unsubUserList();
       this.unsubUserList = undefined;
-      // this.userIsReady = false;
+      this.userIsReady = false;
+      this.contactDataService.currentUserId = "-";
     }
   }
   // #endregion
@@ -89,7 +102,7 @@ export class UserDataService {
       throw new Error('Invariant violation: user document not found');
     }
 
-    return user.id;
+    return user.uid;
   }
 
   // #endregion

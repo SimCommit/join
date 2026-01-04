@@ -44,20 +44,20 @@ export class ContactDataService {
   /** Controls visibility of signup button */
   signUpButtonVisible = true;
 
-  /**
-   * Flag that indicates whether the user list has been loaded
-   * and the Firestore user stream is ready.
-   *
-   * Used to ensure that `connectContactStream()` is only called
-   * after the list of users (including the current one) has been populated.
-   */
-  userIsReady: boolean = false;
+  // /**
+  //  * Flag that indicates whether the user list has been loaded
+  //  * and the Firestore user stream is ready.
+  //  *
+  //  * Used to ensure that `connectContactStream()` is only called
+  //  * after the list of users (including the current one) has been populated.
+  //  */
+  // userIsReady: boolean = false;
 
   /** Unsubscribe handle for the active Firestore listener (undefined when disconnected). */
   unsubList?: () => void;
 
   /** Unsubscribe handle for the Firestore user listener */
-  unsubUserList?: () => void;
+  // unsubUserList?: () => void;
 
   /**
    * Organized contact list grouped alphabetically by initial letter.
@@ -80,6 +80,8 @@ export class ContactDataService {
    */
   userList: { uid: string; email: string; id: string }[] = [];
 
+  currentUserId!: string;
+
   /** Predefined dummy contacts used for guest users */
   initialDummyContactsList: Contact[] = Contacts;
 
@@ -91,10 +93,10 @@ export class ContactDataService {
 
   constructor(private authenticationService: AuthenticationService) {}
 
-  /** Initializes the Firestore user listeners which initializes the contact listener*/
-  public connectStreams() {
-    this.connectUserStream();
-  }
+  // /** Initializes the Firestore user listeners which initializes the contact listener*/
+  // public connectStreams() {
+  //   this.connectUserStream();
+  // }
 
   /**
    * Loads all currently existing contacts from Firestore
@@ -114,28 +116,28 @@ export class ContactDataService {
     });
   }
 
-  /**
-   * Establishes a real-time Firestore listener for the 'users' collection.
-   * Clears the current user list before subscribing.
-   * For each snapshot update, adds users to `userList`.
-   * When the list is first populated, marks `userIsReady` and connects the contact stream.
-   */
-  private connectUserStream(): void {
-    if (this.unsubUserList) return;
+  // /**
+  //  * Establishes a real-time Firestore listener for the 'users' collection.
+  //  * Clears the current user list before subscribing.
+  //  * For each snapshot update, adds users to `userList`.
+  //  * When the list is first populated, marks `userIsReady` and connects the contact stream.
+  //  */
+  // private connectUserStream(): void {
+  //   if (this.unsubUserList) return;
 
-    this.userList = [];
+  //   this.userList = [];
 
-    runInInjectionContext(this.injector, () => {
-      this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
-        list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
+  //   runInInjectionContext(this.injector, () => {
+  //     this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
+  //       list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
 
-        if (!this.userIsReady) {
-          this.userIsReady = true;
-          this.connectContactStream();
-        }
-      });
-    });
-  }
+  //       if (!this.userIsReady) {
+  //         this.userIsReady = true;
+  //         this.connectContactStream();
+  //       }
+  //     });
+  //   });
+  // }
 
   /**
    * Extracts user data from a Firestore document and adds it to `userList`.
@@ -153,7 +155,7 @@ export class ContactDataService {
    * Idempotent: returns immediately if a listener is already active.
    * On each snapshot, resets and rebuilds the internal contact list.
    */
-  private async connectContactStream(): Promise<void> {
+  async connectContactStream(): Promise<void> {
     if (this.unsubList) return;
 
     runInInjectionContext(this.injector, () => {
@@ -202,19 +204,19 @@ export class ContactDataService {
    * @returns {string} The Firestore user document ID.
    */
   getCurrentUserId(): string {
-    const currentUser = this.authenticationService.currentUser;
+    // const currentUser = this.authenticationService.currentUser;
 
-    if (currentUser === null) {
-      throw new Error('Invariant violation: no authenticated user');
-    }
+    // if (currentUser === null) {
+    //   throw new Error('Invariant violation: no authenticated user');
+    // }
 
-    let user = this.userList.find((u) => u.uid === currentUser.uid);
+    // let user = this.userList.find((u) => u.uid === currentUser.uid);
 
-    if (user === undefined) {
-      throw new Error('Invariant violation: user document not found');
-    }
+    // if (user === undefined) {
+    //   throw new Error('Invariant violation: user document not found');
+    // }
 
-    return user.id;
+    return this.currentUserId;
   }
 
   /**
@@ -273,11 +275,11 @@ export class ContactDataService {
       this.unsubList = undefined;
     }
 
-    if (this.unsubUserList) {
-      this.unsubUserList();
-      this.unsubUserList = undefined;
-      this.userIsReady = false;
-    }
+    // if (this.unsubUserList) {
+    //   this.unsubUserList();
+    //   this.unsubUserList = undefined;
+    //   this.userIsReady = false;
+    // }
   }
 
   /**

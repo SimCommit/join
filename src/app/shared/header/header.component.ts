@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../auth/services/authentication.servic
 import { ContactDataService } from '../../main-pages/shared-data/contact-data.service';
 import { TaskDataService } from '../../main-pages/shared-data/task-data.service';
 import { ToastService } from '../services/toast.service';
+import { UserDataService } from '../services/user-data.service';
 
 /**
  * Header component managing navigation, user authentication status and dropdown menu
@@ -20,6 +21,9 @@ import { ToastService } from '../services/toast.service';
 export class HeaderComponent implements OnInit {
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  /** Provides access to the user data service to start firestore data streams */
+  userDataService = inject(UserDataService);
 
   /**
    * Controls the visibility of the user dropdown menu
@@ -164,6 +168,7 @@ export class HeaderComponent implements OnInit {
     try {
       this.taskDataService.disconnectTaskStream();
       await this.contactDataService.disconnectContactAndUserStreams();
+      this.userDataService.disconnectUserStream();
       await this.performLogout();
       this.contactDataService.notInLogIn = false;
     } catch (error) {

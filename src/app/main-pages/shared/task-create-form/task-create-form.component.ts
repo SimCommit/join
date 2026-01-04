@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ChangeDetectorRef, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2, signal, inject } from '@angular/core';
 import { ContactDataService } from '../../shared-data/contact-data.service';
 import { getRandomColor } from '../../../shared/color-utils';
 import { Contact } from '../../shared-data/contact.interface';
@@ -9,6 +9,7 @@ import { TaskDataService } from '../../shared-data/task-data.service';
 import { Router } from '@angular/router';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { ContactGroup } from '../../shared-data/contact-group.interface';
+import { UserDataService } from '../../../shared/services/user-data.service';
 
 /**
  * Component for creating a new task.
@@ -24,6 +25,9 @@ import { ContactGroup } from '../../shared-data/contact-group.interface';
   styleUrls: ['./task-create-form.component.scss', './task-create-form.overlay.scss'],
 })
 export class TaskCreateFormComponent {
+  /** Provides access to the user data service to start firestore data streams */
+  userDataService = inject(UserDataService);
+
   /** Utility function for generating a random color. */
   getRandomColor = getRandomColor;
 
@@ -157,7 +161,7 @@ export class TaskCreateFormComponent {
    * Called during component initialization.
    */
   initContactDataService(): void {
-    this.contactDataService.connectStreams();
+    this.userDataService.connectUserStream()
   }
   // #endregion
 

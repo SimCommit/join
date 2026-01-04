@@ -7,6 +7,7 @@ import { Contact } from './../shared-data/contact.interface';
 import { filter } from 'rxjs/operators';
 import { ContactDataService } from '../shared-data/contact-data.service';
 import { ToastService } from '../../shared/services/toast.service';
+import { UserDataService } from '../../shared/services/user-data.service';
 
 /**
  * Main contacts management component that orchestrates contact operations
@@ -21,6 +22,9 @@ import { ToastService } from '../../shared/services/toast.service';
 export class ContactsComponent implements OnInit, OnDestroy {
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
+
+  /** Provides access to the user data service to start firestore data streams */
+  userDataService = inject(UserDataService);
 
   /** Currently selected contact ID for detail view */
   selectedContactId: string | null = null;
@@ -55,7 +59,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.checkScreenSize();
     this.setupEventListeners();
     this.setupRouterSubscription();
-    this.contactDataService.connectStreams();
+    this.userDataService.connectUserStream();
   }
 
   /**
