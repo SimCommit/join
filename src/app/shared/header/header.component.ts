@@ -36,12 +36,7 @@ export class HeaderComponent implements OnInit {
    * @param authService - Service for managing authentication and user state.
    * @param router - Angular Router for navigation.
    */
-  constructor(
-    public authService: AuthenticationService,
-    private router: Router,
-    private contactDataService: ContactDataService,
-    private taskDataService: TaskDataService
-  ) {}
+  constructor(public authService: AuthenticationService, private router: Router, private contactDataService: ContactDataService, private taskDataService: TaskDataService) {}
 
   /**
    * Initializes the component lifecycle.
@@ -50,7 +45,8 @@ export class HeaderComponent implements OnInit {
    */
   ngOnInit(): void {
     this.setupGlobalClickListener();
-    // this.connectTaskDataServiceStream();
+    // this.connectTaskDataServiceStream(); 
+    this.userDataService.connectUserStream();
   }
 
   // /**

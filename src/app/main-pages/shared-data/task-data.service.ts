@@ -3,6 +3,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Firestore, collection, doc, addDoc, deleteDoc, updateDoc, DocumentData, CollectionReference, Timestamp, collectionData } from '@angular/fire/firestore';
 import { Task, BoardColumn, FirestoreTask } from './task.interface';
 import { ToastService } from '../../shared/services/toast.service';
+import { getDocs } from 'firebase/firestore';
 
 /**
  * Service for managing tasks in Firestore.
@@ -17,7 +18,7 @@ export class TaskDataService {
   // #region Properties
   /** Provides access to the toast service for UI messages */
   toastService = inject(ToastService);
-  
+
   /**
    * Holds the current list of Task objects as a reactive data stream.
    */
@@ -79,6 +80,10 @@ export class TaskDataService {
   private readonly injector = inject(EnvironmentInjector);
 
   currentUserId!: string;
+
+  dummyTaskList: FirestoreTask[] = [];
+
+  existingTaskList: { id: string }[] = [];
   // #endregion
 
   // #region Lifecycle
@@ -95,7 +100,7 @@ export class TaskDataService {
    */
   connectTaskStream(): void {
     runInInjectionContext(this.injector, () => {
-      const taskSubStream = collectionData(this.getTasksRef(), {
+      const taskSubStream = collectionData(this.getUserTasksRef(), {
         idField: 'id',
       })
         .pipe(map((tasks) => (tasks as FirestoreTask[]).map((task) => this.translateTimestampToDate(task))))
@@ -112,12 +117,56 @@ export class TaskDataService {
   }
   // #endregion
 
+  /**
+   * Loads all currently existing user tasks from Firestore
+   * into `existingTaskList`. Used to determine which
+   * contacts should be removed before inserting the dummy data.
+   */
+  public async loadExistingContacts(): Promise<void> {
+    this.existingTaskList = [];
+    const existingTasksSnap = await runInInjectionContext(this.injector, () => getDocs(this.getUserTasksRef()));
+
+    existingTasksSnap.forEach((doc) => {
+      const id = doc.id;
+      this.existingTaskList.push({ id });
+    });
+  }
+
+  public async loadDummyTasks(): Promise<void> {
+    this.dummyTaskList = [];
+    const dummyTasksSnap = await runInInjectionContext(this.injector, () => getDocs(this.getTasksRef()));
+
+    dummyTasksSnap.forEach((doc) => {
+      const data = doc.data() as FirestoreTask;
+      this.dummyTaskList.push(data);
+    });
+  }
+
+  async addDummyTasksToEmptyUserTasks() {
+    await this.loadExistingContacts();
+
+    if (this.existingTaskList.length === 0) {
+      await this.loadDummyTasks();
+
+      console.log("Hier hin pushe ich: ", this.currentUserId);
+
+      this.dummyTaskList.forEach((task) => {
+        this.addFirestoreTask(task);
+      });
+    }
+  }
+
   // #region Getters
+
+  private getTasksRef(): CollectionReference<DocumentData> {
+    return collection(this.firestore, `tasks`);
+  }
+
   /**
    * Returns a reference to the Firestore 'tasks' collection.
    * @returns {CollectionReference<DocumentData, DocumentData>} Firestore collection reference for tasks.
    */
-  getTasksRef(): CollectionReference<DocumentData, DocumentData> {
+  private getUserTasksRef(): CollectionReference<DocumentData, DocumentData> {
     return collection(this.firestore, `users/${this.currentUserId}/tasks`);
   }
 
@@ -148,7 +197,15 @@ export class TaskDataService {
     const taskToAdd: FirestoreTask = this.translateTaskToFirestoreTask(task);
 
     try {
-      await runInInjectionContext(this.injector, () => addDoc(this.getTasksRef(), taskToAdd));
+      await runInInjectionContext(this.injector, () => addDoc(this.getUserTasksRef(), taskToAdd));
+    } catch (error: unknown) {
+      this.toastService.throwToast({ code: 'task/save/error' });
+    }
+  }
+
+  async addFirestoreTask(task: FirestoreTask): Promise<void> {
+    try {
+      await runInInjectionContext(this.injector, () => addDoc(this.getUserTasksRef(), task));
     } catch (error: unknown) {
       this.toastService.throwToast({ code: 'task/save/error' });
     }

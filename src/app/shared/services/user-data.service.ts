@@ -49,16 +49,18 @@ export class UserDataService {
     this.userList = [];
 
     runInInjectionContext(this.injector, () => {
-      this.unsubUserList = onSnapshot(this.getUserRef(), (list) => {
+      this.unsubUserList = onSnapshot(this.getUserRef(), async (list) => {
         list.forEach((element: QueryDocumentSnapshot<DocumentData>) => this.addUserToUserList(element));
 
         if (!this.userIsReady) {
-          this.userIsReady = true;
-          this.contactDataService.currentUserId = this.getCurrentUserId();
-          this.taskDataService.currentUserId = this.getCurrentUserId();
+          const userId = this.getCurrentUserId();
+          this.contactDataService.currentUserId = userId;
+          this.taskDataService.currentUserId = userId;
           this.contactDataService.connectContactStream();
           this.taskDataService.connectTaskStream();
+          await this.taskDataService.addDummyTasksToEmptyUserTasks();
           console.log("currentUserId: ", this.contactDataService.currentUserId);
+          this.userIsReady = true;
         }
       });
     });
@@ -107,7 +109,10 @@ export class UserDataService {
       throw new Error('Invariant violation: user document not found');
     }
 
-    return user.uid;
+    console.log("ID: ", user.id, " UID: ", user.uid);
+    
+
+    return user.id;
   }
 
   // #endregion
