@@ -16,10 +16,13 @@ export class UserDataService {
   /** Angular environment injector for dependency injection context */
   private readonly injector = inject(EnvironmentInjector);
 
+  /** Service providing current authentication state and user info */
   private readonly authenticationService = inject(AuthenticationService);
 
+  /** Service for managing user contacts */
   contactDataService = inject(ContactDataService);
 
+  /** Service for managing user tasks */
   taskDataService = inject(TaskDataService);
 
   /**
@@ -28,6 +31,7 @@ export class UserDataService {
    */
   userList: { uid: string; email: string; id: string }[] = [];
 
+  /** Flag indicating whether the user data has been fully loaded and streams initialized */
   userIsReady: boolean = false;
 
   /** Unsubscribe handle for the Firestore user listener */
@@ -65,13 +69,16 @@ export class UserDataService {
     });
   }
 
-  /** Stops the active Firestore contacts and user listeners if present. */
-  disconnectUserStream() {
+  /**
+   * Stops the active Firestore contacts and user listeners if present.
+   * Resets the `userIsReady` flag and current user IDs in dependent services.
+   */
+    disconnectUserStream() {
     if (this.unsubUserList) {
       this.unsubUserList();
       this.unsubUserList = undefined;
       this.userIsReady = false;
-      this.contactDataService.currentUserId = "-";
+      this.contactDataService.currentUserId = '-';
     }
   }
   // #endregion
@@ -106,7 +113,7 @@ export class UserDataService {
 
     if (user === undefined) {
       throw new Error('Invariant violation: user document not found');
-    }    
+    }
 
     return user.id;
   }

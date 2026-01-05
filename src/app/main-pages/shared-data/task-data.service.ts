@@ -79,10 +79,13 @@ export class TaskDataService {
    */
   private readonly injector = inject(EnvironmentInjector);
 
+  /** Firestore document ID of the currently authenticated user */
   currentUserId!: string;
 
+  /** Preloaded dummy tasks fetched from the global Firestore 'tasks' collection */
   dummyTaskList: FirestoreTask[] = [];
 
+  /** Tracks existing user task document IDs for existence checks and initialization logic */
   existingTaskList: { id: string }[] = [];
   // #endregion
 
@@ -118,11 +121,11 @@ export class TaskDataService {
   // #endregion
 
   /**
-   * Loads all currently existing user tasks from Firestore
-   * into `existingTaskList`. Used to determine which
-   * contacts should be removed before inserting the dummy data.
+   * Loads all existing task document IDs from the current user's Firestore task collection
+   * into `existingTaskList`.
+   * Used to determine whether the user already has tasks stored.
    */
-  public async loadExistingContacts(): Promise<void> {
+  public async loadExistingTasks(): Promise<void> {
     this.existingTaskList = [];
     const existingTasksSnap = await runInInjectionContext(this.injector, () => getDocs(this.getUserTasksRef()));
 
@@ -132,6 +135,11 @@ export class TaskDataService {
     });
   }
 
+  /**
+   * Loads all predefined dummy tasks from the global Firestore 'tasks' collection
+   * into `dummyTaskList`.
+   * These tasks are used to initialize empty user task collections.
+   */
   public async loadDummyTasks(): Promise<void> {
     this.dummyTaskList = [];
     const dummyTasksSnap = await runInInjectionContext(this.injector, () => getDocs(this.getTasksRef()));
@@ -142,8 +150,15 @@ export class TaskDataService {
     });
   }
 
+  /**
+   * Initializes the current user's task collection with predefined dummy tasks
+   * if no user-specific tasks exist yet.
+   *
+   * Loads existing user tasks to check for emptiness and only inserts dummy tasks
+   * when the collection is empty to avoid duplicate entries.
+   */
   async addDummyTasksToEmptyUserTasks() {
-    await this.loadExistingContacts();
+    await this.loadExistingTasks();
 
     if (this.existingTaskList.length === 0) {
       await this.loadDummyTasks();
@@ -155,6 +170,11 @@ export class TaskDataService {
 
   // #region Getters
 
+  /**
+   * Returns a reference to the global Firestore 'tasks' collection
+   * containing predefined dummy or template tasks.
+   * @returns {CollectionReference<DocumentData>} Firestore collection reference for global tasks
+   */
   private getTasksRef(): CollectionReference<DocumentData> {
     return collection(this.firestore, `tasks`);
   }
@@ -185,10 +205,11 @@ export class TaskDataService {
 
   // #region CRUD-Methods
   /**
-   * Adds a new task to the Firestore 'tasks' collection.
-   * Runs inside the Angular injection context to avoid zone errors.
-   * @param {FirestoreTask} task - The task object to add.
-   * @returns {Promise<void>} Promise that resolves when the task is added.
+   * Adds a new task to the current user's Firestore task collection.
+   * Converts the internal Task model into a Firestore-compatible format before persisting it.
+   * Runs inside Angular's injection context to ensure access to injected Firestore dependencies.
+   * @param {Task} task - The task object to add
+   * @returns {Promise<void>} Promise that resolves when the task is added
    */
   async addTask(task: Task): Promise<void> {
     const taskToAdd: FirestoreTask = this.translateTaskToFirestoreTask(task);
@@ -200,6 +221,14 @@ export class TaskDataService {
     }
   }
 
+  /**
+   * Adds an existing FirestoreTask directly to the current user's Firestore task collection.
+   * Intended for inserting predefined or cloned tasks (e.g. dummy or seed data).
+   * Runs inside Angular's injection context to ensure access to injected dependencies.
+   * Uses Firestore auto-generated document IDs and does not check for duplicates.
+   * @param {FirestoreTask} task - The Firestore-formatted task object to add
+   * @returns {Promise<void>} Promise that resolves when the task is added
+   */
   async addFirestoreTask(task: FirestoreTask): Promise<void> {
     try {
       await runInInjectionContext(this.injector, () => addDoc(this.getUserTasksRef(), task));

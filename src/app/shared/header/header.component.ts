@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
   /**
    * Initializes the component lifecycle.
    * - Sets up a global click listener to manage the dropdown state.
-   * - Establishes the task data stream if a user is authenticated.
+   * - Establishes the user data stream if a user is authenticated.
    */
   ngOnInit(): void {
     this.setupGlobalClickListener();
