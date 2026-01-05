@@ -86,7 +86,6 @@ export class BoardComponent implements OnInit, OnDestroy {
    */
   constructor(
     private taskDataService: TaskDataService,
-    // private contactDataService: ContactDataService,
     private changeDetectorRef: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
     private router: Router

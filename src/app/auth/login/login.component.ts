@@ -128,7 +128,6 @@ export class LoginComponent {
     try {
       let userCredentialRef = await this.authenticationService.guestSignIn();
       await this.createNewGuestUser(userCredentialRef.user.uid);
-      // this.toastService.throwToast({ code: 'guest/login/success' });    
 
       if (this.isMobile) {
         this.router.navigate(['/mobile-greeting']);
@@ -152,8 +151,6 @@ export class LoginComponent {
       name: name,
       email: email,
     });
-
-    console.log('createNewGuestUser: ', uid, '; ', name, '; ', email);
   }
   // #endregion
 

@@ -59,7 +59,6 @@ export class UserDataService {
           this.contactDataService.connectContactStream();
           this.taskDataService.connectTaskStream();
           await this.taskDataService.addDummyTasksToEmptyUserTasks();
-          console.log("currentUserId: ", this.contactDataService.currentUserId);
           this.userIsReady = true;
         }
       });
@@ -107,10 +106,7 @@ export class UserDataService {
 
     if (user === undefined) {
       throw new Error('Invariant violation: user document not found');
-    }
-
-    console.log("ID: ", user.id, " UID: ", user.uid);
-    
+    }    
 
     return user.id;
   }

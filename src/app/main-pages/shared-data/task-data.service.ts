@@ -147,9 +147,6 @@ export class TaskDataService {
 
     if (this.existingTaskList.length === 0) {
       await this.loadDummyTasks();
-
-      console.log("Hier hin pushe ich: ", this.currentUserId);
-
       this.dummyTaskList.forEach((task) => {
         this.addFirestoreTask(task);
       });
