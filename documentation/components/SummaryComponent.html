@@ -1,0 +1,1367 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SummaryComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main-pages/summary/summary.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component that displays a summary dashboard of tasks and user information.
+Shows task statistics, next deadline, and a personalized greeting.</p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-summary</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterLink</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./summary.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./summary.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#breakpointService" >breakpointService</a>
+                            </li>
+                            <li>
+                                <a href="#columns$" >columns$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#taskDataService" >taskDataService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#countAllTasksInBoard" >countAllTasksInBoard</a>
+                            </li>
+                            <li>
+                                <a href="#countOpenTaskWithStatus" >countOpenTaskWithStatus</a>
+                            </li>
+                            <li>
+                                <a href="#countUrgentOpenTasks" >countUrgentOpenTasks</a>
+                            </li>
+                            <li>
+                                <a href="#getGreetingMessage" >getGreetingMessage</a>
+                            </li>
+                            <li>
+                                <a href="#getNextDeadline" >getNextDeadline</a>
+                            </li>
+                            <li>
+                                <a href="#getUserName" >getUserName</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#truncateName" >truncateName</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(taskDataService: <a href="../injectables/TaskDataService.html" target="_self">TaskDataService</a>, breakpointService: <a href="../injectables/BreakpointService.html" target="_self">BreakpointService</a>, authenticationService: <a href="../injectables/AuthenticationService.html" target="_self">AuthenticationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/main-pages/summary/summary.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initializes the SummaryComponent and injects required services.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>taskDataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TaskDataService.html" target="_self" >TaskDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Provides access to tasks and board column data.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>breakpointService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BreakpointService.html" target="_self" >BreakpointService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Detects viewport size for responsive behavior.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>authenticationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthenticationService.html" target="_self" >AuthenticationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Provides information about the current user.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countAllTasksInBoard"></a>
+                    <span class="name">
+                        <span ><b>countAllTasksInBoard</b></span>
+                        <a href="#countAllTasksInBoard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>countAllTasksInBoard(columns: <a href="../interfaces/BoardColumn.html" target="_self">BoardColumn[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Counts all tasks across the entire board regardless of status.
+All task arrays from each column are flattened into a single array
+to ensure every task is included in the count.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/BoardColumn.html" target="_self" >BoardColumn[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Board columns containing task arrays.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Total number of tasks in the board.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countOpenTaskWithStatus"></a>
+                    <span class="name">
+                        <span ><b>countOpenTaskWithStatus</b></span>
+                        <a href="#countOpenTaskWithStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>countOpenTaskWithStatus(columns: <a href="../interfaces/BoardColumn.html" target="_self">BoardColumn[]</a>, status: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Counts tasks across all board columns by status.
+If status is &#39;incomplete&#39;, all tasks except &#39;done&#39; are counted.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/BoardColumn.html" target="_self" >BoardColumn[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Board columns with tasks.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Status to count.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Number of matching tasks.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countUrgentOpenTasks"></a>
+                    <span class="name">
+                        <span ><b>countUrgentOpenTasks</b></span>
+                        <a href="#countUrgentOpenTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>countUrgentOpenTasks(columns: <a href="../interfaces/BoardColumn.html" target="_self">BoardColumn[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Counts all tasks across all board columns that are marked as &#39;urgent&#39; and not completed.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/BoardColumn.html" target="_self" >BoardColumn[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Array of board columns containing tasks.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The number of open urgent tasks.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getGreetingMessage"></a>
+                    <span class="name">
+                        <span ><b>getGreetingMessage</b></span>
+                        <a href="#getGreetingMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getGreetingMessage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generates a greeting message based on the current time of day.
+Optionally appends a comma if the user has an email address (i.e., is signed in).</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A greeting like &#39;Good morning,&#39; or &#39;Good evening&#39;.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNextDeadline"></a>
+                    <span class="name">
+                        <span ><b>getNextDeadline</b></span>
+                        <a href="#getNextDeadline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNextDeadline(columns: <a href="../interfaces/BoardColumn.html" target="_self">BoardColumn[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Returns the formatted date of the next upcoming urgent task deadline.
+Only considers tasks that are marked as &#39;urgent&#39; and not completed.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                            <code><a href="../interfaces/BoardColumn.html" target="_self" >BoardColumn[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Array of board columns containing tasks.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A formatted date string (e.g., &quot;July 21, 2025&quot;) or &#39;---&#39; if no such task exists.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserName"></a>
+                    <span class="name">
+                        <span ><b>getUserName</b></span>
+                        <a href="#getUserName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUserName()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the display name of the currently signed-in user.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The user&#39;s display name, or an empty string if not available.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Lifecycle hook that initializes the columns observable.
+Called once after the component has been initialized.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="truncateName"></a>
+                    <span class="name">
+                        <span ><b>truncateName</b></span>
+                        <a href="#truncateName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>truncateName(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">src/app/main-pages/summary/summary.component.ts:154</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Truncates a name to a maximum of 40 characters, appending an ellipsis if necessary.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The name string to truncate.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The truncated name, with &#39;...&#39; appended if it exceeds 40 characters.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="breakpointService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>breakpointService</b></span>
+                        <a href="#breakpointService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/BreakpointService.html" target="_self" >BreakpointService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/main-pages/summary/summary.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">Detects viewport size for responsive behavior.</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columns$"></a>
+                    <span class="name">
+                        <span ><b>columns$</b></span>
+                        <a href="#columns$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/BoardColumn.html" target="_self" >Observable&lt;BoardColumn[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/main-pages/summary/summary.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Observable stream of board columns with their associated tasks.
+Used in the template to display summary data reactively.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="taskDataService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>taskDataService</b></span>
+                        <a href="#taskDataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/TaskDataService.html" target="_self" >TaskDataService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/main-pages/summary/summary.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">Provides access to tasks and board column data.</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
+import { TaskDataService } from &#x27;../shared-data/task-data.service&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { BoardColumn } from &#x27;../shared-data/task.interface&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterLink } from &#x27;@angular/router&#x27;;
+import { BreakpointService } from &#x27;../../shared/services/breakpoint.service&#x27;;
+import { AuthenticationService } from &#x27;../../auth/services/authentication.service&#x27;;
+
+/**
+ * Component that displays a summary dashboard of tasks and user information.
+ * Shows task statistics, next deadline, and a personalized greeting.
+ *
+ * @class SummaryComponent
+ */
+@Component({
+  selector: &#x27;app-summary&#x27;,
+  imports: [CommonModule, RouterLink],
+  templateUrl: &#x27;./summary.component.html&#x27;,
+  styleUrl: &#x27;./summary.component.scss&#x27;,
+})
+export class SummaryComponent {
+  // #region Properties
+  /**
+   * Observable stream of board columns with their associated tasks.
+   * Used in the template to display summary data reactively.
+   */
+  columns$!: Observable&lt;BoardColumn[]&gt;;
+  // #endregion
+
+  /**
+   * Initializes the SummaryComponent and injects required services.
+   *
+   * @param taskDataService Provides access to tasks and board column data.
+   * @param breakpointService Detects viewport size for responsive behavior.
+   * @param authenticationService Provides information about the current user.
+   */
+  constructor(public taskDataService: TaskDataService, public breakpointService: BreakpointService, private authenticationService: AuthenticationService) {}
+
+  // #region Lifecycle
+  /**
+   * Lifecycle hook that initializes the columns observable.
+   * Called once after the component has been initialized.
+   */
+  ngOnInit(): void {
+    this.columns$ &#x3D; this.taskDataService.getBoardColumns();
+  }
+  // #endregion
+
+  // #region Public Methods
+  /**
+   * Returns the formatted date of the next upcoming urgent task deadline.
+   * Only considers tasks that are marked as &#x27;urgent&#x27; and not completed.
+   *
+   * @param columns Array of board columns containing tasks.
+   * @returns A formatted date string (e.g., &quot;July 21, 2025&quot;) or &#x27;---&#x27; if no such task exists.
+   */
+  getNextDeadline(columns: BoardColumn[]): string {
+    const options: Intl.DateTimeFormatOptions &#x3D; { year: &#x27;numeric&#x27;, month: &#x27;long&#x27;, day: &#x27;2-digit&#x27; };
+
+    const urgentTasksWithDueDate &#x3D; columns
+      .flatMap((col) &#x3D;&gt; col.tasks)
+      .filter((task) &#x3D;&gt; task.priority &#x3D;&#x3D;&#x3D; &#x27;urgent&#x27; &amp;&amp; task.status !&#x3D;&#x3D; &#x27;done&#x27;)
+      .filter((task) &#x3D;&gt; task.dueDate !&#x3D;&#x3D; undefined)
+      .sort((a, b) &#x3D;&gt; a.dueDate!.getTime() - b.dueDate!.getTime());
+
+    if (urgentTasksWithDueDate.length &gt; 0) {
+      return urgentTasksWithDueDate[0].dueDate!.toLocaleDateString(&#x27;en-US&#x27;, options);
+    } else {
+      return &#x27;---&#x27;;
+    }
+  }
+
+  /**
+   * Counts all tasks across all board columns that are marked as &#x27;urgent&#x27; and not completed.
+   *
+   * @param columns Array of board columns containing tasks.
+   * @returns The number of open urgent tasks.
+   */
+  countUrgentOpenTasks(columns: BoardColumn[]): number {
+    return columns.flatMap((col) &#x3D;&gt; col.tasks).filter((task) &#x3D;&gt; task.priority &#x3D;&#x3D;&#x3D; &#x27;urgent&#x27; &amp;&amp; task.status !&#x3D;&#x3D; &#x27;done&#x27;).length;
+  }
+
+  /**
+   * Counts tasks across all board columns by status.
+   * If status is &#x27;incomplete&#x27;, all tasks except &#x27;done&#x27; are counted.
+   *
+   * @param columns Board columns with tasks.
+   * @param status Status to count.
+   * @returns Number of matching tasks.
+   */
+  countOpenTaskWithStatus(columns: BoardColumn[], status: string): number {
+    if (status &#x3D;&#x3D;&#x3D; &#x27;incomplete&#x27;) {
+      return columns.flatMap((col) &#x3D;&gt; col.tasks).filter((task) &#x3D;&gt; task.status !&#x3D;&#x3D; &#x27;done&#x27;).length;
+    } else {
+      return columns.flatMap((col) &#x3D;&gt; col.tasks).filter((task) &#x3D;&gt; task.status &#x3D;&#x3D;&#x3D; status).length;
+    }
+  }
+
+  /**
+   * Counts all tasks across the entire board regardless of status.
+   * All task arrays from each column are flattened into a single array
+   * to ensure every task is included in the count.
+   *
+   * @param columns Board columns containing task arrays.
+   * @returns Total number of tasks in the board.
+   */
+  countAllTasksInBoard(columns: BoardColumn[]): number {
+    const count &#x3D; columns.flatMap((col) &#x3D;&gt; col.tasks).length;
+    return count;
+  }
+
+  /**
+   * Generates a greeting message based on the current time of day.
+   * Optionally appends a comma if the user has an email address (i.e., is signed in).
+   *
+   * @returns A greeting like &#x27;Good morning,&#x27; or &#x27;Good evening&#x27;.
+   */
+  getGreetingMessage(): string {
+    const now: Date &#x3D; new Date();
+    const hours: number &#x3D; Number(String(now.getHours()).padStart(2, &#x27;0&#x27;));
+    const commaOrEmpty: string &#x3D; this.authenticationService.currentUser?.email ? &#x27;,&#x27; : &#x27;&#x27;;
+
+    if (hours &lt;&#x3D; 5) {
+      return &#x27;Good night&#x27; + commaOrEmpty;
+    } else if (hours &lt;&#x3D; 12) {
+      return &#x27;Good morning&#x27; + commaOrEmpty;
+    } else if (hours &lt;&#x3D; 18) {
+      return &#x27;Good afternoon&#x27; + commaOrEmpty;
+    } else {
+      return &#x27;Good evening&#x27; + commaOrEmpty;
+    }
+  }
+
+  /**
+   * Retrieves the display name of the currently signed-in user.
+   *
+   * @returns The user&#x27;s display name, or an empty string if not available.
+   */
+  getUserName(): string {
+    if (!this.authenticationService.currentUser) return &#x27;&#x27;;
+    const userName: string &#x3D; this.authenticationService.currentUser.displayName ?? &#x27;&#x27;;
+    return userName;
+  }
+  // #endregion
+
+  // #region Helpers
+  /**
+   * Truncates a name to a maximum of 40 characters, appending an ellipsis if necessary.
+   *
+   * @param name The name string to truncate.
+   * @returns The truncated name, with &#x27;...&#x27; appended if it exceeds 40 characters.
+   */
+  truncateName(name: string): string {
+    if (name.length &gt;&#x3D; 40) {
+      return name.slice(0, 40) + &#x27;...&#x27;;
+    }
+
+    return name;
+  }
+  // #endregion
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;section&gt;
+    &lt;header class&#x3D;&quot;head&quot;&gt;
+        &lt;h1&gt;Join 360&lt;/h1&gt;
+        &lt;div class&#x3D;&quot;spacer-blue&quot;&gt;&lt;/div&gt;
+        &lt;span class&#x3D;&quot;tagline&quot;&gt;Key Metrics at a Glance&lt;/span&gt;
+    &lt;/header&gt;
+
+    &lt;div class&#x3D;&quot;body&quot;&gt;
+        &lt;div *ngIf&#x3D;&quot;columns$ | async as columns&quot; class&#x3D;&quot;card-container&quot;&gt;
+            &lt;div class&#x3D;&quot;card-row&quot;&gt;
+                &lt;article class&#x3D;&quot;card-to-do&quot;&gt;
+                    &lt;a routerLink&#x3D;&quot;/board&quot;&gt;
+                        &lt;div aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;icon&quot;&gt;&lt;/div&gt;
+                        &lt;div class&#x3D;&quot;text&quot;&gt;
+                            &lt;p class&#x3D;&quot;count&quot;&gt;{{columns[0].tasks.length}}&lt;/p&gt;
+                            &lt;h2&gt;To-do&lt;/h2&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                &lt;/article&gt;
+                &lt;article class&#x3D;&quot;card-done&quot;&gt;
+                    &lt;a routerLink&#x3D;&quot;/board&quot;&gt;
+                        &lt;div aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;icon&quot;&gt;&lt;/div&gt;
+                        &lt;div class&#x3D;&quot;text&quot;&gt;
+                            &lt;p class&#x3D;&quot;count&quot;&gt;{{columns[3].tasks.length}}&lt;/p&gt;
+                            &lt;h2&gt;Done&lt;/h2&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                &lt;/article&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;card-row&quot;&gt;
+                &lt;article class&#x3D;&quot;card-deadline&quot;&gt;
+                    &lt;a routerLink&#x3D;&quot;/board&quot;&gt;
+                        &lt;div class&#x3D;&quot;highest-priority-badge&quot;&gt;
+                            &lt;div aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;icon&quot;&gt;&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;text&quot;&gt;
+                                &lt;p class&#x3D;&quot;count&quot;&gt;{{countUrgentOpenTasks(columns)}}&lt;/p&gt;
+                                &lt;h2&gt;Urgent&lt;/h2&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;img src&#x3D;&quot;./img/summary/spacer-line-grey.svg&quot; alt&#x3D;&quot;&quot; class&#x3D;&quot;spacer&quot;&gt;
+                        &lt;div class&#x3D;&quot;deadline&quot;&gt;
+                            &lt;p class&#x3D;&quot;date&quot;&gt;{{getNextDeadline(columns)}}&lt;/p&gt;
+                            &lt;p&gt;Upcoming Deadline&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                &lt;/article&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;card-row&quot;&gt;
+                &lt;article class&#x3D;&quot;card-all-tasks&quot;&gt;
+                    &lt;a routerLink&#x3D;&quot;/board&quot;&gt;
+                        &lt;p class&#x3D;&quot;count&quot;&gt;{{countAllTasksInBoard(columns)}}&lt;/p&gt;
+                        &lt;h2&gt;Tasks&amp;nbsp;in&lt;br&gt;Board&lt;/h2&gt;
+                    &lt;/a&gt;
+                &lt;/article&gt;
+                &lt;article class&#x3D;&quot;card-in-progress&quot;&gt;
+                    &lt;a routerLink&#x3D;&quot;/board&quot;&gt;
+                        &lt;p class&#x3D;&quot;count&quot;&gt;{{countOpenTaskWithStatus(columns, &quot;inprogress&quot;)}}&lt;/p&gt;
+                        &lt;h2&gt;Tasks in Progress&lt;/h2&gt;
+                    &lt;/a&gt;
+                &lt;/article&gt;
+                &lt;article class&#x3D;&quot;card-awaiting-feedback&quot;&gt;
+                    &lt;a routerLink&#x3D;&quot;/board&quot;&gt;
+                        &lt;p class&#x3D;&quot;count&quot;&gt;{{countOpenTaskWithStatus(columns, &quot;awaiting&quot;)}}&lt;/p&gt;
+                        &lt;h2&gt;Awaiting Feedback&lt;/h2&gt;
+                    &lt;/a&gt;
+                &lt;/article&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div *ngIf&#x3D;&quot;!(breakpointService.isMobileMedium$ | async)&quot; class&#x3D;&quot;greeting&quot;&gt;
+            &lt;p&gt;{{getGreetingMessage()}}&lt;/p&gt;
+            &lt;p class&#x3D;&quot;name&quot;&gt;{{truncateName(getUserName())}}&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><section>    <header class="head">        <h1>Join 360</h1>        <div class="spacer-blue"></div>        <span class="tagline">Key Metrics at a Glance</span>    </header>    <div class="body">        <div *ngIf="columns$ | async as columns" class="card-container">            <div class="card-row">                <article class="card-to-do">                    <a routerLink="/board">                        <div aria-hidden="true" class="icon"></div>                        <div class="text">                            <p class="count">{{columns[0].tasks.length}}</p>                            <h2>To-do</h2>                        </div>                    </a>                </article>                <article class="card-done">                    <a routerLink="/board">                        <div aria-hidden="true" class="icon"></div>                        <div class="text">                            <p class="count">{{columns[3].tasks.length}}</p>                            <h2>Done</h2>                        </div>                    </a>                </article>            </div>            <div class="card-row">                <article class="card-deadline">                    <a routerLink="/board">                        <div class="highest-priority-badge">                            <div aria-hidden="true" class="icon"></div>                            <div class="text">                                <p class="count">{{countUrgentOpenTasks(columns)}}</p>                                <h2>Urgent</h2>                            </div>                        </div>                        <img src="./img/summary/spacer-line-grey.svg" alt="" class="spacer">                        <div class="deadline">                            <p class="date">{{getNextDeadline(columns)}}</p>                            <p>Upcoming Deadline</p>                        </div>                    </a>                </article>            </div>            <div class="card-row">                <article class="card-all-tasks">                    <a routerLink="/board">                        <p class="count">{{countAllTasksInBoard(columns)}}</p>                        <h2>Tasks&nbsp;in<br>Board</h2>                    </a>                </article>                <article class="card-in-progress">                    <a routerLink="/board">                        <p class="count">{{countOpenTaskWithStatus(columns, "inprogress")}}</p>                        <h2>Tasks in Progress</h2>                    </a>                </article>                <article class="card-awaiting-feedback">                    <a routerLink="/board">                        <p class="count">{{countOpenTaskWithStatus(columns, "awaiting")}}</p>                        <h2>Awaiting Feedback</h2>                    </a>                </article>            </div>        </div>        <div *ngIf="!(breakpointService.isMobileMedium$ | async)" class="greeting">            <p>{{getGreetingMessage()}}</p>            <p class="name">{{truncateName(getUserName())}}</p>        </div>    </div></section></div>'
+    var COMPONENTS = [{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttachmentsGalleryComponent', 'selector': 'app-attachments-gallery'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'ContactDetailsComponent', 'selector': 'app-contact-details'},{'name': 'ContactDialogComponent', 'selector': 'app-contact-dialog'},{'name': 'ContactFormComponent', 'selector': 'app-contact-form'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'ImageViewerComponent', 'selector': 'app-image-viewer'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MobileGreetingComponent', 'selector': 'app-mobile-greeting'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'StartRedirectComponent', 'selector': 'app-start-redirect'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCreateFormComponent', 'selector': 'app-task-create-form'},{'name': 'TaskDetailsComponent', 'selector': 'app-task-details'},{'name': 'TaskDialogComponent', 'selector': 'app-task-dialog'},{'name': 'TaskEditFormComponent', 'selector': 'app-task-edit-form'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SummaryComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SummaryComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

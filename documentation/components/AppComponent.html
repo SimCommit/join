@@ -1,0 +1,2179 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AppComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Main application component managing splash screen animations and layout visibility
+Handles responsive behavior and route-based animations for login pages</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-root</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>RouterOutlet</code>
+                                <code><a href="../components/HeaderComponent.html" target="_self" >HeaderComponent</a></code>
+                                <code><a href="../components/NavComponent.html" target="_self" >NavComponent</a></code>
+                            <code>CommonModule</code>
+                                <code><a href="../components/ImageViewerComponent.html" target="_self" >ImageViewerComponent</a></code>
+                                <code><a href="../components/ToastComponent.html" target="_self" >ToastComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./app.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./app.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#animationComplete" >animationComplete</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#appInitialized" >appInitialized</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#contactDataService" >contactDataService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#imageViewerStateService" >imageViewerStateService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initialRouteProcessed" >initialRouteProcessed</a>
+                            </li>
+                            <li>
+                                <a href="#logoAnimating" >logoAnimating</a>
+                            </li>
+                            <li>
+                                <a href="#logoSwapping" >logoSwapping</a>
+                            </li>
+                            <li>
+                                <a href="#onKeydown" >onKeydown</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#routerSubscription" >routerSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#showFinalLogo" >showFinalLogo</a>
+                            </li>
+                            <li>
+                                <a href="#showSplashScreen" >showSplashScreen</a>
+                            </li>
+                            <li>
+                                <a href="#title" >title</a>
+                            </li>
+                            <li>
+                                <a href="#toastService" >toastService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkAndStartAnimation" >checkAndStartAnimation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#completeSplashAnimation" >completeSplashAnimation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#disableSplashScreen" >disableSplashScreen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#enableLogoSwapping" >enableLogoSwapping</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleDesktopAnimation" >handleDesktopAnimation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleMobileAnimation" >handleMobileAnimation</a>
+                            </li>
+                            <li>
+                                <a href="#initCloseImageViewerListener" >initCloseImageViewerListener</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initializeAnimationSystem" >initializeAnimationSystem</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resetAnimationState" >resetAnimationState</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#scheduleAnimationCompletion" >scheduleAnimationCompletion</a>
+                            </li>
+                            <li>
+                                <a href="#shouldShowLayout" >shouldShowLayout</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#startSplashAnimation" >startSplashAnimation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscribeToRouterEvents" >subscribeToRouterEvents</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#triggerLogoAnimation" >triggerLogoAnimation</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#isMobile" >isMobile</a>
+                                </li>
+                                <li>
+                                    <a href="#isOnAuthRoute" >isOnAuthRoute</a>
+                                </li>
+                                <li>
+                                    <a href="#isOnLoginPage" >isOnLoginPage</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router, contactDataService: <a href="../injectables/ContactDataService.html" target="_self">ContactDataService</a>, imageViewerStateService: <a href="../injectables/ImageViewerStateService.html" target="_self">ImageViewerStateService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/app.component.ts:78</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>contactDataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ContactDataService.html" target="_self" >ContactDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>imageViewerStateService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ImageViewerStateService.html" target="_self" >ImageViewerStateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkAndStartAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkAndStartAnimation</b></span>
+                        <a href="#checkAndStartAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkAndStartAnimation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/app.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Evaluates current route and manages animation state
+Resets animation properties and starts sequence for login pages</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="completeSplashAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>completeSplashAnimation</b></span>
+                        <a href="#completeSplashAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>completeSplashAnimation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="245"
+                                    class="link-to-prism">src/app/app.component.ts:245</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Finalizes splash screen animation
+Hides splash screen and marks animation as complete</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="disableSplashScreen"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>disableSplashScreen</b></span>
+                        <a href="#disableSplashScreen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>disableSplashScreen()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/app.component.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Disables splash screen for non-login pages
+Sets final state for regular navigation</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enableLogoSwapping"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>enableLogoSwapping</b></span>
+                        <a href="#enableLogoSwapping"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>enableLogoSwapping()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="225"
+                                    class="link-to-prism">src/app/app.component.ts:225</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Enables logo crossfade effect for mobile devices
+Triggers immediate logo swap</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDesktopAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleDesktopAnimation</b></span>
+                        <a href="#handleDesktopAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleDesktopAnimation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="217"
+                                    class="link-to-prism">src/app/app.component.ts:217</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Manages desktop-specific animation sequence
+Uses standard duration without logo swapping</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleMobileAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleMobileAnimation</b></span>
+                        <a href="#handleMobileAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleMobileAnimation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/app.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Manages mobile-specific animation sequence
+Includes logo swapping and shorter duration</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initCloseImageViewerListener"></a>
+                    <span class="name">
+                        <span ><b>initCloseImageViewerListener</b></span>
+                        <a href="#initCloseImageViewerListener"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initCloseImageViewerListener()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/app.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Adds a global keydown listener to enable closing the ImageViewer via Escape key</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeAnimationSystem"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initializeAnimationSystem</b></span>
+                        <a href="#initializeAnimationSystem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initializeAnimationSystem()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/app.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the splash screen animation system
+Checks current route and starts animation if needed</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/app.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cleans up component resources
+Unsubscribes from router events to prevent memory leaks</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/app.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the component lifecycle
+Sets up animation triggers and router event subscriptions</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetAnimationState"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>resetAnimationState</b></span>
+                        <a href="#resetAnimationState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetAnimationState()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/app.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Resets all animation properties to initial state
+Prepares component for new animation sequence</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scheduleAnimationCompletion"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>scheduleAnimationCompletion</b></span>
+                        <a href="#scheduleAnimationCompletion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>scheduleAnimationCompletion(delay: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="235"
+                                    class="link-to-prism">src/app/app.component.ts:235</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Schedules the completion of splash screen animation</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>delay</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Duration in milliseconds before completion</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldShowLayout"></a>
+                    <span class="name">
+                        <span ><b>shouldShowLayout</b></span>
+                        <a href="#shouldShowLayout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>shouldShowLayout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="255"
+                                    class="link-to-prism">src/app/app.component.ts:255</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Determines whether the layout components should be displayed
+Hides navigation and header on authentication routes</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if layout should be visible</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startSplashAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>startSplashAnimation</b></span>
+                        <a href="#startSplashAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>startSplashAnimation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">src/app/app.component.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initiates the splash screen animation sequence
+Manages timing and device-specific behavior</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToRouterEvents"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>subscribeToRouterEvents</b></span>
+                        <a href="#subscribeToRouterEvents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>subscribeToRouterEvents()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/app/app.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sets up router event subscription
+Monitors navigation changes to restart animations</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="triggerLogoAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>triggerLogoAnimation</b></span>
+                        <a href="#triggerLogoAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>triggerLogoAnimation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/app.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Activates logo animation and sets up completion timers
+Handles different timing for mobile and desktop devices</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="animationComplete"></a>
+                    <span class="name">
+                        <span ><b>animationComplete</b></span>
+                        <a href="#animationComplete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/app.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls when to hide the animated logo and show the auth logo</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="appInitialized"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>appInitialized</b></span>
+                        <a href="#appInitialized"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/app.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Flag to track if app has been initialized</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contactDataService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>contactDataService</b></span>
+                        <a href="#contactDataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ContactDataService.html" target="_self" >ContactDataService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/app.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="imageViewerStateService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>imageViewerStateService</b></span>
+                        <a href="#imageViewerStateService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ImageViewerStateService.html" target="_self" >ImageViewerStateService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/app.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initialRouteProcessed"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initialRouteProcessed</b></span>
+                        <a href="#initialRouteProcessed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/app.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Flag to track if initial route has been processed</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logoAnimating"></a>
+                    <span class="name">
+                        <span ><b>logoAnimating</b></span>
+                        <a href="#logoAnimating"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/app.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls the logo animation state</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logoSwapping"></a>
+                    <span class="name">
+                        <span ><b>logoSwapping</b></span>
+                        <a href="#logoSwapping"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/app.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls the crossfade between mobile logos</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onKeydown"></a>
+                    <span class="name">
+                        <span ><b>onKeydown</b></span>
+                        <a href="#onKeydown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">src/app/app.component.ts:113</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles global Escape key presses to close the ImageViewer if active</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="routerSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>routerSubscription</b></span>
+                        <a href="#routerSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/app.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Subscription to router events</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showFinalLogo"></a>
+                    <span class="name">
+                        <span ><b>showFinalLogo</b></span>
+                        <a href="#showFinalLogo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/app.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls whether to show the final normal logo on mobile</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showSplashScreen"></a>
+                    <span class="name">
+                        <span ><b>showSplashScreen</b></span>
+                        <a href="#showSplashScreen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/app.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls the splash screen visibility</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="title"></a>
+                    <span class="name">
+                        <span ><b>title</b></span>
+                        <a href="#title"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;join&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/app.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The application title</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toastService"></a>
+                    <span class="name">
+                        <span ><b>toastService</b></span>
+                        <a href="#toastService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ToastService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/app.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Provides access to the toast service for UI messages</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isMobile"></a>
+                        <span class="name"><b>isMobile</b><a href="#isMobile"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isMobile()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/app.component.ts:59</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Detects if the current device is mobile</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isOnAuthRoute"></a>
+                        <span class="name"><b>isOnAuthRoute</b><a href="#isOnAuthRoute"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isOnAuthRoute()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/app.component.ts:67</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Checks if current route is an authentication route</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isOnLoginPage"></a>
+                        <span class="name"><b>isOnLoginPage</b><a href="#isOnLoginPage"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isOnLoginPage()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/app.component.ts:76</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Determines if current page is a login page</p>
+</div>
+
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, inject } from &#x27;@angular/core&#x27;;
+import { Router, RouterOutlet, NavigationEnd } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { filter, Subscription } from &#x27;rxjs&#x27;;
+
+import { HeaderComponent } from &#x27;./shared/header/header.component&#x27;;
+import { NavComponent } from &#x27;./shared/nav/nav.component&#x27;;
+import { ContactDataService } from &#x27;./main-pages/shared-data/contact-data.service&#x27;;
+import { ImageViewerComponent } from &#x27;./shared/image-viewer/image-viewer.component&#x27;;
+import { ImageViewerStateService } from &#x27;./shared/services/image-viewer-state.service&#x27;;
+import { ToastComponent } from &#x27;./shared/widgets/toast/toast.component&#x27;;
+import { ToastService } from &#x27;./shared/services/toast.service&#x27;;
+
+/**
+ * Main application component managing splash screen animations and layout visibility
+ * Handles responsive behavior and route-based animations for login pages
+ */
+@Component({
+  selector: &#x27;app-root&#x27;,
+  imports: [RouterOutlet, HeaderComponent, NavComponent, CommonModule, ImageViewerComponent, ToastComponent],
+  templateUrl: &#x27;./app.component.html&#x27;,
+  styleUrl: &#x27;./app.component.scss&#x27;,
+})
+export class AppComponent implements OnInit, OnDestroy {
+  /** Provides access to the toast service for UI messages */
+  toastService &#x3D; inject(ToastService);
+
+  /** The application title  */
+  title &#x3D; &#x27;join&#x27;;
+
+  /** Controls the splash screen visibility  */
+  showSplashScreen &#x3D; false;
+
+  /** Controls the logo animation state */
+  logoAnimating &#x3D; false;
+
+  /** Controls when to hide the animated logo and show the auth logo  */
+  animationComplete &#x3D; false;
+
+  /** Controls whether to show the final normal logo on mobile */
+  showFinalLogo &#x3D; false;
+
+  /** Controls the crossfade between mobile logos */
+  logoSwapping &#x3D; false;
+
+  /** Subscription to router events */
+  private routerSubscription: Subscription &#x3D; new Subscription();
+
+  /** Flag to track if initial route has been processed */
+  private initialRouteProcessed &#x3D; false;
+
+  /** Flag to track if app has been initialized */
+  private appInitialized &#x3D; false;
+
+  /**
+   * Detects if the current device is mobile
+   * @returns {boolean} True if screen width is 768px or less
+   */
+  get isMobile(): boolean {
+    return window.innerWidth &lt;&#x3D; 768;
+  }
+
+  /**
+   * Checks if current route is an authentication route
+   * @returns {boolean} True if on auth, login, or register routes
+   */
+  get isOnAuthRoute(): boolean {
+    const authRoutes &#x3D; [&#x27;/auth&#x27;, &#x27;/auth/login&#x27;, &#x27;/auth/register&#x27;];
+    return authRoutes.some((route) &#x3D;&gt; this.router.url.startsWith(route));
+  }
+
+  /**
+   * Determines if current page is a login page
+   * @returns {boolean} True if on login route (not root redirect route)
+   */
+  get isOnLoginPage(): boolean {
+    return this.router.url &#x3D;&#x3D;&#x3D; &#x27;/auth/login&#x27;;
+  }
+
+  constructor(private router: Router, public contactDataService: ContactDataService, public imageViewerStateService: ImageViewerStateService) {}
+
+  /**
+   * Initializes the component lifecycle
+   * Sets up animation triggers and router event subscriptions
+   */
+  ngOnInit(): void {
+    this.subscribeToRouterEvents();
+    this.initCloseImageViewerListener();
+
+    setTimeout(() &#x3D;&gt; {
+      if (!this.initialRouteProcessed) {
+        this.checkAndStartAnimation();
+        this.initialRouteProcessed &#x3D; true;
+      }
+    }, 100);
+  }
+
+  /**
+   * Cleans up component resources
+   * Unsubscribes from router events to prevent memory leaks
+   */
+  ngOnDestroy(): void {
+    this.routerSubscription.unsubscribe();
+    window.removeEventListener(&#x27;keydown&#x27;, this.onKeydown);
+  }
+
+  /** Adds a global keydown listener to enable closing the ImageViewer via Escape key */
+  initCloseImageViewerListener() {
+    window.addEventListener(&#x27;keydown&#x27;, this.onKeydown);
+  }
+
+  /** Handles global Escape key presses to close the ImageViewer if active */
+  onKeydown &#x3D; (event: KeyboardEvent): void &#x3D;&gt; {
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+      this.imageViewerStateService.imageViewerIsActive.set(false);
+    }
+  };
+
+  /**
+   * Initializes the splash screen animation system
+   * Checks current route and starts animation if needed
+   */
+  private initializeAnimationSystem(): void {
+    this.checkAndStartAnimation();
+  }
+
+  /**
+   * Sets up router event subscription
+   * Monitors navigation changes to restart animations
+   */
+  private subscribeToRouterEvents(): void {
+    this.routerSubscription &#x3D; this.router.events.pipe(filter((event) &#x3D;&gt; event instanceof NavigationEnd)).subscribe(() &#x3D;&gt; {
+      if (!this.initialRouteProcessed) {
+        this.checkAndStartAnimation();
+        this.initialRouteProcessed &#x3D; true;
+      } else {
+        this.checkAndStartAnimation();
+      }
+    });
+  }
+
+  /**
+   * Evaluates current route and manages animation state
+   * Resets animation properties and starts sequence for login pages
+   */
+  private checkAndStartAnimation(): void {
+    const currentUrl &#x3D; this.router.url;
+    const isLoginRoute &#x3D; currentUrl &#x3D;&#x3D;&#x3D; &#x27;/auth/login&#x27;;
+
+    if (isLoginRoute) {
+      this.resetAnimationState();
+      this.startSplashAnimation();
+    } else {
+      this.disableSplashScreen();
+    }
+
+    this.appInitialized &#x3D; true;
+  }
+
+  /**
+   * Resets all animation properties to initial state
+   * Prepares component for new animation sequence
+   */
+  private resetAnimationState(): void {
+    this.showSplashScreen &#x3D; true;
+    this.logoAnimating &#x3D; false;
+    this.animationComplete &#x3D; false;
+    this.logoSwapping &#x3D; false;
+  }
+
+  /**
+   * Disables splash screen for non-login pages
+   * Sets final state for regular navigation
+   */
+  private disableSplashScreen(): void {
+    this.showSplashScreen &#x3D; false;
+    this.animationComplete &#x3D; true;
+  }
+
+  /**
+   * Initiates the splash screen animation sequence
+   * Manages timing and device-specific behavior
+   */
+  private startSplashAnimation(): void {
+    setTimeout(() &#x3D;&gt; {
+      this.triggerLogoAnimation();
+    }, 500);
+  }
+
+  /**
+   * Activates logo animation and sets up completion timers
+   * Handles different timing for mobile and desktop devices
+   */
+  private triggerLogoAnimation(): void {
+    this.logoAnimating &#x3D; true;
+
+    if (this.isMobile) {
+      this.handleMobileAnimation();
+    } else {
+      this.handleDesktopAnimation();
+    }
+  }
+
+  /**
+   * Manages mobile-specific animation sequence
+   * Includes logo swapping and shorter duration
+   */
+  private handleMobileAnimation(): void {
+    this.enableLogoSwapping();
+    this.scheduleAnimationCompletion(1350);
+  }
+
+  /**
+   * Manages desktop-specific animation sequence
+   * Uses standard duration without logo swapping
+   */
+  private handleDesktopAnimation(): void {
+    this.scheduleAnimationCompletion(1550);
+  }
+
+  /**
+   * Enables logo crossfade effect for mobile devices
+   * Triggers immediate logo swap
+   */
+  private enableLogoSwapping(): void {
+    setTimeout(() &#x3D;&gt; {
+      this.logoSwapping &#x3D; true;
+    }, 0);
+  }
+
+  /**
+   * Schedules the completion of splash screen animation
+   * @param {number} delay - Duration in milliseconds before completion
+   */
+  private scheduleAnimationCompletion(delay: number): void {
+    setTimeout(() &#x3D;&gt; {
+      this.completeSplashAnimation();
+    }, delay);
+  }
+
+  /**
+   * Finalizes splash screen animation
+   * Hides splash screen and marks animation as complete
+   */
+  private completeSplashAnimation(): void {
+    this.showSplashScreen &#x3D; false;
+    this.animationComplete &#x3D; true;
+  }
+
+  /**
+   * Determines whether the layout components should be displayed
+   * Hides navigation and header on authentication routes
+   * @returns {boolean} True if layout should be visible
+   */
+  shouldShowLayout(): boolean {
+    const noLayoutRoutes &#x3D; [&#x27;/&#x27;, &#x27;/auth&#x27;, &#x27;/auth/login&#x27;, &#x27;/auth/register&#x27;];
+    return !noLayoutRoutes.includes(this.router.url);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">@if (showSplashScreen &amp;&amp; isOnLoginPage) {
+&lt;div aria-hidden&#x3D;&quot;true&quot; tabindex&#x3D;&quot;-1&quot; class&#x3D;&quot;splash-screen&quot; [class.hide-background]&#x3D;&quot;!isMobile &amp;&amp; logoAnimating&quot;
+  [class.mobile-splash]&#x3D;&quot;isMobile&quot;&gt;
+  @if (isMobile) {
+  &lt;img src&#x3D;&quot;./img/icons/logo_join_responsiv.svg&quot; alt&#x3D;&quot;&quot; class&#x3D;&quot;splash-logo mobile-logo mobile-logo-1&quot;
+    [class.animate-to-login]&#x3D;&quot;logoAnimating&quot; [class.fade-out]&#x3D;&quot;logoSwapping&quot;&gt;
+  &lt;div class&#x3D;&quot;mobile-splash-overlay&quot; [class.fade-out-overlay]&#x3D;&quot;logoAnimating&quot;&gt;&lt;/div&gt;
+  } @else {
+  &lt;img src&#x3D;&quot;./img/login/join-logo-100x120.svg&quot; alt&#x3D;&quot;&quot; class&#x3D;&quot;splash-logo desktop-logo&quot;
+    [class.animate-to-header]&#x3D;&quot;logoAnimating&quot;&gt;
+  }
+&lt;/div&gt;
+}
+
+@if (showSplashScreen &amp;&amp; isOnLoginPage) {
+&lt;div class&#x3D;&quot;splash-background&quot; [class.hide-background]&#x3D;&quot;!isMobile &amp;&amp; logoAnimating&quot; [class.mobile-splash]&#x3D;&quot;isMobile&quot;&gt;
+&lt;/div&gt;
+}
+
+@if (isMobile &amp;&amp; showSplashScreen &amp;&amp; isOnLoginPage) {
+&lt;img src&#x3D;&quot;./img/login/join-logo-100x120.svg&quot; alt&#x3D;&quot;&quot; aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;mobile-crossfade-logo&quot;
+  [class.animate-to-login]&#x3D;&quot;logoAnimating&quot; [class.fade-in]&#x3D;&quot;logoSwapping&quot;&gt;
+}
+
+&lt;div class&#x3D;&quot;layout&quot; [class.show]&#x3D;&quot;logoAnimating || animationComplete&quot; [ngClass]&#x3D;&quot;{&#x27;d-flex-center&#x27;: !shouldShowLayout()}&quot;
+  [class.mobile-auth-layout]&#x3D;&quot;isMobile &amp;&amp; logoAnimating&quot;&gt;
+  @if (shouldShowLayout()) {
+  &lt;app-nav class&#x3D;&quot;app-nav&quot;&gt;&lt;/app-nav&gt;
+  }
+  &lt;div class&#x3D;&quot;view-container&quot; [ngClass]&#x3D;&quot;{&#x27;d-flex-center&#x27;: !shouldShowLayout()}&quot;&gt;
+    @if (shouldShowLayout()) {
+    &lt;app-header class&#x3D;&quot;app-header&quot;&gt;&lt;/app-header&gt;
+    }
+    &lt;main [class.page-container]&#x3D;&quot;contactDataService.notInLogIn&quot; class&#x3D;&quot;full-width&quot;
+      [ngClass]&#x3D;&quot;{&#x27;test3&#x27;: !shouldShowLayout()}&quot;&gt;
+      &lt;router-outlet /&gt;
+    &lt;/main&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+@if (toastService.showToast()) {
+&lt;app-toast&gt;&lt;/app-toast&gt;
+}
+
+@if (imageViewerStateService.imageViewerIsActive()) {
+&lt;app-image-viewer class&#x3D;&quot;app-image-viewer&quot;&gt;&lt;/app-image-viewer&gt;
+}</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>@if (showSplashScreen && isOnLoginPage) {<div aria-hidden="true" tabindex="-1" class="splash-screen" [class.hide-background]="!isMobile && logoAnimating"  [class.mobile-splash]="isMobile">  @if (isMobile) {  <img src="./img/icons/logo_join_responsiv.svg" alt="" class="splash-logo mobile-logo mobile-logo-1"    [class.animate-to-login]="logoAnimating" [class.fade-out]="logoSwapping">  <div class="mobile-splash-overlay" [class.fade-out-overlay]="logoAnimating"></div>  } @else {  <img src="./img/login/join-logo-100x120.svg" alt="" class="splash-logo desktop-logo"    [class.animate-to-header]="logoAnimating">  }</div>}@if (showSplashScreen && isOnLoginPage) {<div class="splash-background" [class.hide-background]="!isMobile && logoAnimating" [class.mobile-splash]="isMobile"></div>}@if (isMobile && showSplashScreen && isOnLoginPage) {<img src="./img/login/join-logo-100x120.svg" alt="" aria-hidden="true" class="mobile-crossfade-logo"  [class.animate-to-login]="logoAnimating" [class.fade-in]="logoSwapping">}<div class="layout" [class.show]="logoAnimating || animationComplete" [ngClass]="{\'d-flex-center\': !shouldShowLayout()}"  [class.mobile-auth-layout]="isMobile && logoAnimating">  @if (shouldShowLayout()) {  <app-nav class="app-nav"></app-nav>  }  <div class="view-container" [ngClass]="{\'d-flex-center\': !shouldShowLayout()}">    @if (shouldShowLayout()) {    <app-header class="app-header"></app-header>    }    <main [class.page-container]="contactDataService.notInLogIn" class="full-width"      [ngClass]="{\'test3\': !shouldShowLayout()}">      <router-outlet />    </main>  </div></div>@if (toastService.showToast()) {<app-toast></app-toast>}@if (imageViewerStateService.imageViewerIsActive()) {<app-image-viewer class="app-image-viewer"></app-image-viewer>}</div>'
+    var COMPONENTS = [{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttachmentsGalleryComponent', 'selector': 'app-attachments-gallery'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'ContactDetailsComponent', 'selector': 'app-contact-details'},{'name': 'ContactDialogComponent', 'selector': 'app-contact-dialog'},{'name': 'ContactFormComponent', 'selector': 'app-contact-form'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'ImageViewerComponent', 'selector': 'app-image-viewer'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MobileGreetingComponent', 'selector': 'app-mobile-greeting'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'StartRedirectComponent', 'selector': 'app-start-redirect'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCreateFormComponent', 'selector': 'app-task-create-form'},{'name': 'TaskDetailsComponent', 'selector': 'app-task-details'},{'name': 'TaskDialogComponent', 'selector': 'app-task-dialog'},{'name': 'TaskEditFormComponent', 'selector': 'app-task-edit-form'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AppComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AppComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

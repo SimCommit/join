@@ -1,0 +1,2803 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  FileUploadComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main-pages/shared/file-upload/file-upload.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component for handling image uploads in Add-Task and Edit-Task views.
+Provides file selection, drag-and-drop, validation, compression and event emission.</p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-file-upload</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/AttachmentsGalleryComponent.html" target="_self" >AttachmentsGalleryComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./file-upload.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./file-upload.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#errorTooManyImages" >errorTooManyImages</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#filepickerRef" >filepickerRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#MAX_IMAGES" >MAX_IMAGES</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#MAX_SINGLE_IMAGE_BYTES" >MAX_SINGLE_IMAGE_BYTES</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#MAX_TOTAL_IMAGES_BYTES" >MAX_TOTAL_IMAGES_BYTES</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addImages" >addImages</a>
+                            </li>
+                            <li>
+                                <a href="#addImagesByDrop" >addImagesByDrop</a>
+                            </li>
+                            <li>
+                                <a href="#compressImage" >compressImage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#compressToTargetSize" >compressToTargetSize</a>
+                            </li>
+                            <li>
+                                <a href="#createTaskImage" >createTaskImage</a>
+                            </li>
+                            <li>
+                                <a href="#deleteAllImagesFromForm" >deleteAllImagesFromForm</a>
+                            </li>
+                            <li>
+                                <a href="#deleteSingelImage" >deleteSingelImage</a>
+                            </li>
+                            <li>
+                                <a href="#handleCompression" >handleCompression</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#handleFile" >handleFile</a>
+                            </li>
+                            <li>
+                                <a href="#imageExceedsSizeLimit" >imageExceedsSizeLimit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#initFilepickerListener" >initFilepickerListener</a>
+                            </li>
+                            <li>
+                                <a href="#isInvalidImageFormat" >isInvalidImageFormat</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#noRoomForAnotherImage" >noRoomForAnotherImage</a>
+                            </li>
+                            <li>
+                                <a href="#resetWarnings" >resetWarnings</a>
+                            </li>
+                            <li>
+                                <a href="#setCanvasSize" >setCanvasSize</a>
+                            </li>
+                            <li>
+                                <a href="#shouldSkipFile" >shouldSkipFile</a>
+                            </li>
+                            <li>
+                                <a href="#wouldExceedImageLimit" >wouldExceedImageLimit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#imagesForUpload" >imagesForUpload</a>
+                            </li>
+                            <li>
+                                <a href="#invalidFiles" >invalidFiles</a>
+                            </li>
+                            <li>
+                                <a href="#oversizedCompressedImages" >oversizedCompressedImages</a>
+                            </li>
+                            <li>
+                                <a href="#totalSizeExceededFiles" >totalSizeExceededFiles</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#updatingImages" >updatingImages</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="imagesForUpload"></a>
+                        <b>imagesForUpload</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>TaskImage[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:44</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds all images currently selected or uploaded for the task. Each entry contains filename, size, MIME type and base64 data.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="invalidFiles"></a>
+                        <b>invalidFiles</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:47</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Stores filenames of files that failed format validation</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="oversizedCompressedImages"></a>
+                        <b>oversizedCompressedImages</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:53</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Stores filenames of compressed images that still exceed the allowed size</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="totalSizeExceededFiles"></a>
+                        <b>totalSizeExceededFiles</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:50</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Stores filenames of images blocked because they would exceed the total size limit</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updatingImages"></a>
+                        <b>updatingImages</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:56</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Emits the updated array of images whenever files are added or removed.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addImages"></a>
+                    <span class="name">
+                        <span ><b>addImages</b></span>
+                        <a href="#addImages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addImages(files: FileList)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Adds one or multiple selected image files.
+Validates limits and formats, compresses each file and updates the images array.
+Emits the updated image list after each successful addition.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>files</td>
+                                            <td>
+                                                        <code>FileList</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The list of image files selected or dropped.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addImagesByDrop"></a>
+                    <span class="name">
+                        <span ><b>addImagesByDrop</b></span>
+                        <a href="#addImagesByDrop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addImagesByDrop(event: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles images dropped into the dropzone.
+Extracts files from the DragEvent and forwards them to addImages.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The drop event containing transferred files.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="compressImage"></a>
+                    <span class="name">
+                        <span ><b>compressImage</b></span>
+                        <a href="#compressImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>compressImage(file: File, maxWidth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, maxHeight: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, quality: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="334"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:334</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compresses an image file and returns a Base64 string.
+Uses FileReader to load the file and delegates canvas work to helper functions.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The image file to be compressed</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxWidth</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>800</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Maximum width in pixels</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxHeight</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>800</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Maximum height in pixels</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>quality</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>0.8</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Output quality from 0 to 1</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves with the compressed Base64 string</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="compressToTargetSize"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>compressToTargetSize</b></span>
+                        <a href="#compressToTargetSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>compressToTargetSize(file: File)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="307"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:307</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Compresses an image until a target file size is reached.
+Performs repeated compression steps with decreasing quality while always using the original file as input.
+Stops early when the compressed output is below the defined size limit.
+Returns the final compressed image as a Base64 string.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The image file to compress toward the target size.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The Base64 string of the compressed image.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTaskImage"></a>
+                    <span class="name">
+                        <span ><b>createTaskImage</b></span>
+                        <a href="#createTaskImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createTaskImage(file: File, compressedBase64: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="280"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:280</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a TaskImage object from a file and its compressed Base64 string.
+Extracts metadata such as filename, size and MIME type.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The original image file.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>compressedBase64</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The Base64 string of the compressed image.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/TaskImage.html" target="_self" >TaskImage</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A fully constructed TaskImage object.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteAllImagesFromForm"></a>
+                    <span class="name">
+                        <span ><b>deleteAllImagesFromForm</b></span>
+                        <a href="#deleteAllImagesFromForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteAllImagesFromForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes all currently stored images from the form.
+Resets related validation states for maximum-image errors.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteSingelImage"></a>
+                    <span class="name">
+                        <span ><b>deleteSingelImage</b></span>
+                        <a href="#deleteSingelImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteSingelImage(imageToDelete: <a href="../interfaces/TaskImage.html" target="_self">TaskImage</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:148</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Deletes a specific image from the current image list.
+Updates validation related to maximum-image limits.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>imageToDelete</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TaskImage.html" target="_self" >TaskImage</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The image object to remove.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleCompression"></a>
+                    <span class="name">
+                        <span ><b>handleCompression</b></span>
+                        <a href="#handleCompression"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleCompression(img: HTMLImageElement, mimeType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, maxWidth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, maxHeight: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, quality: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="364"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:364</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a canvas, adjusts its size, draws the image and generates a compressed Base64 output.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>img</td>
+                                            <td>
+                                                        <code>HTMLImageElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The loaded image element</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>mimeType</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxWidth</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Maximum allowed width</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxHeight</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Maximum allowed height</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>quality</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Output quality from 0 to 1</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The compressed image as a Base64 string</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>handleFile</b></span>
+                        <a href="#handleFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleFile(file: File)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Processes a single image file by validating, compressing and adding it to the upload list.
+Emits the updated image array after successful processing.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The image file to process.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="imageExceedsSizeLimit"></a>
+                    <span class="name">
+                        <span ><b>imageExceedsSizeLimit</b></span>
+                        <a href="#imageExceedsSizeLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>imageExceedsSizeLimit(newImageBytes: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, newImageName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks whether a single compressed image exceeds the allowed
+maximum file size. If the limit is exceeded, the image name
+is collected for user feedback.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>newImageBytes</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Size of the compressed image in bytes</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>newImageName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>File name of the image</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the single-image size limit is exceeded</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initFilepickerListener"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>initFilepickerListener</b></span>
+                        <a href="#initFilepickerListener"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initFilepickerListener()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Attaches a change listener to the hidden filepicker input.
+When files are selected, they are forwarded to the addImages workflow.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isInvalidImageFormat"></a>
+                    <span class="name">
+                        <span ><b>isInvalidImageFormat</b></span>
+                        <a href="#isInvalidImageFormat"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isInvalidImageFormat(file: File)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="247"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:247</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Validates whether a file has an allowed image format.
+Allowed types: JPEG, WEBP.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file to validate.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the format is invalid.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the filepicker event listener once the view is rendered</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Resolves when the listener has been set</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="noRoomForAnotherImage"></a>
+                    <span class="name">
+                        <span ><b>noRoomForAnotherImage</b></span>
+                        <a href="#noRoomForAnotherImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>noRoomForAnotherImage(newImageBytes: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, newImageName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="226"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:226</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks whether adding another image would exceed the maximum
+allowed total image size for a task. If the limit would be
+exceeded, the image name is collected for user feedback.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>newImageBytes</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Size of the compressed image in bytes</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>newImageName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>File name of the image</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if there is no remaining space for another image</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetWarnings"></a>
+                    <span class="name">
+                        <span ><b>resetWarnings</b></span>
+                        <a href="#resetWarnings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetWarnings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="264"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:264</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Resets all file-related warning arrays and recalculates the image limit state.
+Should be called before processing new files to clear previous validation results.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>void</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setCanvasSize"></a>
+                    <span class="name">
+                        <span ><b>setCanvasSize</b></span>
+                        <a href="#setCanvasSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setCanvasSize(canvas: HTMLCanvasElement, img: HTMLImageElement, maxWidth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, maxHeight: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="381"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:381</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calculates and applies the correct canvas size for an image while keeping aspect ratio.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>canvas</td>
+                                            <td>
+                                                        <code>HTMLCanvasElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The canvas element to adjust</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>img</td>
+                                            <td>
+                                                        <code>HTMLImageElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The image used for size calculation</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxWidth</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Maximum allowed width</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxHeight</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Maximum allowed height</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>{ width: any; height: any; }</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object containing the final width and height</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldSkipFile"></a>
+                    <span class="name">
+                        <span ><b>shouldSkipFile</b></span>
+                        <a href="#shouldSkipFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>shouldSkipFile(file: File)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="182"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:182</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks whether a given image file should be skipped.
+Returns true when too many images exist or the file format or size is invalid.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file to validate.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the file should not be processed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="wouldExceedImageLimit"></a>
+                    <span class="name">
+                        <span ><b>wouldExceedImageLimit</b></span>
+                        <a href="#wouldExceedImageLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>wouldExceedImageLimit(additionalCount: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Validates whether adding additional images would exceed the maximum allowed count.
+Updates the errorTooManyImages signal based on the validation result.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>additionalCount</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>0</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Number of images to be added (default: 0 for checking current state only)</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the image limit would be exceeded</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorTooManyImages"></a>
+                    <span class="name">
+                        <span ><b>errorTooManyImages</b></span>
+                        <a href="#errorTooManyImages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>WritableSignal&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tracks whether the number of selected images exceeds the allowed limit</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filepickerRef"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>filepickerRef</b></span>
+                        <a href="#filepickerRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLInputElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;filepicker&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reference to the hidden file input element used for selecting images.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MAX_IMAGES"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>MAX_IMAGES</b></span>
+                        <a href="#MAX_IMAGES"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>8</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Maximum number of images that can be attached to a single task.
+This limit ensures manageable upload sizes and prevents excessive
+storage consumption in Firestore documents.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MAX_SINGLE_IMAGE_BYTES"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>MAX_SINGLE_IMAGE_BYTES</b></span>
+                        <a href="#MAX_SINGLE_IMAGE_BYTES"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>400 * 1024</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Maximum allowed file size in bytes for a single uploaded image
+after compression. Used to validate individual images before
+adding them to a task.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MAX_TOTAL_IMAGES_BYTES"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>MAX_TOTAL_IMAGES_BYTES</b></span>
+                        <a href="#MAX_TOTAL_IMAGES_BYTES"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>810 * 1024</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/main-pages/shared/file-upload/file-upload.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Maximum allowed combined file size in bytes for all images
+attached to a single task. Ensures the Firestore document
+stays below the database size limit.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild, WritableSignal } from &#x27;@angular/core&#x27;;
+import { Task, TaskImage } from &#x27;../../shared-data/task.interface&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { AttachmentsGalleryComponent } from &#x27;../attachments-gallery/attachments-gallery.component&#x27;;
+
+/**
+ * Component for handling image uploads in Add-Task and Edit-Task views.
+ * Provides file selection, drag-and-drop, validation, compression and event emission.
+ * @component
+ */
+@Component({
+  selector: &#x27;app-file-upload&#x27;,
+  imports: [CommonModule, AttachmentsGalleryComponent],
+  templateUrl: &#x27;./file-upload.component.html&#x27;,
+  styleUrl: &#x27;./file-upload.component.scss&#x27;,
+})
+export class FileUploadComponent {
+  // #region Properties / Inputs / Outputs
+  /**
+   * Maximum allowed file size in bytes for a single uploaded image
+   * after compression. Used to validate individual images before
+   * adding them to a task.
+   */
+  readonly MAX_SINGLE_IMAGE_BYTES: number &#x3D; 400 * 1024;
+
+  /**
+   * Maximum allowed combined file size in bytes for all images
+   * attached to a single task. Ensures the Firestore document
+   * stays below the database size limit.
+   */
+  readonly MAX_TOTAL_IMAGES_BYTES: number &#x3D; 810 * 1024;
+
+  /**
+   * Maximum number of images that can be attached to a single task.
+   * This limit ensures manageable upload sizes and prevents excessive
+   * storage consumption in Firestore documents.
+   */
+  readonly MAX_IMAGES: number &#x3D; 8;
+
+  /** Reference to the hidden file input element used for selecting images. */
+  @ViewChild(&#x27;filepicker&#x27;) filepickerRef!: ElementRef&lt;HTMLInputElement&gt;;
+
+  /** Holds all images currently selected or uploaded for the task. Each entry contains filename, size, MIME type and base64 data. */
+  @Input() imagesForUpload: TaskImage[] &#x3D; [];
+
+  /** Stores filenames of files that failed format validation */
+  @Input() invalidFiles: string[] &#x3D; [];
+
+  /** Stores filenames of images blocked because they would exceed the total size limit */
+  @Input() totalSizeExceededFiles: string[] &#x3D; [];
+
+  /** Stores filenames of compressed images that still exceed the allowed size */
+  @Input() oversizedCompressedImages: string[] &#x3D; [];
+
+  /** Emits the updated array of images whenever files are added or removed. */
+  @Output() updatingImages &#x3D; new EventEmitter&lt;TaskImage[]&gt;();
+
+  /** Tracks whether the number of selected images exceeds the allowed limit */
+  errorTooManyImages: WritableSignal&lt;boolean&gt; &#x3D; signal(false);
+  // #endregion
+
+  // #region Lifecycle
+  /**
+   * Initializes the filepicker event listener once the view is rendered
+   * @returns Resolves when the listener has been set
+   */
+  async ngAfterViewInit(): Promise&lt;void&gt; {
+    await this.initFilepickerListener();
+  }
+  // #endregion
+
+  // #region Eventlistener
+  /**
+   * Attaches a change listener to the hidden filepicker input.
+   * When files are selected, they are forwarded to the addImages workflow.
+   * @returns {Promise&lt;void&gt;}
+   */
+  async initFilepickerListener(): Promise&lt;void&gt; {
+    const filepicker &#x3D; this.filepickerRef.nativeElement;
+    filepicker.addEventListener(&#x27;change&#x27;, async (): Promise&lt;void&gt; &#x3D;&gt; {
+      const files &#x3D; filepicker.files;
+
+      if (files) {
+        this.addImages(files);
+      }
+    });
+  }
+  // #endregion
+
+  // #region Public Actions
+  /**
+   * Handles images dropped into the dropzone.
+   * Extracts files from the DragEvent and forwards them to addImages.
+   * @param {DragEvent} event The drop event containing transferred files.
+   * @returns {void}
+   */
+  addImagesByDrop(event: DragEvent): void {
+    event.preventDefault();
+    const data &#x3D; event.dataTransfer;
+
+    if (data !&#x3D; null) {
+      if (data.files) {
+        this.addImages(data.files);
+      }
+    }
+  }
+
+  /**
+   * Adds one or multiple selected image files.
+   * Validates limits and formats, compresses each file and updates the images array.
+   * Emits the updated image list after each successful addition.
+   * @param {FileList} files The list of image files selected or dropped.
+   * @returns {void}
+   */
+  addImages(files: FileList): void {
+    this.resetWarnings();
+
+    if (!this.wouldExceedImageLimit(files.length)) {
+      if (files.length &gt; 0) {
+        Array.from(files!).forEach(async (file): Promise&lt;void&gt; &#x3D;&gt; {
+          await this.handleFile(file);
+        });
+      }
+      this.errorTooManyImages.set(false);
+    } else {
+      this.errorTooManyImages.set(true);
+    }
+  }
+
+  /**
+   * Removes all currently stored images from the form.
+   * Resets related validation states for maximum-image errors.
+   * @returns {void}
+   */
+  deleteAllImagesFromForm(): void {
+    this.imagesForUpload &#x3D; [];
+    this.errorTooManyImages.set(false);
+    this.resetWarnings();
+    this.updatingImages.emit(this.imagesForUpload);
+  }
+
+  /**
+   * Deletes a specific image from the current image list.
+   * Updates validation related to maximum-image limits.
+   * @param {TaskImage} imageToDelete The image object to remove.
+   * @returns {void}
+   */
+  deleteSingelImage(imageToDelete: TaskImage): void {
+    const index &#x3D; this.imagesForUpload.indexOf(imageToDelete);
+    this.imagesForUpload.splice(index, 1);
+    this.resetWarnings();
+    this.updatingImages.emit(this.imagesForUpload);
+  }
+  // #endregion
+
+  // #region File Handling Workflow
+  /**
+   * Processes a single image file by validating, compressing and adding it to the upload list.
+   * Emits the updated image array after successful processing.
+   * @param file The image file to process.
+   */
+  async handleFile(file: File): Promise&lt;void&gt; {
+    if (this.shouldSkipFile(file)) return;
+
+    const compressedBase64 &#x3D; await this.compressToTargetSize(file);
+    const imageObject &#x3D; this.createTaskImage(file, compressedBase64);
+
+    if (this.imageExceedsSizeLimit(imageObject.size, file.name)) return;
+
+    if (this.noRoomForAnotherImage(imageObject.size, file.name)) return;
+
+    this.imagesForUpload.push(imageObject);
+    this.updatingImages.emit(this.imagesForUpload);
+  }
+
+  /**
+   * Checks whether a given image file should be skipped.
+   * Returns true when too many images exist or the file format or size is invalid.
+   * @param file The file to validate.
+   * @returns True if the file should not be processed.
+   */
+  shouldSkipFile(file: File): boolean {
+    return this.wouldExceedImageLimit() || this.isInvalidImageFormat(file);
+  }
+  // #endregion
+
+  // #region Validation and Constraints
+  /**
+   * Validates whether adding additional images would exceed the maximum allowed count.
+   * Updates the errorTooManyImages signal based on the validation result.
+   * @param additionalCount Number of images to be added (default: 0 for checking current state only)
+   * @returns True if the image limit would be exceeded
+   */
+  wouldExceedImageLimit(additionalCount: number &#x3D; 0) {
+    const totalCount &#x3D; this.imagesForUpload.length + additionalCount;
+    const exceedsLimit &#x3D; totalCount &gt; this.MAX_IMAGES;
+    this.errorTooManyImages.set(exceedsLimit);
+    return exceedsLimit;
+  }
+
+  /**
+   * Checks whether a single compressed image exceeds the allowed
+   * maximum file size. If the limit is exceeded, the image name
+   * is collected for user feedback.
+   * @param newImageBytes Size of the compressed image in bytes
+   * @param newImageName File name of the image
+   * @returns True if the single-image size limit is exceeded
+   */
+  imageExceedsSizeLimit(newImageBytes: number, newImageName: string): boolean {
+    if (newImageBytes &gt; this.MAX_SINGLE_IMAGE_BYTES) {
+      this.oversizedCompressedImages.push(newImageName);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Checks whether adding another image would exceed the maximum
+   * allowed total image size for a task. If the limit would be
+   * exceeded, the image name is collected for user feedback.
+   * @param newImageBytes Size of the compressed image in bytes
+   * @param newImageName File name of the image
+   * @returns True if there is no remaining space for another image
+   */
+  noRoomForAnotherImage(newImageBytes: number, newImageName: string): boolean {
+    let currentTotalImageBytes &#x3D; 0;
+    let thereIsNoRoom &#x3D; true;
+    this.imagesForUpload.forEach((img) &#x3D;&gt; (currentTotalImageBytes +&#x3D; img.size));
+
+    if (currentTotalImageBytes + newImageBytes &lt; this.MAX_TOTAL_IMAGES_BYTES) {
+      thereIsNoRoom &#x3D; false;
+    } else {
+      this.totalSizeExceededFiles.push(newImageName);
+      thereIsNoRoom &#x3D; true;
+    }
+
+    return thereIsNoRoom;
+  }
+
+  /**
+   * Validates whether a file has an allowed image format.
+   * Allowed types: JPEG, WEBP.
+   * @param {File} file The file to validate.
+   * @returns {boolean} True if the format is invalid.
+   */
+  isInvalidImageFormat(file: File): boolean {
+    let errorWrongFormat: boolean &#x3D; false;
+
+    if (file.type &#x3D;&#x3D;&#x3D; &#x27;image/jpeg&#x27; || file.type &#x3D;&#x3D;&#x3D; &#x27;image/webp&#x27;) {
+      errorWrongFormat &#x3D; false;
+    } else {
+      this.invalidFiles.push(file.name);
+      errorWrongFormat &#x3D; true;
+    }
+    return errorWrongFormat;
+  }
+
+  /**
+   * Resets all file-related warning arrays and recalculates the image limit state.
+   * Should be called before processing new files to clear previous validation results.
+   * @returns void
+   */
+  resetWarnings() {
+    this.invalidFiles &#x3D; [];
+    this.totalSizeExceededFiles &#x3D; [];
+    this.oversizedCompressedImages &#x3D; [];
+    this.wouldExceedImageLimit();
+  }
+  // #endregion
+
+  // #region Image Model Creation
+  /**
+   * Creates a TaskImage object from a file and its compressed Base64 string.
+   * Extracts metadata such as filename, size and MIME type.
+   * @param file The original image file.
+   * @param compressedBase64 The Base64 string of the compressed image.
+   * @returns A fully constructed TaskImage object.
+   */
+  createTaskImage(file: File, compressedBase64: string): TaskImage {
+    const mimeType &#x3D; file.type;
+    const extension &#x3D; mimeType.replace(/^image\//, &#x27;.&#x27;);
+    const filename &#x3D; file.name;
+    const baseName &#x3D; filename.replace(/\.[^/.]+$/, &#x27;&#x27;);
+    const byteSize &#x3D; compressedBase64.length * 0.75;
+
+    return {
+      filename: filename,
+      filenameWithoutType: baseName,
+      size: byteSize,
+      fileExtension: extension,
+      mimeType: mimeType,
+      base64: compressedBase64,
+    };
+  }
+  // #endregion
+
+  // #region Image Compression Logic
+  /**
+   * Compresses an image until a target file size is reached.
+   * Performs repeated compression steps with decreasing quality while always using the original file as input.
+   * Stops early when the compressed output is below the defined size limit.
+   * Returns the final compressed image as a Base64 string.
+   * @param file The image file to compress toward the target size.
+   * @returns The Base64 string of the compressed image.
+   */
+  async compressToTargetSize(file: File): Promise&lt;string&gt; {
+    let quality: number &#x3D; 0.95;
+    let compressedBase64: string &#x3D; await this.compressImage(file, 800, 800, quality);
+    let currentSize &#x3D; compressedBase64.length * 0.75;
+
+    for (let i &#x3D; 0; i &lt; 4; i++) {
+      if (currentSize &gt; this.MAX_SINGLE_IMAGE_BYTES) {
+        quality -&#x3D; 0.2;
+        compressedBase64 &#x3D; await this.compressImage(file, 800, 800, quality);
+        currentSize &#x3D; compressedBase64.length * 0.75;
+      } else {
+        break;
+      }
+    }
+
+    return compressedBase64;
+  }
+
+  /**
+   * Compresses an image file and returns a Base64 string.
+   * Uses FileReader to load the file and delegates canvas work to helper functions.
+   * @param file The image file to be compressed
+   * @param maxWidth Maximum width in pixels
+   * @param maxHeight Maximum height in pixels
+   * @param quality Output quality from 0 to 1
+   * @returns A promise that resolves with the compressed Base64 string
+   */
+  compressImage(file: File, maxWidth: number &#x3D; 800, maxHeight: number &#x3D; 800, quality: number &#x3D; 0.8): Promise&lt;string&gt; {
+    return new Promise((resolve, reject) &#x3D;&gt; {
+      const reader &#x3D; new FileReader();
+
+      reader.onload &#x3D; (event) &#x3D;&gt; {
+        const img &#x3D; new Image();
+        img.onload &#x3D; () &#x3D;&gt; {
+          const compressedBase64 &#x3D; this.handleCompression(img, file.type, maxWidth, maxHeight, quality);
+          resolve(compressedBase64);
+        };
+        img.onerror &#x3D; () &#x3D;&gt; reject(&#x27;Failed to load image.&#x27;);
+        const result &#x3D; event.target?.result as string;
+        img.src &#x3D; result;
+      };
+
+      reader.onerror &#x3D; () &#x3D;&gt; reject(&#x27;Failed to read file.&#x27;);
+      reader.readAsDataURL(file);
+    });
+  }
+  // #endregion
+
+  // #region Canvas Helpers
+  /**
+   * Creates a canvas, adjusts its size, draws the image and generates a compressed Base64 output.
+   * @param img The loaded image element
+   * @param maxWidth Maximum allowed width
+   * @param maxHeight Maximum allowed height
+   * @param quality Output quality from 0 to 1
+   * @returns The compressed image as a Base64 string
+   */
+  handleCompression(img: HTMLImageElement, mimeType: string, maxWidth: number, maxHeight: number, quality: number): string {
+    const canvas &#x3D; document.createElement(&#x27;canvas&#x27;);
+    const ctx &#x3D; canvas.getContext(&#x27;2d&#x27;)!;
+    const dimensions: { width: number; height: number } &#x3D; this.setCanvasSize(canvas, img, maxWidth, maxHeight);
+    ctx.drawImage(img, 0, 0, dimensions.width, dimensions.height);
+    const compressedBase64 &#x3D; canvas.toDataURL(mimeType, quality);
+    return compressedBase64;
+  }
+
+  /**
+   * Calculates and applies the correct canvas size for an image while keeping aspect ratio.
+   * @param canvas The canvas element to adjust
+   * @param img The image used for size calculation
+   * @param maxWidth Maximum allowed width
+   * @param maxHeight Maximum allowed height
+   * @returns An object containing the final width and height
+   */
+  setCanvasSize(canvas: HTMLCanvasElement, img: HTMLImageElement, maxWidth: number, maxHeight: number) {
+    let width &#x3D; img.width;
+    let height &#x3D; img.height;
+
+    if (width &gt; maxWidth || height &gt; maxHeight) {
+      if (width &gt; height) {
+        height &#x3D; (height * maxWidth) / width;
+        width &#x3D; maxWidth;
+      } else {
+        width &#x3D; (width * maxHeight) / height;
+        height &#x3D; maxHeight;
+      }
+    }
+
+    canvas.width &#x3D; width;
+    canvas.height &#x3D; height;
+    return { width: width, height: height };
+  }
+  // #endregion
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;section&gt;
+    &lt;p id&#x3D;&quot;attachments-heading&quot;&gt;Attachments&lt;/p&gt;
+
+    &lt;div class&#x3D;&quot;upload-info-bar&quot;&gt;
+        &lt;p&gt;
+            &lt;small&gt;You can attach up to 8 images per task.&lt;/small&gt;
+            &lt;small&gt;Supported formats: JPEG, JPG, WEBP&lt;/small&gt;
+        &lt;/p&gt;
+        @if (imagesForUpload.length &gt; 0) {
+        &lt;button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;deleteAllImagesFromForm()&quot;&gt;
+            &lt;img aria-hidden&#x3D;&quot;true&quot; src&#x3D;&quot;./img/icons/delete_contact.svg&quot; alt&#x3D;&quot;&quot;&gt;
+            Delete all
+        &lt;/button&gt;
+        }
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;dropzone&quot; (dragover)&#x3D;&quot;$event.preventDefault()&quot; (drop)&#x3D;&quot;addImagesByDrop($event)&quot;&gt;
+        &lt;label for&#x3D;&quot;filepicker&quot;&gt;Drag a file or browse&lt;/label&gt;
+        &lt;button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;filepicker.click()&quot; aria-label&#x3D;&quot;filepicker&quot;
+            aria-describedby&#x3D;&quot;attachments-heading&quot;
+            [attr.aria-describedby]&#x3D;&quot;  invalidFiles.length &gt; 0 ? &#x27;filepicker-error&#x27;  : null&quot;&gt;
+            &lt;img aria-hidden&#x3D;&quot;true&quot; src&#x3D;&quot;./img/icons/plus-upload-a11y-grey.svg&quot; alt&#x3D;&quot;&quot;&gt;
+        &lt;/button&gt;
+        &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;filepicker&quot; id&#x3D;&quot;filepicker&quot; #filepicker accept&#x3D;&quot;image/jpeg, image/webp&quot; multiple&gt;
+    &lt;/div&gt;
+
+    &lt;app-attachments-gallery [imagesForUpload]&#x3D;&quot;imagesForUpload&quot; [deleteIsEnabled]&#x3D;&quot;true&quot;
+        (deleteSingelImage)&#x3D;&quot;deleteSingelImage($event)&quot;&gt;
+    &lt;/app-attachments-gallery&gt;
+
+    &lt;div id&#x3D;&quot;filepicker-error&quot; class&#x3D;&quot;error-wrapper&quot;&gt;
+        @if (errorTooManyImages()) {
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;
+            &lt;strong&gt;Too many files.&lt;/strong&gt;
+        &lt;/p&gt;
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;
+            You can upload up to 8 images per task.
+        &lt;/p&gt;
+        }
+
+        @for (name of invalidFiles; track $index) {
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;&lt;strong&gt;
+                Invalid format: {{name}}
+            &lt;/strong&gt;&lt;/p&gt;
+        }
+        @if (invalidFiles.length &gt; 0) {
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;
+            You can only upload JPEG, JPG and WEBP.
+        &lt;/p&gt;
+        }
+
+        @if (totalSizeExceededFiles.length &gt; 0) {
+        @for (name of totalSizeExceededFiles; track $index) {
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;
+            &lt;strong&gt;Stopped uploading image: {{totalSizeExceededFiles[$index]}}&lt;/strong&gt;
+        &lt;/p&gt;
+        }
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;
+            The task would exceed the 1 MB storage limit of Firestore.
+            Try images smaller than 800x800 px or the more efficient format WEBP.
+        &lt;/p&gt;
+        }
+
+        @if (oversizedCompressedImages.length &gt; 0) {
+        @for (name of oversizedCompressedImages; track $index) {
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;
+            &lt;strong&gt;Oversized image: {{name}}&lt;/strong&gt;
+        &lt;/p&gt;
+        }
+        &lt;p class&#x3D;&quot;wrong-format&quot;&gt;
+            Image may be up to 400 KB after compression.
+            Try an image smaller than 800x800 px or the more efficient format WEBP.
+        &lt;/p&gt;
+        }
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><section>    <p id="attachments-heading">Attachments</p>    <div class="upload-info-bar">        <p>            <small>You can attach up to 8 images per task.</small>            <small>Supported formats: JPEG, JPG, WEBP</small>        </p>        @if (imagesForUpload.length > 0) {        <button type="button" (click)="deleteAllImagesFromForm()">            <img aria-hidden="true" src="./img/icons/delete_contact.svg" alt="">            Delete all        </button>        }    </div>    <div class="dropzone" (dragover)="$event.preventDefault()" (drop)="addImagesByDrop($event)">        <label for="filepicker">Drag a file or browse</label>        <button type="button" (click)="filepicker.click()" aria-label="filepicker"            aria-describedby="attachments-heading"            [attr.aria-describedby]="  invalidFiles.length > 0 ? \'filepicker-error\'  : null">            <img aria-hidden="true" src="./img/icons/plus-upload-a11y-grey.svg" alt="">        </button>        <input type="file" name="filepicker" id="filepicker" #filepicker accept="image/jpeg, image/webp" multiple>    </div>    <app-attachments-gallery [imagesForUpload]="imagesForUpload" [deleteIsEnabled]="true"        (deleteSingelImage)="deleteSingelImage($event)">    </app-attachments-gallery>    <div id="filepicker-error" class="error-wrapper">        @if (errorTooManyImages()) {        <p class="wrong-format">            <strong>Too many files.</strong>        </p>        <p class="wrong-format">            You can upload up to 8 images per task.        </p>        }        @for (name of invalidFiles; track $index) {        <p class="wrong-format"><strong>                Invalid format: {{name}}            </strong></p>        }        @if (invalidFiles.length > 0) {        <p class="wrong-format">            You can only upload JPEG, JPG and WEBP.        </p>        }        @if (totalSizeExceededFiles.length > 0) {        @for (name of totalSizeExceededFiles; track $index) {        <p class="wrong-format">            <strong>Stopped uploading image: {{totalSizeExceededFiles[$index]}}</strong>        </p>        }        <p class="wrong-format">            The task would exceed the 1 MB storage limit of Firestore.            Try images smaller than 800x800 px or the more efficient format WEBP.        </p>        }        @if (oversizedCompressedImages.length > 0) {        @for (name of oversizedCompressedImages; track $index) {        <p class="wrong-format">            <strong>Oversized image: {{name}}</strong>        </p>        }        <p class="wrong-format">            Image may be up to 400 KB after compression.            Try an image smaller than 800x800 px or the more efficient format WEBP.        </p>        }    </div></section></div>'
+    var COMPONENTS = [{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttachmentsGalleryComponent', 'selector': 'app-attachments-gallery'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'ContactDetailsComponent', 'selector': 'app-contact-details'},{'name': 'ContactDialogComponent', 'selector': 'app-contact-dialog'},{'name': 'ContactFormComponent', 'selector': 'app-contact-form'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'ImageViewerComponent', 'selector': 'app-image-viewer'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MobileGreetingComponent', 'selector': 'app-mobile-greeting'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'StartRedirectComponent', 'selector': 'app-start-redirect'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCreateFormComponent', 'selector': 'app-task-create-form'},{'name': 'TaskDetailsComponent', 'selector': 'app-task-details'},{'name': 'TaskDialogComponent', 'selector': 'app-task-dialog'},{'name': 'TaskEditFormComponent', 'selector': 'app-task-edit-form'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'FileUploadComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FileUploadComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

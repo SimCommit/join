@@ -1,0 +1,2529 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ContactDetailsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main-pages/contacts/contact-details/contact-details.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Contact details component that displays comprehensive information about a selected contact
+Provides functionality for viewing, editing, and deleting individual contacts</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnChanges</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-contact-details</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/ContactDialogComponent.html" target="_self" >ContactDialogComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./contact-details.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./contact-details.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#animated" >animated</a>
+                            </li>
+                            <li>
+                                <a href="#contact$" >contact$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#contactDataService" >contactDataService</a>
+                            </li>
+                            <li>
+                                <a href="#contactToEdit" >contactToEdit</a>
+                            </li>
+                            <li>
+                                <a href="#getRandomColor" >getRandomColor</a>
+                            </li>
+                            <li>
+                                <a href="#isMobileView" >isMobileView</a>
+                            </li>
+                            <li>
+                                <a href="#isOwnContact$" >isOwnContact$</a>
+                            </li>
+                            <li>
+                                <a href="#shouldCloseDialog" >shouldCloseDialog</a>
+                            </li>
+                            <li>
+                                <a href="#showEditDialog" >showEditDialog</a>
+                            </li>
+                            <li>
+                                <a href="#showMobileMenu" >showMobileMenu</a>
+                            </li>
+                            <li>
+                                <a href="#toastService" >toastService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkScreenSize" >checkScreenSize</a>
+                            </li>
+                            <li>
+                                <a href="#closeDialog" >closeDialog</a>
+                            </li>
+                            <li>
+                                <a href="#closeMobileMenu" >closeMobileMenu</a>
+                            </li>
+                            <li>
+                                <a href="#deleteContact" >deleteContact</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#deleteMobileContact" >deleteMobileContact</a>
+                            </li>
+                            <li>
+                                <a href="#editContact" >editContact</a>
+                            </li>
+                            <li>
+                                <a href="#getInitials" >getInitials</a>
+                            </li>
+                            <li>
+                                <a href="#goBack" >goBack</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initializeContactId" >initializeContactId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadContact" >loadContact</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onContactSubmitted" >onContactSubmitted</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#openMobileEditDialog" >openMobileEditDialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resetAnimation" >resetAnimation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setupEventListeners" >setupEventListeners</a>
+                            </li>
+                            <li>
+                                <a href="#startDialogClose" >startDialogClose</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMobileMenu" >toggleMobileMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contactId" >contactId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#backRequested" >backRequested</a>
+                            </li>
+                            <li>
+                                <a href="#deleteContactRequested" >deleteContactRequested</a>
+                            </li>
+                            <li>
+                                <a href="#editContactRequested" >editContactRequested</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(route: ActivatedRoute, router: Router, contactDataService: <a href="../injectables/ContactDataService.html" target="_self">ContactDataService</a>, authenticationService: <a href="../injectables/AuthenticationService.html" target="_self">AuthenticationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:63</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor initializes the contact details component</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Current activated route for parameter access</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Angular router for navigation</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>contactDataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ContactDataService.html" target="_self" >ContactDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Service for contact data operations</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>authenticationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthenticationService.html" target="_self" >AuthenticationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Service for user authentication</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contactId"></a>
+                        <b>contactId</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:24</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Contact ID to display details for</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="backRequested"></a>
+                        <b>backRequested</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:33</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Event emitted when back navigation is requested</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deleteContactRequested"></a>
+                        <b>deleteContactRequested</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:30</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Event emitted when delete contact is requested</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="editContactRequested"></a>
+                        <b>editContactRequested</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:27</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Event emitted when edit contact is requested</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkScreenSize"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkScreenSize</b></span>
+                        <a href="#checkScreenSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkScreenSize()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks screen size and updates mobile view state</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDialog"></a>
+                    <span class="name">
+                        <span ><b>closeDialog</b></span>
+                        <a href="#closeDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="241"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:241</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Closes the edit dialog and resets state</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeMobileMenu"></a>
+                    <span class="name">
+                        <span ><b>closeMobileMenu</b></span>
+                        <a href="#closeMobileMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeMobileMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="227"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:227</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Closes the mobile menu</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteContact"></a>
+                    <span class="name">
+                        <span ><b>deleteContact</b></span>
+                        <a href="#deleteContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteContact(contactId: string | undefined)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="196"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:196</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles contact deletion based on view mode</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contactId</td>
+                                            <td>
+                                                        <code>string | undefined</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the contact to delete</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteMobileContact"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>deleteMobileContact</b></span>
+                        <a href="#deleteMobileContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteMobileContact(contactId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Deletes contact in mobile view</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contactId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the contact to delete</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editContact"></a>
+                    <span class="name">
+                        <span ><b>editContact</b></span>
+                        <a href="#editContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editContact(contact: <a href="../interfaces/Contact.html" target="_self">Contact</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles contact editing based on view mode</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contact</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Contact.html" target="_self" >Contact</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The contact to edit</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInitials"></a>
+                    <span class="name">
+                        <span ><b>getInitials</b></span>
+                        <a href="#getInitials"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInitials(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="266"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:266</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gets initials from a contact name</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The contact name</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The initials string</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goBack"></a>
+                    <span class="name">
+                        <span ><b>goBack</b></span>
+                        <a href="#goBack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goBack()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles back navigation</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeContactId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initializeContactId</b></span>
+                        <a href="#initializeContactId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initializeContactId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes contact ID from route or input</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadContact"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>loadContact</b></span>
+                        <a href="#loadContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadContact()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Loads contact data by ID</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <span ><b>ngOnChanges</b></span>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: SimpleChanges)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles input changes, particularly contact ID changes</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>changes</td>
+                                            <td>
+                                                        <code>SimpleChanges</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>SimpleChanges object containing input changes</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cleans up event listeners on component destruction</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the component and sets up contact loading</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onContactSubmitted"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onContactSubmitted</b></span>
+                        <a href="#onContactSubmitted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onContactSubmitted(contactData: <a href="../interfaces/Contact.html" target="_self">Contact</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="251"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:251</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles contact submission from edit dialog</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contactData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Contact.html" target="_self" >Contact</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The updated contact data</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openMobileEditDialog"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>openMobileEditDialog</b></span>
+                        <a href="#openMobileEditDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openMobileEditDialog(contact: <a href="../interfaces/Contact.html" target="_self">Contact</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:187</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens edit dialog in mobile view</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contact</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Contact.html" target="_self" >Contact</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The contact to edit</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>resetAnimation</b></span>
+                        <a href="#resetAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetAnimation()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Resets animation state for contact transitions</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupEventListeners"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>setupEventListeners</b></span>
+                        <a href="#setupEventListeners"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setupEventListeners()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sets up window resize event listener</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startDialogClose"></a>
+                    <span class="name">
+                        <span ><b>startDialogClose</b></span>
+                        <a href="#startDialogClose"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startDialogClose()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="234"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Starts the dialog close process</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMobileMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleMobileMenu</b></span>
+                        <a href="#toggleMobileMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMobileMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="220"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:220</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the mobile menu visibility</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="animated"></a>
+                    <span class="name">
+                        <span ><b>animated</b></span>
+                        <a href="#animated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls animation state for component transitions</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contact$"></a>
+                    <span class="name">
+                        <span ><b>contact$</b></span>
+                        <a href="#contact$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Contact.html" target="_self" >Observable&lt;Contact | null&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Observable stream of the current contact data</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contactDataService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>contactDataService</b></span>
+                        <a href="#contactDataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ContactDataService.html" target="_self" >ContactDataService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">- Service for contact data operations</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contactToEdit"></a>
+                    <span class="name">
+                        <span ><b>contactToEdit</b></span>
+                        <a href="#contactToEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Contact.html" target="_self" >Contact | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Contact object being edited</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRandomColor"></a>
+                    <span class="name">
+                        <span ><b>getRandomColor</b></span>
+                        <a href="#getRandomColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>getRandomColor</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reference to color utility function</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMobileView"></a>
+                    <span class="name">
+                        <span ><b>isMobileView</b></span>
+                        <a href="#isMobileView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tracks if the current view is mobile layout</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOwnContact$"></a>
+                    <span class="name">
+                        <span ><b>isOwnContact$</b></span>
+                        <a href="#isOwnContact$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Observable indicating if the contact belongs to the current user</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldCloseDialog"></a>
+                    <span class="name">
+                        <span ><b>shouldCloseDialog</b></span>
+                        <a href="#shouldCloseDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Flag to trigger dialog closing</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showEditDialog"></a>
+                    <span class="name">
+                        <span ><b>showEditDialog</b></span>
+                        <a href="#showEditDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls visibility of edit contact dialog</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showMobileMenu"></a>
+                    <span class="name">
+                        <span ><b>showMobileMenu</b></span>
+                        <a href="#showMobileMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls visibility of mobile menu options</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toastService"></a>
+                    <span class="name">
+                        <span ><b>toastService</b></span>
+                        <a href="#toastService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ToastService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/main-pages/contacts/contact-details/contact-details.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Provides access to the toast service for UI messages</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, Output, EventEmitter, inject } from &#x27;@angular/core&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { map, Observable } from &#x27;rxjs&#x27;;
+import { getRandomColor } from &#x27;../../../shared/color-utils&#x27;;
+import { Contact } from &#x27;../../shared-data/contact.interface&#x27;;
+import { ContactDialogComponent } from &#x27;../contact-dialog/contact-dialog.component&#x27;;
+import { ContactDataService } from &#x27;../../shared-data/contact-data.service&#x27;;
+import { AuthenticationService } from &#x27;../../../auth/services/authentication.service&#x27;;
+import { ToastService } from &#x27;../../../shared/services/toast.service&#x27;;
+
+/**
+ * Contact details component that displays comprehensive information about a selected contact
+ * Provides functionality for viewing, editing, and deleting individual contacts
+ */
+@Component({
+  selector: &#x27;app-contact-details&#x27;,
+  imports: [CommonModule, ContactDialogComponent],
+  templateUrl: &#x27;./contact-details.component.html&#x27;,
+  styleUrl: &#x27;./contact-details.component.scss&#x27;,
+})
+export class ContactDetailsComponent implements OnInit, OnChanges, OnDestroy {
+  /** Contact ID to display details for */
+  @Input() contactId: string | null &#x3D; null;
+
+  /** Event emitted when edit contact is requested */
+  @Output() editContactRequested &#x3D; new EventEmitter&lt;Contact&gt;();
+
+  /** Event emitted when delete contact is requested */
+  @Output() deleteContactRequested &#x3D; new EventEmitter&lt;string&gt;();
+
+  /** Event emitted when back navigation is requested */
+  @Output() backRequested &#x3D; new EventEmitter&lt;void&gt;();
+
+  /** Provides access to the toast service for UI messages */
+  toastService &#x3D; inject(ToastService);
+
+  /** Observable stream of the current contact data */
+  contact$!: Observable&lt;Contact | null&gt;;
+
+  /** Controls animation state for component transitions */
+  animated: boolean &#x3D; true;
+
+  /** Tracks if the current view is mobile layout */
+  isMobileView: boolean &#x3D; false;
+
+  /** Controls visibility of edit contact dialog */
+  showEditDialog: boolean &#x3D; false;
+
+  /** Flag to trigger dialog closing */
+  shouldCloseDialog: boolean &#x3D; false;
+
+  /** Contact object being edited */
+  contactToEdit: Contact | null &#x3D; null;
+
+  /** Controls visibility of mobile menu options */
+  showMobileMenu: boolean &#x3D; false;
+
+  /** Observable indicating if the contact belongs to the current user */
+  isOwnContact$!: Observable&lt;boolean&gt;;
+
+  /** Reference to color utility function */
+  getRandomColor &#x3D; getRandomColor;
+
+  /**
+   * Constructor initializes the contact details component
+   * @param {ActivatedRoute} route - Current activated route for parameter access
+   * @param {Router} router - Angular router for navigation
+   * @param {ContactDataService} contactDataService - Service for contact data operations
+   * @param {AuthenticationService} authenticationService - Service for user authentication
+   */
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public contactDataService: ContactDataService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.checkScreenSize();
+  }
+
+  /**
+   * Initializes the component and sets up contact loading
+   */
+  ngOnInit() {
+    this.initializeContactId();
+    this.setupEventListeners();
+  }
+
+  /**
+   * Cleans up event listeners on component destruction
+   */
+  ngOnDestroy() {
+    window.removeEventListener(&#x27;resize&#x27;, this.checkScreenSize.bind(this));
+  }
+
+  /**
+   * Initializes contact ID from route or input
+   */
+  private initializeContactId() {
+    if (!this.contactId) {
+      this.contactId &#x3D; this.route.snapshot.params[&#x27;id&#x27;];
+    }
+    if (this.contactId) {
+      this.loadContact();
+    }
+  }
+
+  /**
+   * Sets up window resize event listener
+   */
+  private setupEventListeners() {
+    window.addEventListener(&#x27;resize&#x27;, this.checkScreenSize.bind(this));
+  }
+
+  /**
+   * Checks screen size and updates mobile view state
+   */
+  private checkScreenSize() {
+    this.isMobileView &#x3D; window.innerWidth &lt; 816;
+    if (!this.isMobileView) {
+      this.showMobileMenu &#x3D; false;
+    }
+  }
+
+  /**
+   * Handles input changes, particularly contact ID changes
+   * @param changes - SimpleChanges object containing input changes
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes[&#x27;contactId&#x27;] &amp;&amp; this.contactId) {
+      this.resetAnimation();
+      this.loadContact();
+      this.showMobileMenu &#x3D; false;
+    }
+  }
+
+  /**
+   * Resets animation state for contact transitions
+   */
+  private resetAnimation() {
+    this.animated &#x3D; false;
+    setTimeout(() &#x3D;&gt; {
+      this.animated &#x3D; true;
+    }, 10);
+  }
+
+  /**
+   * Loads contact data by ID
+   */
+  private loadContact() {
+    if (this.contactId) {
+      this.contact$ &#x3D; this.contactDataService.getContactById(this.contactId);
+      this.isOwnContact$ &#x3D; this.contact$.pipe(
+        map((contact) &#x3D;&gt; !!contact &amp;&amp; this.authenticationService.isEmailOfCurrentUser(contact.email))
+      );
+    }
+  }
+
+  /**
+   * Handles back navigation
+   */
+  goBack() {
+    if (this.router.url.includes(&#x27;/contacts/&#x27;)) {
+      this.router.navigate([&#x27;/contacts&#x27;]);
+    } else {
+      this.backRequested.emit();
+    }
+  }
+
+  /**
+   * Handles contact editing based on view mode
+   * @param contact - The contact to edit
+   */
+  editContact(contact: Contact) {
+    this.closeMobileMenu();
+    if (this.isMobileView &amp;&amp; this.router.url.includes(&#x27;/contacts/&#x27;)) {
+      this.openMobileEditDialog(contact);
+    } else {
+      this.editContactRequested.emit(contact);
+    }
+  }
+
+  /**
+   * Opens edit dialog in mobile view
+   * @param contact - The contact to edit
+   */
+  private openMobileEditDialog(contact: Contact) {
+    this.contactToEdit &#x3D; contact;
+    this.showEditDialog &#x3D; true;
+  }
+
+  /**
+   * Handles contact deletion based on view mode
+   * @param contactId - The ID of the contact to delete
+   */
+  deleteContact(contactId: string | undefined) {
+    if (!contactId) return;
+
+    this.closeMobileMenu();
+    if (this.isMobileView &amp;&amp; this.router.url.includes(&#x27;/contacts/&#x27;)) {
+      this.deleteMobileContact(contactId);
+    } else {
+      this.deleteContactRequested.emit(contactId);
+    }
+  }
+
+  /**
+   * Deletes contact in mobile view
+   * @param contactId - The ID of the contact to delete
+   */
+  private deleteMobileContact(contactId: string) {
+    this.contactDataService.deleteContact(contactId).then(() &#x3D;&gt; {
+      this.router.navigate([&#x27;/contacts&#x27;]);
+    });
+  }
+
+  /**
+   * Toggles the mobile menu visibility
+   */
+  toggleMobileMenu() {
+    this.showMobileMenu &#x3D; !this.showMobileMenu;
+  }
+
+  /**
+   * Closes the mobile menu
+   */
+  closeMobileMenu() {
+    this.showMobileMenu &#x3D; false;
+  }
+
+  /**
+   * Starts the dialog close process
+   */
+  startDialogClose() {
+    this.shouldCloseDialog &#x3D; true;
+  }
+
+  /**
+   * Closes the edit dialog and resets state
+   */
+  closeDialog() {
+    this.showEditDialog &#x3D; false;
+    this.contactToEdit &#x3D; null;
+    this.shouldCloseDialog &#x3D; false;
+  }
+
+  /**
+   * Handles contact submission from edit dialog
+   * @param contactData - The updated contact data
+   */
+  async onContactSubmitted(contactData: Contact) {
+    try {
+      await this.contactDataService.updateContact(contactData);
+      this.closeDialog();
+      this.loadContact();
+    } catch (error) {
+      this.toastService.throwToast({ code: &#x27;contact/save/error&#x27; });
+    }
+  }
+
+  /**
+   * Gets initials from a contact name
+   * @param name - The contact name
+   * @returns The initials string
+   */
+  getInitials(name: string): string {
+    return name
+      .split(&#x27; &#x27;)
+      .map((word) &#x3D;&gt; word.charAt(0))
+      .join(&#x27;&#x27;);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;section class&#x3D;&quot;contact-detail&quot;&gt;
+  &lt;div class&#x3D;&quot;head&quot;&gt;
+    &lt;h1&gt;Contacts&lt;/h1&gt;
+    &lt;div class&#x3D;&quot;spacer-blue&quot;&gt;&lt;/div&gt;
+    &lt;span class&#x3D;&quot;tagline&quot;&gt;Better with a team&lt;/span&gt;
+  &lt;/div&gt;
+
+  @if (contact$ | async; as contact) {
+  &lt;div class&#x3D;&quot;contact-details-content&quot; [class.animateContent]&#x3D;&quot;animated&quot;&gt;
+    &lt;div class&#x3D;&quot;contact-name&quot;&gt;
+      &lt;div class&#x3D;&quot;contact-icon&quot; [style.background-color]&#x3D;&quot;getRandomColor(contact.name)&quot;&gt;
+        {{ contactDataService.extractInitials(contact.name) }}
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;contact-info-section&quot;&gt;
+        &lt;h2 title&#x3D;&quot;{{ contact.name }}&quot;&gt;{{ contact.name }}&lt;/h2&gt;
+        &lt;div class&#x3D;&quot;contact-actions&quot;&gt;
+          &lt;button class&#x3D;&quot;action-btn edit-btn&quot; (click)&#x3D;&quot;editContact(contact)&quot; title&#x3D;&quot;Kontakt bearbeiten&quot;&gt;
+            &lt;div class&#x3D;&quot;icon-edit&quot;&gt;&lt;/div&gt;
+            &lt;span&gt;Edit&lt;/span&gt;
+          &lt;/button&gt;
+          @if (!(isOwnContact$ | async)) {
+          &lt;button class&#x3D;&quot;action-btn delete-btn&quot; (click)&#x3D;&quot;contact.id &amp;&amp; deleteContact(contact.id)&quot;&gt;
+            &lt;div class&#x3D;&quot;icon-delete&quot;&gt;&lt;/div&gt;
+            &lt;span&gt;Delete&lt;/span&gt;
+          &lt;/button&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;contact-header&quot;&gt;
+      &lt;h3&gt;Contact Information&lt;/h3&gt;
+    &lt;/div&gt;
+
+    &lt;address class&#x3D;&quot;contact-info&quot;&gt;
+      &lt;div class&#x3D;&quot;info-item&quot;&gt;
+        &lt;span class&#x3D;&quot;label&quot;&gt;Email&lt;/span&gt;
+        &lt;a href&#x3D;&quot;mailto:{{ contact.email }}&quot;&gt;{{ contact.email }}&lt;/a&gt;
+      &lt;/div&gt;
+
+      @if (contact.phone) {
+      &lt;div class&#x3D;&quot;info-item&quot;&gt;
+        &lt;span class&#x3D;&quot;label&quot;&gt;Phone&lt;/span&gt;
+        &lt;a href&#x3D;&quot;tel:{{ contact.phone }}&quot;&gt;{{ contact.phone }}&lt;/a&gt;
+      &lt;/div&gt;
+      }
+    &lt;/address&gt;
+  &lt;/div&gt;
+
+  &lt;button class&#x3D;&quot;mobile-menu-fab&quot; (click)&#x3D;&quot;toggleMobileMenu()&quot; title&#x3D;&quot;Options&quot;&gt;
+    &lt;div class&#x3D;&quot;three-dots&quot;&gt;
+      &lt;div class&#x3D;&quot;dot&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;dot&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/button&gt;
+
+  @if (showMobileMenu) {
+  &lt;div class&#x3D;&quot;mobile-menu-overlay&quot; (click)&#x3D;&quot;closeMobileMenu()&quot;&gt;
+    &lt;div class&#x3D;&quot;mobile-menu-content&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+      &lt;button class&#x3D;&quot;mobile-menu-item edit-item&quot; (click)&#x3D;&quot;editContact(contact)&quot; title&#x3D;&quot;Edit Contact&quot;&gt;
+        &lt;div class&#x3D;&quot;icon-edit&quot;&gt;&lt;/div&gt;
+        &lt;span&gt;Edit&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button class&#x3D;&quot;mobile-menu-item delete-item&quot; (click)&#x3D;&quot;contact.id &amp;&amp; deleteContact(contact.id)&quot;
+        title&#x3D;&quot;Delete Contact&quot;&gt;
+        &lt;div class&#x3D;&quot;icon-delete&quot;&gt;&lt;/div&gt;
+        &lt;span&gt;Delete&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  }
+  } @else {
+  @if (isMobileView) {
+  &lt;div class&#x3D;&quot;mobile-header&quot;&gt;
+    &lt;button (click)&#x3D;&quot;goBack()&quot; class&#x3D;&quot;mobile-back-arrow&quot;&gt;
+      &lt;img src&#x3D;&quot;img/icons/arrow-left-line.svg&quot; alt&#x3D;&quot;Back&quot; /&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;p&gt;No contact selected&lt;/p&gt;
+  }
+  }
+&lt;/section&gt;
+
+@if (showEditDialog) {
+&lt;app-contact-dialog [editingContact]&#x3D;&quot;contactToEdit&quot; [shouldClose]&#x3D;&quot;shouldCloseDialog&quot;
+  (closeRequested)&#x3D;&quot;startDialogClose()&quot; (closeCanceled)&#x3D;&quot;shouldCloseDialog &#x3D; false&quot; (dialogClosed)&#x3D;&quot;closeDialog()&quot;
+  (contactSubmitted)&#x3D;&quot;onContactSubmitted($event)&quot;&gt;
+&lt;/app-contact-dialog&gt;
+}</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><section class="contact-detail">  <div class="head">    <h1>Contacts</h1>    <div class="spacer-blue"></div>    <span class="tagline">Better with a team</span>  </div>  @if (contact$ | async; as contact) {  <div class="contact-details-content" [class.animateContent]="animated">    <div class="contact-name">      <div class="contact-icon" [style.background-color]="getRandomColor(contact.name)">        {{ contactDataService.extractInitials(contact.name) }}      </div>      <div class="contact-info-section">        <h2 title="{{ contact.name }}">{{ contact.name }}</h2>        <div class="contact-actions">          <button class="action-btn edit-btn" (click)="editContact(contact)" title="Kontakt bearbeiten">            <div class="icon-edit"></div>            <span>Edit</span>          </button>          @if (!(isOwnContact$ | async)) {          <button class="action-btn delete-btn" (click)="contact.id && deleteContact(contact.id)">            <div class="icon-delete"></div>            <span>Delete</span>          </button>          }        </div>      </div>    </div>    <div class="contact-header">      <h3>Contact Information</h3>    </div>    <address class="contact-info">      <div class="info-item">        <span class="label">Email</span>        <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>      </div>      @if (contact.phone) {      <div class="info-item">        <span class="label">Phone</span>        <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>      </div>      }    </address>  </div>  <button class="mobile-menu-fab" (click)="toggleMobileMenu()" title="Options">    <div class="three-dots">      <div class="dot"></div>      <div class="dot"></div>      <div class="dot"></div>    </div>  </button>  @if (showMobileMenu) {  <div class="mobile-menu-overlay" (click)="closeMobileMenu()">    <div class="mobile-menu-content" (click)="$event.stopPropagation()">      <button class="mobile-menu-item edit-item" (click)="editContact(contact)" title="Edit Contact">        <div class="icon-edit"></div>        <span>Edit</span>      </button>      <button class="mobile-menu-item delete-item" (click)="contact.id && deleteContact(contact.id)"        title="Delete Contact">        <div class="icon-delete"></div>        <span>Delete</span>      </button>    </div>  </div>  }  } @else {  @if (isMobileView) {  <div class="mobile-header">    <button (click)="goBack()" class="mobile-back-arrow">      <img src="img/icons/arrow-left-line.svg" alt="Back" />    </button>  </div>  <p>No contact selected</p>  }  }</section>@if (showEditDialog) {<app-contact-dialog [editingContact]="contactToEdit" [shouldClose]="shouldCloseDialog"  (closeRequested)="startDialogClose()" (closeCanceled)="shouldCloseDialog = false" (dialogClosed)="closeDialog()"  (contactSubmitted)="onContactSubmitted($event)"></app-contact-dialog>}</div>'
+    var COMPONENTS = [{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttachmentsGalleryComponent', 'selector': 'app-attachments-gallery'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'ContactDetailsComponent', 'selector': 'app-contact-details'},{'name': 'ContactDialogComponent', 'selector': 'app-contact-dialog'},{'name': 'ContactFormComponent', 'selector': 'app-contact-form'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'ImageViewerComponent', 'selector': 'app-image-viewer'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MobileGreetingComponent', 'selector': 'app-mobile-greeting'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'StartRedirectComponent', 'selector': 'app-start-redirect'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCreateFormComponent', 'selector': 'app-task-create-form'},{'name': 'TaskDetailsComponent', 'selector': 'app-task-details'},{'name': 'TaskDialogComponent', 'selector': 'app-task-dialog'},{'name': 'TaskEditFormComponent', 'selector': 'app-task-edit-form'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ContactDetailsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContactDetailsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

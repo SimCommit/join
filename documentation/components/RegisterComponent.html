@@ -1,0 +1,2700 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  RegisterComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/auth/register/register.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Register Component</p>
+<p>Handles user registration with form validation and password confirmation.
+Creates new user accounts and contact entries.</p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-register</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./register.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./register.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#confirmPassword" >confirmPassword</a>
+                            </li>
+                            <li>
+                                <a href="#confirmprivacyPolicy" >confirmprivacyPolicy</a>
+                            </li>
+                            <li>
+                                <a href="#confirmPrivacyPolicy" >confirmPrivacyPolicy</a>
+                            </li>
+                            <li>
+                                <a href="#email" >email</a>
+                            </li>
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#manualChange" >manualChange</a>
+                            </li>
+                            <li>
+                                <a href="#password" >password</a>
+                            </li>
+                            <li>
+                                <a href="#passwordDontMatch" >passwordDontMatch</a>
+                            </li>
+                            <li>
+                                <a href="#passwordInput" >passwordInput</a>
+                            </li>
+                            <li>
+                                <a href="#passwordInputConfirm" >passwordInputConfirm</a>
+                            </li>
+                            <li>
+                                <a href="#showPassword" >showPassword</a>
+                            </li>
+                            <li>
+                                <a href="#showPasswordConfirm" >showPasswordConfirm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#toastService" >toastService</a>
+                            </li>
+                            <li>
+                                <a href="#userName" >userName</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clearError" >clearError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createNewUser" >createNewUser</a>
+                            </li>
+                            <li>
+                                <a href="#doesPasswordMatch" >doesPasswordMatch</a>
+                            </li>
+                            <li>
+                                <a href="#goBackToLogin" >goBackToLogin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isEmailValid" >isEmailValid</a>
+                            </li>
+                            <li>
+                                <a href="#isInputPaswordComfirm" >isInputPaswordComfirm</a>
+                            </li>
+                            <li>
+                                <a href="#isInputShowPassword" >isInputShowPassword</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isUserNameValid" >isUserNameValid</a>
+                            </li>
+                            <li>
+                                <a href="#navigateToLoginAfterUserfeedback" >navigateToLoginAfterUserfeedback</a>
+                            </li>
+                            <li>
+                                <a href="#onLinkHover" >onLinkHover</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onSignUp" >onSignUp</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#signUp" >signUp</a>
+                            </li>
+                            <li>
+                                <a href="#togglePasswordConfirmImage" >togglePasswordConfirmImage</a>
+                            </li>
+                            <li>
+                                <a href="#togglePasswordImage" >togglePasswordImage</a>
+                            </li>
+                            <li>
+                                <a href="#togglePasswordVisibility" >togglePasswordVisibility</a>
+                            </li>
+                            <li>
+                                <a href="#togleManualChange" >togleManualChange</a>
+                            </li>
+                            <li>
+                                <a href="#userFeedbackError" >userFeedbackError</a>
+                            </li>
+                            <li>
+                                <a href="#userFeedbackSuccess" >userFeedbackSuccess</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#userNameValid" >userNameValid</a>
+                                </li>
+                                <li>
+                                    <a href="#emailValid" >emailValid</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authenticationService: <a href="../injectables/AuthenticationService.html" target="_self">AuthenticationService</a>, router: Router, contactDataService: <a href="../injectables/ContactDataService.html" target="_self">ContactDataService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/auth/register/register.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Creates an instance of RegisterComponent.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authenticationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthenticationService.html" target="_self" >AuthenticationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Service for handling authentication logic</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Angular Router for navigation</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>contactDataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ContactDataService.html" target="_self" >ContactDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Shared service for managing contact data and UI state</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearError"></a>
+                    <span class="name">
+                        <span ><b>clearError</b></span>
+                        <a href="#clearError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearError()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="257"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Clears the current error message after a delay of 4 seconds.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createNewUser"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createNewUser</b></span>
+                        <a href="#createNewUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createNewUser(uid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Persists the newly registered user in the Firestore <code>users</code> collection.
+Requires a successful authentication signup so Firestore security rules apply.
+Writes the basic profile (name and email); additional fields can be added later.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>uid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Resolves after the user document has been successfully written.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="doesPasswordMatch"></a>
+                    <span class="name">
+                        <span ><b>doesPasswordMatch</b></span>
+                        <a href="#doesPasswordMatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>doesPasswordMatch()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the password and confirmation password match.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if both passwords match, false otherwise.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goBackToLogin"></a>
+                    <span class="name">
+                        <span ><b>goBackToLogin</b></span>
+                        <a href="#goBackToLogin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goBackToLogin()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:249</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Navigates the user back to the login page and shows the signup button again.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEmailValid"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isEmailValid</b></span>
+                        <a href="#isEmailValid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isEmailValid(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Validates a simple email format.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The email string.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if valid.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isInputPaswordComfirm"></a>
+                    <span class="name">
+                        <span ><b>isInputPaswordComfirm</b></span>
+                        <a href="#isInputPaswordComfirm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isInputPaswordComfirm(input: "showPassword" | "showPasswordConfirm")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="289"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:289</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks whether the given input type corresponds to the password confirmation input.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>input</td>
+                                            <td>
+                                                        <code>&quot;showPassword&quot; | &quot;showPasswordConfirm&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The input type identifier.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the input is for the password confirmation, false otherwise.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isInputShowPassword"></a>
+                    <span class="name">
+                        <span ><b>isInputShowPassword</b></span>
+                        <a href="#isInputShowPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isInputShowPassword(input: "showPassword" | "showPasswordConfirm")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="269"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:269</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks whether the given input type corresponds to the password input.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>input</td>
+                                            <td>
+                                                        <code>&quot;showPassword&quot; | &quot;showPasswordConfirm&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The input type identifier.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the input is for the password, false otherwise.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isUserNameValid"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isUserNameValid</b></span>
+                        <a href="#isUserNameValid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isUserNameValid(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the username is valid.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The username.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if valid.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateToLoginAfterUserfeedback"></a>
+                    <span class="name">
+                        <span ><b>navigateToLoginAfterUserfeedback</b></span>
+                        <a href="#navigateToLoginAfterUserfeedback"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>navigateToLoginAfterUserfeedback()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Navigates to the login page after a short delay and makes the signup button visible.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLinkHover"></a>
+                    <span class="name">
+                        <span ><b>onLinkHover</b></span>
+                        <a href="#onLinkHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onLinkHover(hovering: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles hover behavior on the privacy policy link.
+If the manual change is not active, it updates the checkbox state based on hover.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>hovering</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>True if the user is hovering over the link, false otherwise.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSignUp"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onSignUp</b></span>
+                        <a href="#onSignUp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onSignUp()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles the user sign-up process.</p>
+<p>This method validates password confirmation and, on success,
+creates a new authenticated user, adds the user document,
+and initializes their personal contact collection.
+Displays feedback and redirects to the login view after a short delay.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Resolves when signup and initialization are complete.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signUp"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>signUp</b></span>
+                        <a href="#signUp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>signUp()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Signs up a new user using the provided email and password,
+and updates the user&#39;s display name.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;UserCredential&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when the signup and update are complete.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="togglePasswordConfirmImage"></a>
+                    <span class="name">
+                        <span ><b>togglePasswordConfirmImage</b></span>
+                        <a href="#togglePasswordConfirmImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>togglePasswordConfirmImage(inputElement: HTMLInputElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="298"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:298</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the visibility of the password confirmation input and focuses the input element.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>inputElement</td>
+                                            <td>
+                                                        <code>HTMLInputElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The HTML input element to focus.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="togglePasswordImage"></a>
+                    <span class="name">
+                        <span ><b>togglePasswordImage</b></span>
+                        <a href="#togglePasswordImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>togglePasswordImage(inputElement: HTMLInputElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="278"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:278</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the visibility of the password input and focuses the input element.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>inputElement</td>
+                                            <td>
+                                                        <code>HTMLInputElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The HTML input element to focus.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="togglePasswordVisibility"></a>
+                    <span class="name">
+                        <span ><b>togglePasswordVisibility</b></span>
+                        <a href="#togglePasswordVisibility"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>togglePasswordVisibility(input: "showPassword" | "showPasswordConfirm", inputElement: HTMLInputElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="218"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:218</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the visibility of the password or confirm password input field.</p>
+<p>Depending on the provided input type, this method toggles the corresponding
+visibility flag and updates the input field icon accordingly.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>input</td>
+                                            <td>
+                                                        <code>&quot;showPassword&quot; | &quot;showPasswordConfirm&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Determines which password input to toggle (main or confirm).</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>inputElement</td>
+                                            <td>
+                                                        <code>HTMLInputElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The input element whose visibility and icon are being toggled.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="togleManualChange"></a>
+                    <span class="name">
+                        <span ><b>togleManualChange</b></span>
+                        <a href="#togleManualChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>togleManualChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="242"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:242</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the manual change flag for the privacy policy checkbox.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userFeedbackError"></a>
+                    <span class="name">
+                        <span ><b>userFeedbackError</b></span>
+                        <a href="#userFeedbackError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>userFeedbackError(error: unknown)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Displays an error message from a failed signup attempt and clears it after a timeout.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>error</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The error thrown during the signup process.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userFeedbackSuccess"></a>
+                    <span class="name">
+                        <span ><b>userFeedbackSuccess</b></span>
+                        <a href="#userFeedbackSuccess"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>userFeedbackSuccess()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/auth/register/register.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Displays a success message after successful signup and clears it after a timeout.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmPassword"></a>
+                    <span class="name">
+                        <span ><b>confirmPassword</b></span>
+                        <a href="#confirmPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/auth/register/register.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The confirmation of the password to verify it matches</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmprivacyPolicy"></a>
+                    <span class="name">
+                        <span ><b>confirmprivacyPolicy</b></span>
+                        <a href="#confirmprivacyPolicy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/auth/register/register.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Indicates whether the user has accepted the privacy policy</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmPrivacyPolicy"></a>
+                    <span class="name">
+                        <span ><b>confirmPrivacyPolicy</b></span>
+                        <a href="#confirmPrivacyPolicy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/auth/register/register.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Indicates if the privacy policy checkbox was manually changed</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="email"></a>
+                    <span class="name">
+                        <span ><b>email</b></span>
+                        <a href="#email"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/auth/register/register.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The user&#39;s email address</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/auth/register/register.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The error message displayed in the UI, e.g. on signup failure</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="manualChange"></a>
+                    <span class="name">
+                        <span ><b>manualChange</b></span>
+                        <a href="#manualChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/auth/register/register.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Indicates if the form was manually interacted with</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="password"></a>
+                    <span class="name">
+                        <span ><b>password</b></span>
+                        <a href="#password"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/auth/register/register.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The password set by the user</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passwordDontMatch"></a>
+                    <span class="name">
+                        <span ><b>passwordDontMatch</b></span>
+                        <a href="#passwordDontMatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/auth/register/register.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Becomes true if password and confirmPassword do not match</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passwordInput"></a>
+                    <span class="name">
+                        <span ><b>passwordInput</b></span>
+                        <a href="#passwordInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/auth/register/register.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether the password input field is currently focused</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passwordInputConfirm"></a>
+                    <span class="name">
+                        <span ><b>passwordInputConfirm</b></span>
+                        <a href="#passwordInputConfirm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/auth/register/register.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether the password confirmation input field is currently focused</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showPassword"></a>
+                    <span class="name">
+                        <span ><b>showPassword</b></span>
+                        <a href="#showPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/auth/register/register.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether to show the password in the input field</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showPasswordConfirm"></a>
+                    <span class="name">
+                        <span ><b>showPasswordConfirm</b></span>
+                        <a href="#showPasswordConfirm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/auth/register/register.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether to show the password confirmation in the input field</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toastService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>toastService</b></span>
+                        <a href="#toastService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ToastService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/auth/register/register.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Provides access to the toast service for UI messages</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userName"></a>
+                    <span class="name">
+                        <span ><b>userName</b></span>
+                        <a href="#userName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/auth/register/register.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The username entered during registration</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userNameValid"></a>
+                        <span class="name"><b>userNameValid</b><a href="#userNameValid"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userNameValid()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="182" class="link-to-prism">src/app/auth/register/register.component.ts:182</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="emailValid"></a>
+                        <span class="name"><b>emailValid</b><a href="#emailValid"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>emailValid()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="202" class="link-to-prism">src/app/auth/register/register.component.ts:202</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>True if the current email input is valid</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, inject } from &#x27;@angular/core&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { AuthenticationService } from &#x27;../services/authentication.service&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { ContactDataService } from &#x27;../../main-pages/shared-data/contact-data.service&#x27;;
+import { ToastService } from &#x27;../../shared/services/toast.service&#x27;;
+import { UserCredential } from &#x27;firebase/auth&#x27;;
+
+/**
+ * Register Component
+ *
+ * Handles user registration with form validation and password confirmation.
+ * Creates new user accounts and contact entries.
+ */
+@Component({
+  selector: &#x27;app-register&#x27;,
+  imports: [CommonModule, FormsModule],
+  templateUrl: &#x27;./register.component.html&#x27;,
+  styleUrl: &#x27;./register.component.scss&#x27;,
+})
+export class RegisterComponent {
+  // #region Properties
+  /** The username entered during registration */
+  userName: string &#x3D; &#x27;&#x27;;
+
+  /** The user&#x27;s email address */
+  email: string &#x3D; &#x27;&#x27;;
+
+  /** The password set by the user */
+  password: string &#x3D; &#x27;&#x27;;
+
+  /** The confirmation of the password to verify it matches */
+  confirmPassword: string &#x3D; &#x27;&#x27;;
+
+  /** Indicates whether the user has accepted the privacy policy */
+  confirmprivacyPolicy: boolean &#x3D; false;
+
+  /** The error message displayed in the UI, e.g. on signup failure */
+  errorMessage: string &#x3D; &#x27;&#x27;;
+
+  /** Whether to show the password in the input field */
+  showPassword: boolean &#x3D; false;
+
+  /** Whether to show the password confirmation in the input field */
+  showPasswordConfirm: boolean &#x3D; false;
+
+  /** Whether the password input field is currently focused */
+  passwordInput: boolean &#x3D; false;
+
+  /** Whether the password confirmation input field is currently focused */
+  passwordInputConfirm: boolean &#x3D; false;
+
+  /** Indicates if the privacy policy checkbox was manually changed */
+  confirmPrivacyPolicy: boolean &#x3D; false;
+
+  /** Indicates if the form was manually interacted with */
+  manualChange: boolean &#x3D; false;
+
+  /** Becomes true if password and confirmPassword do not match */
+  passwordDontMatch: boolean &#x3D; false;
+  // #endregion
+
+  /** Provides access to the toast service for UI messages */
+  private toastService &#x3D; inject(ToastService);
+
+  /**
+   * Creates an instance of RegisterComponent.
+   * @param {AuthenticationService} authenticationService - Service for handling authentication logic
+   * @param {Router} router - Angular Router for navigation
+   * @param {ContactDataService} contactDataService - Shared service for managing contact data and UI state
+   */
+  constructor(private authenticationService: AuthenticationService, private router: Router, private contactDataService: ContactDataService) {}
+
+  // #region Auth Methods
+  /**
+   * Handles the user sign-up process.
+   *
+   * This method validates password confirmation and, on success,
+   * creates a new authenticated user, adds the user document,
+   * and initializes their personal contact collection.
+   * Displays feedback and redirects to the login view after a short delay.
+   *
+   * @returns {Promise&lt;void&gt;} Resolves when signup and initialization are complete.
+   */
+  async onSignUp(): Promise&lt;void&gt; {
+    if (this.doesPasswordMatch() &amp;&amp; this.emailValid &amp;&amp; this.userNameValid) {
+      try {
+        let userCredentialRef &#x3D; await this.signUp();
+        await this.createNewUser(userCredentialRef.user.uid);
+        this.navigateToLoginAfterUserfeedback();
+        this.userFeedbackSuccess();
+        this.passwordDontMatch &#x3D; false;
+      } catch (error) {
+        this.userFeedbackError(error);
+        this.passwordDontMatch &#x3D; false;
+      }
+    } else {
+      this.passwordDontMatch &#x3D; true;
+      this.toastService.throwToast({ code: &#x27;auth/signup/error&#x27; });
+    }
+  }
+
+  /**
+   * Checks if the password and confirmation password match.
+   * @returns True if both passwords match, false otherwise.
+   */
+  doesPasswordMatch(): boolean {
+    return this.confirmPassword &#x3D;&#x3D;&#x3D; this.password;
+  }
+
+  /**
+   * Signs up a new user using the provided email and password,
+   * and updates the user&#x27;s display name.
+   * @returns A promise that resolves when the signup and update are complete.
+   */
+  async signUp(): Promise&lt;UserCredential&gt; {
+    let user &#x3D; await this.authenticationService.signUp(this.email, this.password);
+    await this.authenticationService.updateUserDisplayName(this.userName.trim());
+    return user;
+  }
+
+  /**
+   * Persists the newly registered user in the Firestore &#x60;users&#x60; collection.
+   * Requires a successful authentication signup so Firestore security rules apply.
+   * Writes the basic profile (name and email); additional fields can be added later.
+   * @returns {Promise&lt;void&gt;} Resolves after the user document has been successfully written.
+   * @throws Propagates Firestore errors if permissions or network issues occur.
+   */
+  async createNewUser(uid: string): Promise&lt;void&gt; {
+    await this.contactDataService.addUser({
+      uid: uid,
+      name: this.userName.trim(),
+      email: this.email.trim(),
+    });
+  }
+
+  /**
+   * Navigates to the login page after a short delay and makes the signup button visible.
+   */
+  navigateToLoginAfterUserfeedback(): void {
+    setTimeout(() &#x3D;&gt; {
+      this.router.navigateByUrl(&#x27;/auth/login&#x27;);
+      this.contactDataService.signUpButtonVisible &#x3D; true;
+    }, 4000);
+  }
+
+  /**
+   * Displays a success message after successful signup and clears it after a timeout.
+   */
+  userFeedbackSuccess(): void {
+    this.errorMessage &#x3D; &#x27;🎉 Signup successful!&#x27;;
+    this.clearError();
+  }
+
+  /**
+   * Displays an error message from a failed signup attempt and clears it after a timeout.
+   * @param error - The error thrown during the signup process.
+   */
+  userFeedbackError(error: unknown): void {
+    this.errorMessage &#x3D; (error as Error).message;
+    this.clearError();
+  }
+  // #endregion
+
+  // #region Validation
+  /**
+   * Checks if the username is valid.
+   * @param value The username.
+   * @returns True if valid.
+   */
+  private isUserNameValid(value: string): boolean {
+    if (!value) return false;
+
+    if (!/^[A-Za-z].*$/.test(value)) return false;
+
+    if (!/^[A-Za-z][A-Za-z0-9 ]*$/.test(value)) return false;
+
+    return true;
+  }
+
+  get userNameValid(): boolean {
+    return this.isUserNameValid(this.userName.trim());
+  }
+
+  /**
+   * Validates a simple email format.
+   * @param value The email string.
+   * @returns True if valid.
+   */
+  private isEmailValid(value: string): boolean {
+    if (!value) return false;
+
+    if (/^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/.test(value)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /** True if the current email input is valid */
+  get emailValid(): boolean {
+    return this.isEmailValid(this.email.trim());
+  }
+
+  // #endregion
+
+  // #region Register Methods
+  /**
+   * Toggles the visibility of the password or confirm password input field.
+   *
+   * Depending on the provided input type, this method toggles the corresponding
+   * visibility flag and updates the input field icon accordingly.
+   *
+   * @param {&#x27;showPassword&#x27; | &#x27;showPasswordConfirm&#x27;} input - Determines which password input to toggle (main or confirm).
+   * @param {HTMLInputElement} inputElement - The input element whose visibility and icon are being toggled.
+   */
+  togglePasswordVisibility(input: &#x27;showPassword&#x27; | &#x27;showPasswordConfirm&#x27;, inputElement: HTMLInputElement): void {
+    if (this.isInputShowPassword(input)) {
+      this.togglePasswordImage(inputElement);
+    }
+    if (this.isInputPaswordComfirm(input)) {
+      this.togglePasswordConfirmImage(inputElement);
+    }
+  }
+
+  /**
+   * Handles hover behavior on the privacy policy link.
+   * If the manual change is not active, it updates the checkbox state based on hover.
+   *
+   * @param hovering - True if the user is hovering over the link, false otherwise.
+   */
+  onLinkHover(hovering: boolean) {
+    if (!this.manualChange) {
+      this.confirmprivacyPolicy &#x3D; hovering;
+    }
+  }
+
+  /**
+   * Toggles the manual change flag for the privacy policy checkbox.
+   */
+  togleManualChange() {
+    this.manualChange &#x3D; !this.manualChange;
+  }
+
+  /**
+   * Navigates the user back to the login page and shows the signup button again.
+   */
+  goBackToLogin() {
+    this.router.navigateByUrl(&#x27;/auth/login&#x27;);
+    this.contactDataService.signUpButtonVisible &#x3D; true;
+  }
+
+  /**
+   * Clears the current error message after a delay of 4 seconds.
+   */
+  clearError() {
+    setTimeout(() &#x3D;&gt; {
+      this.errorMessage &#x3D; &#x27;&#x27;;
+    }, 4000);
+  }
+
+  /**
+   * Checks whether the given input type corresponds to the password input.
+   *
+   * @param input - The input type identifier.
+   * @returns True if the input is for the password, false otherwise.
+   */
+  isInputShowPassword(input: &#x27;showPassword&#x27; | &#x27;showPasswordConfirm&#x27;): boolean {
+    return input &#x3D;&#x3D; &#x27;showPassword&#x27;;
+  }
+
+  /**
+   * Toggles the visibility of the password input and focuses the input element.
+   *
+   * @param inputElement - The HTML input element to focus.
+   */
+  togglePasswordImage(inputElement: HTMLInputElement): void {
+    this.showPassword &#x3D; !this.showPassword;
+    inputElement.focus();
+  }
+
+  /**
+   * Checks whether the given input type corresponds to the password confirmation input.
+   *
+   * @param input - The input type identifier.
+   * @returns True if the input is for the password confirmation, false otherwise.
+   */
+  isInputPaswordComfirm(input: &#x27;showPassword&#x27; | &#x27;showPasswordConfirm&#x27;): boolean {
+    return input &#x3D;&#x3D; &#x27;showPasswordConfirm&#x27;;
+  }
+
+  /**
+   * Toggles the visibility of the password confirmation input and focuses the input element.
+   *
+   * @param inputElement - The HTML input element to focus.
+   */
+  togglePasswordConfirmImage(inputElement: HTMLInputElement): void {
+    this.showPasswordConfirm &#x3D; !this.showPasswordConfirm;
+    inputElement.focus();
+  }
+  // #endregion
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;section&gt;
+    &lt;div&gt;
+        &lt;div&gt;
+            &lt;img (click)&#x3D;&quot;goBackToLogin()&quot; src&#x3D;&quot;./img/icons/arrow-left-line.svg&quot; alt&#x3D;&quot;&quot;&gt;
+        &lt;/div&gt;
+        &lt;h1&gt;Sign up&lt;/h1&gt;
+        &lt;div class&#x3D;&quot;accent-line&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;form #form&#x3D;&quot;ngForm&quot; action&#x3D;&quot;signUp&quot;&gt;
+        &lt;div class&#x3D;&quot;input&quot;&gt;
+            &lt;input [(ngModel)]&#x3D;&quot;userName&quot; #userNameInput&#x3D;&quot;ngModel&quot;
+                [ngClass]&#x3D;&quot;{&#x27;error-border&#x27;: !userNameValid &amp;&amp; (userNameInput.touched || form.submitted)}&quot;
+                placeholder&#x3D;&quot;Full Name&quot; required maxlength&#x3D;&quot;28&quot; type&#x3D;&quot;text&quot; name&#x3D;&quot;userName&quot; id&#x3D;&quot;userName&quot;&gt;
+            &lt;div&gt;
+                &lt;img src&#x3D;&quot;./img/icons/person.svg&quot; alt&#x3D;&quot;&quot;&gt;
+            &lt;/div&gt;
+            &lt;p class&#x3D;&quot;error&quot; *ngIf&#x3D;&quot;!userNameValid &amp;&amp; (userNameInput.touched || form.submitted)&quot;&gt;
+                Please enter a valid username.
+            &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;input&quot;&gt;
+            &lt;input [(ngModel)]&#x3D;&quot;email&quot; #emailInput&#x3D;&quot;ngModel&quot;
+                [ngClass]&#x3D;&quot;{&#x27;error-border&#x27;: (!emailValid) &amp;&amp; (emailInput.touched || form.submitted)}&quot;
+                placeholder&#x3D;&quot;Email&quot; required type&#x3D;&quot;email&quot; name&#x3D;&quot;email&quot; id&#x3D;&quot;email&quot;&gt;
+            &lt;div&gt;
+                &lt;img src&#x3D;&quot;./img/icons/mail.svg&quot; alt&#x3D;&quot;&quot;&gt;
+            &lt;/div&gt;
+            &lt;p class&#x3D;&quot;error&quot; *ngIf&#x3D;&quot;(!emailValid) &amp;&amp; (emailInput.touched || form.submitted)&quot;&gt;
+                Please enter a valid email.
+            &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;input&quot;&gt;
+            &lt;input #passwordInputEle (focus)&#x3D;&quot;passwordInput &#x3D; true&quot; (blur)&#x3D;&quot;passwordInput &#x3D; false&quot;
+                [(ngModel)]&#x3D;&quot;password&quot;
+                [ngClass]&#x3D;&quot;{&#x27;error-border&#x27;: passwordInputRef.invalid &amp;&amp; (passwordInputRef.touched || form.submitted)}&quot;
+                #passwordInputRef&#x3D;&quot;ngModel&quot; [type]&#x3D;&quot;showPassword? &#x27;text&#x27; :&#x27;password&#x27;&quot; required placeholder&#x3D;&quot;Password&quot;
+                name&#x3D;&quot;password&quot; id&#x3D;&quot;password&quot; minlength&#x3D;&quot;6&quot;&gt;
+            &lt;div&gt;
+                &lt;img *ngIf&#x3D;&quot;!passwordInput &amp;&amp; password.length &#x3D;&#x3D; 0&quot; src&#x3D;&quot;./img/icons/lock.svg&quot; alt&#x3D;&quot;lock&quot;&gt;
+                &lt;img *ngIf&#x3D;&quot;(passwordInput || password.length &gt; 0) &amp;&amp; !showPassword&quot;
+                    (click)&#x3D;&quot;togglePasswordVisibility(&#x27;showPassword&#x27;, passwordInputEle)&quot;
+                    src&#x3D;&quot;./img/icons/visibility_off.svg&quot; alt&#x3D;&quot;visibility_off&quot;&gt;
+
+                &lt;img *ngIf&#x3D;&quot;(passwordInput || password.length &gt; 0) &amp;&amp; showPassword&quot;
+                    (click)&#x3D;&quot;togglePasswordVisibility(&#x27;showPassword&#x27;, passwordInputEle)&quot;
+                    src&#x3D;&quot;./img/icons/visibility.svg&quot; alt&#x3D;&quot;visibility&quot;&gt;
+            &lt;/div&gt;
+            &lt;p class&#x3D;&quot;error&quot; *ngIf&#x3D;&quot;passwordInputRef.invalid &amp;&amp; (passwordInputRef.touched || form.submitted)&quot;&gt;
+                @if (password.length &lt; 1 ) { Please enter your password. } @else { Your password is too short. } &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;input&quot;&gt;
+            &lt;input #passwordConfirmInputEle (focus)&#x3D;&quot;passwordInputConfirm &#x3D; true&quot; (blur)&#x3D;&quot;passwordInputConfirm &#x3D; false&quot;
+                [(ngModel)]&#x3D;&quot;confirmPassword&quot; #confirmPasswordInputRef&#x3D;&quot;ngModel&quot;
+                [ngClass]&#x3D;&quot;{&#x27;error-border&#x27;: (!doesPasswordMatch() || confirmPasswordInputRef.invalid) &amp;&amp; (confirmPasswordInputRef.touched || form.submitted)}&quot;
+                [type]&#x3D;&quot;showPasswordConfirm? &#x27;text&#x27; :&#x27;password&#x27;&quot; required name&#x3D;&quot;confirmPassword&quot; id&#x3D;&quot;confirmPassword&quot;
+                placeholder&#x3D;&quot;Confirm Password&quot; minlength&#x3D;&quot;6&quot;&gt;
+            &lt;div&gt;
+                &lt;img *ngIf&#x3D;&quot;!passwordInputConfirm &amp;&amp; confirmPassword.length &#x3D;&#x3D; 0&quot; src&#x3D;&quot;./img/icons/lock.svg&quot; alt&#x3D;&quot;lock&quot;&gt;
+                &lt;img *ngIf&#x3D;&quot;(passwordInputConfirm || confirmPassword.length &gt; 0) &amp;&amp; !showPasswordConfirm&quot;
+                    (click)&#x3D;&quot;togglePasswordVisibility(&#x27;showPasswordConfirm&#x27;, passwordConfirmInputEle)&quot;
+                    src&#x3D;&quot;./img/icons/visibility_off.svg&quot; alt&#x3D;&quot;visibility_off&quot;&gt;
+                &lt;img *ngIf&#x3D;&quot;(passwordInputConfirm || confirmPassword.length &gt; 0) &amp;&amp; showPasswordConfirm&quot;
+                    (click)&#x3D;&quot;togglePasswordVisibility(&#x27;showPasswordConfirm&#x27;, passwordConfirmInputEle)&quot;
+                    src&#x3D;&quot;./img/icons/visibility.svg&quot; alt&#x3D;&quot;visibility&quot;&gt;
+            &lt;/div&gt;
+            &lt;p class&#x3D;&quot;error&quot;
+                *ngIf&#x3D;&quot;confirmPasswordInputRef.invalid &amp;&amp; (confirmPasswordInputRef.touched || form.submitted)&quot;&gt;
+                @if (confirmPassword.length &gt; 5 || confirmPassword.length &lt; 1 ) { Please confirm your password. } @else
+                    { Your Password is too short. } &lt;/p&gt;
+                    &lt;p class&#x3D;&quot;error&quot; *ngIf&#x3D;&quot;!doesPasswordMatch() &amp;&amp; confirmPassword.length &gt; 5 &amp;&amp; (confirmPasswordInputRef.touched || form.submitted)&quot;&gt;
+                        Your passwords do not match.
+                    &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;privacy-policy&quot;&gt;
+            &lt;label
+                [ngClass]&#x3D;&quot;{&#x27;error-checkbox&#x27;: confirmprivacyPolicyInpit.invalid &amp;&amp; (confirmprivacyPolicyInpit.touched || form.submitted)}&quot;
+                class&#x3D;&quot;checkbox-wrapper&quot;&gt;
+                &lt;input [(ngModel)]&#x3D;&quot;confirmprivacyPolicy&quot; #confirmprivacyPolicyInpit&#x3D;&quot;ngModel&quot;
+                    (change)&#x3D;&quot;togleManualChange()&quot; required type&#x3D;&quot;checkbox&quot; name&#x3D;&quot;privacyPolicy&quot; id&#x3D;&quot;privacyPolicy&quot;&gt;
+                &lt;span class&#x3D;&quot;checkmark&quot;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+            &lt;span&gt;I accept the
+                &lt;a href&#x3D;&quot;/privacy-policy&quot;&gt;Privacy
+                    policy&lt;/a&gt;
+            &lt;/span&gt;
+            &lt;p class&#x3D;&quot;error&quot;
+                *ngIf&#x3D;&quot;confirmprivacyPolicyInpit.invalid &amp;&amp; (confirmprivacyPolicyInpit.touched || form.submitted)&quot;&gt;
+                Please accept the privacy Policy.
+            &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;button-wrapper&quot;&gt;
+            &lt;button (click)&#x3D;&quot;onSignUp()&quot; [disabled]&#x3D;&quot;form.invalid || !emailValid || !userNameValid || !doesPasswordMatch()&quot; type&#x3D;&quot;submit&quot;&gt;Sign up&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;div class&#x3D;&quot;feedback-overlay&quot; *ngIf&#x3D;&quot;errorMessage&quot;&gt;
+        {{ errorMessage }}
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><section>    <div>        <div>            <img (click)="goBackToLogin()" src="./img/icons/arrow-left-line.svg" alt="">        </div>        <h1>Sign up</h1>        <div class="accent-line"></div>    </div>    <form #form="ngForm" action="signUp">        <div class="input">            <input [(ngModel)]="userName" #userNameInput="ngModel"                [ngClass]="{\'error-border\': !userNameValid && (userNameInput.touched || form.submitted)}"                placeholder="Full Name" required maxlength="28" type="text" name="userName" id="userName">            <div>                <img src="./img/icons/person.svg" alt="">            </div>            <p class="error" *ngIf="!userNameValid && (userNameInput.touched || form.submitted)">                Please enter a valid username.            </p>        </div>        <div class="input">            <input [(ngModel)]="email" #emailInput="ngModel"                [ngClass]="{\'error-border\': (!emailValid) && (emailInput.touched || form.submitted)}"                placeholder="Email" required type="email" name="email" id="email">            <div>                <img src="./img/icons/mail.svg" alt="">            </div>            <p class="error" *ngIf="(!emailValid) && (emailInput.touched || form.submitted)">                Please enter a valid email.            </p>        </div>        <div class="input">            <input #passwordInputEle (focus)="passwordInput = true" (blur)="passwordInput = false"                [(ngModel)]="password"                [ngClass]="{\'error-border\': passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)}"                #passwordInputRef="ngModel" [type]="showPassword? \'text\' :\'password\'" required placeholder="Password"                name="password" id="password" minlength="6">            <div>                <img *ngIf="!passwordInput && password.length == 0" src="./img/icons/lock.svg" alt="lock">                <img *ngIf="(passwordInput || password.length > 0) && !showPassword"                    (click)="togglePasswordVisibility(\'showPassword\', passwordInputEle)"                    src="./img/icons/visibility_off.svg" alt="visibility_off">                <img *ngIf="(passwordInput || password.length > 0) && showPassword"                    (click)="togglePasswordVisibility(\'showPassword\', passwordInputEle)"                    src="./img/icons/visibility.svg" alt="visibility">            </div>            <p class="error" *ngIf="passwordInputRef.invalid && (passwordInputRef.touched || form.submitted)">                @if (password.length < 1 ) { Please enter your password. } @else { Your password is too short. } </p>        </div>        <div class="input">            <input #passwordConfirmInputEle (focus)="passwordInputConfirm = true" (blur)="passwordInputConfirm = false"                [(ngModel)]="confirmPassword" #confirmPasswordInputRef="ngModel"                [ngClass]="{\'error-border\': (!doesPasswordMatch() || confirmPasswordInputRef.invalid) && (confirmPasswordInputRef.touched || form.submitted)}"                [type]="showPasswordConfirm? \'text\' :\'password\'" required name="confirmPassword" id="confirmPassword"                placeholder="Confirm Password" minlength="6">            <div>                <img *ngIf="!passwordInputConfirm && confirmPassword.length == 0" src="./img/icons/lock.svg" alt="lock">                <img *ngIf="(passwordInputConfirm || confirmPassword.length > 0) && !showPasswordConfirm"                    (click)="togglePasswordVisibility(\'showPasswordConfirm\', passwordConfirmInputEle)"                    src="./img/icons/visibility_off.svg" alt="visibility_off">                <img *ngIf="(passwordInputConfirm || confirmPassword.length > 0) && showPasswordConfirm"                    (click)="togglePasswordVisibility(\'showPasswordConfirm\', passwordConfirmInputEle)"                    src="./img/icons/visibility.svg" alt="visibility">            </div>            <p class="error"                *ngIf="confirmPasswordInputRef.invalid && (confirmPasswordInputRef.touched || form.submitted)">                @if (confirmPassword.length > 5 || confirmPassword.length < 1 ) { Please confirm your password. } @else                    { Your Password is too short. } </p>                    <p class="error" *ngIf="!doesPasswordMatch() && confirmPassword.length > 5 && (confirmPasswordInputRef.touched || form.submitted)">                        Your passwords do not match.                    </p>        </div>        <div class="privacy-policy">            <label                [ngClass]="{\'error-checkbox\': confirmprivacyPolicyInpit.invalid && (confirmprivacyPolicyInpit.touched || form.submitted)}"                class="checkbox-wrapper">                <input [(ngModel)]="confirmprivacyPolicy" #confirmprivacyPolicyInpit="ngModel"                    (change)="togleManualChange()" required type="checkbox" name="privacyPolicy" id="privacyPolicy">                <span class="checkmark"></span>            </label>            <span>I accept the                <a href="/privacy-policy">Privacy                    policy</a>            </span>            <p class="error"                *ngIf="confirmprivacyPolicyInpit.invalid && (confirmprivacyPolicyInpit.touched || form.submitted)">                Please accept the privacy Policy.            </p>        </div>        <div class="button-wrapper">            <button (click)="onSignUp()" [disabled]="form.invalid || !emailValid || !userNameValid || !doesPasswordMatch()" type="submit">Sign up</button>        </div>    </form>    <div class="feedback-overlay" *ngIf="errorMessage">        {{ errorMessage }}    </div></section></div>'
+    var COMPONENTS = [{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttachmentsGalleryComponent', 'selector': 'app-attachments-gallery'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'ContactDetailsComponent', 'selector': 'app-contact-details'},{'name': 'ContactDialogComponent', 'selector': 'app-contact-dialog'},{'name': 'ContactFormComponent', 'selector': 'app-contact-form'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'ImageViewerComponent', 'selector': 'app-image-viewer'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MobileGreetingComponent', 'selector': 'app-mobile-greeting'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'StartRedirectComponent', 'selector': 'app-start-redirect'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCreateFormComponent', 'selector': 'app-task-create-form'},{'name': 'TaskDetailsComponent', 'selector': 'app-task-details'},{'name': 'TaskDialogComponent', 'selector': 'app-task-dialog'},{'name': 'TaskEditFormComponent', 'selector': 'app-task-edit-form'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'RegisterComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RegisterComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

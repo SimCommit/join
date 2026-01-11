@@ -1,0 +1,2503 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ContactFormComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component responsible for rendering and managing the contact form.
+Handles both creation and editing of a contact.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnChanges</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-contact-form</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./contact-form.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./contact-form.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contactDataService" >contactDataService</a>
+                            </li>
+                            <li>
+                                <a href="#contactForm" >contactForm</a>
+                            </li>
+                            <li>
+                                <a href="#getRandomColor" >getRandomColor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#toastService" >toastService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#canDeleteContact" >canDeleteContact</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#createContactDataFromForm" >createContactDataFromForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteContact" >deleteContact</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#displayEditBlockedMessage" >displayEditBlockedMessage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#extractFirstCharacter" >extractFirstCharacter</a>
+                            </li>
+                            <li>
+                                <a href="#getInitials" >getInitials</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleDeletionError" >handleDeletionError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleInvalidForm" >handleInvalidForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleSuccessfulDeletion" >handleSuccessfulDeletion</a>
+                            </li>
+                            <li>
+                                <a href="#isEditingOwnContact" >isEditingOwnContact</a>
+                            </li>
+                            <li>
+                                <a href="#isFieldInvalid" >isFieldInvalid</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isFormValid" >isFormValid</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#markAllFieldsAsTouched" >markAllFieldsAsTouched</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onCancel" >onCancel</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#performContactDeletion" >performContactDeletion</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#prefillForm" >prefillForm</a>
+                            </li>
+                            <li>
+                                <a href="#showBlockedEditInfo" >showBlockedEditInfo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#submitValidForm" >submitValidForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateUserDisplayNameIfNeeded" >updateUserDisplayNameIfNeeded</a>
+                            </li>
+                            <li>
+                                <a href="#validateName" >validateName</a>
+                            </li>
+                            <li>
+                                <a href="#validatePhone" >validatePhone</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#editingContact" >editingContact</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contactSubmitted" >contactSubmitted</a>
+                            </li>
+                            <li>
+                                <a href="#formCancelled" >formCancelled</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#nameControl" >nameControl</a>
+                                </li>
+                                <li>
+                                    <a href="#phoneControl" >phoneControl</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder, authenticationService: <a href="../injectables/AuthenticationService.html" target="_self">AuthenticationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor initializes the form group and injects required services.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Angular FormBuilder to create the reactive form.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>authenticationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthenticationService.html" target="_self" >AuthenticationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Service used to access authentication context.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="editingContact"></a>
+                        <b>editingContact</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Contact.html" target="_self" >Contact | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:25</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The contact to be edited. If null, the form will create a new contact.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contactSubmitted"></a>
+                        <b>contactSubmitted</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:30</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Emits the contact data when the form is submitted.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formCancelled"></a>
+                        <b>formCancelled</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:35</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Emits an event when the user cancels the form action.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canDeleteContact"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>canDeleteContact</b></span>
+                        <a href="#canDeleteContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>canDeleteContact()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="238"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:238</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if contact can be deleted</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if contact can be deleted</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createContactDataFromForm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>createContactDataFromForm</b></span>
+                        <a href="#createContactDataFromForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createContactDataFromForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a normalized contact data object from form values</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Contact.html" target="_self" >Contact</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Contact data object</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteContact"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteContact</b></span>
+                        <a href="#deleteContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteContact()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="221"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:221</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Deletes the current contact via ContactDataService</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayEditBlockedMessage"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>displayEditBlockedMessage</b></span>
+                        <a href="#displayEditBlockedMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>displayEditBlockedMessage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="315"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:315</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Displays message about blocked email editing</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractFirstCharacter"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>extractFirstCharacter</b></span>
+                        <a href="#extractFirstCharacter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>extractFirstCharacter(word: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="287"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:287</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Extracts first character from a word</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>word</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Word to extract character from</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>First character of the word</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInitials"></a>
+                    <span class="name">
+                        <span ><b>getInitials</b></span>
+                        <a href="#getInitials"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInitials(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="275"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:275</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gets initials from a contact name</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The contact name</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The initials string</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDeletionError"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleDeletionError</b></span>
+                        <a href="#handleDeletionError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleDeletionError()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="259"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:259</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles contact deletion errors</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleInvalidForm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleInvalidForm</b></span>
+                        <a href="#handleInvalidForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleInvalidForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles invalid form submission</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleSuccessfulDeletion"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleSuccessfulDeletion</b></span>
+                        <a href="#handleSuccessfulDeletion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleSuccessfulDeletion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="252"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:252</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles successful contact deletion</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEditingOwnContact"></a>
+                    <span class="name">
+                        <span ><b>isEditingOwnContact</b></span>
+                        <a href="#isEditingOwnContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isEditingOwnContact()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="295"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:295</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if currently editing own contact</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if editing own contact</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFieldInvalid"></a>
+                    <span class="name">
+                        <span ><b>isFieldInvalid</b></span>
+                        <a href="#isFieldInvalid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isFieldInvalid(fieldName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if a form field is invalid and should show errors</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fieldName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The name of the field to check</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if field is invalid and should show errors</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFormValid"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isFormValid</b></span>
+                        <a href="#isFormValid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isFormValid()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="155"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:155</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the form is valid</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if form is valid</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markAllFieldsAsTouched"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>markAllFieldsAsTouched</b></span>
+                        <a href="#markAllFieldsAsTouched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>markAllFieldsAsTouched()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="212"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:212</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Marks all form fields as touched to show validation errors</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <span ><b>ngOnChanges</b></span>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: SimpleChanges)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles changes to the editing contact input</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>changes</td>
+                                            <td>
+                                                        <code>SimpleChanges</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The changes to component inputs</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the form with prefilled data if editing</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCancel"></a>
+                    <span class="name">
+                        <span ><b>onCancel</b></span>
+                        <a href="#onCancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCancel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="266"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:266</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles form cancellation</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles form submission for creating or updating contacts</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="performContactDeletion"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>performContactDeletion</b></span>
+                        <a href="#performContactDeletion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>performContactDeletion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="245"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:245</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Performs the actual contact deletion</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prefillForm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>prefillForm</b></span>
+                        <a href="#prefillForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>prefillForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Prefills the form with existing contact data or resets it</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showBlockedEditInfo"></a>
+                    <span class="name">
+                        <span ><b>showBlockedEditInfo</b></span>
+                        <a href="#showBlockedEditInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showBlockedEditInfo()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="306"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:306</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Shows blocked edit information to user</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitValidForm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>submitValidForm</b></span>
+                        <a href="#submitValidForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>submitValidForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:169</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Submits a valid form with contact data</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserDisplayNameIfNeeded"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>updateUserDisplayNameIfNeeded</b></span>
+                        <a href="#updateUserDisplayNameIfNeeded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateUserDisplayNameIfNeeded()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:203</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates user display name if editing own contact</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateName"></a>
+                    <span class="name">
+                        <span ><b>validateName</b></span>
+                        <a href="#validateName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateName(control: AbstractControl)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>control</td>
+                                            <td>
+                                                        <code>AbstractControl</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Object | null</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validatePhone"></a>
+                    <span class="name">
+                        <span ><b>validatePhone</b></span>
+                        <a href="#validatePhone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validatePhone(control: AbstractControl)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>control</td>
+                                            <td>
+                                                        <code>AbstractControl</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Object | null</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contactDataService"></a>
+                    <span class="name">
+                        <span ><b>contactDataService</b></span>
+                        <a href="#contactDataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ContactDataService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Service used to manage contact data (injected using <code>inject()</code> for signal-based usage).</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contactForm"></a>
+                    <span class="name">
+                        <span ><b>contactForm</b></span>
+                        <a href="#contactForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The reactive form group that holds the contact form fields.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRandomColor"></a>
+                    <span class="name">
+                        <span ><b>getRandomColor</b></span>
+                        <a href="#getRandomColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>getRandomColor</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Utility function to generate a random color.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toastService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>toastService</b></span>
+                        <a href="#toastService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ToastService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Provides access to the toast service for UI messages</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nameControl"></a>
+                        <span class="name"><b>nameControl</b><a href="#nameControl"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>nameControl()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:69</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>FormControl for the name field</p>
+</div>
+
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="phoneControl"></a>
+                        <span class="name"><b>phoneControl</b><a href="#phoneControl"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>phoneControl()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/main-pages/contacts/contact-dialog/contact-form/contact-form.component.ts:73</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>FormControl for the name field</p>
+</div>
+
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, inject } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Contact } from &#x27;../../../shared-data/contact.interface&#x27;;
+import { getRandomColor } from &#x27;../../../../shared/color-utils&#x27;;
+import { ContactDataService } from &#x27;../../../shared-data/contact-data.service&#x27;;
+import { AuthenticationService } from &#x27;../../../../auth/services/authentication.service&#x27;;
+import { ToastService } from &#x27;../../../../shared/services/toast.service&#x27;;
+
+/**
+ * Component responsible for rendering and managing the contact form.
+ * Handles both creation and editing of a contact.
+ */
+@Component({
+  selector: &#x27;app-contact-form&#x27;,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: &#x27;./contact-form.component.html&#x27;,
+  styleUrl: &#x27;./contact-form.component.scss&#x27;,
+})
+export class ContactFormComponent implements OnInit, OnChanges {
+  /**
+   * The contact to be edited. If null, the form will create a new contact.
+   */
+  @Input() editingContact: Contact | null &#x3D; null;
+
+  /**
+   * Emits the contact data when the form is submitted.
+   */
+  @Output() contactSubmitted &#x3D; new EventEmitter&lt;Contact&gt;();
+
+  /**
+   * Emits an event when the user cancels the form action.
+   */
+  @Output() formCancelled &#x3D; new EventEmitter&lt;void&gt;();
+
+  /** Provides access to the toast service for UI messages */
+  private toastService &#x3D; inject(ToastService);
+
+  /**
+   * The reactive form group that holds the contact form fields.
+   */
+  contactForm: FormGroup;
+
+  /**
+   * Service used to manage contact data (injected using &#x60;inject()&#x60; for signal-based usage).
+   */
+  contactDataService &#x3D; inject(ContactDataService);
+
+  /**
+   * Utility function to generate a random color.
+   */
+  getRandomColor &#x3D; getRandomColor;
+
+  /**
+   * Constructor initializes the form group and injects required services.
+   * @param fb Angular FormBuilder to create the reactive form.
+   * @param authenticationService Service used to access authentication context.
+   */
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) {
+    this.contactForm &#x3D; this.fb.group({
+      name: [&#x27;&#x27;, [Validators.required, this.validateName]],
+      email: [&#x27;&#x27;, [Validators.required, Validators.pattern(/^(?!.*\.\.)[A-Za-z0-9][A-Za-z0-9._%+-]*[A-Za-z0-9_%+-]@(?!-)(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/)]],
+      phone: [&#x27;&#x27;, [this.validatePhone]],
+    });
+  }
+
+  /** FormControl for the name field */
+  get nameControl() {
+    return this.contactForm.get(&#x27;name&#x27;);
+  }
+  /** FormControl for the name field */
+  get phoneControl() {
+    return this.contactForm.get(&#x27;phone&#x27;);
+  }
+
+  validateName(control: AbstractControl): Object | null {
+    if (!control.value) return null;
+    const name &#x3D; control.value.trim();
+
+    if (!/^[A-Za-z].*$/.test(name)) return { nameInvalidStart: true };
+
+    if (!/^[A-Za-z][A-Za-z0-9 ]*$/.test(name)) return { nameInvalidCharacter: true };
+
+    return null;
+  }
+
+  validatePhone(control: AbstractControl): Object | null {
+    if (!control.value) return null;
+
+    const phone &#x3D; control.value.trim().replace(/\s+/g, &#x27; &#x27;);
+
+    if (!/^[\+]?[0-9\s\-\(\)]{10,}$/.test(phone)) return { phoneInvalid: true };
+
+    return null;
+  }
+
+  /**
+   * Initializes the form with prefilled data if editing
+   */
+  ngOnInit() {
+    this.prefillForm();
+  }
+
+  /**
+   * Handles changes to the editing contact input
+   * @param changes - The changes to component inputs
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes[&#x27;editingContact&#x27;] &amp;&amp; !changes[&#x27;editingContact&#x27;].firstChange) {
+      this.prefillForm();
+    }
+  }
+
+  /**
+   * Prefills the form with existing contact data or resets it
+   */
+  private prefillForm() {
+    if (this.editingContact) {
+      this.contactForm.patchValue({
+        name: this.editingContact.name || &#x27;&#x27;,
+        email: this.editingContact.email || &#x27;&#x27;,
+        phone: this.editingContact.phone || &#x27;&#x27;,
+      });
+    } else {
+      this.contactForm.reset();
+    }
+  }
+
+  /**
+   * Checks if a form field is invalid and should show errors
+   * @param fieldName - The name of the field to check
+   * @returns True if field is invalid and should show errors
+   */
+  isFieldInvalid(fieldName: string): boolean {
+    const field &#x3D; this.contactForm.get(fieldName);
+    return field ? field.invalid &amp;&amp; (field.dirty || field.touched) : false;
+  }
+
+  /**
+   * Handles form submission for creating or updating contacts
+   */
+  onSubmit(): void {
+    if (this.isFormValid()) {
+      this.submitValidForm();
+    } else {
+      this.handleInvalidForm();
+    }
+  }
+
+  /**
+   * Checks if the form is valid
+   * @returns {boolean} True if form is valid
+   */
+  private isFormValid(): boolean {
+    return this.contactForm.valid;
+  }
+
+  /**
+   * Handles invalid form submission
+   */
+  private handleInvalidForm(): void {
+    this.markAllFieldsAsTouched();
+  }
+
+  /**
+   * Submits a valid form with contact data
+   */
+  private submitValidForm(): void {
+    const contactData &#x3D; this.createContactDataFromForm();
+    this.updateUserDisplayNameIfNeeded();
+    this.contactSubmitted.emit(contactData);
+  }
+
+  /**
+   * Creates a normalized contact data object from form values
+   * @returns {Contact} Contact data object
+   */
+  private createContactDataFromForm(): Contact {
+    let phone: string;
+    if (this.contactForm.value.phone) {
+      phone &#x3D; this.contactForm.value.phone.trim().replace(/\s+/g, &#x27; &#x27;);
+    } else {
+      phone &#x3D; &#x27;&#x27;;
+    }
+
+    const contactData: Contact &#x3D; {
+      name: this.contactForm.value.name.trim(),
+      email: this.contactForm.value.email.trim(),
+      phone: phone,
+    };
+
+    if (this.editingContact) {
+      contactData.id &#x3D; this.editingContact.id;
+    }
+
+    return contactData;
+  }
+
+  /**
+   * Updates user display name if editing own contact
+   */
+  private updateUserDisplayNameIfNeeded(): void {
+    if (this.isEditingOwnContact()) {
+      this.authenticationService.updateUserDisplayName(this.contactForm.value.name);
+    }
+  }
+
+  /**
+   * Marks all form fields as touched to show validation errors
+   */
+  private markAllFieldsAsTouched() {
+    Object.keys(this.contactForm.controls).forEach((key) &#x3D;&gt; {
+      this.contactForm.get(key)?.markAsTouched();
+    });
+  }
+
+  /**
+   * Deletes the current contact via ContactDataService
+   */
+  async deleteContact(): Promise&lt;void&gt; {
+    if (!this.canDeleteContact()) {
+      return;
+    }
+
+    try {
+      await this.performContactDeletion();
+      this.handleSuccessfulDeletion();
+    } catch (error) {
+      this.handleDeletionError();
+    }
+  }
+
+  /**
+   * Checks if contact can be deleted
+   * @returns {boolean} True if contact can be deleted
+   */
+  private canDeleteContact(): boolean {
+    return Boolean(this.editingContact?.id);
+  }
+
+  /**
+   * Performs the actual contact deletion
+   */
+  private async performContactDeletion(): Promise&lt;void&gt; {
+    await this.contactDataService.deleteContact(this.editingContact!.id!);
+  }
+
+  /**
+   * Handles successful contact deletion
+   */
+  private handleSuccessfulDeletion(): void {
+    this.formCancelled.emit();
+  }
+
+  /**
+   * Handles contact deletion errors
+   */
+  private handleDeletionError(): void {
+    this.toastService.throwToast({ code: &#x27;contact/delete/error&#x27; });
+  }
+
+  /**
+   * Handles form cancellation
+   */
+  onCancel(): void {
+    this.formCancelled.emit();
+  }
+
+  /**
+   * Gets initials from a contact name
+   * @param {string} name - The contact name
+   * @returns {string} The initials string
+   */
+  getInitials(name: string): string {
+    return name
+      .split(&#x27; &#x27;)
+      .map((word) &#x3D;&gt; this.extractFirstCharacter(word))
+      .join(&#x27;&#x27;);
+  }
+
+  /**
+   * Extracts first character from a word
+   * @param {string} word - Word to extract character from
+   * @returns {string} First character of the word
+   */
+  private extractFirstCharacter(word: string): string {
+    return word.charAt(0);
+  }
+
+  /**
+   * Checks if currently editing own contact
+   * @returns {boolean} True if editing own contact
+   */
+  isEditingOwnContact(): boolean {
+    if (!this.editingContact) {
+      return false;
+    }
+
+    return this.authenticationService.isEmailOfCurrentUser(this.editingContact.email);
+  }
+
+  /**
+   * Shows blocked edit information to user
+   */
+  showBlockedEditInfo(): void {
+    if (this.isEditingOwnContact()) {
+      this.displayEditBlockedMessage();
+    }
+  }
+
+  /**
+   * Displays message about blocked email editing
+   */
+  private displayEditBlockedMessage(): void {
+    alert(&#x27;Your email address is used for login and cannot be changed.&#x27;);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;contact-form-container&quot;&gt;
+
+  &lt;div class&#x3D;&quot;contact-avatar-container&quot;&gt;
+    @if (editingContact) {
+    &lt;div class&#x3D;&quot;contact-avatar&quot; [style.background-color]&#x3D;&quot;getRandomColor(editingContact.name)&quot;&gt;
+      {{ contactDataService.extractInitials(editingContact.name) }}
+    &lt;/div&gt;
+    } @else {
+    &lt;img src&#x3D;&quot;./img/icons/avatar-new.svg&quot; alt&#x3D;&quot;&quot;&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;form [formGroup]&#x3D;&quot;contactForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot; class&#x3D;&quot;contact-form&quot;&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;name&quot; formControlName&#x3D;&quot;name&quot; class&#x3D;&quot;form-input&quot; [class.error]&#x3D;&quot;isFieldInvalid(&#x27;name&#x27;)&quot;
+        placeholder&#x3D;&quot;Name&quot; maxlength&#x3D;&quot;28&quot;&gt;
+      &lt;img class&#x3D;&quot;input-icon&quot; src&#x3D;&quot;./img/icons/person.svg&quot; alt&#x3D;&quot;Person Icon&quot;&gt;
+      &lt;div class&#x3D;&quot;error-message&quot; [style.visibility]&#x3D;&quot;isFieldInvalid(&#x27;name&#x27;) ? &#x27;visible&#x27; : &#x27;hidden&#x27;&quot;&gt;
+        @if (nameControl?.errors?.[&quot;nameInvalidStart&quot;]) {
+        Name must start with letter
+        }
+        @else if (nameControl?.errors?.[&quot;nameInvalidCharacter&quot;]) {
+        Only letters and numbers are allowed 
+        }
+        @else {
+        Name is required
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;input [readonly]&#x3D;&quot;this.isEditingOwnContact()&quot; (click)&#x3D;&quot;showBlockedEditInfo()&quot; type&#x3D;&quot;email&quot; id&#x3D;&quot;email&quot;
+        formControlName&#x3D;&quot;email&quot; class&#x3D;&quot;form-input&quot; [class.error]&#x3D;&quot;isFieldInvalid(&#x27;email&#x27;)&quot; placeholder&#x3D;&quot;Email&quot;&gt;
+      &lt;img class&#x3D;&quot;input-icon&quot; src&#x3D;&quot;./img/icons/mail.svg&quot; alt&#x3D;&quot;Mail Icon&quot;&gt;
+      &lt;div class&#x3D;&quot;error-message&quot; [style.visibility]&#x3D;&quot;isFieldInvalid(&#x27;email&#x27;) ? &#x27;visible&#x27; : &#x27;hidden&#x27;&quot;&gt;
+        &lt;span *ngIf&#x3D;&quot;contactForm.get(&#x27;email&#x27;)?.errors?.[&#x27;required&#x27;]&quot;&gt;E-Mail is required&lt;/span&gt;
+        &lt;span *ngIf&#x3D;&quot;contactForm.get(&#x27;email&#x27;)?.errors?.[&#x27;pattern&#x27;]&quot;&gt;Please enter valid email address&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;input type&#x3D;&quot;tel&quot; id&#x3D;&quot;phone&quot; formControlName&#x3D;&quot;phone&quot; class&#x3D;&quot;form-input&quot; [class.error]&#x3D;&quot;phoneControl?.errors?.[&#x27;phoneInvalid&#x27;]&quot;
+        placeholder&#x3D;&quot;Phone&quot;&gt;
+      &lt;img class&#x3D;&quot;input-icon&quot; src&#x3D;&quot;./img/icons/call.svg&quot; alt&#x3D;&quot;Call Icon&quot;&gt;
+      &lt;div class&#x3D;&quot;error-message&quot; [style.visibility]&#x3D;&quot;phoneControl?.errors?.[&#x27;phoneInvalid&#x27;] ? &#x27;visible&#x27; : &#x27;hidden&#x27;&quot;&gt;
+        Please enter valid phone number
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+      @if (editingContact &amp;&amp; !this.isEditingOwnContact()) {
+      &lt;button type&#x3D;&quot;button&quot; [disabled]&#x3D;&quot;this.isEditingOwnContact()&quot; class&#x3D;&quot;btn-delete&quot;
+        (click)&#x3D;&quot;deleteContact()&quot;&gt;Delete&lt;/button&gt;
+      } @else {
+      &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-cancel&quot; (click)&#x3D;&quot;onCancel()&quot;&gt;
+        Cancel
+        &lt;svg width&#x3D;&quot;24&quot; height&#x3D;&quot;24&quot; viewBox&#x3D;&quot;0 0 25 24&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+          &lt;path
+            d&#x3D;&quot;M12.0692 12.0001L17.3122 17.2431M6.82617 17.2431L12.0692 12.0001L6.82617 17.2431ZM17.3122 6.75708L12.0682 12.0001L17.3122 6.75708ZM12.0682 12.0001L6.82617 6.75708L12.0682 12.0001Z&quot;
+            stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+      }
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn-submit&quot; [disabled]&#x3D;&quot;contactForm.invalid&quot;&gt;
+        {{ editingContact ? &#x27;Save&#x27; : &#x27;Create contact&#x27; }}
+        &lt;svg width&#x3D;&quot;25&quot; height&#x3D;&quot;24&quot; viewBox&#x3D;&quot;0 0 25 24&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+          &lt;mask id&#x3D;&quot;mask0_4_10624&quot; style&#x3D;&quot;mask-type:alpha&quot; maskUnits&#x3D;&quot;userSpaceOnUse&quot; x&#x3D;&quot;0&quot; y&#x3D;&quot;0&quot; width&#x3D;&quot;25&quot;
+            height&#x3D;&quot;24&quot;&gt;
+            &lt;rect x&#x3D;&quot;0.0683594&quot; width&#x3D;&quot;24&quot; height&#x3D;&quot;24&quot; fill&#x3D;&quot;#D9D9D9&quot; /&gt;
+          &lt;/mask&gt;
+          &lt;g mask&#x3D;&quot;url(#mask0_4_10624)&quot;&gt;
+            &lt;path
+              d&#x3D;&quot;M9.61893 15.15L18.0939 6.675C18.2939 6.475 18.5314 6.375 18.8064 6.375C19.0814 6.375 19.3189 6.475 19.5189 6.675C19.7189 6.875 19.8189 7.1125 19.8189 7.3875C19.8189 7.6625 19.7189 7.9 19.5189 8.1L10.3189 17.3C10.1189 17.5 9.8856 17.6 9.61893 17.6C9.35227 17.6 9.11893 17.5 8.91893 17.3L4.61893 13C4.41893 12.8 4.3231 12.5625 4.33143 12.2875C4.33977 12.0125 4.44393 11.775 4.64393 11.575C4.84393 11.375 5.08143 11.275 5.35643 11.275C5.63143 11.275 5.86893 11.375 6.06893 11.575L9.61893 15.15Z&quot;
+              fill&#x3D;&quot;currentColor&quot; /&gt;
+          &lt;/g&gt;
+        &lt;/svg&gt;
+
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="contact-form-container">  <div class="contact-avatar-container">    @if (editingContact) {    <div class="contact-avatar" [style.background-color]="getRandomColor(editingContact.name)">      {{ contactDataService.extractInitials(editingContact.name) }}    </div>    } @else {    <img src="./img/icons/avatar-new.svg" alt="">    }  </div>  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">    <div class="form-group">      <input type="text" id="name" formControlName="name" class="form-input" [class.error]="isFieldInvalid(\'name\')"        placeholder="Name" maxlength="28">      <img class="input-icon" src="./img/icons/person.svg" alt="Person Icon">      <div class="error-message" [style.visibility]="isFieldInvalid(\'name\') ? \'visible\' : \'hidden\'">        @if (nameControl?.errors?.["nameInvalidStart"]) {        Name must start with letter        }        @else if (nameControl?.errors?.["nameInvalidCharacter"]) {        Only letters and numbers are allowed         }        @else {        Name is required        }      </div>    </div>    <div class="form-group">      <input [readonly]="this.isEditingOwnContact()" (click)="showBlockedEditInfo()" type="email" id="email"        formControlName="email" class="form-input" [class.error]="isFieldInvalid(\'email\')" placeholder="Email">      <img class="input-icon" src="./img/icons/mail.svg" alt="Mail Icon">      <div class="error-message" [style.visibility]="isFieldInvalid(\'email\') ? \'visible\' : \'hidden\'">        <span *ngIf="contactForm.get(\'email\')?.errors?.[\'required\']">E-Mail is required</span>        <span *ngIf="contactForm.get(\'email\')?.errors?.[\'pattern\']">Please enter valid email address</span>      </div>    </div>    <div class="form-group">      <input type="tel" id="phone" formControlName="phone" class="form-input" [class.error]="phoneControl?.errors?.[\'phoneInvalid\']"        placeholder="Phone">      <img class="input-icon" src="./img/icons/call.svg" alt="Call Icon">      <div class="error-message" [style.visibility]="phoneControl?.errors?.[\'phoneInvalid\'] ? \'visible\' : \'hidden\'">        Please enter valid phone number      </div>    </div>    <div class="form-actions">      @if (editingContact && !this.isEditingOwnContact()) {      <button type="button" [disabled]="this.isEditingOwnContact()" class="btn-delete"        (click)="deleteContact()">Delete</button>      } @else {      <button type="button" class="btn-cancel" (click)="onCancel()">        Cancel        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">          <path            d="M12.0692 12.0001L17.3122 17.2431M6.82617 17.2431L12.0692 12.0001L6.82617 17.2431ZM17.3122 6.75708L12.0682 12.0001L17.3122 6.75708ZM12.0682 12.0001L6.82617 6.75708L12.0682 12.0001Z"            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />        </svg>      </button>      }      <button type="submit" class="btn-submit" [disabled]="contactForm.invalid">        {{ editingContact ? \'Save\' : \'Create contact\' }}        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">          <mask id="mask0_4_10624" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25"            height="24">            <rect x="0.0683594" width="24" height="24" fill="#D9D9D9" />          </mask>          <g mask="url(#mask0_4_10624)">            <path              d="M9.61893 15.15L18.0939 6.675C18.2939 6.475 18.5314 6.375 18.8064 6.375C19.0814 6.375 19.3189 6.475 19.5189 6.675C19.7189 6.875 19.8189 7.1125 19.8189 7.3875C19.8189 7.6625 19.7189 7.9 19.5189 8.1L10.3189 17.3C10.1189 17.5 9.8856 17.6 9.61893 17.6C9.35227 17.6 9.11893 17.5 8.91893 17.3L4.61893 13C4.41893 12.8 4.3231 12.5625 4.33143 12.2875C4.33977 12.0125 4.44393 11.775 4.64393 11.575C4.84393 11.375 5.08143 11.275 5.35643 11.275C5.63143 11.275 5.86893 11.375 6.06893 11.575L9.61893 15.15Z"              fill="currentColor" />          </g>        </svg>      </button>    </div>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttachmentsGalleryComponent', 'selector': 'app-attachments-gallery'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'ContactDetailsComponent', 'selector': 'app-contact-details'},{'name': 'ContactDialogComponent', 'selector': 'app-contact-dialog'},{'name': 'ContactFormComponent', 'selector': 'app-contact-form'},{'name': 'ContactListComponent', 'selector': 'app-contact-list'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'ImageViewerComponent', 'selector': 'app-image-viewer'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MobileGreetingComponent', 'selector': 'app-mobile-greeting'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'StartRedirectComponent', 'selector': 'app-start-redirect'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCreateFormComponent', 'selector': 'app-task-create-form'},{'name': 'TaskDetailsComponent', 'selector': 'app-task-details'},{'name': 'TaskDialogComponent', 'selector': 'app-task-dialog'},{'name': 'TaskEditFormComponent', 'selector': 'app-task-edit-form'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ContactFormComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContactFormComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
