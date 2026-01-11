@@ -87,6 +87,9 @@ export class TaskDataService {
 
   /** Tracks existing user task document IDs for existence checks and initialization logic */
   existingTaskList: { id: string }[] = [];
+
+  /** Flag indicating whether dummy task data has already been loaded to prevent duplicate initialization. */
+  dummyTaskLoadedOnce: boolean = false;
   // #endregion
 
   // #region Lifecycle
@@ -102,6 +105,8 @@ export class TaskDataService {
    * - Stores the unsubscribe function to allow proper cleanup later.
    */
   connectTaskStream(): void {
+    if (this.unsubscribeFromTasks) return;
+
     runInInjectionContext(this.injector, () => {
       const taskSubStream = collectionData(this.getUserTasksRef(), {
         idField: 'id',
@@ -116,10 +121,15 @@ export class TaskDataService {
    * Unsubscribes from the tasks observable stream to prevent memory leaks.
    */
   disconnectTaskStream(): void {
-    this.unsubscribeFromTasks?.();
+    if (this.unsubscribeFromTasks) {
+      this.unsubscribeFromTasks();
+      this.tasksSubject.next([]);
+      this.unsubscribeFromTasks = undefined;
+    }
   }
   // #endregion
 
+  // #region Data Initialization
   /**
    * Loads all existing task document IDs from the current user's Firestore task collection
    * into `existingTaskList`.
@@ -141,6 +151,9 @@ export class TaskDataService {
    * These tasks are used to initialize empty user task collections.
    */
   public async loadDummyTasks(): Promise<void> {
+    if (this.dummyTaskLoadedOnce) return;
+
+    this.dummyTaskLoadedOnce = true;
     this.dummyTaskList = [];
     const dummyTasksSnap = await runInInjectionContext(this.injector, () => getDocs(this.getTasksRef()));
 
@@ -167,9 +180,9 @@ export class TaskDataService {
       });
     }
   }
+  // #endregion
 
   // #region Getters
-
   /**
    * Returns a reference to the global Firestore 'tasks' collection
    * containing predefined dummy or template tasks.

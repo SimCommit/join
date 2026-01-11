@@ -78,7 +78,7 @@ export class UserDataService {
       this.unsubUserList();
       this.unsubUserList = undefined;
       this.userIsReady = false;
-      this.contactDataService.currentUserId = '-';
+      // this.contactDataService.currentUserId = '-';
     }
   }
   // #endregion

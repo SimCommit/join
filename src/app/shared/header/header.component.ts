@@ -145,19 +145,35 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
-   * Logs out the current user and redirects to login
-   * Handles cleanup and error scenarios gracefully
+   * Logs out the current user.
+   * - Disconnects all active Firestore data streams to prevent unauthorized access
+   *   and pending listeners after logout.
+   * - Performs the authentication logout.
+   * - Resets login-related UI state.
+   * - Handles unexpected errors gracefully.
    */
   async logout(): Promise<void> {
     try {
-      this.taskDataService.disconnectTaskStream();
-      await this.contactDataService.disconnectContactStream();
-      this.userDataService.disconnectUserStream();
+      await this.disconnectDataStreams();
       await this.performLogout();
       this.contactDataService.notInLogIn = false;
     } catch (error) {
       this.handleLogoutError();
     }
+  }
+
+  /**
+   * Disconnects all active Firestore-related data streams.
+   * - Stops task, contact, and user listeners to avoid memory leaks
+   *   and permission errors after logout.
+   * - Resets task-related initialization flags to ensure a clean
+   *   state for the next login session.
+   */
+  async disconnectDataStreams() {
+    this.taskDataService.disconnectTaskStream();
+    this.taskDataService.dummyTaskLoadedOnce = false;
+    await this.contactDataService.disconnectContactStream();
+    this.userDataService.disconnectUserStream();
   }
 
   /**
