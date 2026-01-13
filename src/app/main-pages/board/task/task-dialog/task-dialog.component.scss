@@ -126,24 +126,10 @@ $p8-16-480-768: clamp(0.8rem, 2.778vw - 0.533rem, 1.6rem);
   }
 }
 
-.icon-delete {
-  width: 24px;
-  height: 24px;
-  background: url('../../../../../../public/img/icons/delete_contact.svg') center / contain no-repeat;
-}
-
+.icon-delete,
 .icon-edit {
   width: 24px;
   height: 24px;
-  background: url('../../../../../../public/img/icons/edit_contact.svg') center / contain no-repeat;
-}
-
-.delete-btn:hover .icon-delete {
-  background-image: url('../../../../../../public/img/icons/delete-light-blue.svg');
-}
-
-.edit-btn:hover .icon-edit {
-  background-image: url('../../../../../../public/img/icons/edit-light-blue.svg');
 }
 
 .cancel-btn {
