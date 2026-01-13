@@ -45,16 +45,16 @@
 .form-display {
   width: 100%;
   box-sizing: border-box;
-  padding: 12px 16px;
-  border: 1px solid #e9ecef;
   border-radius: 10px;
   font-size: 16px;
   color: #000;
-  background: #f8f9fa;
   word-wrap: break-word;
   word-break: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 
 .title-display {
@@ -63,7 +63,6 @@
   line-height: 120%;
   max-height: 120px;
   overflow-y: auto;
-  min-height: 48px;
 }
 
 .description-display {
