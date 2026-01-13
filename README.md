@@ -1,5 +1,44 @@
 # Join
 
+JOIN is a modern task management application inspired by Kanban boards.
+It allows users to create, organize, and move tasks across different workflow states, manage contacts, and collaborate efficiently.
+
+## Live Demo
+- App: https://join.simon-fuchs.net/
+
+## Documentation
+- Compodoc: https://simcommit.github.io/join/
+
+### Login
+
+![Login Screenshot](./docs/screenshots/join-screenshot-login-1.png)
+
+### Summary
+
+![Summary Screenshot](./docs/screenshots/join-screenshot-summary-1.png)
+
+### Add Task
+
+![Add Task Screenshot](./docs/screenshots/join-screenshot-add-task-1.png)
+
+### Board
+
+![Board Screenshot](./docs/screenshots/join-screenshot-board-1.png)
+
+### Image Viewer
+
+![Image Viewer Screenshot](./docs/screenshots/join-screenshot-image-viewer-1.png)
+
+### Contacts
+
+![Contacts Screenshot](./docs/screenshots/join-screenshot-contacts-1.png)
+
+<br>
+<br>
+<br>
+
+# How to setup Angular
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
 
 ## Development server
@@ -12,19 +51,6 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
 
 ## Building
 
@@ -35,24 +61,6 @@ ng build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
 ## Additional Resources
 
