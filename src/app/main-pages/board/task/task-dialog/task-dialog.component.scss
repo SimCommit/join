@@ -105,6 +105,47 @@ $p8-16-480-768: clamp(0.8rem, 2.778vw - 0.533rem, 1.6rem);
   }
 }
 
+.details-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  @include dFlex($ai: center, $g: 8px);
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: #2a3647;
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: $light-blue;
+  }
+
+  span {
+    font-weight: 400;
+  }
+}
+
+.icon-delete {
+  width: 24px;
+  height: 24px;
+  background: url('../../../../../../public/img/icons/delete_contact.svg') center / contain no-repeat;
+}
+
+.icon-edit {
+  width: 24px;
+  height: 24px;
+  background: url('../../../../../../public/img/icons/edit_contact.svg') center / contain no-repeat;
+}
+
+.delete-btn:hover .icon-delete {
+  background-image: url('../../../../../../public/img/icons/delete-light-blue.svg');
+}
+
+.edit-btn:hover .icon-edit {
+  background-image: url('../../../../../../public/img/icons/edit-light-blue.svg');
+}
+
 .cancel-btn {
   @include secondaryButton();
 }

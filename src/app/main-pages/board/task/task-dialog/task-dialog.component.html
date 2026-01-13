@@ -11,24 +11,33 @@
 
     <div class="dialog-body">
       @if (!isEditMode) {
-      <app-task-details [task]="task" (editClicked)="onEditClicked()" (deleteClicked)="onDeleteClicked($event)"
-        (subtaskToggled)="onSubtaskToggled($event)">
+      <app-task-details [task]="task" (subtaskToggled)="onSubtaskToggled($event)">
       </app-task-details>
       } @else {
-      <app-task-edit-form [task]="task" (saveClicked)="onSaveClicked($event)" (validationChange)="checkValidationState($event)" (cancelClicked)="onCancelClicked()">
+      <app-task-edit-form [task]="task" (saveClicked)="onSaveClicked($event)"
+        (validationChange)="checkValidationState($event)" (cancelClicked)="onCancelClicked()">
       </app-task-edit-form>
       }
     </div>
 
-    @if (isEditMode) {
     <div class="dialog-footer">
+      @if (isEditMode) {
       <button class="action-btn cancel-btn" (click)="onCancelClicked()">
         <span>Cancel</span>
       </button>
       <button class="action-btn save-btn" (click)="onSaveButtonClicked()" [disabled]="!taskEditFormIsValid">
         <span>Ok</span>
       </button>
+      } @else {
+      <button class="details-btn delete-btn" (click)="onDeleteClick()">
+        <div class="icon-delete"></div>
+        <span>Delete</span>
+      </button>
+      <button class="details-btn edit-btn" (click)="onEditClick()">
+        <div class="icon-edit"></div>
+        <span>Edit</span>
+      </button>
+      }
     </div>
-    }
   </dialog>
 </div>

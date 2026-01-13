@@ -59,7 +59,7 @@ export class TaskDialogComponent {
 
   taskEditFormIsValid: boolean = true;
 
-  checkValidationState(state: boolean):void {
+  checkValidationState(state: boolean): void {
     this.taskEditFormIsValid = state;
   }
 
@@ -71,19 +71,21 @@ export class TaskDialogComponent {
   }
 
   /**
-   * Emits the editClicked event to signal editing has started.
+   * Handles edit button click event
+   * Emits editClicked event to parent component
    */
-  onEditClicked(): void {
+  onEditClick(): void {
     this.editClicked.emit();
   }
 
   /**
-   * Emits the deleteClicked event with the given task ID.
-   *
-   * @param taskId - The ID of the task to delete.
+   * Handles delete button click event
+   * Emits deleteClicked event with task ID if task exists
    */
-  onDeleteClicked(taskId: string): void {
-    this.deleteClicked.emit(taskId);
+  onDeleteClick(): void {
+    if (this.task?.id) {
+      this.deleteClicked.emit(this.task.id);
+    }
   }
 
   /**

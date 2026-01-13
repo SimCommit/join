@@ -58,23 +58,6 @@ export class TaskDetailsComponent {
   /** Reference to color utility function for generating random colors */
   getRandomColor = getRandomColor;
 
-  /**
-   * Handles edit button click event
-   * Emits editClicked event to parent component
-   */
-  onEditClick(): void {
-    this.editClicked.emit();
-  }
-
-  /**
-   * Handles delete button click event
-   * Emits deleteClicked event with task ID if task exists
-   */
-  onDeleteClick(): void {
-    if (this.task?.id) {
-      this.deleteClicked.emit(this.task.id);
-    }
-  }
 
   /**
    * Handles subtask toggle event
