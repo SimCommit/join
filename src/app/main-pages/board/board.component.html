@@ -16,7 +16,7 @@
 
       <div class="board-actions">
         <div class="search-container">
-          <input type="text" placeholder="Find Task" aria-label="Find task" class="search-input"
+          <input type="text" placeholder="Find Task" name="Find Task" aria-label="Find task" class="search-input"
             [(ngModel)]="searchTerm" (input)="performSearch()" />
           <div class="search-separator">|</div>
           <button type="button" class="search-icon" (click)="performSearch()">
