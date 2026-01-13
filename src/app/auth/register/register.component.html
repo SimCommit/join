@@ -11,7 +11,7 @@
         <div class="input">
             <input [(ngModel)]="userName" #userNameInput="ngModel"
                 [ngClass]="{'error-border': !userNameValid && (userNameInput.touched || form.submitted)}"
-                placeholder="Full Name" required maxlength="28" type="text" name="userName" id="userName">
+                placeholder="Full Name" required maxlength="28" type="text" name="userName" id="userName" autocomplete="on">
             <div>
                 <img src="./img/icons/person.svg" alt="">
             </div>
@@ -22,7 +22,7 @@
         <div class="input">
             <input [(ngModel)]="email" #emailInput="ngModel"
                 [ngClass]="{'error-border': (!emailValid) && (emailInput.touched || form.submitted)}"
-                placeholder="Email" required type="email" name="email" id="email">
+                placeholder="Email" required type="email" name="email" id="email" autocomplete="on">
             <div>
                 <img src="./img/icons/mail.svg" alt="">
             </div>

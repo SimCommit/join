@@ -13,7 +13,7 @@
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
     <div class="form-group">
       <input type="text" id="name" formControlName="name" class="form-input" [class.error]="isFieldInvalid('name')"
-        placeholder="Name" maxlength="28">
+        placeholder="Name" maxlength="28" autocomplete="on">
       <img class="input-icon" src="./img/icons/person.svg" alt="Person Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('name') ? 'visible' : 'hidden'">
         @if (nameControl?.errors?.["nameInvalidStart"]) {
@@ -30,7 +30,7 @@
 
     <div class="form-group">
       <input [readonly]="this.isEditingOwnContact()" (click)="showBlockedEditInfo()" type="email" id="email"
-        formControlName="email" class="form-input" [class.error]="isFieldInvalid('email')" placeholder="Email">
+        formControlName="email" class="form-input" [class.error]="isFieldInvalid('email')" placeholder="Email" autocomplete="on">
       <img class="input-icon" src="./img/icons/mail.svg" alt="Mail Icon">
       <div class="error-message" [style.visibility]="isFieldInvalid('email') ? 'visible' : 'hidden'">
         <span *ngIf="contactForm.get('email')?.errors?.['required']">E-Mail is required</span>
@@ -40,7 +40,7 @@
 
     <div class="form-group">
       <input type="tel" id="phone" formControlName="phone" class="form-input" [class.error]="phoneControl?.errors?.['phoneInvalid']"
-        placeholder="Phone">
+        placeholder="Phone" autocomplete="on">
       <img class="input-icon" src="./img/icons/call.svg" alt="Call Icon">
       <div class="error-message" [style.visibility]="phoneControl?.errors?.['phoneInvalid'] ? 'visible' : 'hidden'">
         Please enter valid phone number

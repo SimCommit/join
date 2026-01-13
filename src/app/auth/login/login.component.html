@@ -8,7 +8,7 @@
         <div>
             <input required [(ngModel)]="emailInputTest" #emailInputRef="ngModel"
                 [ngClass]="{'error-border': emailInputRef.invalid && (emailInputRef.touched || form.submitted)}"
-                placeholder="Email" type="email" name="email" id="email">
+                placeholder="Email" type="email" name="email" id="email" autocomplete="on">
             <div>
                 <img src="./img/icons/mail.svg" alt="Mail-icon">
             </div>
