@@ -20,12 +20,6 @@ export class TaskDetailsComponent {
   /** The task object to display details for */
   @Input() task: Task | null = null;
 
-  /** Event emitter for edit button clicks */
-  @Output() editClicked = new EventEmitter<void>();
-
-  /** Event emitter for delete button clicks, emits task ID */
-  @Output() deleteClicked = new EventEmitter<string>();
-
   /** Event emitter for subtask toggle events */
   @Output() subtaskToggled = new EventEmitter<Subtask>();
 
