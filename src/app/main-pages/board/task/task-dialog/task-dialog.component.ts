@@ -37,6 +37,8 @@ export class TaskDialogComponent {
    */
   @Output() closeClicked = new EventEmitter<void>();
 
+  @Output() cancelClicked = new EventEmitter<Task>();
+
   /**
    * Emits when the edit button is clicked.
    */
@@ -98,10 +100,15 @@ export class TaskDialogComponent {
   }
 
   /**
-   * Emits the closeClicked event when canceling.
+   * Emits the cancelClicked if task event exists when canceling
+   * closeClicked otherwise.
    */
   onCancelClicked(): void {
-    this.closeClicked.emit();
+    if (this.task) {
+      this.cancelClicked.emit();
+    } else {
+      this.closeClicked.emit();
+    }
   }
 
   /**

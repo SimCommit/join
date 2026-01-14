@@ -84,12 +84,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param breakpointObserver - Service to detect screen size changes for responsive layout.
    * @param router - Angular Router for navigation.
    */
-  constructor(
-    private taskDataService: TaskDataService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private breakpointObserver: BreakpointObserver,
-    private router: Router
-  ) {}
+  constructor(private taskDataService: TaskDataService, private changeDetectorRef: ChangeDetectorRef, private breakpointObserver: BreakpointObserver, private router: Router) {}
 
   /** Initializes component and sets up data streams */
   ngOnInit(): void {
@@ -200,6 +195,14 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.setTaskDialogData(task);
   }
 
+  /**
+   * Displays task details in dialog
+   */
+  returnToTaskDetails() {
+    this.isEditMode = false;
+    this.changeDetectorRef.detectChanges();
+  }
+
   /** Resets dialog state before opening */
   private resetDialogState(): void {
     this.selectedTask = null;
@@ -243,6 +246,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.handleTaskSaveError();
     }
+  }
+
+  test() {
+    console.log('TEST');
   }
 
   /**

@@ -83,7 +83,7 @@
 </div>
 
 @if (showTaskDialog && selectedTask) {
-<app-task-dialog [task]="selectedTask" [isEditMode]="isEditMode" (closeClicked)="closeTaskDialog()"
+<app-task-dialog [task]="selectedTask" [isEditMode]="isEditMode" (closeClicked)="closeTaskDialog()" (cancelClicked)="returnToTaskDetails()"
   (editClicked)="editTask()" (deleteClicked)="deleteTask($event)" (saveClicked)="saveTask($event)"
   (subtaskToggled)="toggleSubtask($event)">
 </app-task-dialog>
